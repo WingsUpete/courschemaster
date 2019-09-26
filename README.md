@@ -13,7 +13,7 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 ## II. Features
 
-
+-   Use ***CodeIgniter*** Framework
 
 
 
