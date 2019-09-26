@@ -7,14 +7,13 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 -   [__I. Intro__](#Intro)
 -   [__II. Features__](#Features)
--   [__III. Quick Start __](#Quick_Start)
--   <a href='#Quick_Start'>III. Quick Start</a>
-    -   [__1. Clone the repository__](#Clone_the_repository)
+-   <a href='#III. Quick Start'><strong>III. Quick Start</strong></a>
+    -   <a href='#1. Clone the repository'><strong>1. Clone the repository</strong></a>
 -   [__IV. License__](#License)
 
 
 
-## Intro
+## I. Intro
 
 <table>
     <tr><td>hi</td></tr>
@@ -26,7 +25,7 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 
 
-## Features
+## II. Features
 
 -   Use ***CodeIgniter*** Framework
 
@@ -34,9 +33,9 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 
 
-## Quick_Start
+## III. Quick Start
 
-### Clone_the_repository
+### 1. Clone the repository
 
 Find the default directory your *Apache* specifies on your computer, in the directory path, type:
 
@@ -50,7 +49,7 @@ The whole project will be cloned to your computer.
 
 
 
-## License
+## IV. License
 
 Please remember to check our licenses…
 
