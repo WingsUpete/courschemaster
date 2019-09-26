@@ -5,7 +5,7 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 ## Table of Contents
 
--   [__I. Intro__](#I. Intro)
+-   [__I. Intro__](#Intro)
 -   [__II. Features__](#II. Features)
 
 -   [__III. Quick Start__](#III. Quick Start)
@@ -15,7 +15,7 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 
 
-## I. Intro
+## Intro
 
 
 
