@@ -7,10 +7,9 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 -   [__I. Intro__](#Intro)
 -   [__II. Features__](#Features)
-
--   [__III. Quick Start__](#Quick Start)
-    -   [__1. Clone the repository__](#Clone the repository)
-
+-   [__III. Quick Start __](#Quick_Start)
+-   <a href='#Quick_Start'>III. Quick Start</a>
+    -   [__1. Clone the repository__](#Clone_the_repository)
 -   [__IV. License__](#License)
 
 
@@ -35,9 +34,9 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 
 
-## Quick Start
+## Quick_Start
 
-### Clone the repository
+### Clone_the_repository
 
 Find the default directory your *Apache* specifies on your computer, in the directory path, type:
 
