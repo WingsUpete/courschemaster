@@ -1,7 +1,19 @@
 # :hammer:Courschemaster
 An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
-[TOC]
+
+
+## Table of Contents
+
+-   [**I. Intro**](#I. Intro)
+-   [**II. Features**](#II. Features)
+
+-   [**III. Quick Start**](#III. Quick Start)
+    -   [**1. Clone the repository**](#1. Clone the repository)
+
+-   [**IV. License**](#IV. License)
+
+
 
 ## I. Intro
 
@@ -40,3 +52,4 @@ The whole project will be cloned to your computer.
 Please remember to check our licenses…
 
 -    [LICENSE.jjboom](LICENSE.jjboom) 
+
