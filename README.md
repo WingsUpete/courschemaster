@@ -5,13 +5,13 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 ## Table of Contents
 
--   [**I. Intro**](#I. Intro)
--   [**II. Features**](#II. Features)
+-   [I. Intro](#I. Intro)
+-   [II. Features](#II. Features)
 
--   [**III. Quick Start**](#III. Quick Start)
-    -   [**1. Clone the repository**](#1. Clone the repository)
+-   [III. Quick Start](#III. Quick Start)
+    -   [1. Clone the repository](#1. Clone the repository)
 
--   [**IV. License**](#IV. License)
+-   [IV. License](#IV. License)
 
 
 
