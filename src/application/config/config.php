@@ -23,7 +23,7 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 | a PHP script and you can easily do that on your own.
 |
 */
-$config['base_url'] = '';
+$config['base_url'] = Config::BASE_URL;
 
 /*
 |--------------------------------------------------------------------------
@@ -90,6 +90,22 @@ $config['language'] = defined('Config::LANGUAGE') ? Config::LANGUAGE : 'english'
 |
 */
 $config['charset'] = 'UTF-8';
+
+/*
+|--------------------------------------------------------------------------
+| Available Languages
+|--------------------------------------------------------------------------
+|
+| Each item of this array must be a directory with the translation files in
+| the /application/language directory. The users will be able to select one
+| of these languages.
+|
+*/
+$config['available_languages'] = [
+    '简体中文',
+    'english'
+];
+
 
 /*
 |--------------------------------------------------------------------------
@@ -448,7 +464,7 @@ $config['global_xss_filtering'] = FALSE;
 | 'csrf_regenerate' = Regenerate token on every submission
 | 'csrf_exclude_uris' = Array of URIs which ignore CSRF checks
 */
-$config['csrf_protection'] = FALSE;
+$config['csrf_protection'] = TRUE;
 $config['csrf_token_name'] = 'csrf_test_name';
 $config['csrf_cookie_name'] = 'csrf_cookie_name';
 $config['csrf_expire'] = 7200;
