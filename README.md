@@ -1,5 +1,5 @@
 # :hammer:Courschemaster
-An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
+An *OOAD* Project for SUSTech_2017 - <strong style="color:orange;">SUSMusic-Courschemaster Team</strong>
 
 
 
@@ -11,7 +11,7 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 ## I. Intro
 
-
+The Introduction of our Courschemaster will be updated later.
 
 
 
@@ -19,7 +19,7 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 ## II. Features
 
--   Use ***CodeIgniter*** Framework
+-   Use <a href="https://codeigniter.com/" target="_blank"><strong><em>CodeIgniter</em></strong></a> Framework
 
 
 
@@ -29,7 +29,7 @@ An *OOAD* Project for SUSTech_2017 - **SUSMusic Sub-team_0**
 
 ### 1. Clone the repository
 
-Find the default directory your *Apache* specifies on your computer, in the directory path, type:
+Find the default directory your <a href="http://www.apache.org/" target="_blank"><em>Apache</em></a> specifies on your computer, in the directory path, type:
 
 ```bash
 $ git clone https://github.com/WingsUpete/courschemaster.git
