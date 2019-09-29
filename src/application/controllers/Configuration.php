@@ -24,25 +24,25 @@ class Configuration extends CI_Controller{
 
     protected function _has_privileges($page, $priviledge){
         // Check if user is logged in.
-        // $user_id = $this->session->userdata('user_id');
-        // if ($user_id == FALSE){
+        $user_id = $this->session->userdata('user_id');
+        if ($user_id == FALSE){
             
-        //     header('Location: ' . site_url('user/login'));
-        //     return FALSE;
-        // }
+            header('Location: ' . site_url('user/login'));
+            return FALSE;
+        }
 
-        // // Check privilege
-        // $role_slug = $this->session->userdata('role');
-        // $role_priv = $this->db
-        //     ->get_where('cm_priviledges', ['name' => $role])
-        //     ->row_array();
+        // Check privilege
+        $role_slug = $this->session->userdata('role');
+        $role_priv = $this->db
+            ->get_where('cm_priviledges', ['name' => $role])
+            ->row_array();
             
-        // if ($role_priv[$page] < $priviledge){ // User does not have the permission to view the page.
+        if ($role_priv[$page] < $priviledge){ // User does not have the permission to view the page.
             
-        //     header('Location: ' . site_url('user/no_privileges'));
+            header('Location: ' . site_url('user/no_privileges'));
             
-        //     return FALSE;
-        // }
+            return FALSE;
+        }
 
         return TRUE;
     }
