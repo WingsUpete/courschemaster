@@ -1,0 +1,670 @@
+C153 .START (2019-09-29 08:29:04) phpCAS-1.3.8 ****************** [CAS.php:475]
+C153 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+C153 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+C153 .|    |    Session is not authenticated [Client.php:938]
+C153 .|    <= ''
+C153 .<= ''
+C153 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+C153 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+C153 .<= ''
+58EC .START (2019-09-29 08:35:01) phpCAS-1.3.8 ****************** [CAS.php:475]
+58EC .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+58EC .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+58EC .|    |    Session is not authenticated [Client.php:938]
+58EC .|    <= ''
+58EC .<= ''
+58EC .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+58EC .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+58EC .<= ''
+47F1 .START (2019-09-29 08:35:01) phpCAS-1.3.8 ****************** [CAS.php:475]
+47F1 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+47F1 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+47F1 .|    |    Session is not authenticated [Client.php:938]
+47F1 .|    <= ''
+47F1 .<= ''
+47F1 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+47F1 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+47F1 .<= ''
+47F1 .=> phpCAS::forceAuthentication() [Cas.php:33]
+47F1 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+47F1 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+47F1 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+47F1 .|    |    |    |    no user found [Client.php:1640]
+47F1 .|    |    |    <= false
+47F1 .|    |    |    no ticket found [Client.php:1499]
+47F1 .|    |    <= false
+47F1 .|    |    => CAS_Client::redirectToCas(false) [Client.php:1295]
+47F1 .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1661]
+47F1 .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+47F1 .|    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/user/login [Client.php:3585]
+47F1 .|    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+47F1 .|    |    |    <= 'https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin'
+47F1 .|    |    |    Redirect to : https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin [Client.php:1668]
+47F1 .|    |    |    exit()
+47F1 .|    |    |    -
+47F1 .|    |    -
+47F1 .|    -
+F4DA .START (2019-09-29 08:35:20) phpCAS-1.3.8 ****************** [CAS.php:475]
+F4DA .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+F4DA .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+F4DA .|    |    Session is not authenticated [Client.php:938]
+F4DA .|    <= ''
+F4DA .<= ''
+F4DA .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+F4DA .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+F4DA .<= ''
+5568 .START (2019-09-29 08:35:21) phpCAS-1.3.8 ****************** [CAS.php:475]
+5568 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+5568 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+5568 .|    |    Session is not authenticated [Client.php:938]
+5568 .|    <= ''
+5568 .<= ''
+5568 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+5568 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+5568 .<= ''
+5568 .=> phpCAS::forceAuthentication() [Cas.php:33]
+5568 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+5568 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+5568 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+5568 .|    |    |    |    no user found [Client.php:1640]
+5568 .|    |    |    <= false
+5568 .|    |    |    no ticket found [Client.php:1499]
+5568 .|    |    <= false
+5568 .|    |    => CAS_Client::redirectToCas(false) [Client.php:1295]
+5568 .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1661]
+5568 .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+5568 .|    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/user/login [Client.php:3585]
+5568 .|    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+5568 .|    |    |    <= 'https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin'
+5568 .|    |    |    Redirect to : https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin [Client.php:1668]
+5568 .|    |    |    exit()
+5568 .|    |    |    -
+5568 .|    |    -
+5568 .|    -
+0D3D .START (2019-09-29 08:36:16) phpCAS-1.3.8 ****************** [CAS.php:475]
+0D3D .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+0D3D .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+0D3D .|    |    Session is not authenticated [Client.php:938]
+0D3D .|    <= ''
+0D3D .<= ''
+0D3D .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+0D3D .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+0D3D .<= ''
+0D3D .=> phpCAS::forceAuthentication() [Cas.php:33]
+0D3D .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+0D3D .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+0D3D .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+0D3D .|    |    |    |    no user found [Client.php:1640]
+0D3D .|    |    |    <= false
+0D3D .|    |    |    no ticket found [Client.php:1499]
+0D3D .|    |    <= false
+0D3D .|    |    => CAS_Client::redirectToCas(false) [Client.php:1295]
+0D3D .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1661]
+0D3D .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+0D3D .|    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/User/login [Client.php:3585]
+0D3D .|    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/User/login'
+0D3D .|    |    |    <= 'https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2FUser%2Flogin'
+0D3D .|    |    |    Redirect to : https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2FUser%2Flogin [Client.php:1668]
+0D3D .|    |    |    exit()
+0D3D .|    |    |    -
+0D3D .|    |    -
+0D3D .|    -
+E101 .START (2019-09-29 08:36:28) phpCAS-1.3.8 ****************** [CAS.php:475]
+E101 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+E101 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+E101 .|    |    Session is not authenticated [Client.php:938]
+E101 .|    |    Ticket 'ST-907689-zedfrevpvkGlpVfn2xfZ-cas.sustech.edu.cn' found [Client.php:1026]
+E101 .|    <= ''
+E101 .<= ''
+E101 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+E101 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+E101 .<= ''
+E101 .=> phpCAS::forceAuthentication() [Cas.php:33]
+E101 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+E101 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+E101 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+E101 .|    |    |    |    no user found [Client.php:1640]
+E101 .|    |    |    <= false
+E101 .|    |    |    CAS 2.0 ticket `ST-907689-zedfrevpvkGlpVfn2xfZ-cas.sustech.edu.cn' is present [Client.php:1451]
+E101 .|    |    |    => CAS_Client::validateCAS20('', NULL, NULL, false) [Client.php:1454]
+E101 .|    |    |    |     [Client.php:3216]
+E101 .|    |    |    |    => CAS_Client::getServerServiceValidateURL() [Client.php:3222]
+E101 .|    |    |    |    |    => CAS_Client::getURL() [Client.php:453]
+E101 .|    |    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/User/login [Client.php:3585]
+E101 .|    |    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/User/login'
+E101 .|    |    |    |    <= 'https://cas.sustech.edu.cn/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2FUser%2Flogin'
+E101 .|    |    |    |    => CAS_Client::_readURL('https://cas.sustech.edu.cn/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2FUser%2Flogin&ticket=ST-907689-zedfrevpvkGlpVfn2xfZ-cas.sustech.edu.cn', NULL, NULL, NULL) [Client.php:3237]
+E101 .|    |    |    |    |    => CAS_Request_CurlRequest::sendRequest() [AbstractRequest.php:242]
+E101 .|    |    |    |    |    |    Response Body: 
+E101 .|    |    |    |    |    |    <cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'>
+E101 .|    |    |    |    |    |        <cas:authenticationSuccess>
+E101 .|    |    |    |    |    |            <cas:user>11710403</cas:user>
+E101 .|    |    |    |    |    |            <cas:attributes>
+E101 .|    |    |    |    |    |                <cas:email>11710403@mail.sustech.edu.cn</cas:email>
+E101 .|    |    |    |    |    |                    <cas:groups>student</cas:groups>
+E101 .|    |    |    |    |    |                    <cas:id>598d34d9a0c0adfc64431e35</cas:id>
+E101 .|    |    |    |    |    |                    <cas:name>王炜皓</cas:name>
+E101 .|    |    |    |    |    |                    <cas:sid>11710403</cas:sid>
+E101 .|    |    |    |    |    |                    </cas:attributes>
+E101 .|    |    |    |    |    |            </cas:authenticationSuccess>
+E101 .|    |    |    |    |    |    </cas:serviceResponse>
+E101 .|    |    |    |    |    |    
+E101 .|    |    |    |    |    |     [CurlRequest.php:84]
+E101 .|    |    |    |    |    <= true
+E101 .|    |    |    |    <= true
+E101 .|    |    |    |    => CAS_Client::_readExtraAttributesCas20(DOMNodeList) [Client.php:3301]
+E101 .|    |    |    |    |    Found nested jasig style attributes [Client.php:3383]
+E101 .|    |    |    |    |    Attribute [email] = 11710403@mail.sustech.edu.cn [Client.php:3389]
+E101 .|    |    |    |    |    Attribute [groups] = student [Client.php:3389]
+E101 .|    |    |    |    |    Attribute [id] = 598d34d9a0c0adfc64431e35 [Client.php:3389]
+E101 .|    |    |    |    |    Attribute [name] = 王炜皓 [Client.php:3389]
+E101 .|    |    |    |    |    Attribute [sid] = 11710403 [Client.php:3389]
+E101 .|    |    |    |    <= ''
+E101 .|    |    |    |    => CAS_ProxyChain_AllowedList::isProxyListAllowed(array ()) [Client.php:3313]
+E101 .|    |    |    |    |    No proxies were found in the response [AllowedList.php:81]
+E101 .|    |    |    |    <= true
+E101 .|    |    |    |    => CAS_Client::_renameSession('ST-907689-zedfrevpvkGlpVfn2xfZ-cas.sustech.edu.cn') [Client.php:3331]
+E101 .|    |    |    |    |    Skipping session rename since phpCAS is not handling the session. [Client.php:3734]
+E101 .|    |    |    |    <= ''
+E101 .|    |    |    <= true
+E101 .|    |    |    CAS 2.0 ticket `ST-907689-zedfrevpvkGlpVfn2xfZ-cas.sustech.edu.cn' was validated [Client.php:1457]
+E101 .|    |    |    => CAS_Client::getURL() [Client.php:1523]
+E101 .|    |    |    <= 'http://localhost/Courschemaster/src/index.php/User/login'
+E101 .|    |    |    Prepare redirect to : http://localhost/Courschemaster/src/index.php/User/login [Client.php:1523]
+E101 .|    |    |    => CAS_Client::getURL() [Client.php:1525]
+E101 .|    |    |    <= 'http://localhost/Courschemaster/src/index.php/User/login'
+E101 .|    |    |    exit()
+E101 .|    |    |    -
+E101 .|    |    -
+E101 .|    -
+C890 .START (2019-09-29 08:36:28) phpCAS-1.3.8 ****************** [CAS.php:475]
+C890 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+C890 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+C890 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+C890 .|    <= ''
+C890 .<= ''
+C890 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+C890 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+C890 .<= ''
+C890 .=> phpCAS::forceAuthentication() [Cas.php:33]
+C890 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+C890 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+C890 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+C890 .|    |    |    |    user = `11710403' [Client.php:1627]
+C890 .|    |    |    <= true
+C890 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+C890 .|    |    <= true
+C890 .|    |    no need to authenticate [Client.php:1288]
+C890 .|    <= true
+C890 .<= ''
+DFAB .START (2019-09-29 08:36:48) phpCAS-1.3.8 ****************** [CAS.php:475]
+DFAB .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+DFAB .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+DFAB .|    |    Session is authenticated as: 11710403 [Client.php:936]
+DFAB .|    <= ''
+DFAB .<= ''
+DFAB .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+DFAB .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+DFAB .<= ''
+DFAB .=> phpCAS::forceAuthentication() [Cas.php:33]
+DFAB .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+DFAB .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+DFAB .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+DFAB .|    |    |    |    user = `11710403' [Client.php:1627]
+DFAB .|    |    |    <= true
+DFAB .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+DFAB .|    |    <= true
+DFAB .|    |    no need to authenticate [Client.php:1288]
+DFAB .|    <= true
+DFAB .<= ''
+F1B9 .START (2019-09-29 08:38:00) phpCAS-1.3.8 ****************** [CAS.php:475]
+F1B9 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+F1B9 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+F1B9 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+F1B9 .|    <= ''
+F1B9 .<= ''
+F1B9 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+F1B9 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+F1B9 .<= ''
+F1B9 .=> phpCAS::forceAuthentication() [Cas.php:33]
+F1B9 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+F1B9 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+F1B9 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+F1B9 .|    |    |    |    user = `11710403' [Client.php:1627]
+F1B9 .|    |    |    <= true
+F1B9 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+F1B9 .|    |    <= true
+F1B9 .|    |    no need to authenticate [Client.php:1288]
+F1B9 .|    <= true
+F1B9 .<= ''
+0DD4 .START (2019-09-29 08:40:06) phpCAS-1.3.8 ****************** [CAS.php:475]
+0DD4 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+0DD4 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+0DD4 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+0DD4 .|    <= ''
+0DD4 .<= ''
+0DD4 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+0DD4 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+0DD4 .<= ''
+0DD4 .=> phpCAS::forceAuthentication() [Cas.php:33]
+0DD4 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+0DD4 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+0DD4 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+0DD4 .|    |    |    |    user = `11710403' [Client.php:1627]
+0DD4 .|    |    |    <= true
+0DD4 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+0DD4 .|    |    <= true
+0DD4 .|    |    no need to authenticate [Client.php:1288]
+0DD4 .|    <= true
+0DD4 .<= ''
+7358 .START (2019-09-29 08:40:32) phpCAS-1.3.8 ****************** [CAS.php:475]
+7358 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+7358 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+7358 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+7358 .|    <= ''
+7358 .<= ''
+7358 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+7358 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+7358 .<= ''
+7358 .=> phpCAS::forceAuthentication() [Cas.php:33]
+7358 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+7358 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+7358 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+7358 .|    |    |    |    user = `11710403' [Client.php:1627]
+7358 .|    |    |    <= true
+7358 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+7358 .|    |    <= true
+7358 .|    |    no need to authenticate [Client.php:1288]
+7358 .|    <= true
+7358 .<= ''
+1FA7 .START (2019-09-29 08:55:36) phpCAS-1.3.8 ****************** [CAS.php:475]
+1FA7 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+1FA7 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+1FA7 .|    |    Session is not authenticated [Client.php:938]
+1FA7 .|    <= ''
+1FA7 .<= ''
+1FA7 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+1FA7 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+1FA7 .<= ''
+1FA7 .=> phpCAS::forceAuthentication() [Cas.php:33]
+1FA7 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+1FA7 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+1FA7 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+1FA7 .|    |    |    |    no user found [Client.php:1640]
+1FA7 .|    |    |    <= false
+1FA7 .|    |    |    no ticket found [Client.php:1499]
+1FA7 .|    |    <= false
+1FA7 .|    |    => CAS_Client::redirectToCas(false) [Client.php:1295]
+1FA7 .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1661]
+1FA7 .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+1FA7 .|    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/user/login [Client.php:3585]
+1FA7 .|    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+1FA7 .|    |    |    <= 'https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin'
+1FA7 .|    |    |    Redirect to : https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin [Client.php:1668]
+1FA7 .|    |    |    exit()
+1FA7 .|    |    |    -
+1FA7 .|    |    -
+1FA7 .|    -
+84A4 .START (2019-09-29 08:55:36) phpCAS-1.3.8 ****************** [CAS.php:475]
+84A4 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+84A4 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+84A4 .|    |    Session is not authenticated [Client.php:938]
+84A4 .|    |    Ticket 'ST-907942-Vw1sg3qsAVuNBPNJZkGS-cas.sustech.edu.cn' found [Client.php:1026]
+84A4 .|    <= ''
+84A4 .<= ''
+84A4 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+84A4 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+84A4 .<= ''
+84A4 .=> phpCAS::forceAuthentication() [Cas.php:33]
+84A4 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+84A4 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+84A4 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+84A4 .|    |    |    |    no user found [Client.php:1640]
+84A4 .|    |    |    <= false
+84A4 .|    |    |    CAS 2.0 ticket `ST-907942-Vw1sg3qsAVuNBPNJZkGS-cas.sustech.edu.cn' is present [Client.php:1451]
+84A4 .|    |    |    => CAS_Client::validateCAS20('', NULL, NULL, false) [Client.php:1454]
+84A4 .|    |    |    |     [Client.php:3216]
+84A4 .|    |    |    |    => CAS_Client::getServerServiceValidateURL() [Client.php:3222]
+84A4 .|    |    |    |    |    => CAS_Client::getURL() [Client.php:453]
+84A4 .|    |    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/user/login [Client.php:3585]
+84A4 .|    |    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+84A4 .|    |    |    |    <= 'https://cas.sustech.edu.cn/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin'
+84A4 .|    |    |    |    => CAS_Client::_readURL('https://cas.sustech.edu.cn/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin&ticket=ST-907942-Vw1sg3qsAVuNBPNJZkGS-cas.sustech.edu.cn', NULL, NULL, NULL) [Client.php:3237]
+84A4 .|    |    |    |    |    => CAS_Request_CurlRequest::sendRequest() [AbstractRequest.php:242]
+84A4 .|    |    |    |    |    |    Response Body: 
+84A4 .|    |    |    |    |    |    <cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'>
+84A4 .|    |    |    |    |    |        <cas:authenticationSuccess>
+84A4 .|    |    |    |    |    |            <cas:user>11710403</cas:user>
+84A4 .|    |    |    |    |    |            <cas:attributes>
+84A4 .|    |    |    |    |    |                <cas:email>11710403@mail.sustech.edu.cn</cas:email>
+84A4 .|    |    |    |    |    |                    <cas:groups>student</cas:groups>
+84A4 .|    |    |    |    |    |                    <cas:id>598d34d9a0c0adfc64431e35</cas:id>
+84A4 .|    |    |    |    |    |                    <cas:name>王炜皓</cas:name>
+84A4 .|    |    |    |    |    |                    <cas:sid>11710403</cas:sid>
+84A4 .|    |    |    |    |    |                    </cas:attributes>
+84A4 .|    |    |    |    |    |            </cas:authenticationSuccess>
+84A4 .|    |    |    |    |    |    </cas:serviceResponse>
+84A4 .|    |    |    |    |    |    
+84A4 .|    |    |    |    |    |     [CurlRequest.php:84]
+84A4 .|    |    |    |    |    <= true
+84A4 .|    |    |    |    <= true
+84A4 .|    |    |    |    => CAS_Client::_readExtraAttributesCas20(DOMNodeList) [Client.php:3301]
+84A4 .|    |    |    |    |    Found nested jasig style attributes [Client.php:3383]
+84A4 .|    |    |    |    |    Attribute [email] = 11710403@mail.sustech.edu.cn [Client.php:3389]
+84A4 .|    |    |    |    |    Attribute [groups] = student [Client.php:3389]
+84A4 .|    |    |    |    |    Attribute [id] = 598d34d9a0c0adfc64431e35 [Client.php:3389]
+84A4 .|    |    |    |    |    Attribute [name] = 王炜皓 [Client.php:3389]
+84A4 .|    |    |    |    |    Attribute [sid] = 11710403 [Client.php:3389]
+84A4 .|    |    |    |    <= ''
+84A4 .|    |    |    |    => CAS_ProxyChain_AllowedList::isProxyListAllowed(array ()) [Client.php:3313]
+84A4 .|    |    |    |    |    No proxies were found in the response [AllowedList.php:81]
+84A4 .|    |    |    |    <= true
+84A4 .|    |    |    |    => CAS_Client::_renameSession('ST-907942-Vw1sg3qsAVuNBPNJZkGS-cas.sustech.edu.cn') [Client.php:3331]
+84A4 .|    |    |    |    |    Skipping session rename since phpCAS is not handling the session. [Client.php:3734]
+84A4 .|    |    |    |    <= ''
+84A4 .|    |    |    <= true
+84A4 .|    |    |    CAS 2.0 ticket `ST-907942-Vw1sg3qsAVuNBPNJZkGS-cas.sustech.edu.cn' was validated [Client.php:1457]
+84A4 .|    |    |    => CAS_Client::getURL() [Client.php:1523]
+84A4 .|    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+84A4 .|    |    |    Prepare redirect to : http://localhost/Courschemaster/src/index.php/user/login [Client.php:1523]
+84A4 .|    |    |    => CAS_Client::getURL() [Client.php:1525]
+84A4 .|    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+84A4 .|    |    |    exit()
+84A4 .|    |    |    -
+84A4 .|    |    -
+84A4 .|    -
+18BE .START (2019-09-29 08:55:36) phpCAS-1.3.8 ****************** [CAS.php:475]
+18BE .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+18BE .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+18BE .|    |    Session is authenticated as: 11710403 [Client.php:936]
+18BE .|    <= ''
+18BE .<= ''
+18BE .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+18BE .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+18BE .<= ''
+18BE .=> phpCAS::forceAuthentication() [Cas.php:33]
+18BE .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+18BE .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+18BE .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+18BE .|    |    |    |    user = `11710403' [Client.php:1627]
+18BE .|    |    |    <= true
+18BE .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+18BE .|    |    <= true
+18BE .|    |    no need to authenticate [Client.php:1288]
+18BE .|    <= true
+18BE .<= ''
+2C12 .START (2019-09-29 08:58:56) phpCAS-1.3.8 ****************** [CAS.php:475]
+2C12 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+2C12 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+2C12 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+2C12 .|    <= ''
+2C12 .<= ''
+2C12 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+2C12 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+2C12 .<= ''
+DD85 .START (2019-09-29 08:59:08) phpCAS-1.3.8 ****************** [CAS.php:475]
+DD85 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+DD85 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+DD85 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+DD85 .|    <= ''
+DD85 .<= ''
+DD85 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+DD85 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+DD85 .<= ''
+DD85 .=> phpCAS::logoutWithRedirectService('http://localhost/Courschemaster/src/index.php') [Cas.php:76]
+DD85 .|    => CAS_Client::logout(array (  'service' => 'http://localhost/Courschemaster/src/index.php',)) [CAS.php:1491]
+DD85 .|    |    Prepare redirect to : https://cas.sustech.edu.cn/cas/logout?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php [Client.php:1701]
+DD85 .|    |    Destroying session : njpss4j2h4jccp87tp9cuon2n3nilo5e [Client.php:1703]
+DD85 .|    |    Session terminated [Client.php:1707]
+DD85 .|    |    exit()
+DD85 .|    |    -
+DD85 .|    -
+DE40 .START (2019-09-29 08:59:11) phpCAS-1.3.8 ****************** [CAS.php:475]
+DE40 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+DE40 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+DE40 .|    |    Session is not authenticated [Client.php:938]
+DE40 .|    <= ''
+DE40 .<= ''
+DE40 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+DE40 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+DE40 .<= ''
+DE40 .=> phpCAS::forceAuthentication() [Cas.php:33]
+DE40 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+DE40 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+DE40 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+DE40 .|    |    |    |    no user found [Client.php:1640]
+DE40 .|    |    |    <= false
+DE40 .|    |    |    no ticket found [Client.php:1499]
+DE40 .|    |    <= false
+DE40 .|    |    => CAS_Client::redirectToCas(false) [Client.php:1295]
+DE40 .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1661]
+DE40 .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+DE40 .|    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/user/login [Client.php:3585]
+DE40 .|    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+DE40 .|    |    |    <= 'https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin'
+DE40 .|    |    |    Redirect to : https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin [Client.php:1668]
+DE40 .|    |    |    exit()
+DE40 .|    |    |    -
+DE40 .|    |    -
+DE40 .|    -
+1894 .START (2019-09-29 08:59:13) phpCAS-1.3.8 ****************** [CAS.php:475]
+1894 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+1894 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+1894 .|    |    Session is not authenticated [Client.php:938]
+1894 .|    |    Ticket 'ST-907987-bEa9tJzJbrGT2fLgI1qb-cas.sustech.edu.cn' found [Client.php:1026]
+1894 .|    <= ''
+1894 .<= ''
+1894 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+1894 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+1894 .<= ''
+1894 .=> phpCAS::forceAuthentication() [Cas.php:33]
+1894 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+1894 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+1894 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+1894 .|    |    |    |    no user found [Client.php:1640]
+1894 .|    |    |    <= false
+1894 .|    |    |    CAS 2.0 ticket `ST-907987-bEa9tJzJbrGT2fLgI1qb-cas.sustech.edu.cn' is present [Client.php:1451]
+1894 .|    |    |    => CAS_Client::validateCAS20('', NULL, NULL, false) [Client.php:1454]
+1894 .|    |    |    |     [Client.php:3216]
+1894 .|    |    |    |    => CAS_Client::getServerServiceValidateURL() [Client.php:3222]
+1894 .|    |    |    |    |    => CAS_Client::getURL() [Client.php:453]
+1894 .|    |    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/user/login [Client.php:3585]
+1894 .|    |    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+1894 .|    |    |    |    <= 'https://cas.sustech.edu.cn/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin'
+1894 .|    |    |    |    => CAS_Client::_readURL('https://cas.sustech.edu.cn/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin&ticket=ST-907987-bEa9tJzJbrGT2fLgI1qb-cas.sustech.edu.cn', NULL, NULL, NULL) [Client.php:3237]
+1894 .|    |    |    |    |    => CAS_Request_CurlRequest::sendRequest() [AbstractRequest.php:242]
+1894 .|    |    |    |    |    |    Response Body: 
+1894 .|    |    |    |    |    |    <cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'>
+1894 .|    |    |    |    |    |        <cas:authenticationSuccess>
+1894 .|    |    |    |    |    |            <cas:user>11710403</cas:user>
+1894 .|    |    |    |    |    |            <cas:attributes>
+1894 .|    |    |    |    |    |                <cas:email>11710403@mail.sustech.edu.cn</cas:email>
+1894 .|    |    |    |    |    |                    <cas:groups>student</cas:groups>
+1894 .|    |    |    |    |    |                    <cas:id>598d34d9a0c0adfc64431e35</cas:id>
+1894 .|    |    |    |    |    |                    <cas:name>王炜皓</cas:name>
+1894 .|    |    |    |    |    |                    <cas:sid>11710403</cas:sid>
+1894 .|    |    |    |    |    |                    </cas:attributes>
+1894 .|    |    |    |    |    |            </cas:authenticationSuccess>
+1894 .|    |    |    |    |    |    </cas:serviceResponse>
+1894 .|    |    |    |    |    |    
+1894 .|    |    |    |    |    |     [CurlRequest.php:84]
+1894 .|    |    |    |    |    <= true
+1894 .|    |    |    |    <= true
+1894 .|    |    |    |    => CAS_Client::_readExtraAttributesCas20(DOMNodeList) [Client.php:3301]
+1894 .|    |    |    |    |    Found nested jasig style attributes [Client.php:3383]
+1894 .|    |    |    |    |    Attribute [email] = 11710403@mail.sustech.edu.cn [Client.php:3389]
+1894 .|    |    |    |    |    Attribute [groups] = student [Client.php:3389]
+1894 .|    |    |    |    |    Attribute [id] = 598d34d9a0c0adfc64431e35 [Client.php:3389]
+1894 .|    |    |    |    |    Attribute [name] = 王炜皓 [Client.php:3389]
+1894 .|    |    |    |    |    Attribute [sid] = 11710403 [Client.php:3389]
+1894 .|    |    |    |    <= ''
+1894 .|    |    |    |    => CAS_ProxyChain_AllowedList::isProxyListAllowed(array ()) [Client.php:3313]
+1894 .|    |    |    |    |    No proxies were found in the response [AllowedList.php:81]
+1894 .|    |    |    |    <= true
+1894 .|    |    |    |    => CAS_Client::_renameSession('ST-907987-bEa9tJzJbrGT2fLgI1qb-cas.sustech.edu.cn') [Client.php:3331]
+1894 .|    |    |    |    |    Skipping session rename since phpCAS is not handling the session. [Client.php:3734]
+1894 .|    |    |    |    <= ''
+1894 .|    |    |    <= true
+1894 .|    |    |    CAS 2.0 ticket `ST-907987-bEa9tJzJbrGT2fLgI1qb-cas.sustech.edu.cn' was validated [Client.php:1457]
+1894 .|    |    |    => CAS_Client::getURL() [Client.php:1523]
+1894 .|    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+1894 .|    |    |    Prepare redirect to : http://localhost/Courschemaster/src/index.php/user/login [Client.php:1523]
+1894 .|    |    |    => CAS_Client::getURL() [Client.php:1525]
+1894 .|    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+1894 .|    |    |    exit()
+1894 .|    |    |    -
+1894 .|    |    -
+1894 .|    -
+B150 .START (2019-09-29 08:59:13) phpCAS-1.3.8 ****************** [CAS.php:475]
+B150 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+B150 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+B150 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+B150 .|    <= ''
+B150 .<= ''
+B150 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+B150 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+B150 .<= ''
+B150 .=> phpCAS::forceAuthentication() [Cas.php:33]
+B150 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+B150 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+B150 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+B150 .|    |    |    |    user = `11710403' [Client.php:1627]
+B150 .|    |    |    <= true
+B150 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+B150 .|    |    <= true
+B150 .|    |    no need to authenticate [Client.php:1288]
+B150 .|    <= true
+B150 .<= ''
+18E5 .START (2019-09-29 08:59:15) phpCAS-1.3.8 ****************** [CAS.php:475]
+18E5 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+18E5 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+18E5 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+18E5 .|    <= ''
+18E5 .<= ''
+18E5 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+18E5 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+18E5 .<= ''
+18E5 .=> phpCAS::logoutWithRedirectService('http://localhost/Courschemaster/src/index.php') [Cas.php:76]
+18E5 .|    => CAS_Client::logout(array (  'service' => 'http://localhost/Courschemaster/src/index.php',)) [CAS.php:1491]
+18E5 .|    |    Prepare redirect to : https://cas.sustech.edu.cn/cas/logout?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php [Client.php:1701]
+18E5 .|    |    Destroying session : g6aqqhdegi38irfpt997usprr0qv1hhd [Client.php:1703]
+18E5 .|    |    Session terminated [Client.php:1707]
+18E5 .|    |    exit()
+18E5 .|    |    -
+18E5 .|    -
+FAA4 .START (2019-09-29 08:59:18) phpCAS-1.3.8 ****************** [CAS.php:475]
+FAA4 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+FAA4 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+FAA4 .|    |    Session is not authenticated [Client.php:938]
+FAA4 .|    <= ''
+FAA4 .<= ''
+FAA4 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+FAA4 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+FAA4 .<= ''
+FAA4 .=> phpCAS::forceAuthentication() [Cas.php:33]
+FAA4 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+FAA4 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+FAA4 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+FAA4 .|    |    |    |    no user found [Client.php:1640]
+FAA4 .|    |    |    <= false
+FAA4 .|    |    |    no ticket found [Client.php:1499]
+FAA4 .|    |    <= false
+FAA4 .|    |    => CAS_Client::redirectToCas(false) [Client.php:1295]
+FAA4 .|    |    |    => CAS_Client::getServerLoginURL(false, false) [Client.php:1661]
+FAA4 .|    |    |    |    => CAS_Client::getURL() [Client.php:342]
+FAA4 .|    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/user/login [Client.php:3585]
+FAA4 .|    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+FAA4 .|    |    |    <= 'https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin'
+FAA4 .|    |    |    Redirect to : https://cas.sustech.edu.cn/cas/login?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin [Client.php:1668]
+FAA4 .|    |    |    exit()
+FAA4 .|    |    |    -
+FAA4 .|    |    -
+FAA4 .|    -
+9662 .START (2019-09-29 08:59:20) phpCAS-1.3.8 ****************** [CAS.php:475]
+9662 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+9662 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+9662 .|    |    Session is not authenticated [Client.php:938]
+9662 .|    |    Ticket 'ST-907990-IdYowMghfLrgrpbGQHSy-cas.sustech.edu.cn' found [Client.php:1026]
+9662 .|    <= ''
+9662 .<= ''
+9662 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+9662 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+9662 .<= ''
+9662 .=> phpCAS::forceAuthentication() [Cas.php:33]
+9662 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+9662 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+9662 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+9662 .|    |    |    |    no user found [Client.php:1640]
+9662 .|    |    |    <= false
+9662 .|    |    |    CAS 2.0 ticket `ST-907990-IdYowMghfLrgrpbGQHSy-cas.sustech.edu.cn' is present [Client.php:1451]
+9662 .|    |    |    => CAS_Client::validateCAS20('', NULL, NULL, false) [Client.php:1454]
+9662 .|    |    |    |     [Client.php:3216]
+9662 .|    |    |    |    => CAS_Client::getServerServiceValidateURL() [Client.php:3222]
+9662 .|    |    |    |    |    => CAS_Client::getURL() [Client.php:453]
+9662 .|    |    |    |    |    |    Final URI: http://localhost/Courschemaster/src/index.php/user/login [Client.php:3585]
+9662 .|    |    |    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+9662 .|    |    |    |    <= 'https://cas.sustech.edu.cn/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin'
+9662 .|    |    |    |    => CAS_Client::_readURL('https://cas.sustech.edu.cn/cas/serviceValidate?service=http%3A%2F%2Flocalhost%2FCourschemaster%2Fsrc%2Findex.php%2Fuser%2Flogin&ticket=ST-907990-IdYowMghfLrgrpbGQHSy-cas.sustech.edu.cn', NULL, NULL, NULL) [Client.php:3237]
+9662 .|    |    |    |    |    => CAS_Request_CurlRequest::sendRequest() [AbstractRequest.php:242]
+9662 .|    |    |    |    |    |    Response Body: 
+9662 .|    |    |    |    |    |    <cas:serviceResponse xmlns:cas='http://www.yale.edu/tp/cas'>
+9662 .|    |    |    |    |    |        <cas:authenticationSuccess>
+9662 .|    |    |    |    |    |            <cas:user>11710403</cas:user>
+9662 .|    |    |    |    |    |            <cas:attributes>
+9662 .|    |    |    |    |    |                <cas:email>11710403@mail.sustech.edu.cn</cas:email>
+9662 .|    |    |    |    |    |                    <cas:groups>student</cas:groups>
+9662 .|    |    |    |    |    |                    <cas:id>598d34d9a0c0adfc64431e35</cas:id>
+9662 .|    |    |    |    |    |                    <cas:name>王炜皓</cas:name>
+9662 .|    |    |    |    |    |                    <cas:sid>11710403</cas:sid>
+9662 .|    |    |    |    |    |                    </cas:attributes>
+9662 .|    |    |    |    |    |            </cas:authenticationSuccess>
+9662 .|    |    |    |    |    |    </cas:serviceResponse>
+9662 .|    |    |    |    |    |    
+9662 .|    |    |    |    |    |     [CurlRequest.php:84]
+9662 .|    |    |    |    |    <= true
+9662 .|    |    |    |    <= true
+9662 .|    |    |    |    => CAS_Client::_readExtraAttributesCas20(DOMNodeList) [Client.php:3301]
+9662 .|    |    |    |    |    Found nested jasig style attributes [Client.php:3383]
+9662 .|    |    |    |    |    Attribute [email] = 11710403@mail.sustech.edu.cn [Client.php:3389]
+9662 .|    |    |    |    |    Attribute [groups] = student [Client.php:3389]
+9662 .|    |    |    |    |    Attribute [id] = 598d34d9a0c0adfc64431e35 [Client.php:3389]
+9662 .|    |    |    |    |    Attribute [name] = 王炜皓 [Client.php:3389]
+9662 .|    |    |    |    |    Attribute [sid] = 11710403 [Client.php:3389]
+9662 .|    |    |    |    <= ''
+9662 .|    |    |    |    => CAS_ProxyChain_AllowedList::isProxyListAllowed(array ()) [Client.php:3313]
+9662 .|    |    |    |    |    No proxies were found in the response [AllowedList.php:81]
+9662 .|    |    |    |    <= true
+9662 .|    |    |    |    => CAS_Client::_renameSession('ST-907990-IdYowMghfLrgrpbGQHSy-cas.sustech.edu.cn') [Client.php:3331]
+9662 .|    |    |    |    |    Skipping session rename since phpCAS is not handling the session. [Client.php:3734]
+9662 .|    |    |    |    <= ''
+9662 .|    |    |    <= true
+9662 .|    |    |    CAS 2.0 ticket `ST-907990-IdYowMghfLrgrpbGQHSy-cas.sustech.edu.cn' was validated [Client.php:1457]
+9662 .|    |    |    => CAS_Client::getURL() [Client.php:1523]
+9662 .|    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+9662 .|    |    |    Prepare redirect to : http://localhost/Courschemaster/src/index.php/user/login [Client.php:1523]
+9662 .|    |    |    => CAS_Client::getURL() [Client.php:1525]
+9662 .|    |    |    <= 'http://localhost/Courschemaster/src/index.php/user/login'
+9662 .|    |    |    exit()
+9662 .|    |    |    -
+9662 .|    |    -
+9662 .|    -
+9320 .START (2019-09-29 08:59:20) phpCAS-1.3.8 ****************** [CAS.php:475]
+9320 .=> phpCAS::client('2.0', 'cas.sustech.edu.cn', 443, '/cas', false) [Cas.php:24]
+9320 .|    => CAS_Client::__construct('2.0', false, 'cas.sustech.edu.cn', 443, '/cas', false) [CAS.php:365]
+9320 .|    |    Session is authenticated as: 11710403 [Client.php:936]
+9320 .|    <= ''
+9320 .<= ''
+9320 .=> phpCAS::setNoCasServerValidation() [Cas.php:26]
+9320 .|    You have configured no validation of the legitimacy of the cas server. This is not recommended for production use. [CAS.php:1664]
+9320 .<= ''
+9320 .=> phpCAS::forceAuthentication() [Cas.php:33]
+9320 .|    => CAS_Client::forceAuthentication() [CAS.php:1120]
+9320 .|    |    => CAS_Client::isAuthenticated() [Client.php:1286]
+9320 .|    |    |    => CAS_Client::_wasPreviouslyAuthenticated() [Client.php:1398]
+9320 .|    |    |    |    user = `11710403' [Client.php:1627]
+9320 .|    |    |    <= true
+9320 .|    |    |    user was already authenticated, no need to look for tickets [Client.php:1421]
+9320 .|    |    <= true
+9320 .|    |    no need to authenticate [Client.php:1288]
+9320 .|    <= true
+9320 .<= ''
