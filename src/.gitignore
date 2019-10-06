@@ -10,6 +10,12 @@ application/logs/*
 
 composer.lock
 
+storage/sessions/*
+storage/cache/*
+storage/logs/*
+
+phpCAS.log
+
 user_guide_src/build/*
 user_guide_src/cilexer/build/*
 user_guide_src/cilexer/dist/*
