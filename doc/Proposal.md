@@ -109,7 +109,7 @@
 
 Teacher end (Use Cases)
 
-![teacher end- use case](../archived/img/teacher_end_use_case.png)
+![Teacher end- Use Case](../archived/img/teacher_end_use_case.png)
 
 
 
