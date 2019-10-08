@@ -109,13 +109,13 @@
 
 Teacher end (Use Cases)
 
-![teacher_end_use_case](..\archived\img\teacher_end_use_case.svg)
+![teacher end- use case](../archived/img/teacher_end_use_case.png)
 
 
 
 Student end (Use Cases)
 
-![Student end- Use Case](C:\AppServ\Courschemaster\archived\img\Student end- Use Case.png)
+![Student end- Use Case](../archived/img/Student end- Use Case.png)
 
 ## Requirements
 
@@ -177,7 +177,7 @@ Student end (Use Cases)
 
 Database scheme (ER diagram, .svg)
 
-![database scheme](..\archived\img\database scheme.svg)
+![database scheme](../archived/img/database scheme.svg)
 
 ```JSON
 'orange'      : Entity
@@ -191,13 +191,13 @@ Database scheme (ER diagram, .svg)
 
 Communication between frontend and backend (Sequence Diagram, .svg)
 
-![Ajax request - sequence diagram](C:\AppServ\Courschemaster\archived\img\Ajax request - sequence diagram.svg)
+![Ajax request - sequence diagram](../archived/img/Ajax request - sequence diagram.svg)
 
 
 
 Login, user authentication (Sequence Diagram, .svg)
 
-![login - sequence diagram](C:\AppServ\Courschemaster\archived\img\login - sequence diagram.svg)
+![login - sequence diagram](../archived/img/login - sequence diagram.svg)
 
 
 
