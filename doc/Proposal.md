@@ -1,7 +1,7 @@
 
 
 <p style="text-align:center; font-weight:bold; font-size:38px; border-top: 1px black solid; border-bottom: 1px black solid; padding: 15px; ">
-    SUSTech CS309 OOAD 2019 Fall<br />Project Proposal
+    SUSTech CS309 OOAD<br />2019 Fall<br />Project Proposal
 </p>
 
 
