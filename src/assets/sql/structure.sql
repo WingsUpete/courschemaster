@@ -29,17 +29,7 @@ CREATE TABLE IF NOT EXISTS `cm_colleges` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-
--- -----------------------------------------------------
--- Table `cm_user_settings`
--- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cm_user_settings` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `password` VARCHAR(45) NOT NULL,
-  `language` VARCHAR(45) NOT NULL DEFAULT 'english',
-  PRIMARY KEY (`id`))
-ENGINE = InnoDB;
-
+INSERT INTO `cm`.`cm_colleges` (`id`, `name`, `en_name`) VALUES ('1', '致新书院', 'ZhiXin College');
 
 -- -----------------------------------------------------
 -- Table `cm_privileges`
@@ -56,6 +46,21 @@ CREATE TABLE IF NOT EXISTS `cm_privileges` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
+INSERT INTO `cm`.`cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('1', 'admin_8c6fc01', '20', '20', '20', '20', '20', '20');
+INSERT INTO `cm`.`cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('2', 'secretary_75bcd15', '20', '0', '0', '0', '20', '0');
+INSERT INTO `cm`.`cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('3', 'student_3ade68b1', '0', '0', '0', '20', '2', '0');
+
+-- -----------------------------------------------------
+-- Table `cm_majors`
+-- -----------------------------------------------------
+CREATE TABLE IF NOT EXISTS `cm_majors` (
+  `id` INT NOT NULL AUTO_INCREMENT,
+  `name` VARCHAR(45) NOT NULL,
+  `en_name` VARCHAR(45) NOT NULL,
+  PRIMARY KEY (`id`))
+ENGINE = InnoDB;
+
+INSERT INTO `cm`.`cm_majors` (`id`, `name`, `en_name`) VALUES ('1', '计算机科学', 'Computer Science');
 
 -- -----------------------------------------------------
 -- Table `cm_users`
@@ -69,36 +74,42 @@ CREATE TABLE IF NOT EXISTS `cm_users` (
   `id_colleges` INT NOT NULL,
   `id_user_settings` INT NOT NULL,
   `id_privileges` INT NOT NULL,
+  `id_majors` INT NOT NULL,
   PRIMARY KEY (`id`),
   INDEX `fk_cm_users_cm_colleges_idx` (`id_colleges` ASC),
-  INDEX `fk_cm_users_cm_user_settings1_idx` (`id_user_settings` ASC),
   INDEX `fk_cm_users_cm_privileges_copy11_idx` (`id_privileges` ASC),
+  INDEX `fk_cm_users_cm_majors_idx` (`id_majors` ASC),
   CONSTRAINT `fk_cm_users_cm_colleges`
     FOREIGN KEY (`id_colleges`)
     REFERENCES `cm_colleges` (`id`)
-    ON DELETE NO ACTION
-    ON UPDATE NO ACTION,
-  CONSTRAINT `fk_cm_users_cm_user_settings1`
-    FOREIGN KEY (`id_user_settings`)
-    REFERENCES `cm_user_settings` (`id`)
     ON DELETE NO ACTION
     ON UPDATE NO ACTION,
   CONSTRAINT `fk_cm_users_cm_privileges_copy11`
     FOREIGN KEY (`id_privileges`)
     REFERENCES `cm_privileges` (`id`)
     ON DELETE NO ACTION
+    ON UPDATE NO ACTION,
+  CONSTRAINT `fk_cm_users_cm_majors_idx`
+    FOREIGN KEY (`id_majors`)
+    REFERENCES `cm_majors` (`id`)
+    ON DELETE NO ACTION
     ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
-
 -- -----------------------------------------------------
--- Table `cm_majors`
+-- Table `cm_user_settings`
 -- -----------------------------------------------------
-CREATE TABLE IF NOT EXISTS `cm_majors` (
-  `id` INT NOT NULL AUTO_INCREMENT,
-  `name` VARCHAR(45) NOT NULL,
-  `en_name` VARCHAR(45) NOT NULL,
-  PRIMARY KEY (`id`))
+CREATE TABLE IF NOT EXISTS `cm_user_settings` (
+  `id_users` INT NOT NULL AUTO_INCREMENT,
+  `username` VARCHAR(45) NOT NULL,
+  `language` VARCHAR(45) NOT NULL DEFAULT 'english',
+  PRIMARY KEY (`id_users`),
+  INDEX `fk_cm_users_cm_user_settings_idx` (`id_users` ASC),
+  CONSTRAINT `fk_cm_users_cm_user_settings_idx`
+    FOREIGN KEY (`id_users`)
+    REFERENCES `cm_users` (`id`)
+    ON DELETE NO ACTION
+    ON UPDATE NO ACTION)
 ENGINE = InnoDB;
 
 

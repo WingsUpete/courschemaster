@@ -7,7 +7,7 @@ class Cas_model extends CI_Model{
      */
     public function get_user_data($cas_user_data){
 
-        $default_registraion_id_priviledges = 6;
+        $default_registraion_id_privileges = 1;
 
         $id_users = -1;
 
@@ -30,7 +30,7 @@ class Cas_model extends CI_Model{
                 'email' => $cas_user_data['email'],
                 'cas_hash_id' => $cas_user_data['id'],
                 'cas_sid' => $cas_user_data['sid'],
-                'id_priviledges' => $default_registraion_id_priviledges,
+                'id_privileges' => $default_registraion_id_privileges,
                 'id_colleges' => $this->get_college($cas_user_data['sid']),
                 'id_majors' => $this->get_major($cas_user_data['sid'])
             );
@@ -57,10 +57,10 @@ class Cas_model extends CI_Model{
                 cm_users.cas_sid    AS user_sid, 
                 cm_users.id         AS user_id, 
                 cm_users.email      AS user_email, 
-                cm_priviledges.name AS role
+                cm_privileges.name AS role
             ')
             ->from('cm_users')
-            ->join('cm_priviledges', 'cm_priviledges.id = cm_users.id_priviledges', 'inner')
+            ->join('cm_privileges', 'cm_privileges.id = cm_users.id_privileges', 'inner')
             ->join('cm_user_settings', 'cm_user_settings.id_users = cm_users.id', 'inner')
             ->where('cm_users.cas_sid', $cas_user_data['sid'])
             ->get()

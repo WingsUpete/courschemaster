@@ -45,7 +45,7 @@ class Welcome extends CI_Controller {
         // Check privilege
         $role_slug = $this->session->userdata('role');
         $role_priv = $this->db
-            ->get_where('cm_priviledges', ['name' => $role])
+            ->get_where('cm_privileges', ['name' => $role])
             ->row_array();
             
         if ($role_priv[$page] < $priviledge){ // User does not have the permission to view the page.

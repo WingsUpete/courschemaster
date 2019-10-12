@@ -1,5 +1,5 @@
 <?php
 
-echo 'no priviledges';
+echo 'no privileges';
 
 ?>

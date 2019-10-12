@@ -87,7 +87,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 /*
 | Courschemaster 
 |--------------------------------------------------------------------------
-| Priviledges
+| Privileges
 |--------------------------------------------------------------------------
 */
 define('PRVI_SYSTEM_CONFIGS', 20);
