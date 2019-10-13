@@ -29,7 +29,7 @@ CREATE TABLE IF NOT EXISTS `cm_colleges` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-INSERT INTO `cm`.`cm_colleges` (`id`, `name`, `en_name`) VALUES ('1', '致新书院', 'ZhiXin College');
+INSERT INTO `cm_colleges` (`id`, `name`, `en_name`) VALUES ('1', '致新书院', 'ZhiXin College');
 
 -- -----------------------------------------------------
 -- Table `cm_privileges`
@@ -46,9 +46,9 @@ CREATE TABLE IF NOT EXISTS `cm_privileges` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-INSERT INTO `cm`.`cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('1', 'admin_8c6fc01', '20', '20', '20', '20', '20', '20');
-INSERT INTO `cm`.`cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('2', 'secretary_75bcd15', '20', '0', '0', '0', '20', '0');
-INSERT INTO `cm`.`cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('3', 'student_3ade68b1', '0', '0', '0', '20', '2', '0');
+INSERT INTO `cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('1', 'admin_8c6fc01', '20', '20', '20', '20', '20', '20');
+INSERT INTO `cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('2', 'secretary_75bcd15', '20', '0', '0', '0', '20', '0');
+INSERT INTO `cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('3', 'student_3ade68b1', '0', '0', '0', '20', '2', '0');
 
 -- -----------------------------------------------------
 -- Table `cm_majors`
@@ -60,7 +60,7 @@ CREATE TABLE IF NOT EXISTS `cm_majors` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-INSERT INTO `cm`.`cm_majors` (`id`, `name`, `en_name`) VALUES ('1', '计算机科学', 'Computer Science');
+INSERT INTO `cm_majors` (`id`, `name`, `en_name`) VALUES ('1', '计算机科学', 'Computer Science');
 
 -- -----------------------------------------------------
 -- Table `cm_users`
