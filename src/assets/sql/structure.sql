@@ -72,7 +72,6 @@ CREATE TABLE IF NOT EXISTS `cm_users` (
   `cas_hash_id` VARCHAR(45) NULL,
   `cas_sid` VARCHAR(45) NULL,
   `id_colleges` INT NOT NULL,
-  `id_user_settings` INT NOT NULL,
   `id_privileges` INT NOT NULL,
   `id_majors` INT NOT NULL,
   PRIMARY KEY (`id`),
