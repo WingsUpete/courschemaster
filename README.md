@@ -16,6 +16,8 @@ An *OOAD* Project for SUSTech_2017 - <strong style="color:orange;">SUSMusic-Cour
 
 ​		<a style="cursor:pointer;text-decoration:none;" href="#iii-quick-start">III. Quick Start</a>
 
+​				<a style="cursor:pointer;text-decoration:none;" href="#0-Prerequisites">0. Prerequisites</a>
+
 ​				<a style="cursor:pointer;text-decoration:none;" href="#1-clone-the-repository">1. Clone the repository</a>
 
 ​		<a style="cursor:pointer;text-decoration:none;" href="#iv-license">IV. License</a>
@@ -36,15 +38,19 @@ The Introduction of our Courschemaster will be updated later.
 
 ## II. Features
 
--   Use <img src="https://codeigniter.com/assets/images/ci-logo-big.png" alt="img" style="width: 3%;" /> <a href="https://codeigniter.com/" target="_blank"><strong><em>CodeIgniter</em></strong></a> Framework
+-   Use <a href="https://codeigniter.com/" target="_blank"><strong><em>CodeIgniter</em></strong></a> Framework
 
--   Design with JQuery, Bootstrap –> <img src="https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png" alt="MDB" style="width:8%;" />[Material Design Bootstrap](https://mdbootstrap.com/)
+-   Design with [***JQuery***](https://jquery.com/), [***Bootstrap***](https://getbootstrap.com/) –> [***Material Design Bootstrap***](https://mdbootstrap.com/)
 
 
 
 <a name="iii-quick-start"></a>
 
 ## III. Quick Start
+
+<a name="0-Prerequisites"></a>
+
+### 0. Prerequisites
 
 <a name="1-clone-the-repository"></a>
 
