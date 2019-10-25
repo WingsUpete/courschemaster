@@ -36,9 +36,9 @@ The Introduction of our Courschemaster will be updated later.
 
 ## II. Features
 
--   Use <img src="https://codeigniter.com/assets/images/ci-logo-big.png" alt="img" style="zoom: 8%;" /> <a href="https://codeigniter.com/" target="_blank"><strong><em>CodeIgniter</em></strong></a> Framework
+-   Use <img src="https://codeigniter.com/assets/images/ci-logo-big.png" alt="img" style="width: 3%;" /> <a href="https://codeigniter.com/" target="_blank"><strong><em>CodeIgniter</em></strong></a> Framework
 
-
+-   Design with JQuery, Bootstrap –> <img src="https://mdbootstrap.com/wp-content/uploads/2018/06/logo-mdb-jquery-small.png" alt="MDB" style="width:8%;" />[Material Design Bootstrap](https://mdbootstrap.com/)
 
 
 

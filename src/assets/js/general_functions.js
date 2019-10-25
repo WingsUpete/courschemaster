@@ -260,7 +260,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      *
      * @param {Object} $element Selected element button for the language selection.
      */
-    exports.enableLanguageSelection = function ($element, calendar) {
+    exports.enableLanguageSelection = function ($element) {
         // Select Language
         var html = '<ul id="language-list">';
         $.each(availableLanguages, function () {
