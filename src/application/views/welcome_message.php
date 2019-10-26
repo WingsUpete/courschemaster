@@ -26,14 +26,14 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	
 	
 	<!-- Title -->
-	<title>Welcome | Courschemaster</title>
+	<title>Welcome&nbsp;|&nbsp;Courschemaster</title>
 	
 	
 	
 	<!-------------------------------------------------------------------------------------------------------->
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-- Logo icon for title and bookmark -->
-	<link rel="shortcut icon" type="images/x-icon" href="../../assets/img/favicon.png" sizes="32x32" />
+	<link rel="shortcut icon" type="image/png" href="<?= asset_url('assets/img/favicon.png') ?>" sizes="32x32" />
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-------------------------------------------------------------------------------------------------------->
 	
