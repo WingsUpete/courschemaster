@@ -69,13 +69,25 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/welcome/welcome.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	
+	<!-- Preload JS Global Variables -->
+	<script>
+		var availableLanguages = <?= json_encode($this->config->item('available_languages')) ?>;
+		var SCLang = <?= json_encode($this->lang->language) ?>;
+		var GlobalVariables = {
+			'csrfToken'			: <?= json_encode($this->security->get_csrf_hash()) ?>,
+//			'baseUrl'			: < ?= json_encode($base_url) ?>
+		};
+	</script>
+	
 	<!-- Customize JS -->
 	<script type="text/javascript" src="<?= asset_url('assets/js/general_functions.js', NULL, 'js') ?>"></script>
-	
 </head>
 
 <body>
 	<div id="welcome_page" class="welcome_pages">
+		<!-- Header -->
+		
+	
 		<!-- Footer -->
 		<footer id="page-footer" class="page-footer blue">
 			<div class="container-fluid">

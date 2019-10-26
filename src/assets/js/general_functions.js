@@ -26,10 +26,10 @@ window.GeneralFunctions = window.GeneralFunctions || {};
     /**
      * General Functions Constants
      */
-//    exports.EXCEPTIONS_TITLE = SCLang.unexpected_issues;
-//    exports.EXCEPTIONS_MESSAGE = SCLang.unexpected_issues_message;
-//    exports.WARNINGS_TITLE = SCLang.unexpected_warnings;
-//    exports.WARNINGS_MESSAGE = SCLang.unexpected_warnings_message;
+    exports.EXCEPTIONS_TITLE = SCLang.unexpected_issues;
+    exports.EXCEPTIONS_MESSAGE = SCLang.unexpected_issues_message;
+    exports.WARNINGS_TITLE = SCLang.unexpected_warnings;
+    exports.WARNINGS_MESSAGE = SCLang.unexpected_warnings_message;
 
     /**
      * This functions displays a message box. It is useful when user
