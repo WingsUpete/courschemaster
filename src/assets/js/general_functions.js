@@ -26,10 +26,10 @@ window.GeneralFunctions = window.GeneralFunctions || {};
     /**
      * General Functions Constants
      */
-    exports.EXCEPTIONS_TITLE = SCLang.unexpected_issues;
-    exports.EXCEPTIONS_MESSAGE = SCLang.unexpected_issues_message;
-    exports.WARNINGS_TITLE = SCLang.unexpected_warnings;
-    exports.WARNINGS_MESSAGE = SCLang.unexpected_warnings_message;
+//    exports.EXCEPTIONS_TITLE = SCLang.unexpected_issues;
+//    exports.EXCEPTIONS_MESSAGE = SCLang.unexpected_issues_message;
+//    exports.WARNINGS_TITLE = SCLang.unexpected_warnings;
+//    exports.WARNINGS_MESSAGE = SCLang.unexpected_warnings_message;
 
     /**
      * This functions displays a message box. It is useful when user
@@ -375,6 +375,27 @@ window.GeneralFunctions = window.GeneralFunctions || {};
   		}
 //		console.log(lastIndex !== index ? html + str.substring(lastIndex, index) : html);
   		return lastIndex !== index ? html + str.substring(lastIndex, index) : html;
+	 };
+	
+    /**
+     * Place Footer to Bottom
+	 * The footer should have an id of "page-footer"
+     */
+	 exports.placeFooterToBottom = function () {
+		 var $footer = $('#page-footer');
+		 
+		 if (window.innerHeight > $('body').height()) {
+			 //	If window size is larger, place the footer at the bottom
+			 $footer.css({
+				 'position': 'absolute',
+				 'width': '100%',
+				 'bottom': '0'
+			 });
+		 } else {
+			 //	If window is not enough for all contents, place the footer
+			 //	normally at the end of the body content
+			 $footer.css('position', 'static');
+		 }
 	 };
 	
 })(window.GeneralFunctions);

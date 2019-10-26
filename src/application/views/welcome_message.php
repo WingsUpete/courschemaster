@@ -64,10 +64,58 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/mdbootstrap/js/mdb.min.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
+	
+	<!-- Customize CSS -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/welcome/welcome.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
+	
+	<!-- Customize JS -->
+	<script type="text/javascript" src="<?= asset_url('assets/js/general_functions.js', NULL, 'js') ?>"></script>
+	
 </head>
 
 <body>
-	You are entering a welcome page!
+	<div id="welcome_page" class="welcome_pages">
+		<!-- Footer -->
+		<footer id="page-footer" class="page-footer blue">
+			<div class="container-fluid">
+				<div class="row">
+					<div class="col-xs-12 col-lg-5">
+						<div>
+							<ul id="power_copyright">
+								<li>Powered by @SUSMusic x Courschemaster Team</li>
+								<li>© 2019 Copyright:<span> SUSMusic x Courschemaster Team</span></li>
+							</ul>
+						</div>
+					</div>
+					<div class="col-xs-12 col-lg-2"></div>
+					<div class="col-xs-12 col-lg-5">
+						<div>
+							<ul id="support_info">
+								<li><a id="footer_QA" href="javascript:void(0);" target="_blank" data-toggle="tooltip" data-title="Q & A" data-placement="top"><strong>Question & Answers</strong></a></li>
+								<li>Contact Administrator: <span id="admin_phone_number">80088208820</span></li>
+							</ul>
+						</div>
+					</div>
+				</div>
+			</div>
+		</footer>
+	</div>
 </body>
+
+<script>
+	$(document).ready(function() {
+		$('[data-toggle="tooltip"]').tooltip();
+	});
+	
+	window.addEventListener('load', function() {
+		GeneralFunctions.placeFooterToBottom();			//	Pre-order footer
+	});
+	
+	//	Resize listener
+	$(window).on('resize', function() {
+		GeneralFunctions.placeFooterToBottom();
+	}).trigger('resize');
+</script>
 
 </html>

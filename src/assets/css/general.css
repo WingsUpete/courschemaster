@@ -1,0 +1,39 @@
+/* CSS Document */
+
+/* FOOTER */
+footer {
+	font-size: 0.7rem;
+	padding-top: 0.7rem;
+	padding-bottom: 0.7rem;
+	transition: all 0.3s;
+}
+footer ul {
+	margin-top: 0;
+	margin-bottom: 0;
+	user-select: none;
+	transition: all 0.3s;
+}
+footer ul#power_copyright {
+	text-align: left;
+}
+footer ul#support_info {
+	list-style: none;
+	text-align: right;
+}
+footer ul#support_info #footer_QA {
+	text-decoration: underline;
+}
+footer #admin_phone_number {
+	user-select: text;
+}
+
+/* Responsive */
+@media screen and (max-width: 991px) {
+	footer ul#power_copyright {
+		list-style: none;
+		text-align: center;
+	}
+	footer ul#support_info {
+		text-align: center;
+	}
+}
