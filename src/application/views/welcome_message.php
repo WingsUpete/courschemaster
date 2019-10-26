@@ -34,6 +34,15 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-- Logo icon for title and bookmark -->
 	<link rel="shortcut icon" type="image/png" href="<?= asset_url('assets/img/favicon.png') ?>" sizes="32x32" />
+	
+	<!-- Normalize.css -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/normalize/normalize.css', NULL, 'css') ?>" />
+	<!-- FontAwesome -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
+	<!-- Bootstrap -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css', NULL, 'css') ?>" />
+	<!-- MDB -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/mdb.min.css', NULL, 'css') ?>" />
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-------------------------------------------------------------------------------------------------------->
 	
@@ -41,7 +50,18 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	
 	<!-------------------------------------------------------------------------------------------------------->
 	<!------------------------------------------------ Script ------------------------------------------------>
-	
+	<!-- jQuery -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/jquery/jquery-3.4.1.min.js', NULL, 'js') ?>"></script>
+	<!-- HTML5Shiv -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/html5shiv/html5shiv.min.js', NULL, 'js') ?>"></script>
+	<!-- Respond -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/respond/respond.min.js', NULL, 'js') ?>"></script>
+	<!-- FontAwesome -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js', NULL, 'js') ?>"></script>
+	<!-- Bootstrap -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.bundle.min.js', NULL, 'js') ?>"></script>
+	<!-- MDB -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/mdbootstrap/js/mdb.min.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
 </head>
