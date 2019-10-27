@@ -1,4 +1,81 @@
 /* CSS Document */
+/* Scrollbar */
+body::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+	transition: all 0.2s;
+}
+body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	transition: all 0.2s;
+}
+body::-webkit-scrollbar-thumb {
+	background-color: gray;
+	outline: 1px solid gray;
+	border-radius: 20px;
+	transition: 0.2s;
+}
+
+/* HEADER */
+header .nav-item {
+	margin: 10px 0;
+}
+
+/* Navicon */
+header .navbar-toggler .icon-bar {
+	background-color: rgba(255, 255, 255, 0.85);
+	width: 30px;
+	height: 4px;
+	border-radius: 2px;
+	margin: 5px;
+	display: inherit;
+	transition: 0.3s;
+}
+header .navbar-toggler-icon {
+	display: block;
+}
+header .change_navicon .bar1 {
+	-ms-transform: rotate(45deg) translate(3px, 10px);
+	-moz-transform: rotate(45deg) translate(3px, 10px);
+	-webkit-transform: rotate(45deg) translate(3px, 10px);
+	-o-transform: rotate(45deg) translate(3px, 10px);
+	transform: rotate(45deg) translate(3px, 10px);
+}
+header .change_navicon .bar2 {
+	opacity: 0;
+}
+header .change_navicon .bar3 {
+	-ms-transform: rotate(-45deg) translate(3px, -10px);
+	-moz-transform: rotate(-45deg) translate(3px, -10px);
+	-webkit-transform: rotate(-45deg) translate(3px, -10px);
+	-o-transform: rotate(-45deg) translate(3px, -10px);
+	transform: rotate(-45deg) translate(3px, -10px);
+}
+
+header .language {
+	border: 1px solid white;
+	font-size: 13px;
+	font-family: monospace;
+	padding: 6px;
+	min-width: 76px;
+	text-align: center;
+	transition: all 0.3s;
+}
+header .language.active {
+	background-color: white;
+	color: #42a5f5!important;
+	font-weight: bold;
+}
+header .language:hover, header .language:focus {
+	text-decoration: underline;
+}
+header .language#lang_en {
+	border-radius: 10px 0 0 10px;
+}
+header .language#lang_chzn {
+	border-radius: 0 10px 10px 0;
+}
 
 /* FOOTER */
 footer {

@@ -75,7 +75,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 		var SCLang = <?= json_encode($this->lang->language) ?>;
 		var GlobalVariables = {
 			'csrfToken'			: <?= json_encode($this->security->get_csrf_hash()) ?>,
-//			'baseUrl'			: < ?= json_encode($base_url) ?>
+			'baseUrl'			: <?= json_encode($base_url) ?>
 		};
 	</script>
 	
@@ -84,35 +84,79 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 </head>
 
 <body>
-	<div id="welcome_page" class="welcome_pages">
-		<!-- Header -->
-		
+	<!-- Header -->
+	<header>
+		<nav id="navCourschemaster" class="mb-1 navbar navbar-expand-lg navbar-dark blue lighten-1">
+			<!-- Brand -->
+			<a class="navbar-brand" href="<?= site_url() ?>">
+				<!-- img src="< ?= asset_url('assets/img/favicon.png') ?>" alt="Courschemaster" / -->
+				<!-- i class="fas fa-book"></i -->
+				<span class="text-white"><strong>Courschemaster</strong></span>
+			</a>
+			<!-- Toggle Button - Navicon -->
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#header-contents" aria-controls="header-contents" aria-expanded="false" aria-label="Toggle Navigation">
+				<span class="sr-only">Toggle Navigation</span>
+				<span class="navbar-toggler-icon icon-bar bar1"></span>
+				<span class="navbar-toggler-icon icon-bar bar2"></span>
+				<span class="navbar-toggler-icon icon-bar bar3"></span>
+			</button>
+			<!-- Content -->
+			<div class="collapse navbar-collapse" id="header-contents">
+				<ul class="navbar-nav ml-auto nav-flex-icons">
+					<li class="nav-item">
+						<a id="lang_en" class="language nav-link active" href="javascript:void(0);">
+							English
+						</a>
+					</li>
+					<li class="nav-item">
+						<a id="lang_chzn" class="language nav-link" href="javascript:void(0);">
+							简体中文
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" href="javascript:void(0);">
+							
+						</a>
+					</li>
+					<li class="nav-item avatar">
+						<a class="nav-link p-0" href="javascript:void(0);">
+							<img src="<?= asset_url('assets/img/favicon.png') ?>" class="z-depth-0" alt="Avatar" height="35" />
+							<span class="header_user_name align-middle">Peter S</span>
+						</a>
+					</li>
+				</ul>
+			</div>
+		</nav> 
+	</header>
 	
-		<!-- Footer -->
-		<footer id="page-footer" class="page-footer blue">
-			<div class="container-fluid">
-				<div class="row">
-					<div class="col-xs-12 col-lg-5">
-						<div>
-							<ul id="power_copyright">
-								<li>Powered by @SUSMusic x Courschemaster Team</li>
-								<li>© 2019 Copyright:<span> SUSMusic x Courschemaster Team</span></li>
-							</ul>
-						</div>
+	<div id="welcome_page" class="welcome_pages">
+		
+	</div>
+	
+	<!-- Footer -->
+	<footer id="page-footer" class="page-footer blue">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-xs-12 col-lg-5">
+					<div>
+						<ul id="power_copyright">
+							<li>Powered by @SUSMusic x Courschemaster Team</li>
+							<li>© 2019 Copyright:<span> SUSMusic x Courschemaster Team</span></li>
+						</ul>
 					</div>
-					<div class="col-xs-12 col-lg-2"></div>
-					<div class="col-xs-12 col-lg-5">
-						<div>
-							<ul id="support_info">
-								<li><a id="footer_QA" href="javascript:void(0);" target="_blank" data-toggle="tooltip" data-title="Q & A" data-placement="top"><strong>Question & Answers</strong></a></li>
-								<li>Contact Administrator: <span id="admin_phone_number">80088208820</span></li>
-							</ul>
-						</div>
+				</div>
+				<div class="col-xs-12 col-lg-2"></div>
+				<div class="col-xs-12 col-lg-5">
+					<div>
+						<ul id="support_info">
+							<li><a id="footer_QA" href="javascript:void(0);" target="_blank" data-toggle="tooltip" data-title="Q & A" data-placement="top"><strong>Question & Answers</strong></a></li>
+							<li>Contact Administrator: <span id="admin_phone_number">80088208820</span></li>
+						</ul>
 					</div>
 				</div>
 			</div>
-		</footer>
-	</div>
+		</div>
+	</footer>
 </body>
 
 <script>
@@ -128,6 +172,13 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	$(window).on('resize', function() {
 		GeneralFunctions.placeFooterToBottom();
 	}).trigger('resize');
+	
+	//	Navicon
+	$('#navCourschemaster').on('show.bs.collapse', function() {
+		$(this).find('.navbar-toggler').addClass('change_navicon');
+	}).on('hide.bs.collapse', function() {
+		$(this).find('.navbar-toggler').removeClass('change_navicon');
+	});
 </script>
 
 </html>

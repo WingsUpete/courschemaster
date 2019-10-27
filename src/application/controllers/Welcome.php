@@ -17,7 +17,7 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function index(){
-
+		$user_data['base_url'] = $this->config->item('base_url');
         if($this->session->user_id){
             $user_data['user_id'] = $this->session->user_id;
             $user_data['user_sid'] = $this->session->user_sid;
