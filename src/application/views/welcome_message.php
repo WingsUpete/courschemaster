@@ -86,7 +86,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 <body>
 	<!-- Header -->
 	<header>
-		<nav id="navCourschemaster" class="mb-1 navbar navbar-expand-lg navbar-dark blue lighten-1">
+		<nav id="navCourschemaster" class="navbar navbar-expand-lg navbar-dark blue lighten-1">
 			<!-- Brand -->
 			<a class="navbar-brand" href="<?= site_url() ?>">
 				<!-- img src="< ?= asset_url('assets/img/favicon.png') ?>" alt="Courschemaster" / -->
@@ -130,7 +130,25 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	</header>
 	
 	<div id="welcome_page" class="welcome_pages">
-		
+		<div class="card card-image" style="background-image:url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);background-size:cover;">
+			<div class="text-white text-center rgba-stylish-strong py-5 px-4">
+				<div class="py-5">
+					<!-- Content -->
+					<h2 class="card-title h2 my-4 py-2">Courschemaster</h2>
+					<div class="row">
+						<div class="col-xs-12 col-lg-4">
+							<a class="btn peach-gradient"><i class="fas fa-chalkboard-teacher fa-2x"></i>&ensp;Student</a>
+						</div>
+						<div class="col-xs-12 col-lg-4">
+							<a class="btn peach-gradient"><i class="fas fa-user-cog fa-2x"></i>&ensp;Staff</a>
+						</div>
+						<div class="col-xs-12 col-lg-4">
+							<a class="btn peach-gradient"><i class="fas fa-user-edit fa-2x"></i>&ensp;Visitor</a>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
 	</div>
 	
 	<!-- Footer -->
