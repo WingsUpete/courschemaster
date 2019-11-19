@@ -1,2 +1,32 @@
 /* CSS Document */
-
+#nav-components {
+	position: fixed;
+	left: 50%;
+	top: 50%;
+	transform: translate(-50%, -50%);
+	width: 100%;
+}
+#nav-components .nav-title {
+	font-weight: 500;
+	font-size: 50px;
+	margin: 0 0 80px 0;
+	user-select: none;
+}
+#nav-components a {
+	color: rgba(66, 165, 245, 1.0);
+	transition: color 0.2s;
+}
+#nav-components a .nav-icons {
+	margin: 16px;
+	transition: transform 0.2s;
+}
+#nav-components a .nav-texts h3 {
+	font-weight: 500;
+	font-size: 32px;
+}
+#nav-components a:hover, #nav-components a:focus {
+	color: rgba(66, 165, 245, 0.6);
+}
+#nav-components a:hover .nav-icons, #nav-components a:focus .nav-icons {
+	transform: rotateY(180deg);
+}

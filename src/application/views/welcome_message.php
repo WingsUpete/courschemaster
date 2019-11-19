@@ -130,22 +130,38 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	</header>
 	
 	<div id="welcome_page" class="welcome_pages">
-		<div class="card card-image" style="background-image:url(https://mdbootstrap.com/img/Photos/Others/gradient1.jpg);background-size:cover;">
-			<div class="text-white text-center rgba-stylish-strong py-5 px-4">
-				<div class="py-5">
-					<!-- Content -->
-					<h2 class="card-title h2 my-4 py-2">Courschemaster</h2>
-					<div class="row">
-						<div class="col-xs-12 col-lg-4">
-							<a class="btn peach-gradient"><i class="fas fa-chalkboard-teacher fa-2x"></i>&ensp;Student</a>
+		<div id="nav-components" class="text-black text-center">
+			<h1 class="nav-title">Courschemaster</h1>
+			<div class="row">
+				<div class="col-sm-4">
+					<a href="javascript:void(0);">
+						<div class="nav-icons">
+							<i class="fas fa-chalkboard-teacher fa-4x"></i>
 						</div>
-						<div class="col-xs-12 col-lg-4">
-							<a class="btn peach-gradient"><i class="fas fa-user-cog fa-2x"></i>&ensp;Staff</a>
+						<div class="nav-texts">
+							<h3>Student</h3>
 						</div>
-						<div class="col-xs-12 col-lg-4">
-							<a class="btn peach-gradient"><i class="fas fa-user-edit fa-2x"></i>&ensp;Visitor</a>
+					</a>
+				</div>
+				<div class="col-sm-4">
+					<a href="javascript:void(0);">
+						<div class="nav-icons">
+							<i class="fas fa-user-cog fa-4x"></i>
 						</div>
-					</div>
+						<div class="nav-texts">
+							<h3>Staff</h3>
+						</div>
+					</a>
+				</div>
+				<div class="col-sm-4">
+					<a href="javascript:void(0);">
+						<div class="nav-icons">
+							<i class="fas fa-user-edit fa-4x"></i>
+						</div>
+						<div class="nav-texts">
+							<h3>Visitor</h3>
+						</div>
+					</a>
 				</div>
 			</div>
 		</div>
