@@ -31,12 +31,17 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
 
         helper = new StudentsMyCourschemaHelper();
 		// do sth
-		$('#General_compulsory_courselist').DataTable();
-		$('#Professional_foundation_courselist').DataTable();
-		$('#Professional_core_courselist').DataTable();
-		$('#Professional_elective_courselist').DataTable();
-		$('#General_elective_courselist').DataTable();
-		$('#Practice_courselist').DataTable();
+		$('#General_compulsory_courselist, #Professional_foundation_courselist, #Professional_core_courselist, #Professional_elective_courselist, #General_elective_courselist, #Practice_courselist').DataTable({
+			"initComplete": function(settings, json) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"drawCallback": function( settings ) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"stateLoaded": function (settings, data) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			}
+		});
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }

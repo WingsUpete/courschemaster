@@ -133,6 +133,15 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 							</span>
 						</a>
 					</li>
+<!--
+					<li class="nav-item logout">
+						<a class="nav-link p-0" href="<!-- ?= site_url('user/logout') ?>">
+							<span class="header_user_name align-middle">
+								Logout
+							</span>
+						</a>
+					</li>
+-->
 				</ul>
 			</div>
 		</nav> 
