@@ -97,6 +97,8 @@ class Students extends CI_Controller{
 
     protected function load_basic_view_data(&$view){
         $view['base_url'] = $this->config->item('base_url');
+        $view['user_sid'] = $this->session->userdata('user_sid');
+        $view['user_name'] = $this->session->userdata('user_name');
         // Set user's selected language.
         if ($this->session->userdata('language')){
             $view['language'] = $this->session->userdata('language');
