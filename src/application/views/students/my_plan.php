@@ -19,47 +19,47 @@
     <ul class="nav nav-tabs" id="courschema_list" role="tablist">
             <li class="nav-item">
                 <a class="nav-link active" id="First_grade_one-tab" data-toggle="tab" href="#First_grade_one" role="tab" aria-controls="First_grade_one"
-                   aria-selected="true">大一秋</a>
+                   aria-selected="true">Year1 Fall</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="First_grade_two-tab" data-toggle="tab" href="#First_grade_two" role="tab" aria-controls="First_grade_two"
-                   aria-selected="false">大一春</a>
+                   aria-selected="false">Year1 Spring</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="First_grade_three-tab" data-toggle="tab" href="#First_grade_three" role="tab" aria-controls="First_grade_three"
-                   aria-selected="false">大一夏</a>
+                   aria-selected="false">Year1 Summer</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Second_grade_one-tab" data-toggle="tab" href="#Second_grade_one" role="tab" aria-controls="Second_grade_one"
-                   aria-selected="false">大二秋</a>
+                   aria-selected="false">Year2 Fall</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Second_grade_two-tab" data-toggle="tab" href="#Second_grade_two" role="tab" aria-controls="Second_grade_two"
-                   aria-selected="false">大二春</a>
+                   aria-selected="false">Year2 Spring</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Second_grade_three-tab" data-toggle="tab" href="#Second_grade_three" role="tab" aria-controls="Second_grade_three"
-                   aria-selected="false">大二下</a>
+                   aria-selected="false">Year2 Summer</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Third_grade_one-tab" data-toggle="tab" href="#Third_grade_one" role="tab" aria-controls="Third_grade_one"
-                   aria-selected="false">大三秋</a>
+                   aria-selected="false">Year3 Fall</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Third_grade_two-tab" data-toggle="tab" href="#Third_grade_two" role="tab" aria-controls="Third_grade_two"
-                   aria-selected="false">大三春</a>
+                   aria-selected="false">Year3 Spring</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Third_grade_three-tab" data-toggle="tab" href="#Third_grade_three" role="tab" aria-controls="Third_grade_three"
-                   aria-selected="false">大三夏</a>
+                   aria-selected="false">Year3 Summer</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Fourth_grade_one-tab" data-toggle="tab" href="#Fourth_grade_one" role="tab" aria-controls="Fourth_grade_one"
-                   aria-selected="false">大四秋</a>
+                   aria-selected="false">Year4 Fall</a>
             </li>
             <li class="nav-item">
                 <a class="nav-link" id="Fourth_grade_two-tab" data-toggle="tab" href="#Fourth_grade_two" role="tab" aria-controls="Fourth_grade_two"
-                   aria-selected="false">大四春</a>
+                   aria-selected="false">Year4 Spring</a>
             </li>
         </ul>
         <div class="tab-content" id="myTabContent">
