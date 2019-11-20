@@ -105,12 +105,14 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 			<div class="collapse navbar-collapse" id="header-contents">
 				<ul class="navbar-nav ml-auto nav-flex-icons">
 					<li class="nav-item">
-						<a class="language nav-link active" href="javascript:void(0);" data-language="english">
+						<?php $active = (ucfirst($this->config->item('language')) == 'English') ? 'active' : ''; ?>
+						<a class="language nav-link <?= $active ?>" href="javascript:void(0);" data-language="english">
 							English
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="language nav-link" href="javascript:void(0);" data-language="简体中文">
+						<?php $active = (ucfirst($this->config->item('language')) == '简体中文') ? 'active' : ''; ?>
+						<a class="language nav-link <?= $active ?>" href="javascript:void(0);" data-language="简体中文">
 							简体中文
 						</a>
 					</li>
@@ -121,8 +123,10 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 					</li>
 					<li class="nav-item avatar">
 						<a class="nav-link p-0" href="javascript:void(0);">
-							<img src="<?= asset_url('assets/img/favicon.png') ?>" class="z-depth-0" alt="Avatar" height="35" />
-							<span class="header_user_name align-middle">Peter S</span>
+							<!-- img src="< ?= asset_url('assets/img/favicon.png') ?>" class="z-depth-0" alt="Avatar" height="35" / -->
+							<span class="header_user_name align-middle">
+								<?= $user_sid . ' ' . $user_name ?>
+							</span>
 						</a>
 					</li>
 				</ul>
