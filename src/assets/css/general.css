@@ -95,7 +95,7 @@ header .language#lang_chzn {
 	height: 100%;		/* Full height */
 	width: 0;			/* no width initially */
 	position: absolute;	/* stay in place */
-	z-index: 10;		/* Stay on top */
+	z-index: 100;		/* Stay on top */
 	top: 0;
 	left: 0;
 	background-color: rgba(66, 165, 245,0.95);
