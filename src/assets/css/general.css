@@ -1,5 +1,8 @@
 /* CSS Document */
-/* Scrollbar */
+/* body */
+body {
+	transition: all 0.5s;
+}
 body::-webkit-scrollbar {
     width: 0.6em;
     height: 0.6em;
@@ -87,6 +90,84 @@ header .language#lang_chzn {
 /* SIDEBAR */
 #main-block {
 	position: relative;
+}
+.sidenav {
+	height: 100%;		/* Full height */
+	width: 0;			/* no width initially */
+	position: absolute;	/* stay in place */
+	z-index: 10;		/* Stay on top */
+	top: 0;
+	left: 0;
+	background-color: rgba(66, 165, 245,0.9);
+	overflow-x: hidden;	/* Disable horizontal scroll */
+	overflow-y: auto;
+	transition: all 0.5s;
+}
+.sidenav::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+	transition: all 0.2s;
+}
+.sidenav::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	transition: all 0.2s;
+}
+.sidenav::-webkit-scrollbar-thumb {
+	background-color: rgba(241,241,241,0.8);
+	outline: 1px solid rgba(241,241,241,0.8);
+	border-radius: 20px;
+	transition: 0.2s;
+}
+.sidenav a {
+	padding: 8px 8px 8px 32px;
+	text-decoration: none;
+	font-size: 25px;	/* smaller in responsive */
+	color: #f1f1f1;
+	display: block;
+	transition: all 0.3s;
+}
+.sidenav .sidenav-items {
+	margin-top: 50px;
+}
+.sidenav .sidenav-items a:hover, .sidenav .sidenav-items a:focus {
+	color: rgba(66, 165, 245,0.9);
+	background-color: #f1f1f1;
+}
+.sidenav .closebtn {
+	position: absolute;
+	top: 0;
+	right: 25px;
+	font-size: 36px;
+	margin-left: 50px;
+	font-weight: 600;
+	transition: all 0.2s;
+}
+.sidenav .closebtn:hover, .sidenav .closebtn:focus {
+	opacity: 0.6;
+	font-weight: 200;
+}
+#openNav {
+	position: fixed;
+	left: 0;
+	top: 50%;
+	opacity: 0.6;
+	padding: 15px;
+	margin: 0;
+	border-radius: 0 10px 10px 0;
+	transition: all 0.3s;
+}
+#openNav:hover, #openNav:focus {
+	opacity: 1;
+}
+.sidenav hr {
+	background-color: white;
+	margin: 10px;
+}
+/* responsive */
+@media screen and (max-height: 450px) {
+	.sidenav {padding-top: 15px;}
+	.sidenav a {font-size: 18px;}
 }
 
 
