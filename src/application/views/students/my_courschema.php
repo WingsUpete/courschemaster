@@ -13,7 +13,7 @@
 
 <!-- Main content -->
 <div id="students_all_courschemas" class="main-content" style="padding: 20px;">
-	<h2>My Courschema</h2>
+	<h2><?= lang('my_courschema'); ?></h2>
 	<hr />
 	<!-- Others -->
 	<div id="student_checkspecificcourschema" class="student_checkspecificcourschema">
