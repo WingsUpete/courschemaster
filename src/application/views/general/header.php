@@ -43,6 +43,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css', NULL, 'css') ?>" />
 	<!-- MDB -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/mdb.min.css', NULL, 'css') ?>" />
+	<!-- JQueryUI -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jqueryui/jquery-ui.min.css', NULL, 'css') ?>" />
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-------------------------------------------------------------------------------------------------------->
 	
@@ -62,6 +64,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.bundle.min.js', NULL, 'js') ?>"></script>
 	<!-- MDB -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/mdbootstrap/js/mdb.min.js', NULL, 'js') ?>"></script>
+	<!-- JQueryUI -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/jqueryui/jquery-ui.min.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
 	
@@ -101,12 +105,12 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 			<div class="collapse navbar-collapse" id="header-contents">
 				<ul class="navbar-nav ml-auto nav-flex-icons">
 					<li class="nav-item">
-						<a id="lang_en" class="language nav-link active" href="javascript:void(0);">
+						<a class="language nav-link active" href="javascript:void(0);" data-language="english">
 							English
 						</a>
 					</li>
 					<li class="nav-item">
-						<a id="lang_chzn" class="language nav-link" href="javascript:void(0);">
+						<a class="language nav-link" href="javascript:void(0);" data-language="简体中文">
 							简体中文
 						</a>
 					</li>

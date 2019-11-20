@@ -128,7 +128,8 @@ header .language#lang_chzn {
 	transition: all 0.3s;
 }
 .sidenav .sidenav-items {
-	margin-top: 50px;
+	margin-top: 60px;
+	margin-bottom: 50px;
 }
 .sidenav .sidenav-items a:hover, .sidenav .sidenav-items a:focus {
 	color: rgba(66, 165, 245,0.9);
@@ -145,7 +146,6 @@ header .language#lang_chzn {
 }
 .sidenav .closebtn:hover, .sidenav .closebtn:focus {
 	opacity: 0.6;
-	font-weight: 200;
 }
 #openNav {
 	position: fixed;
@@ -179,6 +179,7 @@ footer {
 	font-size: 0.7rem;
 	padding-top: 0.7rem;
 	padding-bottom: 0.7rem;
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 	transition: all 0.3s;
 }
 footer ul {

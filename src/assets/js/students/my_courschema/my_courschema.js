@@ -41,6 +41,11 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
      * Default event handlers declaration for Students My Appointment page.
      */
     function _bindEventHandlers() {
+		$("a[data-toggle='tab']").on('shown.bs.tab', function() {
+			//	every time the tab is changed, modify footer
+			GeneralFunctions.placeFooterToBottom();
+		});
+		
         helper.bindEventHandlers();
     }
 

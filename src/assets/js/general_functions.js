@@ -261,50 +261,51 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @param {Object} $element Selected element button for the language selection.
      */
     exports.enableLanguageSelection = function ($element) {
-        // Select Language
-        var html = '<ul id="language-list">';
-        $.each(availableLanguages, function () {
-			//	Filter out some languages
-			if (this === '简体中文' || this === 'english') {
-            	html += '<li class="language" data-language="' + this + '">'
-                	+ GeneralFunctions.ucaseFirstLetter(this) + '</li>';
-			}
-        });
-        html += '</ul>';
+//        // Select Language
+//        var html = '<ul id="language-list">';
+//        $.each(availableLanguages, function () {
+//			//	Filter out some languages
+//			if (this === '简体中文' || this === 'english') {
+//            	html += '<li class="language" data-language="' + this + '">'
+//                	+ GeneralFunctions.ucaseFirstLetter(this) + '</li>';
+//			}
+//        });
+//        html += '</ul>';
+//
+//        $element.popover({
+//            placement: 'top',
+//            title: 'Select Language',
+//            content: html,
+//            html: true,
+//            container: 'body',
+//            trigger: 'manual'
+//        });
+//
+//        $element.click(function () {
+//            if ($('#language-list').length === 0) {
+//                $(this).popover('show');
+//            } else {
+//                $(this).popover('hide');
+//            }
+//
+//            $(this).toggleClass('active');
+//        });
 
-        $element.popover({
-            placement: 'top',
-            title: 'Select Language',
-            content: html,
-            html: true,
-            container: 'body',
-            trigger: 'manual'
-        });
-
-        $element.click(function () {
-            if ($('#language-list').length === 0) {
-                $(this).popover('show');
-            } else {
-                $(this).popover('hide');
-            }
-
-            $(this).toggleClass('active');
-        });
-
-        $(document).on('click', 'li.language', function () {
-            // Change language with ajax call and refresh page.
-            var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_change_language';
-            var postData = {
-                csrfToken: GlobalVariables.csrfToken,
-                language: $(this).attr('data-language')
-            };
-            $.post(postUrl, postData, function (response) {
-                if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                    return;
-                }
-                document.location.reload(true);
-
-            }, 'json').fail(GeneralFunctions.ajaxFailureHandler);
+        $(document).on('click', '.language', function () {
+			alert('Language Translation Coming Soon...');
+//            // Change language with ajax call and refresh page.
+//            var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_change_language';
+//            var postData = {
+//                csrfToken: GlobalVariables.csrfToken,
+//                language: $(this).attr('data-language')
+//            };
+//            $.post(postUrl, postData, function (response) {
+//                if (!GeneralFunctions.handleAjaxExceptions(response)) {
+//                    return;
+//                }
+//                document.location.reload(true);
+//
+//            }, 'json').fail(GeneralFunctions.ajaxFailureHandler);
         });
     };
 
@@ -391,10 +392,14 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 				 'width': '100%',
 				 'bottom': '0'
 			 });
+			 //	sidebar overlaps all
+			 $('#sidebar').css('position', 'fixed');
 		 } else {
 			 //	If window is not enough for all contents, place the footer
 			 //	normally at the end of the body content
 			 $footer.css('position', 'static');
+			 //	sidebar overlaps only main contents
+			 $('#sidebar').css('position', 'absolute');
 		 }
 	 };
 	
