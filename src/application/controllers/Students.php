@@ -83,7 +83,7 @@ class Students extends CI_Controller{
     public function learned(){
 
         if( ! $this->has_privileges('student', PRIV_STUDENTS)){
-            return;
+            return; 
         }
 
         $view['active_sidebar'] = PRIV_STUDENTS_LEARNED;

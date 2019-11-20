@@ -115,7 +115,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 						</a>
 					</li>
 					<li class="nav-item">
-						<?php $active = (ucfirst($this->config->item('language')) == '简体中文') ? 'active' : ''; ?>
+						<?php $active = ($this->config->item('language') == '简体中文') ? 'active' : ''; ?>
 						<a class="language nav-link <?= $active ?>" href="javascript:void(0);" data-language="简体中文">
 							简体中文
 						</a>

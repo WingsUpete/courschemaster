@@ -293,19 +293,21 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 
         $(document).on('click', '.language', function () {
 			alert('Language Translation Coming Soon...');
-//            // Change language with ajax call and refresh page.
-//            var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_change_language';
-//            var postData = {
-//                csrfToken: GlobalVariables.csrfToken,
-//                language: $(this).attr('data-language')
-//            };
-//            $.post(postUrl, postData, function (response) {
-//                if (!GeneralFunctions.handleAjaxExceptions(response)) {
-//                    return;
-//                }
-//                document.location.reload(true);
-//
-//            }, 'json').fail(GeneralFunctions.ajaxFailureHandler);
+           // Change language with ajax call and refresh page.
+           var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_change_language';
+           var postData = {
+               csrfToken: GlobalVariables.csrfToken,
+               language: JSON.stringify($(this).attr('data-language'))
+           };
+           $.post(postUrl, postData, function (response) {
+               if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                   alert(response.exceptions);
+                   return;
+               }
+               alert('successful');
+               document.location.reload(true);
+
+           }, 'json').fail(GeneralFunctions.ajaxFailureHandler);
         });
     };
 

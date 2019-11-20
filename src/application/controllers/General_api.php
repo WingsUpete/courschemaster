@@ -1,12 +1,24 @@
-<?
+<?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class General_api extends CI_Controller{
+
+    public function __construct(){
+        parent::__construct();
+
+        if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST')
+        {
+            $this->security->csrf_show_error();
+        }
+
+        $this->load->library('session');
+
+    }
 
     public function ajax_change_language(){
         try{
 
             // Get Input
-            $post_language = $this->input->post('language');
+            $post_language = json_decode($this->input->post('language'));
 
             // Check if language exists in the available languages.
             $found = FALSE;

@@ -1,6 +1,9 @@
 <?php if ( ! defined('BASEPATH')) exit('No direct script access allowed');
 
-class CourschemaProcessor{
+require("MatryonaLib/MatException.php");
+require("MatryonaLib/MatConstants.php");
+
+class MatryonaInterpreter{
     /**
      * CodeIgniter Instance
      *
@@ -12,24 +15,39 @@ class CourschemaProcessor{
         $this->CI = $CI;
     }
 
-    public function input($code_file_arr){
-        $code_file_arr = array();
 
+    public function files_to_command_arr($file_path){
+        if(!file_exists($file_path)){
+            return;
+        }
+        $content = file_get_contents($file_path);
+        $command_arr = explode(MAT_COMMAND_FEED, $content);
+        for($i = 0; $i < count($command_arr); $i++){
+            $command = $command_arr[$i];
+            //
+            $parts = explode(MAT_ASSIGN, $content);
+            $left_part  = trim($parts[0]);
+            
+            if ($left_part == MAT_INCLUDE){
+                $right_part = trim($parts[1]);
+                $include_arr = $this->_include_to_command_arr($right_part);
+                array_splice($command_arr, $i, 1, $include_arr);
+                break;
+            }
+        }
     }
 
-    public function storeInDatabase($top_event){
-
+    public function _include_to_command_arr($right_part){
+        
     }
 
-    public function output(){
+    
 
+    protected function toSourceCode(){
+        
     }
 
-    public function toJson(){
-
-    }
-
-
+}
 //        ///////// //// /// // / / // /// //// ///// ////// /////// //////////
 //       ///////// //// /// // / / // /// //// ///// ////// /////// //////////
 //      ///////// //// /// // / / // /// //// ///// ////// /////// //////////
@@ -135,12 +153,5 @@ class CourschemaProcessor{
 //    ///////// //// /// // / / // /// //// ///// ////// /////// //////////
 //   ///////// //// /// // / / // /// //// ///// ////// /////// //////////
 //  ///////// //// /// // / / // /// //// ///// ////// /////// //////////
-
-
-    protected function toSourceCode(){
-        
-    }
-
-}
 
 ?>
