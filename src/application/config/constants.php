@@ -91,3 +91,8 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 |--------------------------------------------------------------------------
 */
 define('PRVI_SYSTEM_CONFIGS', 20);
+define('PRIV_STUDENTS', 20);
+define('PRIV_SECRETARY', 20);
+define('PRIV_TAO', 20);
+define('PRIV_MENTOR', 20);
+define('PRIV_VISITOR', 0);

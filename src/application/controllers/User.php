@@ -90,7 +90,7 @@ class User extends CI_Controller {
     }
 
     public function no_privileges(){
-        $this->load->view('user/no_privileges', $view);
+        $this->load->view('user/no_privileges');
     }
 
     public function ajax_check_login()

@@ -40,7 +40,7 @@ class Development extends CI_Controller{
         // Check privilege
         $role_slug = $this->session->userdata('role');
         $role_priv = $this->db
-            ->get_where('cm_privileges', ['name' => $role])
+            ->get_where('cm_privileges', ['name' => $role_slug])
             ->row_array();
             
         if ($role_priv[$page] < $priviledge){ // User does not have the permission to view the page.

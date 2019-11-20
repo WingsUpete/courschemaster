@@ -48,7 +48,7 @@ ENGINE = InnoDB;
 
 INSERT INTO `cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('1', 'admin_8c6fc01', '20', '20', '20', '20', '20', '20');
 INSERT INTO `cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('2', 'secretary_75bcd15', '20', '0', '0', '0', '20', '0');
-INSERT INTO `cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('3', 'student_3ade68b1', '0', '0', '0', '20', '2', '0');
+INSERT INTO `cm_privileges` (`id`, `name`, `secretary`, `teaching_affairs_department`, `mentor`, `student`, `visitor`, `system_configs`) VALUES ('3', 'student_3ade68b1', '0', '0', '0', '20', '20', '0');
 
 -- -----------------------------------------------------
 -- Table `cm_majors`

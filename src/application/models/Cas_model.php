@@ -57,7 +57,7 @@ class Cas_model extends CI_Model{
                 cm_users.cas_sid    AS user_sid, 
                 cm_users.id         AS user_id, 
                 cm_users.email      AS user_email, 
-                cm_privileges.name AS role
+                cm_privileges.name  AS role
             ')
             ->from('cm_users')
             ->join('cm_privileges', 'cm_privileges.id = cm_users.id_privileges', 'inner')
