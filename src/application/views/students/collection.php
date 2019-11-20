@@ -12,8 +12,8 @@
 </script>
 
 <!-- Main content -->
-<div id="students_all_courschemas" class="main-content" style="padding: 20px;">
-	<h2>All Courschemas</h2>
+<div id="students_collection" class="main-content" style="padding: 20px;">
+	<h2>Collection</h2>
 	<hr />
 	<!-- Others -->
 

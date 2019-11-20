@@ -41,10 +41,13 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
      * Default event handlers declaration for Students My Appointment page.
      */
     function _bindEventHandlers() {
-//		$("a[data-toggle='tab']").on('shown.bs.tab', function() {
-//			//	every time the tab is changed, modify footer
-//			GeneralFunctions.placeFooterToBottom();
-//		});
+		$("#selection_accordion").on('shown.bs.collapse', function() {
+			//	every time the tab is changed, modify footer
+			GeneralFunctions.placeFooterToBottom();
+		}).on('hidden.bs.collapse', function() {
+			//	every time the tab is changed, modify footer
+			GeneralFunctions.placeFooterToBottom();
+		});
 		
         helper.bindEventHandlers();
     }
