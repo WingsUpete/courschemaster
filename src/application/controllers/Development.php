@@ -2,6 +2,11 @@
 
 class Development extends CI_Controller{
 
+    public function __construct(){
+        parent::__construct();
+        $this->load->library('session');
+    }
+
     public function index(){
         if ( ! $this->_has_privileges('system_configs', PRVI_SYSTEM_CONFIGS, TRUE)){
             redirect('user/no_privileges');
