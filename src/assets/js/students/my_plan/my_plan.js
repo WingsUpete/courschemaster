@@ -1,4 +1,4 @@
-window.StudentsMyCourschema = window.StudentsMyCourschema || {};
+window.StudentsMyPlan = window.StudentsMyPlan || {};
 
 /**
  * Students My Appointment
@@ -6,7 +6,7 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
  * Students My Appointment javascript namespace. Contains the main functionality of the Students My Appointment
  * page.
  *
- * @module StudentsMyCourschema
+ * @module StudentsMyPlan
  */
 (function (exports) {
 
@@ -14,7 +14,7 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
 
     /**
      * The page helper contains methods that implement each record type functionality
-     * StudentsMyCourschemaHelper
+     * StudentsMyPlanHelper
      *
      * @type {Object}
      */
@@ -29,9 +29,19 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 
-        helper = new StudentsMyCourschemaHelper();
+        helper = new StudentsMyPlanHelper();
 		// do sth
-
+		$('#First_grade_one_courselist').DataTable();
+		$('#First_grade_two_courselist').DataTable();
+		$('#First_grade_three_courselist').DataTable();
+		$('#Second_grade_one_courselist').DataTable();
+		$('#Second_grade_two_courselist').DataTable();
+		$('#Second_grade_three_courselist').DataTable();
+		$('#Third_grade_one_courselist').DataTable();
+		$('#Third_grade_two_courselist').DataTable();
+		$('#THird_grade_three_courselist').DataTable();
+		$('#Fourth_grade_one_courselist').DataTable();
+		$('#Fourth_grade_two_courselist').DataTable();
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }
@@ -49,4 +59,4 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
         helper.bindEventHandlers();
     }
 
-})(window.StudentsMyCourschema);
+})(window.StudentsMyPlan);

@@ -31,7 +31,12 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
 
         helper = new StudentsMyCourschemaHelper();
 		// do sth
-
+		$('#General_compulsory_courselist').DataTable();
+		$('#Professional_foundation_courselist').DataTable();
+		$('#Professional_core_courselist').DataTable();
+		$('#Professional_elective_courselist').DataTable();
+		$('#General_elective_courselist').DataTable();
+		$('#Practice_courselist').DataTable();
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }
