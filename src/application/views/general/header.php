@@ -43,6 +43,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css', NULL, 'css') ?>" />
 	<!-- MDB -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/mdb.min.css', NULL, 'css') ?>" />
+	<!-- MDB addons - DataTable -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/addons/datatables.min.css', NULL, 'css') ?>" />
 	<!-- JQueryUI -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jqueryui/jquery-ui.min.css', NULL, 'css') ?>" />
 	<!------------------------------------------------- Link ------------------------------------------------->
@@ -64,6 +66,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.bundle.min.js', NULL, 'js') ?>"></script>
 	<!-- MDB -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/mdbootstrap/js/mdb.min.js', NULL, 'js') ?>"></script>
+	<!-- MDB addons - DataTable -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/mdbootstrap/js/addons/datatables.min.js', NULL, 'js') ?>"></script>
 	<!-- JQueryUI -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/jqueryui/jquery-ui.min.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
