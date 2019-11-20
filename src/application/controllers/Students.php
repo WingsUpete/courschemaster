@@ -26,7 +26,7 @@ class Students extends CI_Controller{
             return;
         }
 
-        $view = array();
+        $view['active_sidebar'] = PRIV_STUDENTS_MY_COURSCHEMA;
         $this->load_basic_view_data($view);
 
         $this->load->view("general/header", $view);
@@ -41,7 +41,7 @@ class Students extends CI_Controller{
             return;
         }
 
-        $view = array();
+        $view['active_sidebar'] = PRIV_STUDENTS_ALL_COURSCHEMAS;
         $this->load_basic_view_data($view);
 
         $this->load->view("general/header", $view);
@@ -56,7 +56,7 @@ class Students extends CI_Controller{
             return;
         }
 
-        $view = array();
+        $view['active_sidebar'] = PRIV_STUDENTS_COLLECTION;
         $this->load_basic_view_data($view);
 
         $this->load->view("general/header", $view);
@@ -71,7 +71,7 @@ class Students extends CI_Controller{
             return;
         }
 
-        $view = array();
+        $view['active_sidebar'] = PRIV_STUDENTS_MY_PLAN;
         $this->load_basic_view_data($view);
 
         $this->load->view("general/header", $view);
@@ -86,7 +86,7 @@ class Students extends CI_Controller{
             return;
         }
 
-        $view = array();
+        $view['active_sidebar'] = PRIV_STUDENTS_LEARNED;
         $this->load_basic_view_data($view);
 
         $this->load->view("general/header", $view);
