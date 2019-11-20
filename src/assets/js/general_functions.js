@@ -261,38 +261,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
      * @param {Object} $element Selected element button for the language selection.
      */
     exports.enableLanguageSelection = function ($element) {
-//        // Select Language
-//        var html = '<ul id="language-list">';
-//        $.each(availableLanguages, function () {
-//			//	Filter out some languages
-//			if (this === '简体中文' || this === 'english') {
-//            	html += '<li class="language" data-language="' + this + '">'
-//                	+ GeneralFunctions.ucaseFirstLetter(this) + '</li>';
-//			}
-//        });
-//        html += '</ul>';
-//
-//        $element.popover({
-//            placement: 'top',
-//            title: 'Select Language',
-//            content: html,
-//            html: true,
-//            container: 'body',
-//            trigger: 'manual'
-//        });
-//
-//        $element.click(function () {
-//            if ($('#language-list').length === 0) {
-//                $(this).popover('show');
-//            } else {
-//                $(this).popover('hide');
-//            }
-//
-//            $(this).toggleClass('active');
-//        });
-
         $(document).on('click', '.language', function () {
-			alert('Language Translation Coming Soon...');
            // Change language with ajax call and refresh page.
            var postUrl = GlobalVariables.baseUrl + '/index.php/general_api/ajax_change_language';
            var postData = {
@@ -304,7 +273,6 @@ window.GeneralFunctions = window.GeneralFunctions || {};
                    alert(response.exceptions);
                    return;
                }
-               alert('successful');
                document.location.reload(true);
 
            }, 'json').fail(GeneralFunctions.ajaxFailureHandler);
