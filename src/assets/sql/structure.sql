@@ -29,7 +29,9 @@ CREATE TABLE IF NOT EXISTS `cm_colleges` (
   PRIMARY KEY (`id`))
 ENGINE = InnoDB;
 
-INSERT INTO `cm_colleges` (`id`, `name`, `en_name`) VALUES ('1', '致新书院', 'ZhiXin College');
+INSERT INTO `cm_colleges` (`id`, `name`, `en_name`) VALUES ('1', 'zxsy', 'ZhiXin College');
+
+INSERT INTO `cm_colleges` (`id`, `name`, `en_name`) VALUES ('2', '致新书院', 'ZhiXin College');
 
 -- -----------------------------------------------------
 -- Table `cm_privileges`
