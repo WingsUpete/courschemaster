@@ -31,17 +31,17 @@ window.StudentsMyPlan = window.StudentsMyPlan || {};
 
         helper = new StudentsMyPlanHelper();
 		// do sth
-		$('#First_grade_one_courselist').DataTable();
-		$('#First_grade_two_courselist').DataTable();
-		$('#First_grade_three_courselist').DataTable();
-		$('#Second_grade_one_courselist').DataTable();
-		$('#Second_grade_two_courselist').DataTable();
-		$('#Second_grade_three_courselist').DataTable();
-		$('#Third_grade_one_courselist').DataTable();
-		$('#Third_grade_two_courselist').DataTable();
-		$('#THird_grade_three_courselist').DataTable();
-		$('#Fourth_grade_one_courselist').DataTable();
-		$('#Fourth_grade_two_courselist').DataTable();
+		$('#First_grade_one_courselist, #First_grade_two_courselist, #First_grade_three_courselist, #Second_grade_one_courselist, #Second_grade_two_courselist, #Second_grade_three_courselist, #Third_grade_one_courselist, #Third_grade_two_courselist, #THird_grade_three_courselist, #Fourth_grade_one_courselist, #Fourth_grade_two_courselist').DataTable({
+			"initComplete": function(settings, json) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"drawCallback": function( settings ) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"stateLoaded": function (settings, data) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			}
+		});
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }
