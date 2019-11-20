@@ -1,3 +1,6 @@
+	<!-- Main Block Ended -->
+	</div>
+	
 	<!-- Footer -->
 	<footer id="page-footer" class="page-footer blue">
 		<div class="container-fluid">

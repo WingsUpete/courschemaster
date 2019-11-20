@@ -17,11 +17,14 @@ body::-webkit-scrollbar-thumb {
 	transition: 0.2s;
 }
 
+
+
+
+
 /* HEADER */
 header .nav-item {
 	margin: 10px 0;
 }
-
 /* Navicon */
 header .navbar-toggler .icon-bar {
 	background-color: rgba(255, 255, 255, 0.85);
@@ -76,6 +79,19 @@ header .language#lang_en {
 header .language#lang_chzn {
 	border-radius: 0 10px 10px 0;
 }
+
+
+
+
+
+/* SIDEBAR */
+#main-block {
+	position: relative;
+}
+
+
+
+
 
 /* FOOTER */
 footer {

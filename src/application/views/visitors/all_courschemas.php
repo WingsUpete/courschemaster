@@ -138,6 +138,3 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 			&nbsp;
 		</div>
 	</div>
-	
-	<!-- Main Block Started -->
-	<div id="main-block">
