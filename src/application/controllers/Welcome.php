@@ -17,6 +17,10 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function index(){
+        if( ! $this->has_privileges('visitor', 0)){
+            return;
+        }
+
         $user_data['base_url'] = $this->config->item('base_url');
         $this->load_basic_view_data($user_data);
 
@@ -38,7 +42,7 @@ class Welcome extends CI_Controller {
         }
     }
     
-    protected function _has_privileges($page, $priviledge){
+    protected function has_privileges($page, $priviledge){
         // Check if user is logged in.
         $user_id = $this->session->userdata('user_id');
         if ($user_id == FALSE){
@@ -46,7 +50,7 @@ class Welcome extends CI_Controller {
             header('Location: ' . site_url('user/login'));
             return FALSE;
         }
-
+    
         // Check privilege
         $role_slug = $this->session->userdata('role');
         $role_priv = $this->db
@@ -54,12 +58,11 @@ class Welcome extends CI_Controller {
             ->row_array();
             
         if ($role_priv[$page] < $priviledge){ // User does not have the permission to view the page.
-            
+
             header('Location: ' . site_url('user/no_privileges'));
-            
             return FALSE;
         }
-
+    
         return TRUE;
     }
 }
