@@ -402,7 +402,7 @@
 		</div>
 	</div>
 	<div class="container">
-		<p class="note note-warning" style="margin: 0;"><strong>Introduction:</strong>
+		<p class="note note-primary" style="margin: 0;"><strong>Introduction:</strong>
 		</p>
 	</div>
 </div>
