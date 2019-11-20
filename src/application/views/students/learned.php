@@ -129,91 +129,12 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 		</nav> 
 	</header>
 	
-	<!-- Main content -->
-	<div id="welcome_page" class="welcome_pages">
-		<div id="nav-components" class="text-black text-center">
-			<h1 class="nav-title">Courschemaster</h1>
-			<div class="row">
-				<div class="col-sm-4">
-					<a href="javascript:void(0);">
-						<div class="nav-icons">
-							<i class="fas fa-chalkboard-teacher fa-4x"></i>
-						</div>
-						<div class="nav-texts">
-							<h3>Student</h3>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-4">
-					<a href="javascript:void(0);">
-						<div class="nav-icons">
-							<i class="fas fa-user-cog fa-4x"></i>
-						</div>
-						<div class="nav-texts">
-							<h3>Staff</h3>
-						</div>
-					</a>
-				</div>
-				<div class="col-sm-4">
-					<a href="javascript:void(0);">
-						<div class="nav-icons">
-							<i class="fas fa-user-edit fa-4x"></i>
-						</div>
-						<div class="nav-texts">
-							<h3>Visitor</h3>
-						</div>
-					</a>
-				</div>
-			</div>
+	<!-- Later: notification -->
+	<div id="notification" style="display: none;"></div>
+
+	<!-- Later: loading icon -->
+	<div id="loading" style="display: none;">
+		<div class="any-element animation is-loading">
+			&nbsp;
 		</div>
 	</div>
-	
-	<!-- Footer -->
-	<footer id="page-footer" class="page-footer blue">
-		<div class="container-fluid">
-			<div class="row">
-				<div class="col-xs-12 col-lg-5">
-					<div>
-						<ul id="power_copyright">
-							<li>Powered by @SUSMusic x Courschemaster Team</li>
-							<li>© 2019 Copyright:<span> SUSMusic x Courschemaster Team</span></li>
-						</ul>
-					</div>
-				</div>
-				<div class="col-xs-12 col-lg-2"></div>
-				<div class="col-xs-12 col-lg-5">
-					<div>
-						<ul id="support_info">
-							<li><a id="footer_QA" href="javascript:void(0);" target="_blank" data-toggle="tooltip" data-title="Q & A" data-placement="top"><strong>Question & Answers</strong></a></li>
-							<li>Contact Administrator: <span id="admin_phone_number">80088208820</span></li>
-						</ul>
-					</div>
-				</div>
-			</div>
-		</div>
-	</footer>
-</body>
-
-<script>
-	$(document).ready(function() {
-		$('[data-toggle="tooltip"]').tooltip();
-	});
-	
-	window.addEventListener('load', function() {
-		GeneralFunctions.placeFooterToBottom();			//	Pre-order footer
-	});
-	
-	//	Resize listener
-	$(window).on('resize', function() {
-		GeneralFunctions.placeFooterToBottom();
-	}).trigger('resize');
-	
-	//	Navicon
-	$('#navCourschemaster').on('show.bs.collapse', function() {
-		$(this).find('.navbar-toggler').addClass('change_navicon');
-	}).on('hide.bs.collapse', function() {
-		$(this).find('.navbar-toggler').removeClass('change_navicon');
-	});
-</script>
-
-</html>
