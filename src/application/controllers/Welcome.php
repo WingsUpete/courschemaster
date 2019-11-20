@@ -17,22 +17,25 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function index(){
-        if( ! $this->has_privileges('visitor', 0)){
-            return;
-        }
 
         $user_data['base_url'] = $this->config->item('base_url');
         $this->load_basic_view_data($user_data);
 
-        $this->load->view('general/header');
-        $this->load->view('welcome/welcome_message', $user_data);	
+        $this->load->view('general/header', $user_data);
+        $this->load->view('welcome/welcome_message');	
         $this->load->view('general/footer');
     }
 
     protected function load_basic_view_data(&$view){
         $view['base_url'] = $this->config->item('base_url');
-        $view['user_sid'] = $this->session->userdata('user_sid');
-        $view['user_name'] = $this->session->userdata('user_name');
+
+        if($this->session->userdata('user_sid')){
+            $view['user_sid'] = $this->session->userdata('user_sid');
+            $view['user_name'] = $this->session->userdata('user_name');
+        }else{
+            $view['user_sid'] = ' ';
+            $view['user_name'] = ' ';
+        }
         // Set user's selected language.
         if ($this->session->userdata('language')){
             $view['language'] = $this->session->userdata('language');
@@ -42,27 +45,4 @@ class Welcome extends CI_Controller {
         }
     }
     
-    protected function has_privileges($page, $priviledge){
-        // Check if user is logged in.
-        $user_id = $this->session->userdata('user_id');
-        if ($user_id == FALSE){
-            
-            header('Location: ' . site_url('user/login'));
-            return FALSE;
-        }
-    
-        // Check privilege
-        $role_slug = $this->session->userdata('role');
-        $role_priv = $this->db
-            ->get_where('cm_privileges', ['name' => $role_slug])
-            ->row_array();
-            
-        if ($role_priv[$page] < $priviledge){ // User does not have the permission to view the page.
-
-            header('Location: ' . site_url('user/no_privileges'));
-            return FALSE;
-        }
-    
-        return TRUE;
-    }
 }
