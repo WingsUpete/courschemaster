@@ -398,4 +398,49 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 		 }
 	 };
 	
+    /**
+     * Display notifications
+     *
+     * Using this method you can display notifications to the use with custom messages. If the
+     * 'actions' array is provided then an action link will be displayed too.
+     */
+    exports.displayNotification = function (message, actions, type) {
+        message = message || 'NO MESSAGE PROVIDED FOR THIS NOTIFICATION';
+
+        if (actions === undefined) {
+            actions = [];
+            setTimeout(function () {
+                $('#notification').fadeIn();
+            }, 5000);
+            setTimeout(function () {
+                $('#notification').fadeOut();
+            }, 10000);
+        }
+
+        var customActionsHtml = '';
+
+        $.each(actions, function (index, action) {
+            var actionId = action.label.toLowerCase().replace(' ', '-');
+            customActionsHtml += '<button id="' + actionId + '" class="btn btn-default btn-xs">' +
+                action.label + '</button>';
+
+            $(document).off('click', '#' + actionId);
+            $(document).on('click', '#' + actionId, action.function);
+        });
+		
+		type = (type === undefined || (type !== 'success' && type !== 'failure')) ? "alert" : "alert " + type;
+
+        var notificationHtml =
+            '<div class="notification ' + type + '">' +
+            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
+            '<span aria-hidden="true">×</span>' +
+            '</button>' +
+            '<strong>' + message + '</strong>' +
+            customActionsHtml +
+            '</div>';
+
+        $('#notification').html(notificationHtml);
+        $('#notification').show('fade');
+    };
+	
 })(window.GeneralFunctions);

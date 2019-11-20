@@ -73,14 +73,11 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script>
 		var availableLanguages = <?= json_encode($this->config->item('available_languages')) ?>;
 		var SCLang = <?= json_encode($this->lang->language) ?>;
-		var GlobalVariables = {
-			'csrfToken'			: <?= json_encode($this->security->get_csrf_hash()) ?>,
-			'baseUrl'			: <?= json_encode($base_url) ?>
-		};
 	</script>
 	
 	<!-- Customize JS -->
 	<script type="text/javascript" src="<?= asset_url('assets/js/general_functions.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/js/students/students.js', NULL, 'js') ?>"></script>
 </head>
 
 <body>
