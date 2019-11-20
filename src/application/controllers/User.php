@@ -66,10 +66,11 @@ class User extends CI_Controller {
      * Display the logout page.
      */
     public function logout(){
-
+        $this->session->unset_userdata('user_name');
         $this->session->unset_userdata('user_id');
         $this->session->unset_userdata('user_email');
         $this->session->unset_userdata('user_sid');
+        $this->session->unset_userdata('role');
 
         $view['base_url'] = $this->config->item('base_url');
 
