@@ -1,13 +1,18 @@
 	<div id="sidebar" class="sidenav">
 		<a id="closeNav" href="javascript:void(0);" class="closebtn">&times;</a>
 		<div class="sidenav-items">
-			<a href="#">My Courschema</a>
-			<a href="#">All Courschemas</a>
-			<a href="#">Collection</a>
+			<?php $active = ($active_sidebar == PRIV_STUDENTS_MY_COURSCHEMA) ? 'active' : '' ?>
+			<a href="<?= site_url('students') ?>" class="<?= $active ?>">My Courschema</a>
+			<?php $active = ($active_sidebar == PRIV_STUDENTS_ALL_COURSCHEMAS) ? 'active' : '' ?>
+			<a href="<?= site_url('students/all_courschemas') ?>" class="<?= $active ?>">All Courschemas</a>
+			<?php $active = ($active_sidebar == PRIV_STUDENTS_COLLECTION) ? 'active' : '' ?>
+			<a href="<?= site_url('students/collection') ?>" class="<?= $active ?>">Collection</a>
 			<hr />
-			<a href="#">My Plan</a>
+			<?php $active = ($active_sidebar == PRIV_STUDENTS_MY_PLAN) ? 'active' : '' ?>
+			<a href="<?= site_url('students/my_plan') ?>" class="<?= $active ?>">My Plan</a>
 			<hr />
-			<a href="#">Learned</a>
+			<?php $active = ($active_sidebar == PRIV_STUDENTS_LEARNED) ? 'active' : '' ?>
+			<a href="<?= site_url('students/learned') ?>" class="<?= $active ?>">Learned</a>
 		</div>
 	</div>
 	

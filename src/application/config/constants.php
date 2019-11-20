@@ -96,3 +96,15 @@ define('PRIV_SECRETARY', 20);
 define('PRIV_TAO', 20);
 define('PRIV_MENTOR', 20);
 define('PRIV_VISITOR', 0);
+
+/*
+| Courschemaster - Students
+|--------------------------------------------------------------------------
+| Sidebar
+|--------------------------------------------------------------------------
+*/
+define('PRIV_STUDENTS_MY_COURSCHEMA', 'students_my_courschema');
+define('PRIV_STUDENTS_ALL_COURSCHEMAS', 'students_all_courschemas');
+define('PRIV_STUDENTS_COLLECTION', 'students_collection');
+define('PRIV_STUDENTS_MY_PLAN', 'students_my_plan');
+define('PRIV_STUDENTS_LEARNED', 'students_learned');
