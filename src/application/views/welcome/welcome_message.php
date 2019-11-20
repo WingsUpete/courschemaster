@@ -1,3 +1,10 @@
+<script>
+    var GlobalVariables = {
+        csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
+		baseUrl            : <?= json_encode($base_url) ?>
+    };
+</script>
+
 	<!-- Main content -->
 	<div id="welcome_page" class="main-content">
 		<div id="nav-components" class="text-black text-center">
