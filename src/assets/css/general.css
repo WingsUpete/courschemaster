@@ -98,7 +98,7 @@ header .language#lang_chzn {
 	z-index: 10;		/* Stay on top */
 	top: 0;
 	left: 0;
-	background-color: rgba(66, 165, 245,0.9);
+	background-color: rgba(66, 165, 245,0.95);
 	overflow-x: hidden;	/* Disable horizontal scroll */
 	overflow-y: auto;
 	transition: all 0.5s;
@@ -131,7 +131,7 @@ header .language#lang_chzn {
 	margin-top: 60px;
 	margin-bottom: 50px;
 }
-.sidenav .sidenav-items a:hover, .sidenav .sidenav-items a:focus {
+.sidenav .sidenav-items a.active, .sidenav .sidenav-items a:hover, .sidenav .sidenav-items a:focus {
 	color: rgba(66, 165, 245,0.9);
 	background-color: #f1f1f1;
 }
