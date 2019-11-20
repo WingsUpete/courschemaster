@@ -125,7 +125,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 						<a class="nav-link p-0" href="javascript:void(0);">
 							<!-- img src="< ?= asset_url('assets/img/favicon.png') ?>" class="z-depth-0" alt="Avatar" height="35" / -->
 							<span class="header_user_name align-middle">
-								<?= $user_sid . ' ' . $user_name ?>
+								<?= ($user_sid . ' ' . $user_name) ?>
 							</span>
 						</a>
 					</li>

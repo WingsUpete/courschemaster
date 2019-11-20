@@ -10,7 +10,7 @@
      * @class StudentsAllCourschemasHelper
      */
     function StudentsAllCourschemasHelper() {
-        this.filterResults = {};
+//        this.filterResults = {};
     }
 
     /**
