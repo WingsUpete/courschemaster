@@ -17,21 +17,25 @@ class Welcome extends CI_Controller {
 	}
 	
 	public function index(){
-		$user_data['base_url'] = $this->config->item('base_url');
-        if($this->session->user_id){
-            $user_data['user_id'] = $this->session->user_id;
-            $user_data['user_sid'] = $this->session->user_sid;
-            $user_data['user_email'] = $this->session->user_email;
-            $user_data['msg'] = 'go to '. '<a href = '.site_url('user/logout') . '>'. 'Logout' . '</a>';
-        }else{
-            $user_data['user_id'] = 'go to '. '<a href = '.site_url('user/login') . '>'. 'Login' . '</a>';
-            $user_data['user_sid'] = 'You didn\'t login in.';
-            $user_data['user_email'] = 'Courschematser-nb'; 
-            $user_data['msg'] = 'test CAS';
-        }
+        $user_data['base_url'] = $this->config->item('base_url');
+        $this->load_basic_view_data($user_data);
+
         $this->load->view('general/header');
         $this->load->view('welcome/welcome_message', $user_data);	
         $this->load->view('general/footer');
+    }
+
+    protected function load_basic_view_data(&$view){
+        $view['base_url'] = $this->config->item('base_url');
+        $view['user_sid'] = $this->session->userdata('user_sid');
+        $view['user_name'] = $this->session->userdata('user_name');
+        // Set user's selected language.
+        if ($this->session->userdata('language')){
+            $view['language'] = $this->session->userdata('language');
+        }
+        else{
+            $view['language'] = $this->config->item('language');
+        }
     }
     
     protected function _has_privileges($page, $priviledge){
