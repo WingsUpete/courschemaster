@@ -29,8 +29,9 @@ class Welcome extends CI_Controller {
             $user_data['user_email'] = 'Courschematser-nb'; 
             $user_data['msg'] = 'test CAS';
         }
-		$this->load->view('welcome/welcome_message', $user_data);
-		
+        $this->load->view('general/header');
+        $this->load->view('welcome/welcome_message', $user_data);	
+        $this->load->view('general/footer');
     }
     
     protected function _has_privileges($page, $priviledge){
