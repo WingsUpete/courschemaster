@@ -28,7 +28,7 @@ class Cas_model extends CI_Model{
             $data = array(
                 'name' => $cas_user_data['name'],
                 'email' => $cas_user_data['email'],
-                'cas_hash_id' => $cas_user_data['id'],
+                'cas_hash_id' => $cas_user_data['id'], 
                 'cas_sid' => $cas_user_data['sid'],
                 'id_privileges' => $default_registraion_id_privileges,
                 'id_colleges' => $this->get_college($cas_user_data['sid']),
@@ -46,14 +46,14 @@ class Cas_model extends CI_Model{
                     $this->db->trans_commit();
                 }
             }
-
             $this->db->trans_complete();
-            
         }
+
 
         // Get user data
         $user_data = $this->db
             ->select('
+                cm_users.name       AS user_name,
                 cm_users.cas_sid    AS user_sid, 
                 cm_users.id         AS user_id, 
                 cm_users.email      AS user_email, 
