@@ -17,8 +17,7 @@
 	
 	<script>
 		$('#openNav').click(function() {
-			var push_len = '100%';
-			$('#sidebar').css('width', push_len);
+			$('#sidebar').css('width', '100%');
 			$('body').css('background-color', 'rgba(0, 0, 0, 0.4)');
 		});
 		$('#closeNav').click(function() {

@@ -7,7 +7,7 @@
     };
 
     $(document).ready(function() {
-//		StudentsMyAppointment.initialize(true);
+		StudentsMyCourschema.initialize(true);
     });
 </script>
 
