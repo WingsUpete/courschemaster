@@ -17,7 +17,8 @@ class Config {
 // GENERAL SETTINGS
 // ------------------------------------------------------------------------
 
-const BASE_URL      = 'https://localhost/Courschemaster/src';
+// fixed by Hui Ouyang here
+const BASE_URL      = 'http://localhost/Courschemaster/src';
 const LANGUAGE      = 'english';
 const DEBUG_MODE    = FALSE;
 
