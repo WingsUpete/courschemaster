@@ -32,7 +32,9 @@ class Welcome extends CI_Controller {
         if($this->session->userdata('user_sid')){
             $view['user_sid'] = $this->session->userdata('user_sid');
             $view['user_name'] = $this->session->userdata('user_name');
+            $view['login'] = 'true';
         }else{
+            $view['login'] = 'false';
             $view['user_sid'] = ' ';
             $view['user_name'] = ' ';
         }
