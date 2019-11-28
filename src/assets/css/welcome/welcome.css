@@ -1,33 +1,76 @@
 /* CSS Document */
-#nav-components {
+#bg-img {
+	/*	background-color: rgba(66, 165, 245, 0.6);*/
+	background-image: url(../../img/cover.jpg);
+	background-size: cover;
+	background-repeat: no-repeat;
+	background-position: center;
+/*
+	filter: blur(2px);
+	-webkit-filter: blur(2px);
+*/
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	z-index: -1;
+}
+#nav-components--general {
+/*	display: none;*/
+}
+#nav-components--staff {
+	display: none;
+}
+.nav-components {
 	position: fixed;
 	left: 50%;
 	top: 50%;
 	transform: translate(-50%, -50%);
 	width: 100%;
 }
-#nav-components .nav-title {
+.nav-components .nav-title {
 	letter-spacing: 5px;
 	font-weight: 500;
 	font-size: 50px;
 	margin: 0 0 80px 0;
 	user-select: none;
 }
-#nav-components a {
-	color: rgba(66, 165, 245, 1.0);
+.nav-components a {
+/*	color: rgba(66, 165, 245, 1.0);*/
+	color: rgba(255, 255, 255, 1.0);
 	transition: color 0.2s;
 }
-#nav-components a .nav-icons {
+.nav-components#nav-components--staff a {
+	color: rgba(255, 255, 255, 1.0);
+}
+.nav-components a .nav-icons {
 	margin: 16px;
 	transition: transform 0.2s;
 }
-#nav-components a .nav-texts h3 {
+.nav-components a .nav-texts h3 {
 	font-weight: 500;
 	font-size: 32px;
 }
-#nav-components a:hover, #nav-components a:focus {
-	color: rgba(66, 165, 245, 0.6);
+.nav-components a:hover, .nav-components a:focus {
+/*	color: rgba(66, 165, 245, 0.6);*/
+	color: rgba(255, 255, 255, 0.6);
 }
-#nav-components a:hover .nav-icons, #nav-components a:focus .nav-icons {
+.nav-components#nav-components--staff a:hover, .nav-components#nav-components--staff a:focus {
+	color: rgba(255, 255, 255, 0.6);
+}
+.nav-components a:hover .nav-icons, .nav-components a:focus .nav-icons {
 	transform: rotateY(180deg);
+}
+#staff-compo-back-block {
+	margin: 80px 0 0 0;
+	padding: 5px 10px;
+}
+#staff-compo-back-block #staff-compo-back {
+	cursor: pointer;
+	color: rgba(255, 255, 255, 1.0);
+	transition: all 0.3s;
+}
+#staff-compo-back-block #staff-compo-back:hover {
+	opacity: 0.6;
 }

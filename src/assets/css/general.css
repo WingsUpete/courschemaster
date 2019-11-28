@@ -25,6 +25,9 @@ body::-webkit-scrollbar-thumb {
 
 
 /* HEADER */
+header #navCourschemaster {
+	background-color: rgba(50, 50, 50, 0.25);
+}
 header .nav-item {
 	margin: 10px 0;
 }
@@ -70,7 +73,7 @@ header .language {
 }
 header .language.active {
 	background-color: white;
-	color: #42a5f5!important;
+	color: rgba(50, 50, 50, 1.0)!important;
 	font-weight: bold;
 }
 header .language:hover, header .language:focus {
@@ -177,6 +180,7 @@ header .language#lang_chzn {
 
 /* FOOTER */
 footer {
+	background-color: rgba(50, 50, 50, 0.25);
 	font-size: 0.7rem;
 	padding-top: 0.7rem;
 	padding-bottom: 0.7rem;
