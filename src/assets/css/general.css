@@ -197,6 +197,9 @@ header .language#lang_chzn {
 	background-color: white;
 	margin: 10px;
 }
+.sidenav .sd_epn {
+/*	display: none;*/
+}
 /* responsive */
 @media screen and (max-height: 450px) {
 	.sidenav {padding-top: 15px;}
@@ -217,15 +220,12 @@ header .language#lang_chzn {
 
 /* FOOTER */
 footer {
-/*	background-color: rgba(176,75,75,1.00);*/
+	background-color: rgba(176,75,75,1.00);
 	font-size: 0.7rem;
 	padding-top: 0.7rem;
 	padding-bottom: 0.7rem;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
 	transition: all 0.3s;
-}
-footer li, footer li a {
-	color: rgba(0,0,0,0.93)!important;
 }
 footer.welcome {
 	background-color: rgba(50, 50, 50, 0.25);
