@@ -5,7 +5,7 @@ class Migration_Add_qa_labels_table extends CI_Migration{
 	public function up(){
         //
         $this->db->query(
-            'CREATE TABLE `cm`.`qa_labels` (
+            'CREATE TABLE `qa_labels` (
             `id` INT NOT NULL,
             `cn_name` VARCHAR(45) NOT NULL,
             `en_name` VARCHAR(45) NOT NULL,

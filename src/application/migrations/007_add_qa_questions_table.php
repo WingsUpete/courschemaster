@@ -5,7 +5,7 @@ class Migration_Add_qa_questions_table extends CI_Migration{
 	public function up(){
         //
         $this->db->query(
-            'CREATE TABLE `cm`.`qa_questions` (
+            'CREATE TABLE `qa_questions` (
                 `id` INT NOT NULL,
                 `title` VARCHAR(128) NOT NULL,
                 `description` VARCHAR(512) NOT NULL,
@@ -17,7 +17,7 @@ class Migration_Add_qa_questions_table extends CI_Migration{
                 INDEX `fk_qa_question_cm_users_idx` (`id_users_questioner` ASC),
                 CONSTRAINT `fk_qa_question_cm_users`
                   FOREIGN KEY (`id_users_questioner`)
-                  REFERENCES `cm`.`cm_users` (`id`)
+                  REFERENCES `cm_users` (`id`)
                   ON DELETE NO ACTION
                   ON UPDATE NO ACTION);');
 	}
