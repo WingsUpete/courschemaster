@@ -7,3 +7,5 @@ $lang['visitor'] = '访客';
 $lang['tao'] = '教务处';
 $lang['secretary'] = '教学秘书';
 $lang['mentor'] = '导师';
+$lang['login'] = '登录';
+$lang['logout'] = '登出';

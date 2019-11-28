@@ -7,3 +7,5 @@ $lang['visitor'] = 'Visitor';
 $lang['tao'] = 'TAO';
 $lang['secretary'] = 'Secretary';
 $lang['mentor'] = 'Mentor';
+$lang['login'] = 'Login';
+$lang['logout'] = 'Logout';
