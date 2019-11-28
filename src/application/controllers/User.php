@@ -75,8 +75,6 @@ class User extends CI_Controller {
         $view['base_url'] = $this->config->item('base_url');
 
         $this->cas->logout(site_url(''));
-
-        $this->load->view('user/logout', $view);
     }
 
     /**
