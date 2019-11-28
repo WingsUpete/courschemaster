@@ -16,17 +16,17 @@
 		</div>
 	</div>
 	
-	<button id="openNav" class="btn btn-primary">
+	<button id="openNav" class="btn">
 		<i class="fas fa-bars"></i>
 	</button>
 	
 	<script>
 		$('#openNav').click(function() {
-			$('#sidebar').css('width', '100%');
-			$('body').css('background-color', 'rgba(0, 0, 0, 0.4)');
+			$('#sidebar').css('width', '300px');
+			$('.main-content').css('margin-left', '300px');
 		});
 		$('#closeNav').click(function() {
 			$('#sidebar').css('width', '0');
-			$('body').css('background-color', 'white');
+			$('.main-content').css('margin-left', '0');
 		});
 	</script>

@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/welcome/welcome.css', NULL, 'css') ?>" />
 <script>
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
@@ -7,7 +8,17 @@
 	window.addEventListener('load', function() {
 		$('header #navCourschemaster, footer').addClass('welcome');
 		
-		
+		var fadeTime = 360;
+		$('#staff-comp-entry').click(function() {
+			$('#bg-img').addClass('flip');
+			$('#nav-components--general').fadeOut(fadeTime);
+			$('#nav-components--staff').fadeIn(fadeTime);
+		});
+		$('#staff-compo-back').click(function() {
+			$('#bg-img').removeClass('flip');
+			$('#nav-components--staff').fadeOut(fadeTime);
+			$('#nav-components--general').fadeIn(fadeTime);
+		});
 	});
 </script>
 
@@ -29,7 +40,7 @@
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<a href="<?= site_url('staff') ?>">
+				<a id="staff-comp-entry" href="javascript:void(0);">
 					<div class="nav-icons">
 						<i class="fas fa-user-tie fa-4x"></i>
 					</div>

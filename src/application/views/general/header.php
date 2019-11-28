@@ -74,7 +74,6 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<!-------------------------------------------------------------------------------------------------------->
 	
 	<!-- Customize CSS -->
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/welcome/welcome.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	
 	<!-- Preload JS Global Variables -->
