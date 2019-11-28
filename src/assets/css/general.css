@@ -27,7 +27,8 @@ body::-webkit-scrollbar-thumb {
 
 /* HEADER */
 header #navCourschemaster {
-	background-color: rgba(50, 50, 50, 0.85);
+/*	background-color: rgba(50, 50, 50, 0.85);*/
+	background-color: rgba(176,75,75,1.00);
 }
 header #navCourschemaster.welcome {
 	background-color: rgba(50, 50, 50, 0.25);
@@ -123,7 +124,8 @@ header .language#lang_chzn {
 	z-index: 100;		/* Stay on top */
 	top: 0;
 	left: 0;
-	background-color: rgba(66, 165, 245,0.95);
+/*	background-color: rgba(66, 165, 245,0.95);*/
+	background-color: rgba(50, 50, 50,1.0);
 	overflow-x: hidden;	/* Disable horizontal scroll */
 	overflow-y: auto;
 	transition: all 0.5s;
@@ -157,8 +159,11 @@ header .language#lang_chzn {
 	margin-bottom: 50px;
 }
 .sidenav .sidenav-items a.active, .sidenav .sidenav-items a:hover, .sidenav .sidenav-items a:focus {
-	color: rgba(66, 165, 245,0.9);
-	background-color: #f1f1f1;
+/*	color: rgba(66, 165, 245,0.9);*/
+/*	color: rgba(50, 50, 50, 0.9);*/
+	color: aliceblue;
+/*	background-color: #f1f1f1;*/
+	background-color: rgba(176,75,75,1.00);
 }
 .sidenav .closebtn {
 	position: absolute;
@@ -181,6 +186,8 @@ header .language#lang_chzn {
 	margin: 0;
 	z-index: 10;
 	border-radius: 0 10px 10px 0;
+	background-color: rgb(50, 50, 50);
+	color: white;
 	transition: all 0.3s;
 }
 #openNav:hover, #openNav:focus {
@@ -189,6 +196,9 @@ header .language#lang_chzn {
 .sidenav hr {
 	background-color: white;
 	margin: 10px;
+}
+.sidenav .sd_epn {
+/*	display: none;*/
 }
 /* responsive */
 @media screen and (max-height: 450px) {
@@ -200,9 +210,17 @@ header .language#lang_chzn {
 
 
 
+.main-content {
+	transition: all 0.5s;
+}
+
+
+
+
+
 /* FOOTER */
 footer {
-	background-color: rgba(50, 50, 50, 0.85);
+	background-color: rgba(176,75,75,1.00);
 	font-size: 0.7rem;
 	padding-top: 0.7rem;
 	padding-bottom: 0.7rem;

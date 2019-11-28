@@ -13,4 +13,4 @@ $lang['my_courschema'] = 'My Courschema';
 $lang['all_courschemas'] = 'All Courschemas';
 $lang['collection'] = 'Collection';
 $lang['my_plan'] = 'My Plan';
-$lang['Learned'] = 'Learned';
+$lang['learned'] = 'Learned';
