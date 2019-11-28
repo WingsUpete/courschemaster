@@ -120,28 +120,24 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 							简体中文
 						</a>
 					</li>
-					<li class="nav-item">
-						<a class="nav-link" href="javascript:void(0);">
-							
-						</a>
+					<li class="nav-item"><a class="nav-link" href="javascript:void(0);"></a></li>
+					<li class="nav-item avatar header_user_name">
+						<div class="nav-link p-0">
+							<?php if ($logged_in == 'true'): ?>
+								<span class="user_data">
+									<?= $user_sid . ' ' . $user_name ?>
+								</span>
+								&nbsp;
+								<a class="btns" href="<?= site_url('user/logout') ?>">
+									<i class="fas fa-running"></i>&ensp;<?= lang('logout') ?>
+								</a>
+							<?php elseif ($logged_in == 'false'): ?>
+								<a class="btns" href="<?= site_url('user/login') ?>">
+									<i class="fas fa-sign-in-alt"></i>&ensp;<?= lang('login') ?>
+								</a>
+							<?php endif; ?>
+						</div>
 					</li>
-					<li class="nav-item avatar">
-						<a class="nav-link p-0" href="javascript:void(0);">
-							<!-- img src="< ?= asset_url('assets/img/favicon.png') ?>" class="z-depth-0" alt="Avatar" height="35" / -->
-							<span class="header_user_name align-middle">
-								<?= ($user_sid . ' ' . $user_name) ?>
-							</span>
-						</a>
-					</li>
-<!--
-					<li class="nav-item logout">
-						<a class="nav-link p-0" href="<!-- ?= site_url('user/logout') ?>">
-							<span class="header_user_name align-middle">
-								Logout
-							</span>
-						</a>
-					</li>
--->
 				</ul>
 			</div>
 		</nav> 

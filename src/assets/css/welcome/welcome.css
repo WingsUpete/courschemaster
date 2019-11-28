@@ -1,14 +1,10 @@
 /* CSS Document */
 #bg-img {
 	/*	background-color: rgba(66, 165, 245, 0.6);*/
-	background-image: url(../../img/cover.jpg);
+	background-image: url(../../img/cover.JPG);
 	background-size: cover;
 	background-repeat: no-repeat;
 	background-position: center;
-/*
-	filter: blur(2px);
-	-webkit-filter: blur(2px);
-*/
 	position: fixed;
 	top: 0;
 	left: 0;
@@ -41,9 +37,6 @@
 	color: rgba(255, 255, 255, 1.0);
 	transition: color 0.2s;
 }
-.nav-components#nav-components--staff a {
-	color: rgba(255, 255, 255, 1.0);
-}
 .nav-components a .nav-icons {
 	margin: 16px;
 	transition: transform 0.2s;
@@ -54,9 +47,6 @@
 }
 .nav-components a:hover, .nav-components a:focus {
 /*	color: rgba(66, 165, 245, 0.6);*/
-	color: rgba(255, 255, 255, 0.6);
-}
-.nav-components#nav-components--staff a:hover, .nav-components#nav-components--staff a:focus {
 	color: rgba(255, 255, 255, 0.6);
 }
 .nav-components a:hover .nav-icons, .nav-components a:focus .nav-icons {

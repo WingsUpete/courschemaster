@@ -3,11 +3,17 @@
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>
     };
+	
+	window.addEventListener('load', function() {
+		$('header #navCourschemaster, footer').addClass('welcome');
+		
+		
+	});
 </script>
 
-<!-- Main content -->
 <div id="bg-img"></div>
 
+<!-- Main content -->
 <div id="welcome_page" class="main-content">
 	<div id="nav-components--general" class="nav-components text-black text-center">
 <!--		<h1 class="nav-title">Courschemaster</h1>-->
@@ -18,7 +24,7 @@
 						<i class="fas fa-user-edit fa-4x"></i>
 					</div>
 					<div class="nav-texts">
-						<h3>Student</h3>
+						<h3><?= lang('student') ?></h3>
 					</div>
 				</a>
 			</div>
@@ -28,7 +34,7 @@
 						<i class="fas fa-user-tie fa-4x"></i>
 					</div>
 					<div class="nav-texts">
-						<h3>Staff</h3>
+						<h3><?= lang('staff') ?></h3>
 					</div>
 				</a>
 			</div>
@@ -38,7 +44,7 @@
 						<i class="fas fa-user-friends fa-4x"></i>
 					</div>
 					<div class="nav-texts">
-						<h3>Visitor</h3>
+						<h3><?= lang('visitor') ?></h3>
 					</div>
 				</a>
 			</div>
@@ -53,7 +59,7 @@
 						<i class="fas fa-user-cog fa-4x"></i>
 					</div>
 					<div class="nav-texts">
-						<h3>TAO</h3>
+						<h3><?= lang('tao') ?></h3>
 					</div>
 				</a>
 			</div>
@@ -63,7 +69,7 @@
 						<i class="fas fa-user-secret fa-4x"></i>
 					</div>
 					<div class="nav-texts">
-						<h3>Secretary</h3>
+						<h3><?= lang('secretary') ?></h3>
 					</div>
 				</a>
 			</div>
@@ -73,7 +79,7 @@
 						<i class="fas fa-chalkboard-teacher fa-4x"></i>
 					</div>
 					<div class="nav-texts">
-						<h3>Mentor</h3>
+						<h3><?= lang('mentor') ?></h3>
 					</div>
 				</a>
 			</div>
