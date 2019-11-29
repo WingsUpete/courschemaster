@@ -108,3 +108,10 @@ define('PRIV_STUDENTS_ALL_COURSCHEMAS', 'students_all_courschemas');
 define('PRIV_STUDENTS_COLLECTION', 'students_collection');
 define('PRIV_STUDENTS_MY_PLAN', 'students_my_plan');
 define('PRIV_STUDENTS_LEARNED', 'students_learned');
+
+/*
+| Courschemaster - AJAX variables
+|--------------------------------------------------------------------------
+*/
+define('AJAX_SUCCESS', 'success');
+define('AJAX_FAIL', 'fail');
