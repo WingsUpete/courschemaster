@@ -9,6 +9,70 @@ class Api_test extends CI_Controller{
         
     }
 
+    public function test_sidebar_data(){
+        $sidebar = array(
+            'g0' => array(
+                array(
+                    'name' => lang('my_courschema'),
+                    'icon' => 'book',
+                    'url'  => site_url('students'),
+                    'mark' => PRIV_STUDENTS_MY_COURSCHEMA
+                ),
+                array(
+                    'name' => lang('all_courschemas'),
+                    'icon' => 'layer-group',
+                    'url'  => site_url('students/all_courschemas'),
+                    'mark' => PRIV_STUDENTS_ALL_COURSCHEMAS
+                ),
+                array(
+                    'name' => lang('collection'),
+                    'icon' => 'star',
+                    'url'  => site_url('students/collection'),
+                    'mark' => PRIV_STUDENTS_COLLECTION
+                )
+            ),
+            'g1' => array(
+                array(
+                    'name' => lang('my_plan'),
+                    'icon' => 'trophy',
+                    'url'  => site_url('students/my_plan'),
+                    'mark' => PRIV_STUDENTS_MY_PLAN
+                )
+            ),
+            'g2' => array(
+                array(
+                    'name' => lang('learned'),
+                    'icon' => 'graduation-cap',
+                    'url'  =>  site_url('students/learned'),
+                    'mark' => PRIV_STUDENTS_LEARNED
+                )
+            )
+        );
+        echo '$view = array(); <br />';
+        echo '$view[\'sidebar\'] = xxxx; <br />';
+        echo '<br />';
+        echo 'frontend: <br /><br />';
+        echo 'foreach($sidebar AS $group){<br />';
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;foreach($group AS $item){<br />';
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach($item AS $k => $v){<br />';
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $k . \' => \' . $v ;<br />';
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />';
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;}<br />';
+        echo '&nbsp;&nbsp;&nbsp;&nbsp;echo \'------------------------ \';<br />';
+        echo '}<br /><br />';
+        echo 'result :<br /><br />';
+        foreach($sidebar AS $group){
+            foreach($group AS $item){
+                foreach($item AS $k => $v){
+                    echo $k . ' => ' . $v . '<br />';
+                }
+            }
+            echo '------------------------ <br />';
+        }
+        
+
+    }
+
     public function test_log_operation(){
         $operation = 'test';
         $user_id = 1;
