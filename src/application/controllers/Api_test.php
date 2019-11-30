@@ -13,19 +13,19 @@ class Api_test extends CI_Controller{
         $sidebar = array(
             'g0' => array(
                 array(
-                    'name' => lang('my_courschema'),
+                    'name' => 'lang(\'my_courschema\')',
                     'icon' => 'book',
                     'url'  => site_url('students'),
                     'mark' => PRIV_STUDENTS_MY_COURSCHEMA
                 ),
                 array(
-                    'name' => lang('all_courschemas'),
+                    'name' => 'lang(\'all_courschemas\')',
                     'icon' => 'layer-group',
                     'url'  => site_url('students/all_courschemas'),
                     'mark' => PRIV_STUDENTS_ALL_COURSCHEMAS
                 ),
                 array(
-                    'name' => lang('collection'),
+                    'name' => 'lang(\'collection\')',
                     'icon' => 'star',
                     'url'  => site_url('students/collection'),
                     'mark' => PRIV_STUDENTS_COLLECTION
@@ -33,7 +33,7 @@ class Api_test extends CI_Controller{
             ),
             'g1' => array(
                 array(
-                    'name' => lang('my_plan'),
+                    'name' => 'lang(\'my_plan\')',
                     'icon' => 'trophy',
                     'url'  => site_url('students/my_plan'),
                     'mark' => PRIV_STUDENTS_MY_PLAN
@@ -41,7 +41,7 @@ class Api_test extends CI_Controller{
             ),
             'g2' => array(
                 array(
-                    'name' => lang('learned'),
+                    'name' => 'lang(\'learned\')',
                     'icon' => 'graduation-cap',
                     'url'  =>  site_url('students/learned'),
                     'mark' => PRIV_STUDENTS_LEARNED
