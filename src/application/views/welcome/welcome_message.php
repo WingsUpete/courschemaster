@@ -9,12 +9,12 @@
 		$('header #navCourschemaster, footer').addClass('welcome');
 		
 		var fadeTime = 360;
-		$('#staff-comp-entry').click(function() {
+		$(document).on('click', '#staff-comp-entry', function() {
 			$('#bg-img').addClass('flip');
 			$('#nav-components--general').fadeOut(fadeTime);
 			$('#nav-components--staff').fadeIn(fadeTime);
 		});
-		$('#staff-compo-back').click(function() {
+		$(document).on('click', '#staff-compo-back', function() {
 			$('#bg-img').removeClass('flip');
 			$('#nav-components--staff').fadeOut(fadeTime);
 			$('#nav-components--general').fadeIn(fadeTime);

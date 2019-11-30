@@ -1,4 +1,10 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
+$lang['unexpected_issues'] = 'Unexpected Issues';
+$lang['unexpected_issues_message'] = 'Unexpected Issues Occurred';
+$lang['unexpected_warnings'] = 'Unexpected Warnings';
+$lang['unexpected_warnings_message'] = 'Unexpected Warnings Reveived';
+$lang['close'] = 'Close';
+$lang['details'] = 'Details';
 $lang['confirm'] = 'Confirm';
 $lang['my_courschema'] = 'My Courschema';
 $lang['student'] = 'Student';

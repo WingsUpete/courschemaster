@@ -90,7 +90,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 <body>
 	<!-- Header -->
 	<header>
-		<nav id="navCourschemaster" class="navbar navbar-expand-lg navbar-dark lighten-1">
+		<nav id="navCourschemaster" class="navbar navbar-expand-sm navbar-dark lighten-1">
 			<!-- Brand -->
 			<a class="navbar-brand" href="<?= site_url() ?>">
 				<!-- img src="< ?= asset_url('assets/img/favicon.png') ?>" alt="Courschemaster" / -->
@@ -119,7 +119,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 							简体中文
 						</a>
 					</li>
-					<li class="nav-item"><a class="nav-link" href="javascript:void(0);"></a></li>
+					<li class="nav-item phd"><a class="nav-link" href="javascript:void(0);"></a></li>
 					<li class="nav-item avatar header_user_name">
 						<div class="nav-link p-0">
 							<?php if ($logged_in == 'true'): ?>

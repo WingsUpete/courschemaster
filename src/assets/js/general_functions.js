@@ -289,7 +289,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
     exports.ajaxFailureHandler = function (jqxhr, textStatus, errorThrown) {
         var exceptions = [
             {
-                message: 'Outdated Session (No Internet): ' + errorThrown + $(jqxhr.responseText).text()
+                message: textStatus + ': ' + errorThrown + $(jqxhr.responseText).text()
             }
         ];
         GeneralFunctions.displayMessageBox(GeneralFunctions.EXCEPTIONS_TITLE, GeneralFunctions.EXCEPTIONS_MESSAGE);
@@ -363,13 +363,19 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 				 'bottom': '0'
 			 });
 			 //	sidebar overlaps all
-			 $('#sidebar').css('position', 'fixed');
+			 $('#sidebar').css({
+				 'position': 'fixed',
+				 'top': '70px'
+			 });
 		 } else {
 			 //	If window is not enough for all contents, place the footer
 			 //	normally at the end of the body content
 			 $footer.css('position', 'static');
 			 //	sidebar overlaps only main contents
-			 $('#sidebar').css('position', 'absolute');
+			 $('#sidebar').css({
+				 'position': 'absolute',
+				 'top': '0'
+			 });
 		 }
 	 };
 	

@@ -29,6 +29,8 @@ body::-webkit-scrollbar-thumb {
 header #navCourschemaster {
 /*	background-color: rgba(50, 50, 50, 0.85);*/
 	background-color: rgba(176,75,75,1.00);
+	min-height: 70px;
+	z-index: 101;
 }
 header #navCourschemaster.welcome {
 	background-color: rgba(50, 50, 50, 0.25);
@@ -154,6 +156,9 @@ header .language#lang_chzn {
 	display: block;
 	transition: all 0.3s;
 }
+.sidenav a {
+	padding: 8px 0 8px 20px;
+}
 .sidenav .sidenav-items {
 	margin-top: 60px;
 	margin-bottom: 50px;
@@ -165,7 +170,7 @@ header .language#lang_chzn {
 /*	background-color: #f1f1f1;*/
 	background-color: rgba(176,75,75,1.00);
 }
-.sidenav .closebtn {
+.sidenav .closebtn, .sidenav .expandbtn {
 	position: absolute;
 	top: 0;
 	right: 25px;
@@ -174,7 +179,12 @@ header .language#lang_chzn {
 	font-weight: 600;
 	transition: all 0.2s;
 }
-.sidenav .closebtn:hover, .sidenav .closebtn:focus {
+.sidenav .expandbtn {
+	right: 25px;
+}
+.sidenav .closebtn:hover,
+.sidenav .expandbtn:hover,
+.sidenav.expanded .expandbtn:hover {
 	opacity: 0.6;
 }
 #openNav {
@@ -197,13 +207,63 @@ header .language#lang_chzn {
 	background-color: white;
 	margin: 10px;
 }
+.sidenav.mobile {
+	width: 0;
+}
+.sidenav.mobile.stretched {
+	width: 100%;
+}
+.sidenav {
+	width: 72px;
+}
+.sidenav.expanded {
+	width: 300px;
+}
+.main-content {
+	margin-left: 72px;
+}
+.sidenav.expanded ~ .main-content {
+	margin-left: 300px;
+}
+/* #toggleExpansionNav */
+.sidenav #toggleExpansionNav {
+	display: block;
+	top: 10px;
+	transition: all 0.2s;
+}
+.sidenav #toggleExpansionNav .noflip,
+.sidenav.expanded #toggleExpansionNav .fa-flip-horizontal{
+	display: block;
+}
+.sidenav #toggleExpansionNav .fa-flip-horizontal, 
+.sidenav.mobile #toggleExpansionNav,
+.sidenav.expanded #toggleExpansionNav .noflip{
+	display: none;
+}
+/* .sd_epn */
 .sidenav .sd_epn {
-/*	display: none;*/
+	display: none;
+}
+.sidenav.expanded .sd_epn, .sidenav.mobile .sd_epn {
+	display: inline-block;
+}
+/* #openNav */
+.sidenav #openNav, .sidenav.mobile.stretched #openNav {
+	display: none;
+}
+.sidenav.mobile #openNav {
+	display: block;
+}
+/* #closeNav */
+.sidenav #closeNav {
+	display: none;
+}
+.sidenav.mobile + #openNav, .sidenav.mobile #closeNav {
+	display: block;
 }
 /* responsive */
 @media screen and (max-height: 450px) {
 	.sidenav {padding-top: 15px;}
-	.sidenav a {font-size: 18px;}
 }
 
 
@@ -225,6 +285,7 @@ footer {
 	padding-top: 0.7rem;
 	padding-bottom: 0.7rem;
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,.16), 0 2px 10px 0 rgba(0,0,0,.12);
+	z-index: 101;
 	transition: all 0.3s;
 }
 footer.welcome {

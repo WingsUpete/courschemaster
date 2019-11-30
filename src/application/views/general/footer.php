@@ -43,9 +43,21 @@
 	
 	//	Navicon
 	$('#navCourschemaster').on('show.bs.collapse', function() {
+		if ($('.sidenav').css('position') === 'fixed') {
+			$('.sidenav').css('top', '110px');
+		}
 		$(this).find('.navbar-toggler').addClass('change_navicon');
-	}).on('hide.bs.collapse', function() {
+		$(this).find('ul.navbar-nav').css('display', 'block');
+		$(this).find('li.nav-item.phd').hide();
+		GeneralFunctions.placeFooterToBottom();	// fix footer issue
+	}).on('hidden.bs.collapse', function() {
+		if ($('.sidenav').css('position') === 'fixed') {
+			$('.sidenav').css('top', '70px');
+		}
 		$(this).find('.navbar-toggler').removeClass('change_navicon');
+		$(this).find('ul.navbar-nav').css('display', 'flex');
+		$(this).find('li.nav-item.phd').show();
+		GeneralFunctions.placeFooterToBottom();	// fix footer issue
 	});
 </script>
 
