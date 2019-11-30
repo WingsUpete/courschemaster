@@ -27,12 +27,8 @@ class Students extends CI_Controller{
         }
 
         $view['active_sidebar'] = PRIV_STUDENTS_MY_COURSCHEMA;
-        load_header_data($view);
+        $this->load_comb_views($view, "students/my_courschema" );
 
-        $this->load->view("general/header", $view);
-        $this->load->view("students/sidebar", $view);
-        $this->load->view("students/my_courschema", $view);
-        $this->load->view("general/footer", $view);
     }
 
     public function all_courschemas(){
@@ -42,12 +38,7 @@ class Students extends CI_Controller{
         }
 
         $view['active_sidebar'] = PRIV_STUDENTS_ALL_COURSCHEMAS;
-        load_header_data($view);
-
-        $this->load->view("general/header", $view);
-        $this->load->view("students/sidebar", $view);
-        $this->load->view("students/all_courschemas", $view);
-        $this->load->view("general/footer", $view);
+        $this->load_comb_views($view, "students/all_courschemas");
     }
 
     public function collection(){
@@ -57,12 +48,7 @@ class Students extends CI_Controller{
         }
 
         $view['active_sidebar'] = PRIV_STUDENTS_COLLECTION;
-        load_header_data($view);
-
-        $this->load->view("general/header", $view);
-        $this->load->view("students/sidebar", $view);
-        $this->load->view("students/collection", $view);
-        $this->load->view("general/footer", $view);
+        $this->load_comb_views($view, "students/collection");
     }
 
     public function my_plan(){
@@ -72,12 +58,7 @@ class Students extends CI_Controller{
         }
 
         $view['active_sidebar'] = PRIV_STUDENTS_MY_PLAN;
-        load_header_data($view);
-
-        $this->load->view("general/header", $view);
-        $this->load->view("students/sidebar", $view);
-        $this->load->view("students/my_plan", $view);
-        $this->load->view("general/footer", $view);
+        $this->load_comb_views($view, "students/my_plan");
     }
 
     public function learned(){
@@ -87,12 +68,56 @@ class Students extends CI_Controller{
         }
 
         $view['active_sidebar'] = PRIV_STUDENTS_LEARNED;
-        load_header_data($view);
+        $this->load_comb_views($view, "students/learned");
+    }
 
-        $this->load->view("general/header", $view);
-        $this->load->view("students/sidebar", $view);
-        $this->load->view("students/learned", $view);
-        $this->load->view("general/footer", $view);
+    protected function load_comb_views($view_data, $main_view){
+        load_header_data($view);
+        $this->load->view("general/header", $view_data);
+        $this->load->view("general/sidebar");
+        $this->load->view($main_view);
+        $this->load->view("general/footer");
+    }
+
+    public function load_sidebar_data(&$view){
+        $view['sidebar'] = array(
+            'g0' => array(
+                array(
+                    'name' => lang('my_courschema'),
+                    'icon' => 'book',
+                    'url'  => site_url('students'),
+                    'mark' => PRIV_STUDENTS_MY_COURSCHEMA
+                ),
+                array(
+                    'name' => lang('all_courschemas'),
+                    'icon' => 'layer-group',
+                    'url'  => site_url('students/all_courschemas'),
+                    'mark' => PRIV_STUDENTS_ALL_COURSCHEMAS
+                ),
+                array(
+                    'name' => lang('collection'),
+                    'icon' => 'star',
+                    'url'  => site_url('students/collection'),
+                    'mark' => PRIV_STUDENTS_COLLECTION
+                )
+            ),
+            'g1' => array(
+                array(
+                    'name' => lang('my_plan'),
+                    'icon' => 'trophy',
+                    'url'  => site_url('students/my_plan'),
+                    'mark' => PRIV_STUDENTS_MY_PLAN
+                )
+            ),
+            'g2' => array(
+                array(
+                    'name' => lang('learned'),
+                    'icon' => 'graduation-cap',
+                    'url'  =>  site_url('students/learned'),
+                    'mark' => PRIV_STUDENTS_LEARNED
+                )
+            )
+        );
     }
 
     protected function has_privileges($page, $priviledge){
