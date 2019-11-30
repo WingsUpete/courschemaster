@@ -1,5 +1,11 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
-$lang['confirm'] = '简体中文';
+$lang['unexpected_issues'] = '意想不到的问题';
+$lang['unexpected_issues_message'] = '发生了意想不到的问题';
+$lang['unexpected_warnings'] = '意想不到的警告';
+$lang['unexpected_warnings_message'] = '受到了意想不到的警告';
+$lang['close'] = '关闭';
+$lang['details'] = '详情';
+$lang['confirm'] = '确认';
 $lang['my_courschema'] = '我的培养方案';
 $lang['student'] = '学生';
 $lang['staff'] = '教师';
