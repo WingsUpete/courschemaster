@@ -51,10 +51,10 @@ window.Students = window.Students || {};
     });
 	
 	//	This is for header active state
-    exports.PRIV_STUDENTS_MY_COURSCHEMA = 'students_my_courschema';
-    exports.PRIV_STUDENTS_ALL_COURSCHEMAS = 'students_all_courschemas';
-    exports.PRIV_STUDENTS_COLLECTION = 'students_collection';
-    exports.PRIV_STUDENTS_MY_PLAN = 'students_my_plan';
-    exports.PRIV_STUDENTS_LEARNED = 'students_learned';
+//    exports.PRIV_STUDENTS_MY_COURSCHEMA = 'students_my_courschema';
+//    exports.PRIV_STUDENTS_ALL_COURSCHEMAS = 'students_all_courschemas';
+//    exports.PRIV_STUDENTS_COLLECTION = 'students_collection';
+//    exports.PRIV_STUDENTS_MY_PLAN = 'students_my_plan';
+//    exports.PRIV_STUDENTS_LEARNED = 'students_learned';
 
 })(window.Students);
