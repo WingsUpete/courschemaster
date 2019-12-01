@@ -19,6 +19,34 @@ class Qa_model extends CI_Model{
         return $timestamp_datetime->format('Y-m-d H:i:s');
     }
 
+    public function answer_can_be_deleted($answer_id, $user_id){
+        if($this->_is_admin($user_id)){
+            return TRUE;
+        }
+
+        $result = $this->db
+            ->select('qa_answers.id_users_provider AS id')
+            ->from('qa_answers')
+            ->where('qa_answers.id', $answer_id)
+            ->get()->row_array()['id'];
+
+        return $result == $user_id;
+    }
+
+    public function question_can_be_deleted($question_id, $user_id){
+        if($this->_is_admin($user_id)){
+            return TRUE;
+        }
+
+        $result = $this->db
+            ->select('qa_questions.id_users_questioner AS id')
+            ->from('qa_questions')
+            ->where('qa_questions.id', $question_id)
+            ->get()->row_array()['id'];
+
+        return $result == $user_id;
+    }
+
     public function post_question($labels, $title, $description, $user_id){
 
         $autentication = $this->_is_admin($user_id) ? 1 : 0;
@@ -141,50 +169,276 @@ class Qa_model extends CI_Model{
         return TRUE;
     }
 
+    public function search_questions($input){
+        $key_arr = explode(' ', $input);
 
-    public function search_questions(){
+        // Search labels - exact
+        $this->db
+            ->select('qa_labels_questions.id_questions AS question_id')
+            ->from('qa_labels_questions')
+            ->join('qa_labels', 'qa_labels.id = qa_labels_questions.id_labels', 'inner');
         
+        foreach($key_arr AS $key){
+            $this->db
+                ->or_like('qa_labels.cn_name', $key)
+                ->or_like('qa_labels.en_name', $key);
+        }
+
+        $result_label = $this->db
+            ->order_by('question_id')
+            ->get()->result_array();
+
+        // Search questions title, description - exact
+        $this->db
+            ->select('qa_questions.id AS question_id')
+            ->from('qa_questions');
+        
+        foreach($key_arr AS $key){
+            $this->db
+                ->or_like('qa_questions.title', $key)
+                ->or_like('qa_questions.description', $key);
+        }
+
+        $result_title = $this->db
+            ->order_by('question_id')
+            ->get()->result_array();
+
+        $l_ptr = 0;
+        $t_ptr = 0;
+        $max = max(sizeof($result_label), sizeof($result_title));
+        $rtn_arr = array();
+        $rtn_ptr = 0;
+        //
+        while($l_ptr < sizeof($result_label) && $t_ptr < sizeof($result_title)){
+            $cur_result_label = $result_label[$l_ptr]['question_id'];
+            $cur_result_title = $result_title[$t_ptr]['question_id'];
+            if($cur_result_label == $cur_result_title){
+                $rtn_arr[$rtn_ptr++] = $cur_result_label;
+                $l_ptr++;
+                $t_ptr++;
+            }else if($cur_result_label < $cur_result_title){
+                $l_ptr++;
+            }else{
+                $t_ptr++;
+            }
+        }
+
+        return $rtn_arr;
     }
 
-    public function delete_answer(){
+    public function delete_answer($answer_id, $user_id){
+        if( ! $this->answer_can_be_deleted($answer_id, $user_id)){
+            return FALSE;
+        }
+        // Delete votes
+        $this->db->trans_begin();
+        $ok = TRUE;
+    
 
+        $this->db->where('qa_user_vote_answer.id_answers', $answer_id);
+        $ok &= $this->db->delete('qa_user_vote_answer');
+
+        $this->db->where('qa_answers.id', $answer_id);
+        $ok &= $this->db->delete('qa_answers');
+
+        if( ! $ok){
+            $this->db->trans_rollback();
+        }else{
+            $this->db->trans_commit();
+        }
+
+        $this->db->trans_complete();
+
+        log_operation('qa/delete_answer', $user_id, array('answer_id' => $answer_id), array('result' => $ok ? 'success' : 'fail'));
+
+        return $ok;
     }
 
-    public function delete_question(){
+    public function delete_question($question_id, $user_id){
+        if( ! $this->question_can_be_deleted($question_id, $user_id)){
+            return FALSE;
+        }
 
+        $this->db->trans_begin();
+        $ok = TRUE;
+
+        // :: Delete relative answers
+
+        // Delete relative answers - get id of answers
+        $result_answers = $this->db
+            ->select('qa_answers.id AS id')
+            ->from('qa_answers')
+            ->where('qa_answers.id_questions', $question_id)
+            ->get()->result_array();
+        
+        // Delete relative answers - delete votes
+        foreach($result_answers AS $row){
+            $this->db->where('id_answers', $row['id']);
+            $ok &= $this->db->delete('qa_user_vote_answer');
+        }
+        // Delete relative answers - answers
+        $this->db->where('qa_answers.id_questions', $question_id);
+        $ok &= $this->db->delete('qa_answers');
+
+        // :: Delete questions
+
+        // Delete questions - relative labels
+        $this->db->where('qa_labels_questions.id_questions');
+        $ok &= $this->db->delete('qa_labels_questions');
+
+        // Delete questions - questions
+        $this->db->where('id', $question_id);
+        $ok &= $this->db->delete('qa_questions');
+
+        if( ! $ok){
+            $this->db->trans_rollback();
+        }else{
+            $this->db->trans_commit();
+        }
+
+        $this->db->trans_complete();
+
+        log_operation('qa/delete_question', $user_id, array('question_id' => $question_id), array('result' => $ok ? 'success' : 'fail'));
+
+        return $ok;
     }
 
 
     // Basic view function
+    public function get_question_brief($id_arr){
 
-    public function get_faqs(){
+        $this->db
+            ->select('
+                qa_questions.id             AS id,
+                qa_questions.title          AS title,
+                qa_questions.timestamp      AS time,
+                qa_questions.authentication AS authentication
+            ')
+            ->from('qa_questions');
 
+        foreach($id_arr AS $id){
+            $this->db->or_where('qa_questions.id', $id);
+        }
+
+        $rtn_array = $this->db
+            ->get()
+            ->result_array();
+        
+        return $rtn_array;
     }
 
-    public function get_latest_question(){
+    public function get_question_details($id){
+        
+        $rtn_array = array();
 
+        // Get question info
+        $rtn_array['info'] = $this->db
+            ->select('
+                qa_questions.id             AS id,
+                qa_questions.title          AS title,
+                qa_questions.description    AS description,
+                qa_questions.timestamp      AS time,
+                qa_questions.authentication AS authentication,
+                cm_users.name               AS provider_name,
+                cm_users.email              AS provider_email,
+                cm_majors.name              AS provider_major_cn,
+                cm_majors.en_name           AS provider_major_en,
+                cm_privileges.name          AS role
+            ')
+            ->from('qa_questions')
+            ->join('cm_users', 'cm_users.id = qa_questions.id_users_questioner', 'inner')
+            ->join('cm_privileges', 'cm_privileges.id = cm_users.id_privileges', 'inner')
+            ->join('cm_majors', 'cm_majors.id = cm_users.id_majors', 'inner')
+            ->where('qa_questions.id', $id)
+            ->get()
+            ->row_array();
+        
+        // Get question labels
+        $rtn_array['labels'] = $this->db
+            ->select('
+                qa_labels.cn_name AS cn_name,
+                qa_labels.en_name AS en_name
+            ')
+            ->from('qa_labels_questions')
+            ->join('qa_labels', 'qa_labels.id = qa_labels_questions.id_labels', 'inner')
+            ->where('qa_labels_questions.id_questions', $id)
+            ->get()
+            ->result_array();
+
+        // Get answers
+        $rtn_array['answers'] = $this->db
+            ->select('
+                qa_answers.id               AS id,
+                qa_answers.vote             AS vote,
+                qa_answers.content          AS content,
+                qa_answers.timestamp        AS time,
+                qa_answers.authentication   AS authentication,
+                cm_users.name               AS provider_name,
+                cm_users.email              AS provider_email,
+                cm_majors.name              AS provider_major_cn,
+                cm_majors.en_name           AS provider_major_en
+            ')
+            ->from('qa_answers')
+            ->join('cm_users', 'cm_users.id = qa_answers.id_users_provider', 'inner')
+            ->join('cm_privileges', 'cm_privileges.id = cm_users.id_privileges', 'inner')
+            ->join('cm_majors', 'cm_majors.id = cm_users.id_majors', 'inner')
+            ->where('qa_answers.id_questions', $id)
+            ->get()
+            ->result_array();
+        
+        return $rtn_array;
     }
 
-    public function get_question_details(){
+    public function get_faqs_id(){
+        return $this->db
+            ->select('
+                qa_questions.id AS id
+            ')
+            ->from('qa_questions')
+            ->where('qa_questions.faq_mark', 1)
+            ->get()
+            ->result_array();
+    }
 
+    public function get_latest_question_id($num_limit){
+        return $this->db
+            ->select(
+                'qa_questions.id AS id'
+            )
+            ->from('qa_questions')
+            ->order_by('qa_questions.timestamp')
+            ->limit($num_limit)
+            ->get()
+            ->result_array();
     }
 
     // Admin function
-
-    public function admin_delete_question(){
-
+    public function _admin_change_field($where_field, $where_value, $table, $field, $value, $user_id){
+        if( ! $this->_is_admin($user_id)){
+            return FALSE;
+        }
+        $this->db->where($where_field, $where_value);
+        $ok = $this->db->update($table, [$field => $value]);
+        log_operation('qa/' . $table .'/'.$field, $user_id, [$where_field => $where_value, $field => $value], ['result' => $ok ? 'success' : 'fail']);
+        return $ok;
     }
 
-    public function admin_delete_answer(){
-
+    public function admin_change_question_authen($question_id, $authentication, $user_id){
+        return $this->_admin_change_field(
+            'qa_questions.id', $question_id, 'qa_questions', 'qa_questions.authentication', $authentication, $user_id
+        );
     }
 
-    public function admin_change_question_authen(){
-
+    public function admin_change_answer_authen($answer_id, $authentication, $user_id){
+        return $this->_admin_change_field(
+            'qa_answers.id', $answer_id, 'qa_answers', 'qa_answers.authentication', $authentication, $user_id
+        );
     }
 
-    public function admin_change_answer_authen(){
-
+    public function admin_change_faq_mark($question_id, $mark, $user_id){
+        return $this->_admin_change_field(
+            'qa_questions.id', $question_id, 'qa_questions', 'qa_questions.faq_mark', $mark, $user_id
+        );
     }
 
 }

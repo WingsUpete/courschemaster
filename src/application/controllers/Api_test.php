@@ -3,74 +3,120 @@ class Api_test extends CI_Controller{
 
     public function __construct(){
         parent::__construct();
+        $this->load->model('qa_model');
     }
 
     public function index(){
-        
+        $this->test_admin_change_faq_mark();
     }
 
-    public function test_sidebar_data(){
-        $sidebar = array(
-            'g0' => array(
-                array(
-                    'name' => 'lang(\'my_courschema\')',
-                    'icon' => 'book',
-                    'url'  => site_url('students'),
-                    'mark' => PRIV_STUDENTS_MY_COURSCHEMA
-                ),
-                array(
-                    'name' => 'lang(\'all_courschemas\')',
-                    'icon' => 'layer-group',
-                    'url'  => site_url('students/all_courschemas'),
-                    'mark' => PRIV_STUDENTS_ALL_COURSCHEMAS
-                ),
-                array(
-                    'name' => 'lang(\'collection\')',
-                    'icon' => 'star',
-                    'url'  => site_url('students/collection'),
-                    'mark' => PRIV_STUDENTS_COLLECTION
-                )
-            ),
-            'g1' => array(
-                array(
-                    'name' => 'lang(\'my_plan\')',
-                    'icon' => 'trophy',
-                    'url'  => site_url('students/my_plan'),
-                    'mark' => PRIV_STUDENTS_MY_PLAN
-                )
-            ),
-            'g2' => array(
-                array(
-                    'name' => 'lang(\'learned\')',
-                    'icon' => 'graduation-cap',
-                    'url'  =>  site_url('students/learned'),
-                    'mark' => PRIV_STUDENTS_LEARNED
-                )
-            )
-        );
-        echo '$view = array(); <br />';
-        echo '$view[\'sidebar\'] = xxxx; <br />';
-        echo '<br />';
-        echo 'frontend: <br /><br />';
-        echo 'foreach($sidebar AS $group){<br />';
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;foreach($group AS $item){<br />';
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;foreach($item AS $k => $v){<br />';
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;echo $k . \' => \' . $v ;<br />';
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;}<br />';
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;}<br />';
-        echo '&nbsp;&nbsp;&nbsp;&nbsp;echo \'------------------------ \';<br />';
-        echo '}<br /><br />';
-        echo 'result :<br /><br />';
-        foreach($sidebar AS $group){
-            foreach($group AS $item){
-                foreach($item AS $k => $v){
-                    echo $k . ' => ' . $v . '<br />';
-                }
-            }
-            echo '------------------------ <br />';
-        }
-        
+    public function test_admin_change_faq_mark(){
+        $question_id = 3;
+        $mark = 0;
+        $user_id = 1;
+        $result = $this->qa_model->admin_change_faq_mark($question_id, $mark, $user_id);
+        echo $result ? 1 : 0;
+    }
 
+    public function test_admin_change_answer_authen(){
+        $answer_id = 3;
+        $authentication = 0;
+        $user_id = 1;
+        $result = $this->qa_model->admin_change_answer_authen($answer_id, $authentication, $user_id);
+        echo $result ? 1 : 0;
+    }
+
+    public function test_admin_change_question_authen(){
+        $question_id = 3;
+        $authentication = 0;
+        $user_id = 1;
+        $result = $this->qa_model->admin_change_question_authen($question_id, $authentication, $user_id);
+        echo $result ? 1 : 0;
+    }
+
+    public function test_latest_question_id(){
+        $num_limit = 10;
+        $result = $this->qa_model->get_latest_question_id($num_limit);
+        foreach($result AS $row){
+            echo $row['id'] . '<br />';
+        }
+    }
+
+    public function test_get_faqs_id(){
+        $result = $this->qa_model->get_faqs_id();
+        foreach($result AS $row){
+            echo $row['id'] . '<br />';
+        }
+    }
+
+    public function test_get_question_details(){
+        $id = 3;
+        $result =  $this->qa_model->get_question_details($id);
+        echo 'info <br />';
+        foreach($result['info'] AS $k => $v){
+            echo $k .' => '. $v . '<br />';
+        }
+        echo '<br />';
+        echo 'labels <br />';
+        foreach($result['labels'] AS $row){
+            foreach($row AS $k => $v){
+                echo $k .' => '. $v . '<br />';
+            }
+        }
+        echo '<br />';
+        echo 'answers <br />';
+        foreach($result['answers'] AS $row){
+            foreach($row AS $k => $v){
+                echo $k .' => '. $v . '<br />';
+            }
+        }
+        echo '<br />';
+    }
+
+    public function test_get_question_brief(){
+        $id_arr = array(3, 4);
+        $result = $this->qa_model->get_question_brief($id_arr);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ': ' . $v . '<br />';
+            }
+        }
+    }
+
+    public function test_delete_question(){
+        $question_id = 1;
+        $user_id = 1;
+        $result = $this->qa_model->delete_question($question_id, $user_id);
+        echo $result ? 1 : 0;
+    }
+
+    public function test_delete_answer(){
+        $answer_id = 1;
+        $user_id = 1;
+        $result = $this->qa_model->delete_answer($answer_id, $user_id);
+        echo $result ? 1 : 0;
+    }
+
+    public function test_search_questions(){
+        $input = 'CSE 培养方案';
+        $result = $this->qa_model->search_questions($input);
+        foreach($result AS $id){
+            echo $id . '<br />';   
+        }
+    }
+
+    public function test_question_can_be_deleted(){
+        $question_id = 1;
+        $user_id = 1;
+        $result = $this->qa_model->question_can_be_deleted($question_id, $user_id);
+        echo $result ? 1 : 0;
+    }
+
+    public function test_answer_can_be_deleted(){
+        $answer_id = 1;
+        $user_id = 1;
+        $result = $this->qa_model->answer_can_be_deleted($answer_id, $user_id);
+        echo $result ? 1 : 0;
     }
 
     public function test_log_operation(){
@@ -101,7 +147,7 @@ class Api_test extends CI_Controller{
 
     public function test_post_answer(){
         $this->load->model('qa_model');
-        $question_id = 1;
+        $question_id = 3;
         $content = '这个问题其实没有多大意义，就算是改培养方案，也不会轮到你';
         $user_id = 1;
         $result = $this->qa_model->post_answer($question_id, $content, $user_id);
