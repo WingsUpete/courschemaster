@@ -376,13 +376,15 @@ class Qa_model extends CI_Model{
                 cm_users.name               AS provider_name,
                 cm_users.email              AS provider_email,
                 cm_majors.name              AS provider_major_cn,
-                cm_majors.en_name           AS provider_major_en
+                cm_majors.en_name           AS provider_major_en,
+                cm_privileges.name          AS role
             ')
             ->from('qa_answers')
             ->join('cm_users', 'cm_users.id = qa_answers.id_users_provider', 'inner')
             ->join('cm_privileges', 'cm_privileges.id = cm_users.id_privileges', 'inner')
             ->join('cm_majors', 'cm_majors.id = cm_users.id_majors', 'inner')
             ->where('qa_answers.id_questions', $id)
+            ->order_by('qa_answers_vote', 'DESC')
             ->get()
             ->result_array();
         
