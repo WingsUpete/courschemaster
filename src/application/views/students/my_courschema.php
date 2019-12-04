@@ -13,8 +13,9 @@
 
 <!-- Main content -->
 <div id="students_all_courschemas" class="main-content" style="padding: 20px;">
-	<h2><?= lang('my_courschema'); ?></h2>
+	<h2><?= lang('my_courschema') ?></h2>
 	<hr />
+	
 	<!-- Others -->
 	<div id="student_checkspecificcourschema" class="student_checkspecificcourschema">
 		<ul class="nav nav-tabs" id="courschema_list" role="tablist">
