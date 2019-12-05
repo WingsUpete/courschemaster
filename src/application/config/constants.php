@@ -115,3 +115,5 @@ define('PRIV_STUDENTS_LEARNED', 'students_learned');
 */
 define('AJAX_SUCCESS', 'success');
 define('AJAX_FAIL', 'fail');
+define('AJAX_TRUE', 'true');
+define('AJAX_FALSE', 'false');
