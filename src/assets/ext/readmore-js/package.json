@@ -1,0 +1,64 @@
+{
+  "_from": "readmore-js",
+  "_id": "readmore-js@2.2.1",
+  "_inBundle": false,
+  "_integrity": "sha512-hbPP0nQpYYkAywCEZ8ozHivvhWyHic37KJ2IXrHES4qzjp0+nmw8R33MeyMAtXBZfXX4Es8cpd5JBVf9qj47+Q==",
+  "_location": "/readmore-js",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "readmore-js",
+    "name": "readmore-js",
+    "escapedName": "readmore-js",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/readmore-js/-/readmore-js-2.2.1.tgz",
+  "_shasum": "ab75036c8a47b6ffa2d3d14cd527c7f479edc117",
+  "_spec": "readmore-js",
+  "_where": "C:\\Users\\lenovo\\Desktop",
+  "author": {
+    "name": "Jed Foster",
+    "email": "jed@jedfoster.com"
+  },
+  "bugs": {
+    "url": "https://github.com/jedfoster/Readmore.js/issues"
+  },
+  "bundleDependencies": false,
+  "dependencies": {
+    "jquery": ">2.1.4"
+  },
+  "deprecated": false,
+  "description": "A lightweight jQuery plugin for collapsing and expanding long blocks of text with \"Read more\" and \"Close\" links.",
+  "devDependencies": {
+    "gulp": "^3.9.0",
+    "gulp-rename": "^1.2.0",
+    "gulp-uglify": "^1.0.2"
+  },
+  "homepage": "https://github.com/jedfoster/Readmore.js",
+  "keywords": [
+    "css",
+    "jquery",
+    "readmore",
+    "expand",
+    "collapse"
+  ],
+  "license": "MIT",
+  "main": "readmore.js",
+  "name": "readmore-js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jedfoster/Readmore.js.git"
+  },
+  "scripts": {
+    "build": "./node_modules/gulp/bin/gulp.js compress",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "version": "2.2.1"
+}
