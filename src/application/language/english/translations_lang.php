@@ -20,3 +20,6 @@ $lang['all_courschemas'] = 'All Courschemas';
 $lang['collection'] = 'Collection';
 $lang['my_plan'] = 'My Plan';
 $lang['learned'] = 'Learned';
+$lang['select_department'] = 'Select Department';
+$lang['select_major'] = 'Select Major';
+$lang['select_version'] = 'Select Version';
