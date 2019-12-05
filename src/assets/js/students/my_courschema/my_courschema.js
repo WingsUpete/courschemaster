@@ -31,7 +31,7 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
 
         helper = new StudentsMyCourschemaHelper();
 		// do sth
-		$('#General_compulsory_courselist, #Professional_foundation_courselist, #Professional_core_courselist, #Professional_elective_courselist, #General_elective_courselist, #Practice_courselist').DataTable({
+		$('#datatable').DataTable({
 			"initComplete": function(settings, json) {
 				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
 			},
@@ -58,5 +58,9 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
 		
         helper.bindEventHandlers();
     }
+	
+	function initialize_courses () {
+		
+	}
 
 })(window.StudentsMyCourschema);
