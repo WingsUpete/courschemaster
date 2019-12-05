@@ -20,3 +20,6 @@ $lang['all_courschemas'] = '所有培养方案';
 $lang['collection'] = '收藏夹';
 $lang['my_plan'] = '我的计划';
 $lang['learned'] = '已学课程';
+$lang['select_department'] = '选择院系';
+$lang['select_major'] = '选择专业';
+$lang['select_version'] = '选择版本';

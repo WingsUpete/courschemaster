@@ -1,0 +1,25 @@
+/* CSS Document */
+
+/* bs-stepper */
+.bs-stepper-btn {
+	border-radius: 50px;
+	padding: 5px 9px!important;
+	background-color: #b04b4b;
+	color: white;
+	margin: 0;
+}
+.bs-stepper-btn.disabled {
+	background-color: gray;
+}
+.bs-stepper-btns--prev {
+	margin-left: 5px;
+}
+.bs-stepper-btns--next {
+	margin-right: 5px;
+}
+.bs-stepper-btn:hover, .bs-stepper-btn:focus {
+	color: white;
+}
+.active .bs-stepper-circle {
+	background-color: #b04b4b;
+}
