@@ -27,12 +27,12 @@
 	</button>
 	
 	<script>
-		var mql = window.matchMedia("screen and (max-width: 600px)");
-		mediaQueryResponse(mql);
-		mql.addListener(mediaQueryResponse);
+		var mql_sidebar = window.matchMedia("screen and (max-width: 600px)");
+		mediaQueryResponseSidebar(mql_sidebar);
+		mql_sidebar.addListener(mediaQueryResponseSidebar);
 		
-		function mediaQueryResponse(mql) {
-			if (mql.matches) {
+		function mediaQueryResponseSidebar(mql_sidebar) {
+			if (mql_sidebar.matches) {
 				$('.sidenav').removeClass('mobile').removeClass('stretched').removeClass('expanded');
 				$('.sidenav').addClass('mobile');
 				GeneralFunctions.placeFooterToBottom();	// fix footer issue

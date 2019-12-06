@@ -31,16 +31,9 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
         defaultEventHandlers = defaultEventHandlers || false;
 
         helper = new StudentsAllCourschemasHelper();
-		// do sth
-		stepper = new Stepper($('.bs-stepper')[0], {
-			linear: true,
-			animation: true,
-			selectors: {
-				steps: '.step',
-				trigger: '.step-trigger',
-				stepper: '.bs-stepper'
-			}
-		});
+		
+		// Initializations
+		StudentsAllCourschemas.initStepper();
 
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -50,7 +43,26 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
     /**
      * Default event handlers declaration for Students My Appointment page.
      */
-    function _bindEventHandlers() {
+    function _bindEventHandlers() {		
+        helper.bindEventHandlers();
+    }
+	
+    /**
+     * This method initializes the bs-stepper section.
+     */
+	var bs_stepper_prev_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></button>';
+	var bs_stepper_next_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></button>';
+    exports.initStepper = function () {
+		//	Initialize a stepper
+		stepper = new Stepper($('.bs-stepper')[0], {
+			linear: true,
+			animation: true,
+			selectors: {
+				steps: '.step',
+				trigger: '.step-trigger',
+				stepper: '.bs-stepper'
+			}
+		});
 		//	for bs stepper progress buttons
 		$(document).on('click', '.bs-stepper .bs-stepper-btns--next', function() {
 			stepper.next();
@@ -61,8 +73,6 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
 		$('.bs-stepper')[0].addEventListener('shown.bs-stepper', function(event) {
 //			console.log(event.detail);
 		});
-		
-        helper.bindEventHandlers();
-    }
+    };
 
 })(window.StudentsAllCourschemas);

@@ -151,7 +151,7 @@ header .language#lang_chzn {
 .sidenav a {
 	padding: 8px 8px 8px 32px;
 	text-decoration: none;
-	font-size: 25px;	/* smaller in responsive */
+	font-size: 25px;
 	color: #f1f1f1;
 	display: block;
 	transition: all 0.3s;
@@ -161,7 +161,6 @@ header .language#lang_chzn {
 }
 .sidenav .sidenav-items {
 	margin-top: 60px;
-	margin-bottom: 50px;
 }
 .sidenav .sidenav-items a.active, .sidenav .sidenav-items a:hover, .sidenav .sidenav-items a:focus {
 /*	color: rgba(66, 165, 245,0.9);*/
@@ -219,11 +218,15 @@ header .language#lang_chzn {
 .sidenav.expanded {
 	width: 300px;
 }
+/* main-content */
 .main-content {
 	margin-left: 72px;
 }
 .sidenav.expanded ~ .main-content {
 	margin-left: 300px;
+}
+.sidenav.mobile ~ .main-content {
+	margin-left: 0;
 }
 /* #toggleExpansionNav */
 .sidenav #toggleExpansionNav {
@@ -248,22 +251,21 @@ header .language#lang_chzn {
 	display: inline-block;
 }
 /* #openNav */
-.sidenav #openNav, .sidenav.mobile.stretched #openNav {
+.sidenav + #openNav, .sidenav.mobile.stretched + #openNav {
 	display: none;
 }
-.sidenav.mobile #openNav {
+.sidenav.mobile + #openNav {
 	display: block;
 }
 /* #closeNav */
 .sidenav #closeNav {
 	display: none;
 }
-.sidenav.mobile + #openNav, .sidenav.mobile #closeNav {
+.sidenav.mobile #closeNav {
 	display: block;
 }
-/* responsive */
-@media screen and (max-height: 450px) {
-	.sidenav {padding-top: 15px;}
+.sidenav.fixed.swipe_down {
+	top: 196px!important;
 }
 
 

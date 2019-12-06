@@ -96,7 +96,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 <body>
 	<!-- Header -->
 	<header>
-		<nav id="navCourschemaster" class="navbar navbar-expand-sm navbar-dark lighten-1">
+		<nav id="navCourschemaster" class="navbar navbar-expand-md navbar-dark lighten-1">
 			<!-- Brand -->
 			<a class="navbar-brand" href="<?= site_url() ?>">
 				<!-- img src="< ?= asset_url('assets/img/favicon.png') ?>" alt="Courschemaster" / -->

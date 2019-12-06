@@ -18,63 +18,52 @@
 	<h1><?= lang('all_courschemas') ?></h1>
 	<hr />
 	<!-- A Navigation Bar -->
-	<div class="bs-stepper" id="bs-stepper-box">
+	<div id="bs-stepper-box" class="bs-stepper">
+		<?php
+			// Array for stepper items
+			$stepper_items = array(
+				array("sel_dep", lang('select_department')),
+				array("sel_maj", lang('select_major')),
+				array("sel_ver", lang('select_version')),
+				array("cur_csm", lang('current_courschema')),
+			);
+		?>
 		<!-- steps -->
 		<div class="bs-stepper-header" role="tablist">
-			<div class="step" data-target="#sel_dep">
-				<button type="button" class="step-trigger" role="tab" aria-controls="sel_dep" id="sel_dep-trigger">
-					<span class="bs-stepper-circle">1</span>
-					<span class="bs-stepper-label"><?= lang('select_department') ?></span>
-				</button>
-			</div>
-			<div class="line"></div>
-			<div class="step" data-target="#sel_maj">
-				<button type="button" class="step-trigger" role="tab" aria-controls="sel_maj" id="sel_maj-trigger">
-					<span class="bs-stepper-circle">2</span>
-					<span class="bs-stepper-label"><?= lang('select_major') ?></span>
-				</button>
-			</div>
-			<div class="line"></div>
-			<div class="step" data-target="#sel_ver">
-				<button type="button" class="step-trigger" role="tab" aria-controls="sel_ver" id="sel_ver-trigger">
-					<span class="bs-stepper-circle">3</span>
-					<span class="bs-stepper-label"><?= lang('select_version') ?></span>
-				</button>
-			</div>
+			<?php
+				for ($i = 1; $i <= count($stepper_items); $i++) {
+					$id_alias = $stepper_items[$i-1][0];
+					$display_stepper_name = $stepper_items[$i-1][1];
+					echo('<div class="step" data-target="#' . $id_alias . '">');
+					echo('<button type="button" class="step-trigger" role="tab" aria-controls="' . $id_alias . '" id="' . $id_alias . '-trigger">');
+					echo('<span class="bs-stepper-circle">' . $i . '</span>');
+					echo('<span class="bs-stepper-label">' . $display_stepper_name . '</span></button></div>');
+					if ($i != count($stepper_items)) {
+						echo('<div class="line"></div>');
+					}
+				}
+			?>
 		</div>
+		<!-- make some space -->
 		<br />
 		<!-- Steps Content -->
 		<div class="bs-stepper-content">
-			<div id="sel_dep" class="content" role="tabpanel" aria-labelledby="sel_dep-trigger">
-				<div class="contents">
-					<h2>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev disabled"><i class="fas fa-chevron-left"></i></i></button>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></i></button>
-						<?= lang('select_department') ?>
-					</h2>
-					<hr />
-				</div>
-			</div>
-			<div id="sel_maj" class="content" role="tabpanel" aria-labelledby="sel_maj-trigger">
-				<div class="contents">
-					<h2>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></i></button>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></i></button>
-						<?= lang('select_major') ?>
-					</h2>
-					<hr />
-				</div>
-			</div>
-			<div id="sel_ver" class="content" role="tabpanel" aria-labelledby="sel_ver-trigger">
-				<div class="contents">
-					<h2>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></i></button>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next disabled"><i class="fas fa-chevron-right"></i></i></button>
-						<?= lang('select_version') ?>
-					</h2>
-					<hr />
-				</div>
-			</div>
+			<?php
+				for ($i = 0; $i < count($stepper_items); $i++) {
+					$id_alias = $stepper_items[$i][0];
+					$display_stepper_name = $stepper_items[$i][1];
+					echo('<div id="' . $id_alias . '" class="content" role="tabpanel" aria-labelledby="' . $id_alias . '-trigger">');
+					echo('<div class="contents"><h2 class="bs-stepper-titles"><span class="bs-stepper-btns">');
+					echo('<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev ' . (($i == 0) ? 'disabled' : '') . '"><i class="fas fa-chevron-left"></i></button>');
+					echo('<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next ' . (($i == count($stepper_items) - 1) ? 'disabled' : '') . '"><i class="fas fa-chevron-right"></i></button>');
+					echo('</span>' . $display_stepper_name . '</h2><hr />');
+					//	Main Content Block
+					echo('<div class="md-form md-outline"><i class="fas fa-search prefix"></i><input type="text" id="' . $id_alias . '-search" class="form-control" /><label for="' . $id_alias . '-search">' . lang('search') . '</label></div>');
+					echo('</div></div>');
+				}
+			?>
 		</div>
 	</div>
 </div>
+
+<br />
