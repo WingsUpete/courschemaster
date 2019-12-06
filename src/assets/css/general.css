@@ -188,10 +188,10 @@ header .language#lang_chzn {
 }
 #openNav {
 	position: fixed;
-	left: 0;
+	left: -5px;
 	top: 50%;
 	opacity: 0.6;
-	padding: 15px;
+	padding: 10px;
 	margin: 0;
 	z-index: 10;
 	border-radius: 0 10px 10px 0;
@@ -226,7 +226,7 @@ header .language#lang_chzn {
 	margin-left: 300px;
 }
 .sidenav.mobile ~ .main-content {
-	margin-left: 0;
+	margin-left: 12px;
 }
 /* #toggleExpansionNav */
 .sidenav #toggleExpansionNav {
@@ -257,6 +257,10 @@ header .language#lang_chzn {
 .sidenav.mobile + #openNav {
 	display: block;
 }
+.sidenav.mobile + #openNav:hover, .sidenav.mobile + #openNav:focus {
+	left: 0;
+	padding: 15px;
+}
 /* #closeNav */
 .sidenav #closeNav {
 	display: none;
@@ -273,6 +277,7 @@ header .language#lang_chzn {
 
 
 .main-content {
+	margin-right: 12px;
 	transition: all 0.5s;
 }
 

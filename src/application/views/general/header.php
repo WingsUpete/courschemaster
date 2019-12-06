@@ -63,6 +63,12 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<!-- Respond -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/respond/respond.min.js', NULL, 'js') ?>"></script>
 	<!-- FontAwesome -->
+	<script type="text/javascript">
+		//	Please don't transfer <i> to <svg> automatically!
+		window.FontAwesomeConfig = {
+			autoReplaceSvg: false
+		};
+	</script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/fontawesome/js/all.min.js', NULL, 'js') ?>"></script>
 	<!-- Bootstrap -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.bundle.min.js', NULL, 'js') ?>"></script>
