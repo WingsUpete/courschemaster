@@ -27,7 +27,7 @@ class Students extends CI_Controller{
         }
 
         $view['active_sidebar'] = PRIV_STUDENTS_MY_COURSCHEMA;
-        $this->load_comb_views($view, "students/my_courschema" );
+        $this->load_comb_views($view, "general/cmDisplay/current_courschema" );
 
     }
 

@@ -1,4 +1,4 @@
-window.StudentsMyCourschema = window.StudentsMyCourschema || {};
+window.CurrentCourschema = window.CurrentCourschema || {};
 
 /**
  * Students My Appointment
@@ -6,7 +6,7 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
  * Students My Appointment javascript namespace. Contains the main functionality of the Students My Appointment
  * page.
  *
- * @module StudentsMyCourschema
+ * @module CurrentCourschema
  */
 (function (exports) {
 
@@ -14,7 +14,7 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
 
     /**
      * The page helper contains methods that implement each record type functionality
-     * StudentsMyCourschemaHelper
+     * CurrentCourschemaHelper
      *
      * @type {Object}
      */
@@ -29,7 +29,7 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 
-        helper = new StudentsMyCourschemaHelper();
+        helper = new CurrentCourschemaHelper();
 		// do sth
 		$('#datatable').DataTable({
 			"initComplete": function(settings, json) {
@@ -63,4 +63,4 @@ window.StudentsMyCourschema = window.StudentsMyCourschema || {};
 		
 	}
 
-})(window.StudentsMyCourschema);
+})(window.CurrentCourschema);

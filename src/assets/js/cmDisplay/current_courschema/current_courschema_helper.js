@@ -3,20 +3,20 @@
     'use strict';
 
     /**
-     * StudentsMyCourschemaHelper Class
+     * CurrentCourschemaHelper Class
      *
      * This class contains the methods that are used in the Students My Courschema page.
      *
-     * @class StudentsMyCourschemaHelper
+     * @class CurrentCourschemaHelper
      */
-    function StudentsMyCourschemaHelper() {
+    function CurrentCourschemaHelper() {
         this.filterResults = {};
     }
 
     /**
      * Binds the default event handlers of the Students My Appointment page.
      */
-    StudentsMyCourschemaHelper.prototype.bindEventHandlers = function () {
+    CurrentCourschemaHelper.prototype.bindEventHandlers = function () {
         var instance = this;
 
 		// Listners
@@ -25,5 +25,5 @@
 
 	//	Additional Methods
 	
-    window.StudentsMyCourschemaHelper = StudentsMyCourschemaHelper;
+    window.CurrentCourschemaHelper = CurrentCourschemaHelper;
 })();
