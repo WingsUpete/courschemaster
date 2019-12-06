@@ -70,7 +70,7 @@
 						<div class="card">
 							<div class="card-header text-right">
 								<a href="javascript:void(0);" class="collect-dep text-warning" title="Collect">
-									<i class="fas fa-star fa-lg"></i>
+									<i class="far fa-star fa-lg"></i>
 								</a>
 							</div>
 							<div class="card-body text-center">
