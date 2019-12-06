@@ -1,6 +1,6 @@
-<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/students/students_all_courschemas.css', NULL, 'css') ?>" />
-<script type="text/javascript" src="<?= asset_url('assets/js/students/all_courschemas/all_courschemas.js', NULL, 'js') ?>"></script>
-<script type="text/javascript" src="<?= asset_url('assets/js/students/all_courschemas/all_courschemas_helper.js', NULL, 'js') ?>"></script>
+<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/cmDisplay/all_courschemas.css', NULL, 'css') ?>" />
+<script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/all_courschemas/all_courschemas.js', NULL, 'js') ?>"></script>
+<script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/all_courschemas/all_courschemas_helper.js', NULL, 'js') ?>"></script>
 <script>
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
