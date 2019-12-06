@@ -38,10 +38,13 @@
 }
 .bs-stepper-btns--prev {
 	margin-left: 10px;
+	margin-right: 10px;
 }
+/*
 .bs-stepper-btns--next {
 	margin-right: 10px;
 }
+*/
 .bs-stepper-btn:hover, .bs-stepper-btn:focus {
 	color: white;
 }
