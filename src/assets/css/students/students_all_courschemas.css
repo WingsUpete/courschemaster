@@ -67,7 +67,7 @@
 
 /* Cards */
 .card {
-	margin: 20px 0;
+	margin: 0 0 40px 0;
 	transition: all 0.3s;
 }
 .card:hover, .card:focus {
