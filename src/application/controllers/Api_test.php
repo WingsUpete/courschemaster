@@ -4,10 +4,60 @@ class Api_test extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('qa_model');
+        
     }
 
     public function index(){
-        $this->test_admin_change_faq_mark();
+        $this->test_pdf();
+    }
+
+    public function test_pdf(){
+        $this->load->library('courschema_pdf');
+        $cpdf = $this->courschema_pdf;
+        $cpdf->add_page();
+
+        $cpdf->set_courschema_header($name="Courschema of Computer Science Major", $department="Department of Computer Science and Engineering", $version="2019120601");
+
+        $cpdf->set_courschema_intro('
+        Computer Science is as a great developing potential major, seeing an acute shortage 
+        of advanced talents. With the rapid development of computer techonology and the modernization 
+        enterprises, the phenomenon will become more and more serious. The society urgently needs 
+        high-quality talents due to the intensive, permeability, interdisciplinary integration 
+        , technology innovation, and the fierce competition in the market in current and future 
+        period of time.
+        ');
+
+        $cpdf->set_courschema_objectives('
+        This major is aiming at cultivating talents who possess firm professional theory knowledge, 
+        mastering the frontier computer system design principle, corresponding research and exploitation 
+        ability, and capable of utilizing English and computer technology. After graduation, students 
+        can not only engage in research, exploitation, management, or teaching in computer science and 
+        technology field in corporations, scientific research institutes, universities, but also continue 
+        their postgraduate studies in Computer Science and Technology and related or interdisciplinary fields.
+        ');
+
+        $cpdf->set_courschema_program_length("Four years");
+
+        $cpdf->set_courschema_degree('Bachelor of Engineering');
+
+        $cpdf->append_raw_html('<h3>Compulsory Courses before Enrolled in CSE</h3>');
+        $cpdf->append_table(
+            array('coursche ID', 'name', 'prerequrestites'), 
+            array(
+                array('CS101', 'Introducation to CS', ' '),
+                array('CS102', 'NB class', ' '),
+                array('CS201', 'Fly a Jet fighter', 'CS101 & CS102'),
+                array('CS202', 'Blow up F35C with RPG', 'CS301'),
+                array('CS203', 'Digital Logic', 'CS506'),
+                array('CS204', 'Computer Organization', ''),
+                array('CS205', 'Discrete Mathematics', 'CS101 || (CS201 & CS302)'),
+                array('CS206', 'Super NB class', 'CS909'),
+                array('CS303A', 'Artificial Intelligence', ' '),
+                array('CS309', 'OOAD', 'CS201')
+            )
+        );
+
+        $cpdf->test_html();
     }
 
     public function test_admin_change_faq_mark(){

@@ -48,5 +48,8 @@ const CAS_HOST = '';
 const CAS_CONTEXT = '/cas';
 const CAS_PORT = 0;
 
+//
+const VENDOR_TCPDF_SOURCE = '../vendor/tecnickcom/tcpdf';
+
 }
 ?>
