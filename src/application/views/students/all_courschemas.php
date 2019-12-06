@@ -41,15 +41,22 @@
 					<span class="bs-stepper-label"><?= lang('select_version') ?></span>
 				</button>
 			</div>
+			<div class="line"></div>
+			<div class="step" data-target="#cur_csm">
+				<button type="button" class="step-trigger" role="tab" aria-controls="cur_csm" id="cur_csm-trigger">
+					<span class="bs-stepper-circle">4</span>
+					<span class="bs-stepper-label"><?= lang('current_courschema') ?></span>
+				</button>
+			</div>
 		</div>
+		<!-- make some space -->
 		<br />
 		<!-- Steps Content -->
 		<div class="bs-stepper-content">
 			<div id="sel_dep" class="content" role="tabpanel" aria-labelledby="sel_dep-trigger">
 				<div class="contents">
-					<h2>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev disabled"><i class="fas fa-chevron-left"></i></i></button>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></i></button>
+					<h2 class="bs-stepper-titles">
+						<span class="bs-stepper-btns"></span>
 						<?= lang('select_department') ?>
 					</h2>
 					<hr />
@@ -57,9 +64,8 @@
 			</div>
 			<div id="sel_maj" class="content" role="tabpanel" aria-labelledby="sel_maj-trigger">
 				<div class="contents">
-					<h2>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></i></button>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></i></button>
+					<h2 class="bs-stepper-titles">
+						<span class="bs-stepper-btns"></span>
 						<?= lang('select_major') ?>
 					</h2>
 					<hr />
@@ -67,10 +73,18 @@
 			</div>
 			<div id="sel_ver" class="content" role="tabpanel" aria-labelledby="sel_ver-trigger">
 				<div class="contents">
-					<h2>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></i></button>
-						<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next disabled"><i class="fas fa-chevron-right"></i></i></button>
+					<h2 class="bs-stepper-titles">
+						<span class="bs-stepper-btns"></span>
 						<?= lang('select_version') ?>
+					</h2>
+					<hr />
+				</div>
+			</div>
+			<div id="cur_csm" class="content" role="tabpanel" aria-labelledby="cur_csm-trigger">
+				<div class="contents">
+					<h2 class="bs-stepper-titles">
+						<span class="bs-stepper-btns"></span>
+						<?= lang('current_courschema') ?>
 					</h2>
 					<hr />
 				</div>

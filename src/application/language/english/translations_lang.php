@@ -16,6 +16,7 @@ $lang['mentor'] = 'Mentor';
 $lang['login'] = 'Login';
 $lang['logout'] = 'Logout';
 $lang['my_courschema'] = 'My Courschema';
+$lang['current_courschema'] = 'Current Courschema';
 $lang['all_courschemas'] = 'All Courschemas';
 $lang['collection'] = 'Collection';
 $lang['my_plan'] = 'My Plan';

@@ -6,7 +6,7 @@
 	padding: 5px 9px!important;
 	background-color: #b04b4b;
 	color: white;
-	margin: 0;
+	margin: 3px;
 }
 .bs-stepper-btn.disabled {
 	background-color: gray;
