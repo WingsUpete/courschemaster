@@ -53,11 +53,6 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
 	var bs_stepper_prev_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></button>';
 	var bs_stepper_next_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></button>';
     exports.initStepper = function () {
-		//	Add progressing buttons
-		var title_blocks = $('.bs-stepper .bs-stepper-titles .bs-stepper-btns');
-		title_blocks.append(bs_stepper_prev_btn).append(bs_stepper_next_btn);
-		title_blocks.first().find('.bs-stepper-btns--prev').addClass('disabled');
-		title_blocks.last().find('.bs-stepper-btns--next').addClass('disabled');
 		//	Initialize a stepper
 		stepper = new Stepper($('.bs-stepper')[0], {
 			linear: true,

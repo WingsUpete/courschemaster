@@ -1,6 +1,15 @@
 /* CSS Document */
 
 /* bs-stepper */
+.bs-stepper, 
+.bs-stepper-header,
+.bs-stepper-content {
+	width: 100%;
+	overflow-x: hidden;
+}
+.bs-stepper-header {
+	overflow-x: auto;
+}
 .bs-stepper-btn {
 	border-radius: 50px;
 	padding: 5px 9px!important;
@@ -12,10 +21,10 @@
 	background-color: gray;
 }
 .bs-stepper-btns--prev {
-	margin-left: 5px;
+	margin-left: 10px;
 }
 .bs-stepper-btns--next {
-	margin-right: 5px;
+	margin-right: 10px;
 }
 .bs-stepper-btn:hover, .bs-stepper-btn:focus {
 	color: white;

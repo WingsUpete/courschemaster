@@ -24,3 +24,4 @@ $lang['learned'] = '已学课程';
 $lang['select_department'] = '选择院系';
 $lang['select_major'] = '选择专业';
 $lang['select_version'] = '选择版本';
+$lang['search'] = '搜索';
