@@ -11,7 +11,7 @@
 					echo('<hr />');
 					foreach($group AS $item) {
 						$active = ($active_sidebar == $item['mark'] ? 'active' : '');
-						echo('<a href="' . $item['url'] . '" class="' . $active . '">');
+						echo('<a href="' . $item['url'] . '" class="' . $active . '" title="' . $item['name'] . '">');
 						echo('<span class="sp_icn"><i class="fas fa-' . $item['icon'] . '"></i></span>');
 						echo('&ensp;');
 						echo('<span class="sd_epn">' . $item['name'] . '</span>');

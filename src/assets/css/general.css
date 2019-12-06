@@ -25,6 +25,15 @@ body::-webkit-scrollbar-thumb {
 
 
 
+/* wow animations */
+.wow {
+	visibility: hidden;
+}
+
+
+
+
+
 /* HEADER */
 header #navCourschemaster {
 /*	background-color: rgba(50, 50, 50, 0.85);*/

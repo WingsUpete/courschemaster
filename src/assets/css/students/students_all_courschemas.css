@@ -49,6 +49,9 @@
 	background-color: #b04b4b;
 }
 	/* Search */
+.md-form.md-outline .prefix {
+	color: #a0a6ab;
+}
 .md-form.md-outline .prefix.active,
 .md-form.md-outline input[type="text"]:focus:not([readonly]) + label {
 	color: #b04b4b;
@@ -62,8 +65,13 @@
 
 
 
-
-
-
+/* Cards */
+.card {
+	margin: 20px 0;
+	transition: all 0.3s;
+}
+.card:hover, .card:focus {
+	box-shadow: 0 2px 5px 0 rgba(0,0,0,.35), 0 2px 10px 0 rgba(0,0,0,.55);
+}
 
 
