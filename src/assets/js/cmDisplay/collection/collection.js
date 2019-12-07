@@ -1,9 +1,9 @@
-window.CurrentCourschema = window.CurrentCourschema || {};
+window.Collection = window.Collection || {};
 
 /**
- * Current Courschema
+ * Collection
  *
- * @module CurrentCourschema
+ * @module Collection
  */
 (function (exports) {
 
@@ -11,7 +11,7 @@ window.CurrentCourschema = window.CurrentCourschema || {};
 
     /**
      * The page helper contains methods that implement each record type functionality
-     * CurrentCourschemaHelper
+     * CollectionHelper
      *
      * @type {Object}
      */
@@ -20,7 +20,7 @@ window.CurrentCourschema = window.CurrentCourschema || {};
 	var datatable = null;
 	
     /**
-     * This method initializes the Current Courschema page.
+     * This method initializes the Collection page.
      *
      * @param {Boolean} defaultEventHandlers Optional (false), whether to bind the default
      * event handlers or not.
@@ -28,10 +28,10 @@ window.CurrentCourschema = window.CurrentCourschema || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 
-        helper = new CurrentCourschemaHelper();
+        helper = new CollectionHelper();
 		
 		// Initializations
-		CurrentCourschema.initialize_courses();
+		Collection.initialize_courses();
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -42,10 +42,6 @@ window.CurrentCourschema = window.CurrentCourschema || {};
      * Default event handlers declaration for Students My Appointment page.
      */
     function _bindEventHandlers() {
-		$("a[data-toggle='pill'], a[data-toggle='tab']").on('shown.bs.tab', function() {
-			//	every time the tab is changed, modify footer
-			GeneralFunctions.placeFooterToBottom();
-		});
 		
         helper.bindEventHandlers();
     }
@@ -68,4 +64,4 @@ window.CurrentCourschema = window.CurrentCourschema || {};
 		});
 	};
 
-})(window.CurrentCourschema);
+})(window.Collection);

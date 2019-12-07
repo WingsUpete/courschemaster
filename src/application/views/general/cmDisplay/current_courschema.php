@@ -37,7 +37,7 @@
 	</ul>
 	<div class="tab-content" id="cc-views-content">
 		<div class="tab-pane fade show active" id="cc-views-pdf-content" role="tabpanel" aria-labelledby="cc-views-pdf">
-			<iframe id="cc-pdf-window" title="Courschema PDF" width="100%" height="666px" src=""></iframe>
+			<iframe id="cc-pdf-window" title="Courschema PDF" src="<?= asset_url('assets/pdf/default.pdf') ?>"></iframe>
 			<div id="cc-pdf-download-block" class="text-right">
 				<button id="cc-pdf-download" type="button" class="btn btn-primary font-weight-bold mr-0">
 					<a href="javascript:void(0);" target="_blank">
@@ -74,12 +74,10 @@
 									'Professional elective', 'General elective', 'Practice'
 								);
 								$course_table_headers = array(
-									'Course ID', 'Course Name', 
-									'Total_Credit', 'Experimental Credit',
-									'Weekly Period', 'Semester', 'Language', 'Department',
-									'Advanced Placement', 'Course Description'
+									'Course ID', 'Course Name', 'Total_Credit', 'Weekly Period', 'Department',
+//									'Semester', 'Language', 'Experimental Credit', 'Advanced Placement', 'Course Description'
 								);
-							?>					
+							?>
 							<div class="table-responsive"><table id="courses-datatable" class="table table-striped table-bordered table-hover table-condensed text-center">
 								<thead>
 									<tr>

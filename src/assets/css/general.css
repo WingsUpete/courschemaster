@@ -311,6 +311,8 @@ footer.welcome {
 footer ul {
 	margin-top: 0;
 	margin-bottom: 0;
+	padding-inline-start: 0;
+	list-style-position: inside;
 	user-select: none;
 	transition: all 0.3s;
 }
