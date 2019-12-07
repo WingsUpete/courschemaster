@@ -30,3 +30,5 @@ $lang['pdf'] = 'PDF';
 $lang['list'] = 'List';
 $lang['graph'] = 'Graph';
 $lang['download'] = 'Download';
+$lang['events'] = 'Events';
+$lang['courses'] = 'Courses';
