@@ -68,7 +68,7 @@
 				
 					<div class="col-xs-12 col-lg-6 col-xl-4">
 						<div class="card">
-							<div class="card-header text-right"></div>
+							<div class="card-header text-right">&ensp;</div>
 							<div class="card-body text-center">
 								<h5 class="card-title font-weight-bold">
 									<sup>

@@ -26,3 +26,7 @@ $lang['select_major'] = '选择专业';
 $lang['select_version'] = '选择版本';
 $lang['search'] = '搜索';
 $lang['qa'] = 'QA问答';
+$lang['pdf'] = 'PDF';
+$lang['list'] = '列表';
+$lang['graph'] = '图';
+$lang['download'] = '下载';

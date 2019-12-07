@@ -26,3 +26,7 @@ $lang['select_major'] = 'Select Major';
 $lang['select_version'] = 'Select Version';
 $lang['search'] = 'Search';
 $lang['qa'] = 'Question & Answers';
+$lang['pdf'] = 'PDF';
+$lang['list'] = 'List';
+$lang['graph'] = 'Graph';
+$lang['download'] = 'Download';
