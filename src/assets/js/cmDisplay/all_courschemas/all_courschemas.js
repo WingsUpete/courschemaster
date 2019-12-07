@@ -71,7 +71,7 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
 		});
 		//	for additional events of bs stepper
 		$('.bs-stepper')[0].addEventListener('shown.bs-stepper', function(event) {
-//			console.log(event.detail);
+			GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
 		});
     };
 

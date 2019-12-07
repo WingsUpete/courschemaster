@@ -1,1 +1,39 @@
 /* CSS Document */
+/* cc-views */
+.nav-pills .nav-link {
+	color: #b04b4b!important;
+	opacity: 1.0;
+	transition: all 0.3s;
+}
+.nav-pills .nav-link:hover {
+	opacity: 0.8;
+}
+.nav-pills .nav-link.active {
+	color: #fff!important;
+	background-color: #b04b4b!important;
+}
+.nav-pills .nav-link .cc-views-txt {
+	display: none;
+}
+.nav-pills .nav-link.active .cc-views-txt {
+	display: inline-block;
+}
+	/* Download PDF Button */
+#cc-pdf-download-block {
+	width: 100%;
+}
+#cc-pdf-download-block #cc-pdf-download {
+	background-color: #b04b4b!important;
+	text-transform: none;
+	border-radius: 10px;
+	opacity: 1.0;
+	transition: all 0.3s;
+}
+#cc-pdf-download-block #cc-pdf-download:hover {
+	opacity: 0.8;
+}
+#cc-pdf-download-block #cc-pdf-download a {
+	color: #fff;
+	text-decoration: none;
+}
+
