@@ -17,7 +17,7 @@
 				<div class="col-xs-12 col-lg-5">
 					<div>
 						<ul id="support_info">
-							<li><a id="footer_QA" href="javascript:void(0);" target="_blank" data-toggle="tooltip" data-title="Q & A" data-placement="top"><strong>Question & Answers</strong></a></li>
+							<li><a id="footer_QA" class="font-weight-bold" href="<?= site_url('qa') ?>" target="_blank" data-toggle="tooltip" data-title="Q & A" data-placement="top">Question & Answers</a></li>
 							<li>Contact Administrator: <span id="admin_phone_number">80088208820</span></li>
 						</ul>
 					</div>
