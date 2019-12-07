@@ -5,9 +5,9 @@
 </head>
 <body>
 
-<p><?php echo $success ? 'Migration Success' : 'Failed to migrate'; ?></p>
+<h1><?php echo $success ? 'Migration Success<br />Wow, you can really update.' : 'Failed to migrate: WTF?'; ?></h1>
 
-<p><?php echo $success ? '' : $exception; ?></p>
+<h1><?php echo $success ? '' : $exception; ?></h1>
 
 </body>
 </html>
