@@ -48,7 +48,7 @@ class Students extends CI_Controller{
         }
 
         $view['active_sidebar'] = PRIV_STUDENTS_COLLECTION;
-        $this->load_comb_views($view, "students/collection");
+        $this->load_comb_views($view, "general/cmDisplay/collection");
     }
 
     public function my_plan(){

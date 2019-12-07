@@ -12,8 +12,8 @@
 </script>
 
 <!-- Main content -->
-<div id="students_my_plan" class="main-content" style="padding: 20px;">
-	<h2>My Plan</h2>
+<div id="students_my_plan" class="main-content">
+	<h1><?= lang('my_plan') ?></h1>
 	<hr />
 	<!-- Others -->
     <ul class="nav nav-tabs" id="courschema_list" role="tablist">

@@ -13,7 +13,7 @@
 </script>
 
 <!-- Main content -->
-<div id="students_all_courschemas" class="main-content" style="padding: 20px;">
+<div id="all_courschemas" class="main-content">
 	<!-- Title -->
 	<h1><?= lang('all_courschemas') ?></h1>
 	<hr />
@@ -55,7 +55,7 @@
 					echo('<div id="' . $id_alias . '" class="content" role="tabpanel" aria-labelledby="' . $id_alias . '-trigger">');
 					echo('<div class="contents"><h2 class="bs-stepper-titles"><span class="bs-stepper-btns">');
 					echo('<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev ' . (($i == 0) ? 'disabled' : '') . '"><i class="fas fa-chevron-left"></i></button>');
-					echo('<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next ' . (($i == count($stepper_items) - 1) ? 'disabled' : '') . '"><i class="fas fa-chevron-right"></i></button>');
+//					echo('<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next ' . (($i == count($stepper_items) - 1) ? 'disabled' : '') . '"><i class="fas fa-chevron-right"></i></button>');
 					echo('</span><span class="display-stepper-name">' . $display_stepper_name . '</span></h2>');
 					//	Main Content Block
 					echo('<div class="md-form md-outline"><i class="fas fa-search prefix"></i><input type="text" id="' . $id_alias . '-search" class="form-control" /><label for="' . $id_alias . '-search">' . lang('search') . '</label></div>');
@@ -68,18 +68,21 @@
 				
 					<div class="col-xs-12 col-lg-6 col-xl-4">
 						<div class="card">
-							<div class="card-header text-right">
-								<a href="javascript:void(0);" class="collect-dep text-warning" title="Collect">
-									<i class="far fa-star fa-lg"></i>
-								</a>
-							</div>
+							<div class="card-header text-right"></div>
 							<div class="card-body text-center">
-								<h5 class="card-title font-weight-bold">Computer Science & Engineering</h5>
+								<h5 class="card-title font-weight-bold">
+									<sup>
+										<a href="javascript:void(0);" class="collect-dep text-warning" title="Collect">
+											<i class="far fa-star fa-lg"></i>
+										</a>
+									</sup>
+									Computer Science & Engineering
+								</h5>
 								<hr />
 								<p class="card-text">
 									(no description yet)
 								</p>
-								<button type="button" class="btn btn-outline-dark btn-block font-weight-bold sel-dep-btns">
+								<button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-dep-btns">
 									<i class="fas fa-door-open"></i>
 									&nbsp;
 									Access
