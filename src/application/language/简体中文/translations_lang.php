@@ -30,3 +30,5 @@ $lang['pdf'] = 'PDF';
 $lang['list'] = '列表';
 $lang['graph'] = '图';
 $lang['download'] = '下载';
+$lang['events'] = '事件';
+$lang['courses'] = '课程';

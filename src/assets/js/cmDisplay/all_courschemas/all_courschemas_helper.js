@@ -3,20 +3,21 @@
     'use strict';
 
     /**
-     * StudentsAllCourschemasHelper Class
+     * AllCourschemasHelper Class
      *
-     * This class contains the methods that are used in the Students My Courschema page.
+     * This class contains the methods that are used in the All Courschemas page.
      *
-     * @class StudentsAllCourschemasHelper
+     * @class AllCourschemasHelper
      */
-    function StudentsAllCourschemasHelper() {
-//        this.filterResults = {};
+    function AllCourschemasHelper() {
+        this.RetrievedResults = {};
+		this.stepper = undefined;
     }
 
     /**
-     * Binds the default event handlers of the Students My Appointment page.
+     * Binds the default event handlers of the All Courschemas page.
      */
-    StudentsAllCourschemasHelper.prototype.bindEventHandlers = function () {
+    AllCourschemasHelper.prototype.bindEventHandlers = function () {
         var instance = this;
 
 		// Listners
@@ -28,33 +29,12 @@
     /**
      * Get All Departments
      */
-    StudentsAllCourschemasHelper.prototype.saveEdition = function () {
-        var tutor_id = $('#tutor-id').val();
-		var first_name = GeneralFunctions.superEscapeHTML($('#first-name').val());
-		var last_name = GeneralFunctions.superEscapeHTML($('#last-name').val());
-		var phone_number = GeneralFunctions.superEscapeHTML($('#phone-number').val());
-		var address = GeneralFunctions.superEscapeHTML($('#address').val());
-		var email = GeneralFunctions.superEscapeHTML($('#email').val());
-		var personal_page = $('#personal-page').val();
-		var introduction = GeneralFunctions.superEscapeHTML($('#introduction').val());
-		var flexible_column = GeneralFunctions.superEscapeHTML($('#flexible-column').val());
-		
+    AllCourschemasHelper.prototype.getDepartments = function () {
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_edit_tutor';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/all_courschemas_api/ajax_get_dep';
         var postData = {
-            csrfToken: GlobalVariables.csrfToken,
-			tutor_id : tutor_id,
-			first_name : JSON.stringify(first_name),
-			last_name : JSON.stringify(last_name),
-			personal_page : JSON.stringify(personal_page),
-			introduction : JSON.stringify(introduction),
-			address : JSON.stringify(address),
-			flexible_column : JSON.stringify(flexible_column),
-			email : JSON.stringify(email),
-			phone_number : JSON.stringify(phone_number)
+            csrfToken: GlobalVariables.csrfToken
         };
-		
-		var obj = this;
 
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
@@ -62,21 +42,54 @@
                 return;
             }
 			
-			if (response === 'success') {
-				Admin.displayNotification(EALang.edit_tutor_success, undefined, "success");
-			} else if (response === 'fail') {
-				Admin.displayNotification(EALang.edit_tutor_fail, undefined, "failure");
-			}
+			console.log(response);
 			
-			var newName = first_name + " " + last_name;
-			$('.admin-page #tutor_config .results .entry.selected')[0].title = newName;
-			$('.admin-page #tutor_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+
+    /**
+     * Get All Majors
+     */
+    AllCourschemasHelper.prototype.getMajors = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/all_courschemas_api/ajax_get_maj';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			dep_id: 1
+        };
+
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
 			
-			//	Save, calendar needs refetching
-			this.calendar_needs_retrieval = true;
+			console.log(response);
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+
+    /**
+     * Get All Courschema Versions
+     */
+    AllCourschemasHelper.prototype.getCourschemas = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/all_courschemas_api/ajax_get_cm';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			maj_id: 1
+        };
+
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			console.log(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
-    window.StudentsAllCourschemasHelper = StudentsAllCourschemasHelper;
+    window.AllCourschemasHelper = AllCourschemasHelper;
 })();

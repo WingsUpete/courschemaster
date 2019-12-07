@@ -1,12 +1,12 @@
-window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
+window.AllCourschemas = window.AllCourschemas || {};
 
 /**
- * Students My Appointment
+ * All Courschemas
  *
- * Students My Appointment javascript namespace. Contains the main functionality of the Students My Appointment
- * page.
+ * All Courschemas javascript namespace.
+ * Contains the main functionality of the All Courschemas page.
  *
- * @module StudentsAllCourschemas
+ * @module AllCourschemas
  */
 (function (exports) {
 
@@ -14,7 +14,7 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
 
     /**
      * The page helper contains methods that implement each record type functionality
-     * StudentsAllCourschemasHelper
+     * AllCourschemasHelper
      *
      * @type {Object}
      */
@@ -22,7 +22,7 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
 	var stepper = null;
 
     /**
-     * This method initializes the Students My Appointment page.
+     * This method initializes the All Courschemas page.
      *
      * @param {Boolean} defaultEventHandlers Optional (false), whether to bind the default
      * event handlers or not.
@@ -30,10 +30,11 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 
-        helper = new StudentsAllCourschemasHelper();
+        helper = new AllCourschemasHelper();
 		
 		// Initializations
-		StudentsAllCourschemas.initStepper();
+		AllCourschemas.initStepper();
+		helper.getDepartments();
 
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -75,4 +76,4 @@ window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
 		});
     };
 
-})(window.StudentsAllCourschemas);
+})(window.AllCourschemas);

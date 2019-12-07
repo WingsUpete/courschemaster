@@ -8,7 +8,7 @@
     };
 
     $(document).ready(function() {
-		StudentsAllCourschemas.initialize(true);
+		AllCourschemas.initialize(true);
     });
 </script>
 

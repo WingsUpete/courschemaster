@@ -37,7 +37,7 @@
 	</ul>
 	<div class="tab-content" id="cc-views-content">
 		<div class="tab-pane fade show active" id="cc-views-pdf-content" role="tabpanel" aria-labelledby="cc-views-pdf">
-			<iframe id="cc-pdf-window" title="Courschema PDF" width="100%" height="666px" src=""></iframe>
+			<iframe id="cc-pdf-window" title="Courschema PDF" src="<?= asset_url('assets/pdf/default.pdf') ?>"></iframe>
 			<div id="cc-pdf-download-block" class="text-right">
 				<button id="cc-pdf-download" type="button" class="btn btn-primary font-weight-bold mr-0">
 					<a href="javascript:void(0);" target="_blank">
@@ -49,24 +49,52 @@
 			</div>
 		</div>
 		<div class="tab-pane fade" id="cc-views-list-content" role="tabpanel" aria-labelledby="cc-views-list">
-			<div class="card text-center">
+			<div class="card">
 				<div class="card-header">
-					<ul class="nav nav-tabs card-header-tabs">
+					<ul class="nav nav-tabs card-header-tabs" id="list-tabs" role="tablist">
 						<li class="nav-item">
-							<a class="nav-link active" href="#">Active</a>
+							<a class="nav-link font-weight-bold active" id="list-tabs-events" data-toggle="tab" title="Events" href="#list-tabs-events-content" role="tab" aria-controls="list-tabs-events-content" aria-selected="true"><?= lang('events') ?></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link" href="#">Link</a>
-						</li>
-						<li class="nav-item">
-							<a class="nav-link disabled" href="#">Disabled</a>
+							<a class="nav-link font-weight-bold" id="list-tabs-courses" data-toggle="tab" title="Courses" href="#list-tabs-courses-content" role="tab" aria-controls="list-tabs-courses-content" aria-selected="false"><?= lang('courses') ?></a>
 						</li>
 					</ul>
 				</div>
 				<div class="card-body">
-					<h5 class="card-title">Special title treatment</h5>
-					<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-					<a href="#" class="btn btn-primary">Go somewhere</a>
+					<div class="tab-content" id="list-tabs-content">
+						<div class="tab-pane fade show active" id="list-tabs-events-content" role="tabpanel" aria-labelledby="list-tabs-events">
+							<h5 class="card-title"><?= lang('events') ?></h5>
+							<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
+							<a href="#" class="btn btn-primary">Go somewhere</a>
+						</div>
+						<div class="tab-pane fade" id="list-tabs-courses-content" role="tabpanel" aria-labelledby="list-tabs-courses">
+							<?php
+								$course_filters = array(
+									'General compulsory', 'Professional foundation', 'Professional core',
+									'Professional elective', 'General elective', 'Practice'
+								);
+								$course_table_headers = array(
+									'Course ID', 'Course Name', 'Total_Credit', 'Weekly Period', 'Department',
+//									'Semester', 'Language', 'Experimental Credit', 'Advanced Placement', 'Course Description'
+								);
+							?>
+							<div class="table-responsive"><table id="courses-datatable" class="table table-striped table-bordered table-hover table-condensed text-center">
+								<thead>
+									<tr>
+										<?php
+											for ($i = 0; $i < count($course_table_headers); $i++) {
+												echo('<th class="th-sm justify-content-center">' . $course_table_headers[$i] . '</th>');
+											}
+										?>
+									</tr>
+								</thead>
+								<tfoot>
+									<tr><?php echo('<td colspan="' . count($course_table_headers) . '" class="text-muted">Footer Information</td>'); ?></tr>
+								</tfoot>
+								<tbody></tbody>
+							</table></div>
+						</div>
+					</div>
 				</div>
 			</div>
 		</div>
@@ -74,56 +102,4 @@
 			GRAPH
 		</div>
 	</div>
-	
-	
-	
-	
-	
-<!--
-	<div id="student_checkspecificcourschema" class="student_checkspecificcourschema">
-		<ul class="nav nav-tabs" id="courschema_list" role="tablist">
-			<li class="nav-item">
-				<a class="nav-link active" id="General_compulsory-tab" data-toggle="tab" href="#General_compulsory" role="tab" aria-controls="General_compulsory" aria-selected="true">General compulsory</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="Professional_foundation-tab" data-toggle="tab" href="#Professional_foundation" role="tab" aria-controls="Professional_foundation" aria-selected="false">Professional foundation</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="Professional_core-tab" data-toggle="tab" href="#Professional_core" role="tab" aria-controls="Professional_core" aria-selected="false">Professional core</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="Professional_elective-tab" data-toggle="tab" href="#Professional_elective" role="tab" aria-controls="Professional_elective" aria-selected="false">Professional elective</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="General_elective-tab" data-toggle="tab" href="#General_elective" role="tab" aria-controls="General_elective" aria-selected="false">General elective</a>
-			</li>
-			<li class="nav-item">
-				<a class="nav-link" id="Practice-tab" data-toggle="tab" href="#Practice" role="tab" aria-controls="Practice" aria-selected="false">Practice</a>
-			</li>
-		</ul>
-		
-		<table id="datatable" class="table table-striped table-bordered table-hover table-condensed text-center">
-			<thead class="alert-primary">
-				<tr>
-					<th class="th-sm justify-content-center">Course ID</th>
-					<th class="th-sm">Course Name</th>
-					<th class="th-sm">Period</th>
-					<th class="th-sm">Course Credit</th>
-					<th class="th-sm">Prerequisite</th>
-					<th class="th-sm">Department</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td>CS102A</td>
-					<td>计算机程序设计基础A</td>
-					<td>64</td>
-					<td>4</td>
-					<td>无</td>
-					<td>计算机科学与工程系</td>
-				</tr>
-			</tbody>
-		</table>
-	</div>
--->
 </div>
