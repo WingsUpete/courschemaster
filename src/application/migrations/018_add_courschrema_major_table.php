@@ -25,7 +25,7 @@ class Migration_Add_courschrema_major_table extends CI_Migration{
 
 	public function down(){
 
-        $this->db->query('DROP TABLE cm_courschemas_majors');
+                $this->db->query('DROP TABLE cm_courschemas_majors');
         
 	}
 }
