@@ -74,10 +74,10 @@ class Students extends CI_Controller{
     protected function load_comb_views($view_data, $main_view){
         load_header_data($view_data);
 		$this->load_sidebar_data($view_data);
-        $this->load->view("general/header", $view_data);
-        $this->load->view("general/sidebar", $view_data);
+        $this->load->view("general/BasicComponents/header", $view_data);
+        $this->load->view("general/BasicComponents/sidebar", $view_data);
         $this->load->view($main_view, $view_data);
-        $this->load->view("general/footer", $view_data);
+        $this->load->view("general/BasicComponents/footer", $view_data);
     }
 
     public function load_sidebar_data(&$view){

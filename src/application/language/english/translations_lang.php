@@ -25,3 +25,4 @@ $lang['select_department'] = 'Select Department';
 $lang['select_major'] = 'Select Major';
 $lang['select_version'] = 'Select Version';
 $lang['search'] = 'Search';
+$lang['qa'] = 'Question & Answers';
