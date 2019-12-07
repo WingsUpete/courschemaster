@@ -2,10 +2,7 @@
 
 require_once Config::VENDOR_TCPDF_SOURCE . '/tcpdf.php';
 
-class Courschema_PDF{
-
-    //CI
-    private $ci;
+class Courschemapdf{
 
     //library variables
     private $pdf;
@@ -26,12 +23,12 @@ class Courschema_PDF{
     
 
     public function __construct(){
-        $this->ci =& get_instance();
-        $this->ci->load->library('session');
-
-        $this->language = $this->ci->session->userdata('language');
 
         $this->pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    }
+
+    public function init($language){
+        $this->language = $language;
         // set font
         if($this->language == 'english'){
             $this->pdf->SetFont('times', '', 10);

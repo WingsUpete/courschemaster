@@ -5,10 +5,11 @@ class Api_test extends CI_Controller{
         parent::__construct();
         $this->load->model('qa_model');
         $this->load->model('courschemas_model');
+        $this->load->library('session');
     }
 
     public function index(){
-        $this->test_get_cm();
+        $this->test_pdf();
     }
 
     public function test_get_cm(){
@@ -47,13 +48,11 @@ class Api_test extends CI_Controller{
     }
 
     public function test_pdf(){
-        $this->load->library('courschema_pdf');
-        $cpdf = $this->courschema_pdf;
-        $cpdf->add_page();
-
-        $cpdf->set_courschema_header($name="Courschema of Computer Science Major", $department="Department of Computer Science and Engineering", $version="2019120601");
-
-        $cpdf->set_courschema_intro('
+        $this->load->library('courschemapdf');
+        $this->courschemapdf->init('english');
+        $this->courschemapdf->add_page();
+        $this->courschemapdf->set_courschema_header($name="Courschema of Computer Science Major", $department="Department of Computer Science and Engineering", $version="2019120601");
+        $this->courschemapdf->set_courschema_intro('
         Computer Science is as a great developing potential major, seeing an acute shortage 
         of advanced talents. With the rapid development of computer techonology and the modernization 
         enterprises, the phenomenon will become more and more serious. The society urgently needs 
@@ -62,7 +61,7 @@ class Api_test extends CI_Controller{
         period of time.
         ');
 
-        $cpdf->set_courschema_objectives('
+        $this->courschemapdf->set_courschema_objectives('
         This major is aiming at cultivating talents who possess firm professional theory knowledge, 
         mastering the frontier computer system design principle, corresponding research and exploitation 
         ability, and capable of utilizing English and computer technology. After graduation, students 
@@ -71,12 +70,12 @@ class Api_test extends CI_Controller{
         their postgraduate studies in Computer Science and Technology and related or interdisciplinary fields.
         ');
 
-        $cpdf->set_courschema_program_length("Four years");
+        $this->courschemapdf->set_courschema_program_length("Four years");
 
-        $cpdf->set_courschema_degree('Bachelor of Engineering');
+        $this->courschemapdf->set_courschema_degree('Bachelor of Engineering');
 
-        $cpdf->append_raw_html('<h3>Compulsory Courses before Enrolled in CSE</h3>');
-        $cpdf->append_table(
+        $this->courschemapdf->append_raw_html('<h3>Compulsory Courses before Enrolled in CSE</h3>');
+        $this->courschemapdf->append_table(
             array('coursche ID', 'name', 'prerequrestites'), 
             array(
                 array('CS101', 'Introducation to CS', ' '),
@@ -92,7 +91,7 @@ class Api_test extends CI_Controller{
             )
         );
 
-        $cpdf->test_html();
+        $this->courschemapdf->test_html();
     }
 
     public function test_admin_change_faq_mark(){
