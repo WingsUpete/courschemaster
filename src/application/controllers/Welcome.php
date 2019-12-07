@@ -21,9 +21,9 @@ class Welcome extends CI_Controller {
         $user_data['base_url'] = $this->config->item('base_url');
         load_header_data($user_data);
 
-        $this->load->view('general/header', $user_data);
+        $this->load->view('general/BasicComponents/header', $user_data);
         $this->load->view('welcome/welcome_message');	
-        $this->load->view('general/footer');
+        $this->load->view('general/BasicComponents/footer');
     }
 
 }
