@@ -13,7 +13,7 @@
 </script>
 
 <!-- Main content -->
-<div id="students_current_courschema" class="main-content" style="padding: 20px;">
+<div id="current_courschema" class="main-content">
 	<h1><?= lang('my_courschema') ?></h1>
 	<hr />
 	

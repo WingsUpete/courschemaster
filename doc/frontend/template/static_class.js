@@ -1,78 +1,49 @@
-window.StudentsAllCourschemas = window.StudentsAllCourschemas || {};
+window.StaticClass = window.StaticClass || {};	// Browser Compatibility
 
 /**
- * Students My Appointment
  *
- * Students My Appointment javascript namespace. Contains the main functionality of the Students My Appointment
- * page.
+ * An example of a Static Class
  *
- * @module StudentsAllCourschemas
+ * @module StaticClass
  */
 (function (exports) {
 
-    'use strict';
+    'use strict';	// strict mode execution: This means no undeclared variable usage.
+	
+	// an example static method
+	// to call this method, write `StaticClass.exampleStaticMethod('Hi')`
+    exports.exampleStaticMethod = function (param0) {
+        // do sth
+		console.log(param0);
+    };
 
+	// Normally static classes are for helping a web page to initialize several tools and bind helper's event handlers
     /**
-     * The page helper contains methods that implement each record type functionality
-     * StudentsAllCourschemasHelper
-     *
-     * @type {Object}
-     */
-    var helper = {};
-	var stepper = null;
-
-    /**
-     * This method initializes the Students My Appointment page.
+     * This method initializes certain page
      *
      * @param {Boolean} defaultEventHandlers Optional (false), whether to bind the default
      * event handlers or not.
      */
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
-
-        helper = new StudentsAllCourschemasHelper();
+        helper = new HelperClass();	// here we instantiate a helper class
 		
-		// Initializations
-		StudentsAllCourschemas.initStepper();
+		// Initializations of other tools
 
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }
     };
 
+	// Note that functions written as `function exampleLocalFunction()` can only be called LOCALLY
     /**
-     * Default event handlers declaration for Students My Appointment page.
+     * Default event handlers declaration for certain page.
      */
-    function _bindEventHandlers() {		
+    function _bindEventHandlers() {
+		//	bind global event handlers
+		
+		//	bind event handlers from the helper
         helper.bindEventHandlers();
     }
-	
-    /**
-     * This method initializes the bs-stepper section.
-     */
-	var bs_stepper_prev_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></button>';
-	var bs_stepper_next_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></button>';
-    exports.initStepper = function () {
-		//	Initialize a stepper
-		stepper = new Stepper($('.bs-stepper')[0], {
-			linear: true,
-			animation: true,
-			selectors: {
-				steps: '.step',
-				trigger: '.step-trigger',
-				stepper: '.bs-stepper'
-			}
-		});
-		//	for bs stepper progress buttons
-		$(document).on('click', '.bs-stepper .bs-stepper-btns--next', function() {
-			stepper.next();
-		}).on('click', '.bs-stepper .bs-stepper-btns--prev', function() {
-			stepper.previous();
-		});
-		//	for additional events of bs stepper
-		$('.bs-stepper')[0].addEventListener('shown.bs-stepper', function(event) {
-//			console.log(event.detail);
-		});
-    };
 
-})(window.StudentsAllCourschemas);
+})(window.StaticClass);

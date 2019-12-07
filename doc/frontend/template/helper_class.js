@@ -1,60 +1,58 @@
 (function () {
 
-    'use strict';
+    'use strict';	// strict mode execution: This means no undeclared variable usage.
 
     /**
-     * StudentsAllCourschemasHelper Class
+     * HelperClass - Remember to change `HelperClass` to the appropriate class name you want
      *
-     * This class contains the methods that are used in the Students My Courschema page.
+     * This class is a template helper class that needs to be initialized for each usage
      *
-     * @class StudentsAllCourschemasHelper
+     * @class HelperClass
      */
-    function StudentsAllCourschemasHelper() {
-//        this.filterResults = {};
+    function HelperClass() {
+		//	This is like a constructor
+		this.variable0 = 0;
     }
 
     /**
-     * Binds the default event handlers of the Students My Appointment page.
+     * Binds the default event handlers used in your helper class
      */
-    StudentsAllCourschemasHelper.prototype.bindEventHandlers = function () {
+    HelperClass.prototype.bindEventHandlers = function () {
         var instance = this;
+		// normally you use "this" to represent the instance right? So why do we need to store it?
+		// because in listeners, the meaning of "this" will change. If you still don't get it, try it yourself~
 
 		// Listners
+		$('.exampleElement').click(function() {
+			// note that you can write listeners like this thanks to JQuery
+			// If you want to write in Native Javascript, use `eventTarget.addEventListener(...)`
+		});
 		
+		$(document).on('click', '.exampleElement', function() {
+			// note that you can write listeners like this thanks to JQuery
+			// BEWARE that this format is necessary, for elements that are generated through Javascript!
+			// For those generated elements, `$('...').click(...)` will not work
+			console.log(instance.variable0);
+		});
 	};
 
 	//	Additional Methods
-
     /**
-     * Get All Departments
+     * One instance method
      */
-    StudentsAllCourschemasHelper.prototype.saveEdition = function () {
-        var tutor_id = $('#tutor-id').val();
-		var first_name = GeneralFunctions.superEscapeHTML($('#first-name').val());
-		var last_name = GeneralFunctions.superEscapeHTML($('#last-name').val());
-		var phone_number = GeneralFunctions.superEscapeHTML($('#phone-number').val());
-		var address = GeneralFunctions.superEscapeHTML($('#address').val());
-		var email = GeneralFunctions.superEscapeHTML($('#email').val());
-		var personal_page = $('#personal-page').val();
-		var introduction = GeneralFunctions.superEscapeHTML($('#introduction').val());
-		var flexible_column = GeneralFunctions.superEscapeHTML($('#flexible-column').val());
+    HelperClass.prototype.exampleInstanceMethod = function () {
+		//	Do whatever you want
+		//	...
+		
+		//	Here is an example of using JQuery's AJAX 
+        var input0 = $('#input0').val();
 		
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/admin_api/ajax_edit_tutor';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/sth_api/ajax_do_sth';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-			tutor_id : tutor_id,
-			first_name : JSON.stringify(first_name),
-			last_name : JSON.stringify(last_name),
-			personal_page : JSON.stringify(personal_page),
-			introduction : JSON.stringify(introduction),
-			address : JSON.stringify(address),
-			flexible_column : JSON.stringify(flexible_column),
-			email : JSON.stringify(email),
-			phone_number : JSON.stringify(phone_number)
+			input0 : JSON.stringify(input0)
         };
-		
-		var obj = this;
 
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
@@ -62,21 +60,10 @@
                 return;
             }
 			
-			if (response === 'success') {
-				Admin.displayNotification(EALang.edit_tutor_success, undefined, "success");
-			} else if (response === 'fail') {
-				Admin.displayNotification(EALang.edit_tutor_fail, undefined, "failure");
-			}
-			
-			var newName = first_name + " " + last_name;
-			$('.admin-page #tutor_config .results .entry.selected')[0].title = newName;
-			$('.admin-page #tutor_config .results .entry.selected strong.nameTags')[0].innerHTML = newName;
-			
-			//	Save, calendar needs refetching
-			this.calendar_needs_retrieval = true;
+			// use response to do sth...
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
-    window.StudentsAllCourschemasHelper = StudentsAllCourschemasHelper;
+    window.HelperClass = HelperClass;	// browser compatibility
 })();

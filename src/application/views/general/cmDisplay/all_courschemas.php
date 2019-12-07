@@ -13,7 +13,7 @@
 </script>
 
 <!-- Main content -->
-<div id="students_all_courschemas" class="main-content" style="padding: 20px;">
+<div id="all_courschemas" class="main-content">
 	<!-- Title -->
 	<h1><?= lang('all_courschemas') ?></h1>
 	<hr />
@@ -68,18 +68,21 @@
 				
 					<div class="col-xs-12 col-lg-6 col-xl-4">
 						<div class="card">
-							<div class="card-header text-right">
-								<a href="javascript:void(0);" class="collect-dep text-warning" title="Collect">
-									<i class="far fa-star fa-lg"></i>
-								</a>
-							</div>
+							<div class="card-header text-right"></div>
 							<div class="card-body text-center">
-								<h5 class="card-title font-weight-bold">Computer Science & Engineering</h5>
+								<h5 class="card-title font-weight-bold">
+									<sup>
+										<a href="javascript:void(0);" class="collect-dep text-warning" title="Collect">
+											<i class="far fa-star fa-lg"></i>
+										</a>
+									</sup>
+									Computer Science & Engineering
+								</h5>
 								<hr />
 								<p class="card-text">
 									(no description yet)
 								</p>
-								<button type="button" class="btn btn-outline-dark btn-block font-weight-bold sel-dep-btns">
+								<button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-dep-btns">
 									<i class="fas fa-door-open"></i>
 									&nbsp;
 									Access

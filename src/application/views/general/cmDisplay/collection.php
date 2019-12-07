@@ -12,7 +12,7 @@
 </script>
 
 <!-- Main content -->
-<div id="students_collection" class="main-content" style="padding: 20px;">
+<div id="collection" class="main-content">
 	<h1><?= lang('collection') ?></h1>
 	<hr />
 	<!-- Others -->
