@@ -4,11 +4,46 @@ class Api_test extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('qa_model');
-        
+        $this->load->model('courschemas_model');
     }
 
     public function index(){
-        $this->test_pdf();
+        $this->test_get_cm();
+    }
+
+    public function test_get_cm(){
+        $language = 'english';
+        $user_id = 1;
+        $maj_id = 1;
+        $result = $this->courschemas_model->get_cm($language, $user_id, $maj_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
+    }
+
+    public function test_get_maj(){
+        $language = 'english'; 
+        $dep_id = 1;
+        $result = $this->courschemas_model->get_maj($language, $dep_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
+    }
+
+    public function test_get_dep(){
+        $result = $this->courschemas_model->get_dep('english');
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
     }
 
     public function test_pdf(){
