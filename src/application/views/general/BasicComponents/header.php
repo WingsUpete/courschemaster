@@ -96,7 +96,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	
 	<!-- Customize JS -->
 	<script type="text/javascript" src="<?= asset_url('assets/js/general_functions.js', NULL, 'js') ?>"></script>
-	<script type="text/javascript" src="<?= asset_url('assets/js/students/students.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/js/initialize.js', NULL, 'js') ?>"></script>
 </head>
 
 <body>
