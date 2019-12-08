@@ -19,7 +19,7 @@ window.AllCourschemas = window.AllCourschemas || {};
      * @type {Object}
      */
     var helper = {};
-	var stepper = null;
+	var stepper = undefined;
 
     /**
      * This method initializes the All Courschemas page.
@@ -54,6 +54,9 @@ window.AllCourschemas = window.AllCourschemas || {};
 	var bs_stepper_prev_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></button>';
 	var bs_stepper_next_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></button>';
     exports.initStepper = function () {
+		if ($('.bs-stepper').length == 0) {
+			return false;
+		}
 		//	Initialize a stepper
 		stepper = new Stepper($('.bs-stepper')[0], {
 			linear: true,
@@ -74,6 +77,7 @@ window.AllCourschemas = window.AllCourschemas || {};
 		$('.bs-stepper')[0].addEventListener('shown.bs-stepper', function(event) {
 			GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
 		});
+		return true;
     };
 
 })(window.AllCourschemas);
