@@ -81,7 +81,10 @@ window.Initialize = window.Initialize || {};
 	});
 	
 	window.addEventListener('load', function() {
-		// do sth
+		//	after everything loaded, show body content
+		setTimeout(function() {
+			$('body').css('opacity', '1.0');
+		}, 666);
 	});
 
 })(window.Initialize);

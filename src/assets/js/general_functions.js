@@ -377,6 +377,8 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 				 'top': '0'
 			 });
 		 }
+		 
+//		 alert('footer placed to bottom');
 	 };
 	
     /**
