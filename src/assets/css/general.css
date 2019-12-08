@@ -341,3 +341,44 @@ footer #admin_phone_number {
 		text-align: center;
 	}
 }
+
+
+
+
+
+
+
+
+
+/* Search blocks */
+.md-form.md-outline .prefix {
+	color: #a0a6ab;
+}
+.md-form.md-outline .prefix.active,
+.md-form.md-outline input[type="text"]:focus:not([readonly]) + label {
+	color: #b04b4b;
+}
+.md-form.md-outline input[type="text"]:focus:not([readonly]) {
+	border-color: #b04b4b;
+	box-shadow: inset 0 0 0 1px #b04b4b;
+}
+
+
+
+
+
+
+
+
+/* List - Nav Tabs */
+.nav-tabs .nav-link {
+	color: rgba(88,88,88,1.00);
+	opacity: 1.0;
+	transition: all 0.3s;
+}
+.nav-tabs .nav-link:hover {
+	opacity: 0.8;
+}
+.nav-tabs .nav-link.active {
+	color: #b04b4b;
+}
