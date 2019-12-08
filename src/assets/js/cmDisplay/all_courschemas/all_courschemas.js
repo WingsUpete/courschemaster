@@ -35,6 +35,7 @@ window.AllCourschemas = window.AllCourschemas || {};
 		// Initializations
 		AllCourschemas.initStepper();
 		helper.getDepartments();
+//		helper.getMajors();
 
         if (defaultEventHandlers) {
             _bindEventHandlers();
