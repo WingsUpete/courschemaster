@@ -5,7 +5,7 @@
     /**
      * CurrentCourschemaHelper Class
      *
-     * This class contains the methods that are used in the Students My Courschema page.
+     * This class contains the methods that are used in the Current Courschema page.
      *
      * @class CurrentCourschemaHelper
      */
@@ -14,7 +14,7 @@
     }
 
     /**
-     * Binds the default event handlers of the Students My Appointment page.
+     * Binds the default event handlers of the Current Appointment page.
      */
     CurrentCourschemaHelper.prototype.bindEventHandlers = function () {
         var instance = this;

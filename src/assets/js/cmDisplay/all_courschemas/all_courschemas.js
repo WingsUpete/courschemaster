@@ -42,14 +42,14 @@ window.AllCourschemas = window.AllCourschemas || {};
     };
 
     /**
-     * Default event handlers declaration for Students My Appointment page.
+     * Default event handlers declaration for All Courschemas page.
      */
     function _bindEventHandlers() {		
         helper.bindEventHandlers();
     }
 	
     /**
-     * This method initializes the bs-stepper section.
+     * Initializes the bs-stepper section.
      */
 	var bs_stepper_prev_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--prev"><i class="fas fa-chevron-left"></i></button>';
 	var bs_stepper_next_btn = '<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next"><i class="fas fa-chevron-right"></i></button>';

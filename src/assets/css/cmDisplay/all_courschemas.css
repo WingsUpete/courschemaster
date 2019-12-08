@@ -76,5 +76,7 @@
 .card:hover, .card:focus {
 	box-shadow: 0 2px 5px 0 rgba(0,0,0,.35), 0 2px 10px 0 rgba(0,0,0,.55);
 }
-
+.card .card-header {
+	background-color: #a14b4b;
+}
 

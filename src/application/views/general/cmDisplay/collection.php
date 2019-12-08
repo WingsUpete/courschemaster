@@ -18,15 +18,19 @@
 	<hr />
 	<!-- Course Table -->
 	<?php
-		$course_filters = array(
-			'General compulsory', 'Professional foundation', 'Professional core',
-			'Professional elective', 'General elective', 'Practice'
-		);
 		$course_table_headers = array(
-			'Course ID', 'Course Name', 'Total_Credit', 'Weekly Period', 'Department',
-//			'Semester', 'Language', 'Experimental Credit', 'Advanced Placement', 'Course Description'
+			'Name', 'Version', 'Department', 'Major', 'Program Length', 'Degree Requirement'
+//			'Objectives', 'Discipline', 'Introduction'
+//			'Course Structure and Credit Requirements'
 		);
 	?>
+	<div class="table-filter">
+		<div class="container-fluid">
+			<div class="row">
+				
+			</div>
+		</div>
+	</div>
 	<div class="table-responsive"><table id="courses-datatable" class="table table-striped table-bordered table-hover table-condensed text-center">
 		<thead>
 			<tr>
