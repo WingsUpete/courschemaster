@@ -39,7 +39,7 @@ window.CurrentCourschema = window.CurrentCourschema || {};
     };
 
     /**
-     * Default event handlers declaration for Students My Appointment page.
+     * Default event handlers declaration for Current Courschema page.
      */
     function _bindEventHandlers() {
 		$("a[data-toggle='pill'], a[data-toggle='tab']").on('shown.bs.tab', function() {
@@ -49,7 +49,10 @@ window.CurrentCourschema = window.CurrentCourschema || {};
 		
         helper.bindEventHandlers();
     }
-	
+
+    /**
+     * Initializes the datatable section.
+     */
 	exports.initialize_courses = function () {
 		datatable = $('#courses-datatable').DataTable({
 			"autoWidth": true,

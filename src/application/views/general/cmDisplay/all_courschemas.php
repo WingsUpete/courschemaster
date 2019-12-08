@@ -67,7 +67,7 @@
 				<div class="row">
 				
 					<div class="col-xs-12 col-lg-6 col-xl-4">
-						<div class="card">
+						<div class="card search-res-item">
 							<div class="card-header text-right">&ensp;</div>
 							<div class="card-body text-center">
 								<h5 class="card-title font-weight-bold">

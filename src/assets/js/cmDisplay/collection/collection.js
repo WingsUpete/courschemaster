@@ -39,7 +39,7 @@ window.Collection = window.Collection || {};
     };
 
     /**
-     * Default event handlers declaration for Students My Appointment page.
+     * Default event handlers declaration for Collection page.
      */
     function _bindEventHandlers() {
 		

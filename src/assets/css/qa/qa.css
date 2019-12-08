@@ -1,0 +1,10 @@
+/* CSS Document */
+/* No sidebar, so remove margin-left of .main-content */
+.main-content {
+	margin-left: 12px;
+}
+
+
+
+
+

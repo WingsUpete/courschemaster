@@ -5,7 +5,7 @@
     /**
      * CollectionHelper Class
      *
-     * This class contains the methods that are used in the Students My Courschema page.
+     * This class contains the methods that are used in the Collection page.
      *
      * @class CollectionHelper
      */
@@ -14,7 +14,7 @@
     }
 
     /**
-     * Binds the default event handlers of the Students My Appointment page.
+     * Binds the default event handlers of the Collection page.
      */
     CollectionHelper.prototype.bindEventHandlers = function () {
         var instance = this;
