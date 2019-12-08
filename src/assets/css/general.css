@@ -2,6 +2,7 @@
 /* body */
 body {
 	font-family: Roboto,sans-serif,微软雅黑;
+	opacity: 0;	/* first hidden, after intialization, shows */
 	transition: all 0.5s;
 }
 body::-webkit-scrollbar {
