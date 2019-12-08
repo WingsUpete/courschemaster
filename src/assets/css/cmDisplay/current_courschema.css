@@ -54,18 +54,7 @@ iframe#cc-pdf-window:hover, iframe#cc-pdf-window:focus {
 
 
 
-/* List - Nav Tabs */
-.nav-tabs .nav-link {
-	color: rgba(88,88,88,1.00);
-	opacity: 1.0;
-	transition: all 0.3s;
-}
-.nav-tabs .nav-link:hover {
-	opacity: 0.8;
-}
-.nav-tabs .nav-link.active {
-	color: #b04b4b;
-}
+
 /* List - Courses Datatable */
 .table-responsive::-webkit-scrollbar {
     width: 0.6em;
