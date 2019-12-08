@@ -289,7 +289,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
     exports.ajaxFailureHandler = function (jqxhr, textStatus, errorThrown) {
         var exceptions = [
             {
-                message: textStatus + ': ' + errorThrown + $(jqxhr.responseText).text()
+                message: textStatus + ': ' + errorThrown + '<br />' + jqxhr.responseText
             }
         ];
         GeneralFunctions.displayMessageBox(GeneralFunctions.EXCEPTIONS_TITLE, GeneralFunctions.EXCEPTIONS_MESSAGE);

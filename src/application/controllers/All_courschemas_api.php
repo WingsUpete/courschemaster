@@ -14,15 +14,13 @@ class All_courschemas_api extends CI_Controller{
 
     public function ajax_get_dep(){
         try{
-
             $language = $this->session->userdata('language');
 
             $result = $this->courschemas_model->get_dep($language);
 
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result)); 
-
+                ->set_output(json_encode($result));
         }catch(Exception $exc){
             $this->output
                 ->set_content_type('application/json')
