@@ -15,7 +15,7 @@ class Qa extends CI_Controller{
             return; 
         }
         $view_data = array();
-        $this->load_comb_views($view_data, $main_view);
+        $this->load_comb_views($view_data, 'qa/main');
     }
 
     public function question(){
@@ -23,7 +23,7 @@ class Qa extends CI_Controller{
             return; 
         }
         $view_data = array();
-        $this->load_comb_views($view_data, $main_view);
+        $this->load_comb_views($view_data, 'qa/question');
     }
 
     protected function load_comb_views($view_data, $main_view){
@@ -40,6 +40,7 @@ class Qa extends CI_Controller{
             header('Location: ' . site_url('user/login'));
             return FALSE;
         }
+        return TRUE;
     }
 }
 ?>
