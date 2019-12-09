@@ -268,6 +268,9 @@ window.GeneralFunctions = window.GeneralFunctions || {};
                csrfToken: GlobalVariables.csrfToken,
                language: JSON.stringify($(this).attr('data-language'))
            };
+			
+//			alert('language' + JSON.stringify(postData));
+			
            $.post(postUrl, postData, function (response) {
                if (!GeneralFunctions.handleAjaxExceptions(response)) {
                    alert(response.exceptions);
