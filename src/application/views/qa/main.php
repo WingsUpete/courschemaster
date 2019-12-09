@@ -21,32 +21,52 @@
 		<div class="row">
 			<!-- Search Box & Questions -->
 			<div class="col-sm-12 col-lg-7">
-				<div class="md-form md-outline">
-					<i class="fas fa-search prefix"></i>
-					<input type="text" id="qa-search" class="form-control">
-					<label for="qa-search"><?= lang('search') ?></label>
+				<div class="card">
+					<div class="card-header">
+						<ul class="nav nav-tabs card-header-tabs" id="question-box" role="tablist">
+							<li class="nav-item">
+								<a class="nav-link font-weight-bold active" id="question-box-search" data-toggle="tab" title="Events" href="#question-box-search-content" role="tab" aria-controls="question-box-search-content" aria-selected="true"><?= lang('search_questions') ?></a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link font-weight-bold" id="question-box-ask" data-toggle="tab" title="Courses" href="#question-box-ask-content" role="tab" aria-controls="question-box-ask-content" aria-selected="false"><?= lang('ask_questions') ?></a>
+							</li>
+						</ul>
+					</div>
+					<div class="card-body">
+						<div class="tab-content" id="question-box-content">
+							<div class="tab-pane fade show active" id="question-box-search-content" role="tabpanel" aria-labelledby="question-box-search">
+								<div class="md-form md-outline">
+									<i class="fas fa-search prefix"></i>
+									<input type="text" id="qa-search" class="form-control">
+									<label for="qa-search"><?= lang('search') ?></label>
+								</div>
+							</div>
+							<div class="tab-pane fade" id="question-box-ask-content" role="tabpanel" aria-labelledby="question-box-ask">
+								Ask Questions
+							</div>
+						</div>
+					</div>
 				</div>
-				
 			</div>
 			<!-- Recommend Box -->
 			<div class="col-sm-12 col-lg-5">
 				<div class="card">
 					<div class="card-header">
-						<ul class="nav nav-tabs card-header-tabs" id="list-tabs" role="tablist">
+						<ul class="nav nav-tabs card-header-tabs" id="recommend-box" role="tablist">
 							<li class="nav-item">
-								<a class="nav-link font-weight-bold active" id="list-tabs-faqs" data-toggle="tab" title="Events" href="#list-tabs-faqs-content" role="tab" aria-controls="list-tabs-faqs-content" aria-selected="true"><?= lang('faqs') ?></a>
+								<a class="nav-link font-weight-bold active" id="recommend-box-faqs" data-toggle="tab" title="Events" href="#recommend-box-faqs-content" role="tab" aria-controls="recommend-box-faqs-content" aria-selected="true"><?= lang('faqs') ?></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link font-weight-bold" id="list-tabs-lqs" data-toggle="tab" title="Courses" href="#list-tabs-lqs-content" role="tab" aria-controls="list-tabs-lqs-content" aria-selected="false"><?= lang('latest_questions') ?></a>
+								<a class="nav-link font-weight-bold" id="recommend-box-lqs" data-toggle="tab" title="Courses" href="#recommend-box-lqs-content" role="tab" aria-controls="recommend-box-lqs-content" aria-selected="false"><?= lang('latest_questions') ?></a>
 							</li>
 						</ul>
 					</div>
 					<div class="card-body">
-						<div class="tab-content" id="list-tabs-content">
-							<div class="tab-pane fade show active" id="list-tabs-faqs-content" role="tabpanel" aria-labelledby="list-tabs-faqs">
+						<div class="tab-content" id="recommend-box-content">
+							<div class="tab-pane fade show active" id="recommend-box-faqs-content" role="tabpanel" aria-labelledby="recommend-box-faqs">
 								FAQs
 							</div>
-							<div class="tab-pane fade" id="list-tabs-lqs-content" role="tabpanel" aria-labelledby="list-tabs-lqs">
+							<div class="tab-pane fade" id="recommend-box-lqs-content" role="tabpanel" aria-labelledby="recommend-box-lqs">
 								Latest Questions
 							</div>
 						</div>

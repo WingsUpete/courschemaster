@@ -34,3 +34,5 @@ $lang['graph'] = 'Graph';
 $lang['download'] = 'Download';
 $lang['events'] = 'Events';
 $lang['courses'] = 'Courses';
+$lang['search_questions'] = 'Search Questions';
+$lang['ask_questions'] = 'Ask Questions';
