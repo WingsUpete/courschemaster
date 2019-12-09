@@ -21,7 +21,19 @@
         var instance = this;
 
 		// Listners
-		
+		$(document).on('click', '.sel-dep-btns', function() {
+			var dep_id = $('.sel-dep-btns').attr('data-dep-id');
+			instance.stepper.next();
+			instance.getMajors(dep_id);
+		});
+		$(document).on('click', '.sel-maj-btns', function() {
+			var maj_id = $('.sel-maj-btns').attr('data-maj-id');
+			instance.stepper.next();
+			instance.getCourschemas(maj_id);
+		});
+		$(document).on('click', '.sel-ver-btns', function() {
+			instance.stepper.next();
+		});
 		
 	};
 

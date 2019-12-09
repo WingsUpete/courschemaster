@@ -36,3 +36,6 @@ $lang['events'] = 'Events';
 $lang['courses'] = 'Courses';
 $lang['search_questions'] = 'Search Questions';
 $lang['ask_questions'] = 'Ask Questions';
+$lang['title'] = 'Title';
+$lang['description'] = 'Description';
+$lang['submit'] = 'Submit';

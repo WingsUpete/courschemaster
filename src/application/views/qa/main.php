@@ -42,7 +42,27 @@
 								</div>
 							</div>
 							<div class="tab-pane fade" id="question-box-ask-content" role="tabpanel" aria-labelledby="question-box-ask">
-								Ask Questions
+								<div class="md-form md-outline">
+									<textarea id="ask_question_title" class="md-textarea form-control" rows="3" maxlength="50" style="resize:none;"></textarea>
+									<label for="ask_question_title"><?= lang('title') ?></label>
+								</div>
+								<div class="md-form md-outline">
+									<textarea id="ask_question_description" class="md-textarea form-control" rows="5" maxlength="300" style="resize:none;"></textarea>
+									<label for="ask_question_description"><?= lang('description') ?></label>
+								</div>
+								<div class="row">
+									<div class="col-xs-12 col-lg-8">
+										<span class="badge badge-pill badge-info">Info</span>
+										<span class="badge badge-pill badge-info">Info</span>
+										<span class="badge badge-pill badge-info">Info</span>
+										<span class="badge badge-pill badge-info">Info</span>
+									</div>
+									<div class="col-xs-12 col-lg-4 text-right">
+										<button type="button" id="ask_question_submit" class="btn btn-primary">
+											<?= lang('submit') ?>
+										</button>
+									</div>
+								</div>
 							</div>
 						</div>
 					</div>

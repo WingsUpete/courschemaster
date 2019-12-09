@@ -36,3 +36,6 @@ $lang['events'] = '事件';
 $lang['courses'] = '课程';
 $lang['search_questions'] = '搜索问题';
 $lang['ask_questions'] = '提问';
+$lang['title'] = '标题';
+$lang['description'] = '描述';
+$lang['submit'] = '提交';

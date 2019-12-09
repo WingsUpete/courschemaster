@@ -1,6 +1,6 @@
 <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/cmDisplay/all_courschemas.css', NULL, 'css') ?>" />
-<script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/all_courschemas/all_courschemas.js', NULL, 'js') ?>"></script>
 <script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/all_courschemas/all_courschemas_helper.js', NULL, 'js') ?>"></script>
+<script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/all_courschemas/all_courschemas.js', NULL, 'js') ?>"></script>
 <script>
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
@@ -82,7 +82,7 @@
 								<p class="card-text">
 									(no description yet)
 								</p>
-								<button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-dep-btns">
+								<button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-dep-btns" data-dep-id="1">
 									<i class="fas fa-door-open"></i>
 									&nbsp;
 									Access

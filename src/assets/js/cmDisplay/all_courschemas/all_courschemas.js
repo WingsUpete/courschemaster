@@ -34,6 +34,7 @@ window.AllCourschemas = window.AllCourschemas || {};
 		
 		// Initializations
 		AllCourschemas.initStepper();
+		helper.stepper = stepper;
 		helper.getDepartments();
 //		helper.getMajors();
 
