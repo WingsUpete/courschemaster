@@ -36,6 +36,8 @@
         var postData = {
             csrfToken: GlobalVariables.csrfToken
         };
+		
+//		alert('get_dep' + JSON.stringify(postData));
 
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning

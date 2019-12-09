@@ -34,3 +34,5 @@ $lang['graph'] = '图';
 $lang['download'] = '下载';
 $lang['events'] = '事件';
 $lang['courses'] = '课程';
+$lang['search_questions'] = '搜索问题';
+$lang['ask_questions'] = '提问';
