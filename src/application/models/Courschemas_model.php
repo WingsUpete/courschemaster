@@ -102,4 +102,34 @@ class Courschemas_model extends CI_Model{
 
         return $result;
     }
+
+    public function get_ccBasic($language, $user_id){
+        if($language == 'english'){
+            $this->db->select('
+                cm_courschemas.id      AS id,
+                cm_courschemas.en_name AS name
+            ');
+        }else{
+            $this->db->select('
+            cm_courschemas.id   AS id,
+            cm_courschemas.name AS name
+        ');
+        }
+        
+        return $this->db->from('cm_users')
+            ->where('cm_users.id', $user_id)
+            ->join('cm_courschemas', 'cm_courschemas.id = cm_users.id_courschemas', 'inner')
+            ->get()
+            ->row_array();
+    }
+
+    public function get_pdf($courschema_id){
+        return $this->db->select('
+                cm_courschemas.pdf_url AS pdf_url
+            ')
+            ->from('cm_courschemas')
+            ->where('cm_courschemas.id', $courschema_id)
+            ->get()
+            ->row_array()['pdf_url'];
+    }
 }
