@@ -9,7 +9,18 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_pdf();
+        $this->test_get_all_labels();
+    }
+
+    public function test_get_all_labels(){
+        $language = 'english';
+        $result = $this->qa_model->get_all_labels($language);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
     }
 
     public function test_get_cm(){

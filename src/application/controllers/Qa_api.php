@@ -262,6 +262,24 @@ class Qa_api extends CI_Controller{
         }
     }
 
+    public function ajax_get_all_labels(){
+        try{
+
+            $language = $this->session->userdata('language');
+
+            $result = $this->qa_model->get_all_labels($language);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
 
 
 

@@ -414,6 +414,26 @@ class Qa_model extends CI_Model{
             ->result_array();
     }
 
+    public function get_all_labels($language){
+        if($language == 'english'){
+            $this->db
+            ->select('
+                qa_labels.id      AS id,
+                qa_labels.cn_name AS name
+            ');
+        }else{
+            $this->db
+            ->select('
+                qa_labels.id      AS id,
+                qa_labels.en_name AS name
+            ');
+        }
+
+        return $this->db->from('qa_labels')
+            ->get()
+            ->result_array();        
+    }
+
     // Admin function
     public function _admin_change_field($where_field, $where_value, $table, $field, $value, $user_id){
         if( ! $this->_is_admin($user_id)){
