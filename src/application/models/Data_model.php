@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Department_model extends CI_Model{
+class Data_model extends CI_Model{
 
 	/**
 	 * this method is used to clear all the data in the table "cm_departments"
@@ -39,7 +39,7 @@ class Department_model extends CI_Model{
 		);
 
 		$this->db->insert('cm_departments', $data);
-
+		return $this->db->insert_id();
 	}
 
 	/**
@@ -124,10 +124,8 @@ class Department_model extends CI_Model{
 
 	}
 
-
+	public function add_majors_batch($data){
+		return $this->db->insert_batch('cm_majors', $data);
+	}
 }
-
-
-
-
 ?>
