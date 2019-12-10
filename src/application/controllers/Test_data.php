@@ -9,7 +9,7 @@ class Test_data extends CI_Controller{
 
 	public function import_test_courses(){
 
-		$this->Department_model->clear_departments();
+		$this->Department_model->clean_tables();
 
 		echo 'clear cm_departments successfully!!';
 		echo '<br>';

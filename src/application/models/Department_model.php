@@ -9,10 +9,18 @@ class Department_model extends CI_Model{
 	 * thus, take care of using this method
 	 *
 	 */
-	public function clear_departments(){
+	public function clean_tables(){
+		$this->db->query('SET FOREIGN_KEY_CHECKS = 0;');
+		$this->db->emPty_table('cm_users_courses');
+		$this->db->emPty_table('cm_users_departments');
+		$this->db->emPty_table('cm_users_majors');
+		$this->db->emPty_table('cm_users_collect_courschemas');
+		$this->db->empty_table('cm_courschemas');
+		$this->db->empty_table('cm_majors');
 		$this->db->empty_table('cm_prerequisites');
 		$this->db->empty_table('cm_courses');
 		$this->db->empty_table('cm_departments');
+		$this->db->query('SET FOREIGN_KEY_CHECKS = 1;');
 	}
 
 	/**
