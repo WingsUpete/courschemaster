@@ -6,5 +6,25 @@
 
 
 
+/* General Card Styles */
+.card {
+	margin: 10px 0;
+}
+
+
+
+
+
+
+/* Tags */
+.tags .badge {
+	cursor: pointer;
+	opacity: 0.66;
+	margin: 3px;
+	transition: all 0.3s;
+}
+.tags .badge:hover, .tags .badge:focus {
+	opacity: 1.0;
+}
 
 
