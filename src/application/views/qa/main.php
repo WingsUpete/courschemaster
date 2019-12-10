@@ -43,12 +43,14 @@
 							</div>
 							<div class="tab-pane fade" id="question-box-ask-content" role="tabpanel" aria-labelledby="question-box-ask">
 								<div class="md-form md-outline">
-									<textarea id="ask_question_title" class="md-textarea form-control" rows="3" maxlength="50" style="resize:none;"></textarea>
-									<label for="ask_question_title"><?= lang('title') ?></label>
+									<textarea id="ask_question_title" class="md-textarea form-control is-invalid" rows="3" maxlength="50" style="resize:none;"></textarea>
+									<label for="ask_question_title" data-error="wrong" data-success="right"><?= lang('title') ?></label>
+									<div class="invalid-feedback"></div>
 								</div>
 								<div class="md-form md-outline">
-									<textarea id="ask_question_description" class="md-textarea form-control" rows="5" maxlength="300" style="resize:none;"></textarea>
-									<label for="ask_question_description"><?= lang('description') ?></label>
+									<textarea id="ask_question_description" class="md-textarea form-control is-invalid" rows="5" maxlength="300" style="resize:none;"></textarea>
+									<label for="ask_question_description" data-error="wrong" data-success="right"><?= lang('description') ?></label>
+									<div class="invalid-feedback"></div>
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-lg-8">

@@ -452,4 +452,36 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 		});
     };
 	
+    /**
+     * Check whether an input or textarea is empty and give corresponding feedbacks
+     */
+    exports.checkEmpty = function ($inputEl) {
+		if ($inputEl.val() === undefined) {
+			alert('unexpected function parameter of GeneralFunctions.checkEmpty().');
+			return false;
+		}
+		if ($inputEl.val().length === 0) {
+			$inputEl.removeClass('is-valid, is-invalid').addClass('is-invalid');
+			$inputEl.parent().find('.invalid-feedback').html(SCLang.empty_input_feedback);
+		} else {
+			return true;
+		}
+    };
+	
+    /**
+     * Check whether an input or textarea has too many words and give corresponding feedbacks
+     */
+    exports.checkTooManyWords = function ($inputEl, threshold) {
+		if ($inputEl.val() === undefined) {
+			alert('unexpected function parameter of GeneralFunctions.checkEmpty().');
+			return false;
+		}
+		if ($inputEl.val().length > threshold) {
+			$inputEl.removeClass('is-valid, is-invalid').addClass('is-invalid');
+			$inputEl.parent().find('.invalid-feedback').html(SCLang.too_many_words_feedback);
+		} else {
+			return true;
+		}
+    };
+	
 })(window.GeneralFunctions);

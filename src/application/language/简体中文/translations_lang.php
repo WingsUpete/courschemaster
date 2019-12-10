@@ -40,3 +40,5 @@ $lang['title'] = '标题';
 $lang['description'] = '描述';
 $lang['submit'] = '提交';
 $lang['tag_panel'] = '标签板';
+$lang['empty_input_feedback'] = 'Empty input.';
+$lang['too_many_words_feedback'] = 'Too many words.';
