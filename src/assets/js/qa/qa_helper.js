@@ -10,7 +10,7 @@
      * @class QaHelper
      */
     function QaHelper() {
-        this.filterResults = {};
+        this.tags = {};
     }
 
     /**
@@ -25,14 +25,27 @@
 		 * When selected tags are pressed, they are removed
 		 */
 		$(document).on('click', '.tags .selected_tags .tag', function() {
-			$(this).fadeOut().remove();
+			$(this).fadeOut(500);
+			setTimeout(function() {
+				$(this).remove();
+			}, 10);
 		});
-//		/**
-//		 * When more tags button is pressed, open a modal of tag pane
-//		 */
-//		$(document).on('click', '.tags .tag-btn', function() {
-//			alert('open');
-//		});
+		
+		/**
+		 * Filter tags for usage
+		 */
+		var t_st = null;
+		$('#search-tags').on('keyup', function() {
+			if (t_st) {
+				clearTimeout(t_st);
+			}
+			var obj = $(this);
+			t_st = setTimeout(function() {
+				var val = $(obj).val().toLowerCase();
+				GeneralFunctions.filterList('#tagChoices .tag', 'tagName', true, val);
+			}, 666);
+		});
+		
 		
 		
 	};
@@ -55,8 +68,10 @@
                 return;
             }
 			
+			this.tags = response;
+			
 			$.each(response, function(ind, tag) {
-				var html = '<span class="tag badge badge-pill badge-info" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '">' + tag.name + '&ensp;<i class="add_tags fas fa-plus fa-sm"></i></span>';
+				var html = '<span class="tag badge badge-pill badge-info" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '" data-hi="hi">' + tag.name + ' <i class="add_tags fas fa-plus fa-sm"></i></span>';
 				$('#tagChoices').append(html);
 			});
 			

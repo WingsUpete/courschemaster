@@ -429,4 +429,27 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         $('#notification').show('fade');
     };
 	
+    /**
+     * Filter a list of items by certain attribute on certain input element
+	 * @param {Selector} filterItem: The list of items to be filtered
+	 * @param {String} filterAttribute: the attribute of the item to be filtered upon
+	 # @param {Boolean} extendedAttr: whether the provided filterAttribute is an extended attribute
+	 * @param {String} filterValue: the filter value provided
+     */
+    exports.filterList = function (filterItem, filterAttribute, extendedAttr, filterValue) {
+		$(filterItem).filter(function() {
+			var display = $(this).css('display') !== 'none';
+			var cur_val = extendedAttr ? $(this)[0].dataset[filterAttribute] : $(this)[0][filterAttribute];
+			if (cur_val.toLowerCase().indexOf(filterValue) > -1) {
+				if (!display) {
+					$(this).fadeIn(300);
+				}
+			} else {
+				if (display) {
+					$(this).fadeOut(300);
+				}
+			}
+		});
+    };
+	
 })(window.GeneralFunctions);

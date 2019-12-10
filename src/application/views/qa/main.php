@@ -111,6 +111,11 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					<div class="md-form md-outline filter-box">
+						<i class="fas fa-search prefix"></i>
+						<input type="text" id="search-tags" class="form-control">
+						<label for="search-tags"><?= lang('search') ?></label>
+					</div>
 					<div id="tagChoices" class="tags"></div>
 				</div>
 				<div class="modal-footer">
