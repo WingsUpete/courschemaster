@@ -39,3 +39,4 @@ $lang['ask_questions'] = 'Ask Questions';
 $lang['title'] = 'Title';
 $lang['description'] = 'Description';
 $lang['submit'] = 'Submit';
+$lang['tag_panel'] = 'Tag Panel';

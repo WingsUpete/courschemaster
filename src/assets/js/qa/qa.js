@@ -29,6 +29,7 @@ window.Qa = window.Qa || {};
         helper = new QaHelper();
 		
 		// Initializations
+		helper.getTags();
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -39,6 +40,10 @@ window.Qa = window.Qa || {};
      * Default event handlers declaration for Qa page.
      */
     function _bindEventHandlers() {
+		$("a[data-toggle='pill'], a[data-toggle='tab']").on('shown.bs.tab', function() {
+			//	every time the tab is changed, modify footer
+			GeneralFunctions.placeFooterToBottom();
+		});
 		
         helper.bindEventHandlers();
     }

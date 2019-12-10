@@ -52,10 +52,14 @@
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-lg-8">
-										<span class="badge badge-pill badge-info">Info</span>
-										<span class="badge badge-pill badge-info">Info</span>
-										<span class="badge badge-pill badge-info">Info</span>
-										<span class="badge badge-pill badge-info">Info</span>
+										<span id="ask_questions_tags" class="tags">
+											<span class="selected_tags">
+												<span class="tag badge badge-pill badge-info" data-tag-id="1" data-tag-name="Info">Info&ensp;<i class="close_tags fas fa-times fa-sm"></i></span>
+											</span>
+											<span class="more_tags">
+												<span class="tag-btn badge badge-pill badge-primary" data-toggle="modal" data-target="#tagPanel"><i class="fas fa-plus fa-sm"></i></span>
+											</span>
+										</span>
 									</div>
 									<div class="col-xs-12 col-lg-4 text-right">
 										<button type="button" id="ask_question_submit" class="btn btn-primary">
@@ -91,6 +95,26 @@
 							</div>
 						</div>
 					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+	
+	<!-- tagPanel -->
+	<div class="modal fade left" id="tagPanel" tabindex="-1" role="dialog" aria-labelledby="tagPanelLabel" aria-hidden="true">
+		<div class="modal-dialog modal-dialog-centered modal-lg side-modal modal-dialog-scrollable" role="document">
+			<div class="modal-content">
+				<div class="modal-header">
+					<h5 class="modal-title" id="tagPanelLabel"><?= lang('tag_panel') ?></h5>
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+						<span aria-hidden="true">&times;</span>
+					</button>
+				</div>
+				<div class="modal-body">
+					<div id="tagChoices" class="tags"></div>
+				</div>
+				<div class="modal-footer">
+					<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><?= lang('close') ?></button>
 				</div>
 			</div>
 		</div>
