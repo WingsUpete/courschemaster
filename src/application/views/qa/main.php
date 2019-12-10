@@ -53,9 +53,7 @@
 								<div class="row">
 									<div class="col-xs-12 col-lg-8">
 										<span id="ask_questions_tags" class="tags">
-											<span class="selected_tags">
-												<span class="tag badge badge-pill badge-info" data-tag-id="1" data-tag-name="Info">Info&ensp;<i class="close_tags fas fa-times fa-sm"></i></span>
-											</span>
+											<span class="selected_tags"></span>
 											<span class="more_tags">
 												<span class="tag-btn badge badge-pill badge-primary" data-toggle="modal" data-target="#tagPanel"><i class="fas fa-plus fa-sm"></i></span>
 											</span>

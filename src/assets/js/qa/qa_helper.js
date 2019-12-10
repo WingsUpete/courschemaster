@@ -22,13 +22,19 @@
 		// Listners
 		
 		/**
-		 * When selected tags are pressed, they are removed
+		 * When selected tags are pressed, they are removed and placed again
+		 * in the tag panel
 		 */
 		$(document).on('click', '.tags .selected_tags .tag', function() {
 			$(this).fadeOut(500);
+			var $obj = $(this);
 			setTimeout(function() {
-				$(this).remove();
-			}, 10);
+				var id = $obj.prop('dataset').tagId;
+				$obj.remove();
+				$('#tagChoices').append(
+					instance.tags[id].html
+				);
+			}, 666);
 		});
 		
 		/**
@@ -43,6 +49,21 @@
 			t_st = setTimeout(function() {
 				var val = $(obj).val().toLowerCase();
 				GeneralFunctions.filterList('#tagChoices .tag', 'tagName', true, val);
+			}, 300);
+		});
+		
+		/**
+		 * When a tag in the tag panel is chosen, it goes to the question box
+		 */
+		$(document).on('click', '#tagChoices .tag', function() {
+			$(this).fadeOut(500);
+			var $obj = $(this);
+			setTimeout(function() {
+				var id = $obj.prop('dataset').tagId;
+				$obj.remove();
+				$('#ask_questions_tags .selected_tags').append(
+					instance.tags[id].html
+				);
 			}, 666);
 		});
 		
@@ -61,17 +82,22 @@
         var postData = {
             csrfToken: GlobalVariables.csrfToken
         };
-
+		
+		var obj = this;
+		
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
 			
-			this.tags = response;
-			
 			$.each(response, function(ind, tag) {
-				var html = '<span class="tag badge badge-pill badge-info" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '" data-hi="hi">' + tag.name + ' <i class="add_tags fas fa-plus fa-sm"></i></span>';
+				var html = '<span class="tag badge badge-pill badge-info" title="' + tag.name + '" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '">' + tag.name + ' <i class="add_tags fas fa-plus fa-sm"></i></span>';
+				obj.tags[tag.id] = {
+					id: tag.id,
+					name: tag.name,
+					html: html
+				};
 				$('#tagChoices').append(html);
 			});
 			
