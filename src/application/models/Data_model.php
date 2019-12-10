@@ -29,6 +29,7 @@ class Data_model extends CI_Model{
 	 * @param $code: the code of this department
 	 * @param $name: the Chinese name of this department
 	 * @param $en_name: the English name of this department
+	 * @return bool: successfully or not
 	 */
 	public function add_one_department($code, $name, $en_name){
 
