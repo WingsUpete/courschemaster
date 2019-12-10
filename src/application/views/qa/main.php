@@ -43,19 +43,19 @@
 							</div>
 							<div class="tab-pane fade" id="question-box-ask-content" role="tabpanel" aria-labelledby="question-box-ask">
 								<div class="md-form md-outline">
-									<textarea id="ask_question_title" class="md-textarea form-control" rows="3" maxlength="50" style="resize:none;"></textarea>
-									<label for="ask_question_title"><?= lang('title') ?></label>
+									<textarea id="ask_question_title" class="md-textarea form-control is-invalid" rows="3" maxlength="50" style="resize:none;"></textarea>
+									<label for="ask_question_title" data-error="wrong" data-success="right"><?= lang('title') ?></label>
+									<div class="invalid-feedback"></div>
 								</div>
 								<div class="md-form md-outline">
-									<textarea id="ask_question_description" class="md-textarea form-control" rows="5" maxlength="300" style="resize:none;"></textarea>
-									<label for="ask_question_description"><?= lang('description') ?></label>
+									<textarea id="ask_question_description" class="md-textarea form-control is-invalid" rows="5" maxlength="300" style="resize:none;"></textarea>
+									<label for="ask_question_description" data-error="wrong" data-success="right"><?= lang('description') ?></label>
+									<div class="invalid-feedback"></div>
 								</div>
 								<div class="row">
 									<div class="col-xs-12 col-lg-8">
 										<span id="ask_questions_tags" class="tags">
-											<span class="selected_tags">
-												<span class="tag badge badge-pill badge-info" data-tag-id="1" data-tag-name="Info">Info&ensp;<i class="close_tags fas fa-times fa-sm"></i></span>
-											</span>
+											<span class="selected_tags"></span>
 											<span class="more_tags">
 												<span class="tag-btn badge badge-pill badge-primary" data-toggle="modal" data-target="#tagPanel"><i class="fas fa-plus fa-sm"></i></span>
 											</span>
@@ -111,6 +111,11 @@
 					</button>
 				</div>
 				<div class="modal-body">
+					<div class="md-form md-outline filter-box">
+						<i class="fas fa-search prefix"></i>
+						<input type="text" id="search-tags" class="form-control">
+						<label for="search-tags"><?= lang('search') ?></label>
+					</div>
 					<div id="tagChoices" class="tags"></div>
 				</div>
 				<div class="modal-footer">

@@ -429,4 +429,59 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         $('#notification').show('fade');
     };
 	
+    /**
+     * Filter a list of items by certain attribute on certain input element
+	 * @param {Selector} filterItem: The list of items to be filtered
+	 * @param {String} filterAttribute: the attribute of the item to be filtered upon
+	 # @param {Boolean} extendedAttr: whether the provided filterAttribute is an extended attribute
+	 * @param {String} filterValue: the filter value provided
+     */
+    exports.filterList = function (filterItem, filterAttribute, extendedAttr, filterValue) {
+		$(filterItem).filter(function() {
+			var display = $(this).css('display') !== 'none';
+			var cur_val = extendedAttr ? $(this)[0].dataset[filterAttribute] : $(this)[0][filterAttribute];
+			if (cur_val.toLowerCase().indexOf(filterValue) > -1) {
+				if (!display) {
+					$(this).fadeIn(300);
+				}
+			} else {
+				if (display) {
+					$(this).fadeOut(300);
+				}
+			}
+		});
+    };
+	
+    /**
+     * Check whether an input or textarea is empty and give corresponding feedbacks
+     */
+    exports.checkEmpty = function ($inputEl) {
+		if ($inputEl.val() === undefined) {
+			alert('unexpected function parameter of GeneralFunctions.checkEmpty().');
+			return false;
+		}
+		if ($inputEl.val().length === 0) {
+			$inputEl.removeClass('is-valid, is-invalid').addClass('is-invalid');
+			$inputEl.parent().find('.invalid-feedback').html(SCLang.empty_input_feedback);
+		} else {
+			return true;
+		}
+    };
+	
+    /**
+     * Check whether an input or textarea has too many words and give corresponding feedbacks
+     */
+    exports.checkTooManyWords = function ($inputEl, threshold) {
+		if ($inputEl.val() === undefined) {
+			alert('unexpected function parameter of GeneralFunctions.checkEmpty().');
+			return false;
+		}
+		if ($inputEl.val().length > threshold) {
+			$inputEl.removeClass('is-valid, is-invalid').addClass('is-invalid');
+			$inputEl.parent().find('.invalid-feedback').html(SCLang.too_many_words_feedback);
+		} else {
+			return true;
+		}
+    };
+	
 })(window.GeneralFunctions);
