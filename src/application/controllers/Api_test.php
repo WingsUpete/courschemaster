@@ -9,7 +9,13 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_get_pdf();
+        $this->test_embedded_view();
+    }
+
+    public function test_embedded_view(){
+        $data = array();
+        $data['ci'] = $this;
+        $this->load->view('test/p1', $data);
     }
 
     public function test_get_pdf(){
