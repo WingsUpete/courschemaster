@@ -434,6 +434,20 @@ class Qa_model extends CI_Model{
             ->result_array();        
     }
 
+    public function get_my_questionIds($user_id){
+        if( ! $user_id){
+            return array();
+        }
+
+        return $this->db->select('
+                qa_questions.id AS id
+            ')
+            ->from('qa_questions')
+            ->where('qa_questions.id_users_questioner', $user_id)
+            ->get()
+            ->result_array();
+    }
+
     // Admin function
     public function _admin_change_field($where_field, $where_value, $table, $field, $value, $user_id){
         if( ! $this->_is_admin($user_id)){
