@@ -10,7 +10,9 @@
      * @class AllCourschemasHelper
      */
     function AllCourschemasHelper() {
-        this.RetrievedResults = {};
+        this.departments = {};
+		this.majors = {};
+		this.courschemas = {};
 		this.stepper = undefined;
     }
 
@@ -22,17 +24,33 @@
 
 		// Listners
 		$(document).on('click', '.sel-dep-btns', function() {
-			var dep_id = $('.sel-dep-btns').attr('data-dep-id');
+			var dep_id = $(this).prop('dataset').depId;
+			alert(dep_id);
 			instance.stepper.next();
 			instance.getMajors(dep_id);
 		});
 		$(document).on('click', '.sel-maj-btns', function() {
-			var maj_id = $('.sel-maj-btns').attr('data-maj-id');
+			var maj_id = $(this).prop('dataset').majId;
 			instance.stepper.next();
 			instance.getCourschemas(maj_id);
 		});
 		$(document).on('click', '.sel-ver-btns', function() {
 			instance.stepper.next();
+		});
+		
+		/**
+		 * Filter search results
+		 */
+		var t_sr = null;
+		$('#sel_dep-search, #sel_maj-search, #sel_ver-search').on('keyup', function() {
+			if (t_sr) {
+				clearTimeout(t_sr);
+			}
+			var $obj = $(this);
+			t_sr = setTimeout(function() {
+				var val = $obj.val().toLowerCase();
+				GeneralFunctions.filterList($obj.parent().next().find('.search-res-item-block'), 'filter', true, val);
+			}, 300);
 		});
 		
 	};
@@ -49,7 +67,7 @@
             csrfToken: GlobalVariables.csrfToken
         };
 		
-//		alert('get_dep' + JSON.stringify(postData));
+		var obj = this;
 
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
@@ -57,9 +75,20 @@
                 return;
             }
 			
-			console.log(response);
+			obj.displayDepartments('dep', response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+
+    /**
+     * Fill in Departments Data
+     */
+    AllCourschemasHelper.prototype.displayDepartments = function (level, items) {
+		$('#sel_' + level + ' .stepper-search-res .row').html('');
+		$.each(items, function(index, item) {
+			var html = '<div class="col-xs-12 col-lg-6 col-xl-4 search-res-item-block" data-filter="' + item.name + '"><div class="card search-res-item"><div class="card-header text-right">&ensp;</div><div class="card-body text-center"><h5 class="card-title font-weight-bold">' + ((level === 'ver') ? '<sup><a href="javascript:void(0);" class="collect text-warning" title="' + SCLang.collect + '"><i class="far fa-star fa-lg"></i></a></sup>&nbsp;' : '') + item.name + '</h5><hr /><button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-' + level + '-btns sel-btn" data-dep-id="' + item.dep_id + '" data-dep-code="' + item.code + '" data-dep-name="' + item.name + '"><i class="fas fa-door-open"></i>&ensp;' + SCLang.access + '</button></div><div class="card-footer text-center text-muted">' + SCLang.number_of_majors + ': ' + item.number_of_majors + '</div></div></div>';
+			$('#sel_' + level + ' .stepper-search-res .row').append(html);
+		});
     };
 
     /**
@@ -70,7 +99,7 @@
         var postUrl = GlobalVariables.baseUrl + '/index.php/all_courschemas_api/ajax_get_maj';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
-			dep_id: 1
+			dep_id: 28
         };
 
         $.post(postUrl, postData, function (response) {

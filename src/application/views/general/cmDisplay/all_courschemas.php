@@ -68,39 +68,6 @@
 					echo('</div></div>');
 				}
 			?>
-			<div class="container-fulid">
-				<div class="row">
-				
-					<div class="col-xs-12 col-lg-6 col-xl-4">
-						<div class="card search-res-item">
-							<div class="card-header text-right">&ensp;</div>
-							<div class="card-body text-center">
-								<h5 class="card-title font-weight-bold">
-									<sup>
-										<a href="javascript:void(0);" class="collect-dep text-warning" title="Collect">
-											<i class="far fa-star fa-lg"></i>
-										</a>
-									</sup>
-									Computer Science & Engineering
-								</h5>
-								<hr />
-								<p class="card-text">
-									(no description yet)
-								</p>
-								<button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-dep-btns" data-dep-id="1">
-									<i class="fas fa-door-open"></i>
-									&nbsp;
-									Access
-								</button>
-							</div>
-							<div class="card-footer text-center text-muted">
-								2 Majors
-							</div>
-						</div>
-					</div>
-					
-				</div>
-			</div>
 		</div>
 	</div>
 </div>
