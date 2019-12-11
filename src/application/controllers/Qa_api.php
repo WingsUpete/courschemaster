@@ -60,8 +60,12 @@ class Qa_api extends CI_Controller{
             $title            = json_decode($this->input->post('title'));
             $description      = json_decode($this->input->post('description'));
             $user_id          = $this->session->userdata('user_id');
-            
-            $result = $this->qa_model->post_question($labels, $title, $description, $user_id);  
+
+            $result = AJAX_FALSE;
+
+            if($user_id){
+                $result = $this->qa_model->post_question($labels, $title, $description, $user_id); 
+            }
             
             $this->output
                 ->set_content_type('application/json')
@@ -81,8 +85,12 @@ class Qa_api extends CI_Controller{
             $content     = json_decode($this->input->post('content'));
             $user_id     = $this->session->userdata('user_id');
 
-            $result = $this->qa_modelpost_answer($question_id, $content, $user_id);
+            $result = AJAX_FALSE;
 
+            if($user_id){
+                $result = $this->qa_modelpost_answer($question_id, $content, $user_id);
+            }
+            
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode($result ?AJAX_SUCCESS : AJAX_FAIL));
@@ -120,7 +128,11 @@ class Qa_api extends CI_Controller{
             $is_good   = json_decode($this->input->post('is_good'));
             $user_id   = $this->session->userdata('user_id');
 
-            $result = $this->qa_model->vote_answer($answer_id, $user_id, $is_good==1);
+            $result = AJAX_FALSE;
+
+            if($user_id){
+                $result = $this->qa_model->vote_answer($answer_id, $user_id, $is_good==1);
+            }
 
             $this->output
                 ->set_content_type('application/json')
@@ -157,7 +169,12 @@ class Qa_api extends CI_Controller{
             $answer_id = json_decode($this->input->post('answer_id'));
             $user_id   = $this->session->userdata('user_id');
 
-            $result = $this->qa_model->delete_answer($answer_id, $user_id);
+
+            $result = AJAX_FALSE;
+
+            if($user_id){
+                $result = $this->qa_model->delete_answer($answer_id, $user_id);
+            }
 
             $this->output
                 ->set_content_type('application/json')
@@ -176,7 +193,11 @@ class Qa_api extends CI_Controller{
             $question_id = json_decode($this->input->post('question_id'));
             $user_id     = $this->session->userdata('user_id');
 
-            $result = $this->qa_model->delete_question($question_id, $user_id);
+            $result = AJAX_FALSE;
+
+            if($user_id){
+                $result = $this->qa_model->delete_question($question_id, $user_id);
+            }
 
             $this->output
                 ->set_content_type('application/json')
@@ -294,8 +315,12 @@ class Qa_api extends CI_Controller{
             $authentication = json_decode($this->input->post('authentication'));
             $user_id = $this->session->userdata('user_id');
 
-            $result = admin_change_question_authen($question_id, $authentication, $user_id);
+            $result = AJAX_FALSE;
 
+            if($user_id){
+                $result = admin_change_question_authen($question_id, $authentication, $user_id);
+            }
+            
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL)); 
@@ -314,8 +339,11 @@ class Qa_api extends CI_Controller{
             $authentication = json_decode($this->input->post('authentication'));
             $user_id = $this->session->userdata('user_id');
 
-            $result = admin_change_answer_authen($answer_id, $authentication, $user_id);
+            $result = AJAX_FALSE;
 
+            if($user_id){
+                $result = admin_change_answer_authen($answer_id, $authentication, $user_id);
+            }
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL)); 
@@ -334,9 +362,11 @@ class Qa_api extends CI_Controller{
             $question_id = json_decode($this->input->post('question_id'));
             $mark = json_decode($this->input->post('mark'));
             $user_id = $this->session->userdata('user_id');
+            $result = AJAX_FALSE;
 
-            $result = admin_change_faq_mark($question_id, $mark, $user_id);
-
+            if($user_id){
+                $result = admin_change_faq_mark($question_id, $mark, $user_id);
+            }
             $this->output
                 ->set_content_type('application/json')
                 ->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL)); 
