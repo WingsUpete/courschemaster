@@ -11,6 +11,9 @@
      */
     function QaHelper() {
         this.tags = {};
+		this.latestQuestionIds = {};
+		this.myQuestionIds = {};
+//		this.myAnswerIds = {};
     }
 
     /**
@@ -161,7 +164,7 @@
     };
     
 	/**
-     * Get All Latest Questions
+     * Get some Latest Questions Ids
      */
     QaHelper.prototype.getLatestQuestionIds = function (max_num) {
 		//	AJAX
@@ -190,6 +193,55 @@
 //				};
 //				$('#tagChoices').append(html);
 //			});
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Get All of the user's Question Ids
+     */
+    QaHelper.prototype.getMyQuestionIds = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_my_questionIds';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+		
+		var obj = this;
+		
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+		
+			alert('1');
+			obj.myQuestionIds = response;
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Get the required Questions
+     */
+    QaHelper.prototype.getQuestions = function (ids) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_question_brief';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			question_id_arr: JSON.stringify(ids)
+        };
+		
+		var obj = this;
+		
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			alert('2');
+			console.log(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
