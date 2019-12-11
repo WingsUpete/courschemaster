@@ -34,25 +34,7 @@ window.Qa = window.Qa || {};
 //			console.log(helper.questions);
 //		})
 		$.when(helper.getMyQuestionIds()).then(helper.getQuestions(helper.myQuestionIds)).then(function() {
-			console.log(helper.questions);
-		});
-		
-		$('#faq_pagination').pagination({
-			dataSource: function(done) {
-				
-			},
-			pageSize: 5,
-			showPageNumbers: true,
-			showNavigator: true,
-			className: 'paginationjs-theme-red',
-			callback: function(data, pagination) {
-				$('#faq_contents').html('');
-				$.each(data, function(index, item) {
-					var html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action flex-column aligh-items-start" style="padding: 20px;"><h5 style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">List group item headingList group item headingList group item headingList group item headingList group item headingList group item headingList group item headingList group item headingList group item headingList group item headingList group item headingList group item headingList group item headingList group item heading</h5><p class="text-muted mb-0">2019-10-22&ensp;Answers:5&ensp;<span class="text-success">authenticated</span></p></a>';
-					$('#faq_contents').append(html);
-				});
-				GeneralFunctions.placeFooterToBottom();
-			}
+			initPagination($('#faq_pagination'), $('#faq_contents'));
 		});
 		
         if (defaultEventHandlers) {
@@ -71,5 +53,25 @@ window.Qa = window.Qa || {};
 		
         helper.bindEventHandlers();
     }
+	
+	function initPagination($pagination, $contents) {
+		$pagination.pagination({
+			dataSource: function(done) {
+				done(helper.questions);
+			},
+			pageSize: 5,
+			showPageNumbers: true,
+			showNavigator: true,
+			className: 'paginationjs-theme-red',
+			callback: function(data, pagination) {
+				$contents.html('');
+				$.each(data, function(index, item) {
+					var html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" style="padding: 20px;" data-question-id="' + item.id + '"><h5 style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + '&ensp;Answers:' + item.number_of_answers + (item.authentication === '1' ? '&ensp;<span class="text-success">authenticated</span></p></a>' : '');
+					$contents.append(html);
+				});
+				GeneralFunctions.placeFooterToBottom();
+			}
+		});
+	}
 
 })(window.Qa);
