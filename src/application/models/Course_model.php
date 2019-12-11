@@ -6,6 +6,23 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Course_model extends CI_Model{
 
+	/**
+	 * This method used to query the course by filter
+	 * if the filter is null, query all
+	 *
+	 * @param $language: the language for the result
+	 * @param $filter: the filter to filter the result
+	 * @return mixed: the query result
+	 */
+	// filter need to be defined
+	public function query_courses_by_filter($language ,$filter){
+		$result = null;
+
+		// need to be implemented
+
+		return $result;
+	}
+
 
 	/**
 	 * this method is used to query all the course by department

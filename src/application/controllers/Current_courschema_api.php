@@ -10,6 +10,7 @@ class Current_courschema_api extends CI_Controller{
         }
         $this->load->library('session');
         $this->load->model('courschemas_model');
+		$this->load->model('course_model');
     }
 
     public function ajax_get_ccBasic(){
@@ -46,4 +47,22 @@ class Current_courschema_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    // unchecked, waited for the format of filter
+    public function ajax_get_courses(){
+    	try{
+    		$filter = json_deocde($this->input->post('filter'));
+
+    		$result = $this->course_model->query_courses_by_filter($language, $filter);
+
+    		$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
 }
