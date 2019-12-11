@@ -235,7 +235,7 @@ class Api_test extends CI_Controller{
     }
 
     public function test_get_question_brief(){
-        $id_arr = array(3, 4);
+        $id_arr = array(3, 4, 5, 6);
         $result = $this->qa_model->get_question_brief($id_arr);
         foreach($result AS $row){
             foreach($row AS $k => $v){

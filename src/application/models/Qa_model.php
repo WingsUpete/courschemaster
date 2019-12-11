@@ -1,7 +1,7 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Qa_model extends CI_Model{
-    
+
     public function _is_admin($user_id){
 
         $result = $this->db
@@ -343,11 +343,41 @@ class Qa_model extends CI_Model{
         foreach($id_arr AS $id){
             $this->db->or_where('qa_questions.id', $id);
         }
-
         $rtn_array = $this->db
+            ->order_by('qa_questions.id')
+            ->get()
+            ->result_array();
+
+        $this->db->select('
+            qa_answers.id_questions AS id,
+            COUNT(qa_answers.id)    AS number_of_answers
+        ')
+        ->from('qa_answers');
+
+        foreach($id_arr AS $id){
+            $this->db->or_where('qa_answers.id_questions', $id);
+        }
+        $cnt_arr = $this->db
+            ->group_by('qa_answers.id_questions')
+            ->order_by('qa_answers.id_questions')
             ->get()
             ->result_array();
         
+        $r_ptr = 0;
+        $c_ptr = 0;
+        $number_of_all = sizeof($rtn_array);
+        $number_of_cnt = sizeof($cnt_arr);
+        while($r_ptr < $number_of_all){
+            if($c_ptr < $number_of_cnt && $cnt_arr[$c_ptr]['id'] == $rtn_array[$r_ptr]['id']){
+                $rtn_array[$r_ptr]['number_of_answers'] = $cnt_arr[$c_ptr]['number_of_answers'];
+                $r_ptr++;
+                $c_ptr++;
+            }else{
+                $rtn_array[$r_ptr]['number_of_answers'] = 0;
+                $r_ptr++;
+            }
+        }
+
         return $rtn_array;
     }
 
