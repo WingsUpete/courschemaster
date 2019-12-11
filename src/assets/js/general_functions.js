@@ -34,10 +34,6 @@ window.GeneralFunctions = window.GeneralFunctions || {};
     /**
      * This functions displays a message box. It is useful when user
      * decisions or verifications are needed.
-     *
-     * @param {String} title The title of the message box.
-     * @param {String} message The message of the dialog.
-     * @param {Array} buttons Contains the dialog buttons along with their functions.
      */
     exports.displayMessageBox = function (title, message, buttons) {
         // Check arguments integrity.
@@ -385,48 +381,37 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 	 };
 	
     /**
-     * Display notifications
-     *
-     * Using this method you can display notifications to the use with custom messages. If the
-     * 'actions' array is provided then an action link will be displayed too.
+     * Display Message in alert box
+     * 
+	 * @param {String} message: A message to be put in the alert box
+	 * @param {String} status: success, failure, ...
+	 * @param {Number} endurance: how long will the alert last (in milliseconds)
+	 * @param {List[Map{key:val}]} actions: provide labelled functions to 
+	 *										build buttons within the alert box
      */
-    exports.displayNotification = function (message, actions, type) {
+	exports.ALERTID = 0;
+    exports.displayMessageAlert = function (message, status, endurance, actions) {
         message = message || 'NO MESSAGE PROVIDED FOR THIS NOTIFICATION';
-
-        if (actions === undefined) {
-            actions = [];
-            setTimeout(function () {
-                $('#notification').fadeIn();
-            }, 5000);
-            setTimeout(function () {
-                $('#notification').fadeOut();
-            }, 10000);
-        }
-
-        var customActionsHtml = '';
-
-        $.each(actions, function (index, action) {
-            var actionId = action.label.toLowerCase().replace(' ', '-');
-            customActionsHtml += '<button id="' + actionId + '" class="btn btn-default btn-xs">' +
-                action.label + '</button>';
-
-            $(document).off('click', '#' + actionId);
-            $(document).on('click', '#' + actionId, action.function);
-        });
-		
-		type = (type === undefined || (type !== 'success' && type !== 'failure')) ? "alert" : "alert " + type;
-
-        var notificationHtml =
-            '<div class="notification ' + type + '">' +
-            '<button type="button" class="close" data-dismiss="alert" aria-label="Close">' +
-            '<span aria-hidden="true">×</span>' +
-            '</button>' +
-            '<strong>' + message + '</strong>' +
-            customActionsHtml +
-            '</div>';
-
-        $('#notification').html(notificationHtml);
-        $('#notification').show('fade');
+		status = status || 'NO STATUS';
+		endurance = endurance || 10000;
+		actions = actions || [];
+		//	initializations finish, now go
+		var actionsHtml = '';
+		$.each(actions, function(index, action) {
+			var actionId = action.label.toLowerCase().replace(' ', '-');
+			actionsHtml += '<button id="' + actionId + '" type="button" class="btn btn-primary btn-xs">' + action.label + '</button>';
+			$(document).off('click', '#' + actionId);
+			$(document).on('click', '#' + actionId, action.function);
+		});
+		var cur_id = GeneralFunctions.ALERTID;
+		GeneralFunctions.ALERTID++;
+		var html = '<div id="alert' + cur_id + '" class="alert alert-' + status + ' alert-dismissible fade show font-weight-bold" role="alert" style="display:none;">' + 
+			message + actionsHtml + '<button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true"><i class="fas fa-times fa-xs"></span></button></div>';
+		$('#notification').prepend(html);
+		$('#alert' + cur_id).alert().slideDown();
+		setTimeout(function() {
+			$('#alert' + cur_id).alert('close');
+		}, endurance);
     };
 	
     /**
