@@ -20,17 +20,17 @@ class Qa extends CI_Controller{
     }
 
     public function main(){
-        if( ! $this->has_privileges()){
-            return; 
-        }
+        // if( ! $this->has_privileges()){
+        //     return; 
+        // }
         $view_data = array();
         $this->load_comb_views($view_data, 'qa/main');
     }
 
     public function question(){
-        if( ! $this->has_privileges()){
-            return; 
-        }
+        // if( ! $this->has_privileges()){
+        //     return; 
+        // }
         $view_data = array();
         $this->load_comb_views($view_data, 'qa/question');
     }
