@@ -30,7 +30,9 @@ window.Qa = window.Qa || {};
 		
 		// Initializations
 		helper.getTags();
-		helper.getLatestQuestionIds(50);
+//		helper.getLatestQuestionIds(50);
+		helper.getMyQuestionIds();
+		helper.getQuestions(helper.myQuestionIds);
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();

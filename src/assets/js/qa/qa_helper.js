@@ -11,6 +11,9 @@
      */
     function QaHelper() {
         this.tags = {};
+		this.latestQuestionIds = {};
+		this.myQuestionIds = {};
+//		this.myAnswerIds = {};
     }
 
     /**
@@ -26,15 +29,7 @@
 		 * in the tag panel
 		 */
 		$(document).on('click', '.tags .selected_tags .tag', function() {
-			$(this).fadeOut(500);
-			var $obj = $(this);
-			setTimeout(function() {
-				var id = $obj.prop('dataset').tagId;
-				$obj.remove();
-				$('#tagChoices').append(
-					instance.tags[id].addHtml
-				);
-			}, 666);
+			instance.restoreTag($(this));
 		});
 		
 		/**
@@ -153,7 +148,23 @@
     };
     
 	/**
-     * Get All Latest Questions
+     * Remove tags from selected list and place them back to tag panel
+     */
+    QaHelper.prototype.restoreTag = function ($tag) {
+		$tag.fadeOut(500);
+		var $obj = $tag;
+		var obj = this;
+		setTimeout(function() {
+			var id = $obj.prop('dataset').tagId;
+			$obj.remove();
+			$('#tagChoices').append(
+				obj.tags[id].addHtml
+			);
+		}, 666);
+    };
+    
+	/**
+     * Get some Latest Questions Ids
      */
     QaHelper.prototype.getLatestQuestionIds = function (max_num) {
 		//	AJAX
@@ -187,6 +198,55 @@
     };
     
 	/**
+     * Get All of the user's Question Ids
+     */
+    QaHelper.prototype.getMyQuestionIds = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_my_questionIds';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+		
+		var obj = this;
+		
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+		
+			alert('1');
+			obj.myQuestionIds = response;
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Get the required Questions
+     */
+    QaHelper.prototype.getQuestions = function (ids) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_question_brief';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			question_id_arr: JSON.stringify(ids)
+        };
+		
+		var obj = this;
+		
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			alert('2');
+			console.log(response);
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
      * Post Questions
      */
     QaHelper.prototype.postQuestions = function () {
@@ -210,6 +270,8 @@
 			labels: JSON.stringify(labels)
         };
 		
+		var obj = this;
+		
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
@@ -219,7 +281,11 @@
 			if (response === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_success, 'success', 6000);
 				// clear input and trigger keyup to check
-				// ...
+				$('.ask-question-input').val('');
+				$.each($('#ask_questions_tags .selected_tags .tag'), function(index, tagEl) {
+					obj.restoreTag($(tagEl));
+				});
+				$('#ask_question_title, #ask_question_description').trigger('keyup');
 			} else if (response === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_failure, 'danger', 6000);
 			} else {
