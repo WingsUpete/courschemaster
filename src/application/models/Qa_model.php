@@ -124,6 +124,30 @@ class Qa_model extends CI_Model{
         }
     }
 
+    public function post_reply($answer_id, $sender_id, $receiver_id, $content){
+
+        $data_inserted = array(
+            'id_answers' => $answer_id,
+            'id_users_sender' => $sender_id,
+            'id_users_receiver' =>$receiver_id,
+            'content' => $content,
+            'timestamp' => $this->_get_timestamp() 
+        ); 
+
+        if( ! $this->db->insert('qa_replies', $data_inserted)){
+            log_operation('qa/post_reply', $sender_id, $data_inserted, 'fail');
+            return false;
+        }else{
+            log_operation('qa/post_reply', $sender_id, $data_inserted, 'success');
+            return true;
+        }
+
+    }
+
+    public function delete_reply(){
+
+    }
+
     public function is_already_voted($answer_id, $user_id){
         $result = $this->db
             ->select('COUNT(*) AS cnt')
@@ -384,11 +408,37 @@ class Qa_model extends CI_Model{
             ->join('cm_privileges', 'cm_privileges.id = cm_users.id_privileges', 'inner')
             ->join('cm_majors', 'cm_majors.id = cm_users.id_majors', 'inner')
             ->where('qa_answers.id_questions', $id)
-            ->order_by('qa_answers_vote', 'DESC')
+            ->order_by('qa_answers.vote', 'DESC')
             ->get()
             ->result_array();
+
+        // Get replies of answers
+        for($i = 0; $i < sizeof($rtn_array['answers']); $i++){
+            $rtn_array['answers'][$i]['replies'] = $this->db->select('
+                qa_replies.id        AS id,
+                sender.id            AS sender_id,
+                sender.name          AS sender_name,
+                receiver.id          AS receiver_id,
+                receiver.name        AS receiver_name,
+                qa_replies.content   AS content,
+                qa_replies.timestamp AS timestamp
+            ')
+            ->from('qa_replies')
+            ->join('cm_users AS sender', 'sender.id = qa_replies.id_users_sender', 'inner')
+            ->join('cm_users AS receiver', 'receiver.id = qa_replies.id_users_receiver', 'inner')
+            ->where('qa_replies.id_answers', $rtn_array['answers'][$i]['id'])
+            ->order_by('qa_replies.timestamp')
+            ->get()
+            ->result_array();
+        }
         
         return $rtn_array;
+    }
+
+    public function get_answers_replies($id_arr){
+        foreach($id_arr AS $id){
+
+        }
     }
 
     public function get_faqs_id(){

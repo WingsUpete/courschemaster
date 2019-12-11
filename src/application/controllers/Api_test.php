@@ -9,7 +9,16 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_get_my_answerIds();
+        $this->test_post_reply();
+    }
+
+    public function test_post_reply(){
+        $answer_id = 3;
+        $sender_id = 1;
+        $receiver_id = 1;
+        $content = 'test content';
+        $result = $this->qa_model->post_reply($answer_id, $sender_id, $receiver_id, $content);
+        echo $result ? 1 : 0;
     }
 
     public function test_get_my_answerIds(){
@@ -191,7 +200,10 @@ class Api_test extends CI_Controller{
     public function test_get_question_details(){
         $id = 3;
         $result =  $this->qa_model->get_question_details($id);
+
         echo 'info <br />';
+        echo 'size:'.sizeof($result['info']).'<br />';
+
         foreach($result['info'] AS $k => $v){
             echo $k .' => '. $v . '<br />';
         }
@@ -206,7 +218,17 @@ class Api_test extends CI_Controller{
         echo 'answers <br />';
         foreach($result['answers'] AS $row){
             foreach($row AS $k => $v){
-                echo $k .' => '. $v . '<br />';
+                if($k == 'replies'){
+                    foreach($v AS $rrow){
+                        foreach($rrow AS $rk => $rv){
+                            echo $rk . '=>' . $rv . '<br />';
+                        }
+                    }
+                    
+                }else{
+                    echo $k .' => '. $v . '<br />';
+                }
+                
             }
         }
         echo '<br />';

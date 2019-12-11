@@ -337,10 +337,6 @@ class Qa_api extends CI_Controller{
         }
     }
 
-
-
-
-
     // Admin function
 
 
