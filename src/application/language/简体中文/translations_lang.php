@@ -19,6 +19,7 @@ $lang['my_courschema'] = '我的培养方案';
 $lang['current_courschema'] = '当前培养方案';
 $lang['all_courschemas'] = '所有培养方案';
 $lang['collection'] = '收藏夹';
+$lang['collect'] = '收藏';
 $lang['my_plan'] = '我的计划';
 $lang['learned'] = '已学课程';
 $lang['select_department'] = '选择院系';

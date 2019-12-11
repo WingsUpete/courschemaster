@@ -19,6 +19,7 @@ $lang['my_courschema'] = 'My Courschema';
 $lang['current_courschema'] = 'Current Courschema';
 $lang['all_courschemas'] = 'All Courschemas';
 $lang['collection'] = 'Collection';
+$lang['collect'] = 'Collect';
 $lang['my_plan'] = 'My Plan';
 $lang['learned'] = 'Learned';
 $lang['select_department'] = 'Select Department';

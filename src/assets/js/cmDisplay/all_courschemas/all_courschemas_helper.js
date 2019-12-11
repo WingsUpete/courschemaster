@@ -38,6 +38,21 @@
 			instance.stepper.next();
 		});
 		
+		/**
+		 * Filter search results
+		 */
+		var t_sr = null;
+		$('#sel_dep-search, #sel_maj-search, #sel_ver-search').on('keyup', function() {
+			if (t_sr) {
+				clearTimeout(t_sr);
+			}
+			var $obj = $(this);
+			t_sr = setTimeout(function() {
+				var val = $obj.val().toLowerCase();
+				GeneralFunctions.filterList($obj.parent().next().find('.search-res-item-block'), 'filter', true, val);
+			}, 300);
+		});
+		
 	};
 
 	//	Additional Methods
@@ -60,7 +75,7 @@
                 return;
             }
 			
-			obj.displayDepartments(response);
+			obj.displayDepartments('dep', response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
@@ -68,11 +83,11 @@
     /**
      * Fill in Departments Data
      */
-    AllCourschemasHelper.prototype.displayDepartments = function (departments) {
-		$('#sel_dep .stepper-search-res .row').html('');
-		$.each(departments, function(index, department) {
-			var html = '<div class="col-xs-12 col-lg-6 col-xl-4"><div class="card search-res-item"><div class="card-header text-right">&ensp;</div><div class="card-body text-center"><h5 class="card-title font-weight-bold"><sup><a href="javascript:void(0);" class="collect-dep text-warning" title="Collect"><i class="far fa-star fa-lg"></i></a></sup>&nbsp;' + department.name + '</h5><hr /><button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-dep-btns" data-dep-id="' + department.dep_id + '" data-dep-code="' + department.code + '"><i class="fas fa-door-open"></i>&ensp;' + SCLang.access + '</button></div><div class="card-footer text-center text-muted">' + SCLang.number_of_majors + ': ' + department.number_of_majors + '</div></div></div>';
-			$('#sel_dep .stepper-search-res .row').append(html);
+    AllCourschemasHelper.prototype.displayDepartments = function (level, items) {
+		$('#sel_' + level + ' .stepper-search-res .row').html('');
+		$.each(items, function(index, item) {
+			var html = '<div class="col-xs-12 col-lg-6 col-xl-4 search-res-item-block" data-filter="' + item.name + '"><div class="card search-res-item"><div class="card-header text-right">&ensp;</div><div class="card-body text-center"><h5 class="card-title font-weight-bold">' + ((level === 'ver') ? '<sup><a href="javascript:void(0);" class="collect text-warning" title="' + SCLang.collect + '"><i class="far fa-star fa-lg"></i></a></sup>&nbsp;' : '') + item.name + '</h5><hr /><button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-' + level + '-btns sel-btn" data-dep-id="' + item.dep_id + '" data-dep-code="' + item.code + '" data-dep-name="' + item.name + '"><i class="fas fa-door-open"></i>&ensp;' + SCLang.access + '</button></div><div class="card-footer text-center text-muted">' + SCLang.number_of_majors + ': ' + item.number_of_majors + '</div></div></div>';
+			$('#sel_' + level + ' .stepper-search-res .row').append(html);
 		});
     };
 

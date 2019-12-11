@@ -48,7 +48,7 @@
 			var obj = $(this);
 			t_st = setTimeout(function() {
 				var val = $(obj).val().toLowerCase();
-				GeneralFunctions.filterList('#tagChoices .tag', 'tagName', true, val);
+				GeneralFunctions.filterList($('#tagChoices .tag'), 'tagName', true, val);
 			}, 300);
 		});
 		
