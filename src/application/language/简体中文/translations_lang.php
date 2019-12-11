@@ -43,3 +43,5 @@ $lang['tag_panel'] = '标签板';
 $lang['empty_input_feedback'] = '输入不能为空';
 $lang['too_many_words_feedback'] = '字数过多';
 $lang['invalid_feedback'] = '仍然存在非法输入，请检查！';
+$lang['qa_post_question_success'] = '问题已提交。';
+$lang['qa_post_question_failure'] = '问题提交失败...';

@@ -32,7 +32,7 @@
 				var id = $obj.prop('dataset').tagId;
 				$obj.remove();
 				$('#tagChoices').append(
-					instance.tags[id].html
+					instance.tags[id].addHtml
 				);
 			}, 666);
 		});
@@ -62,7 +62,7 @@
 				var id = $obj.prop('dataset').tagId;
 				$obj.remove();
 				$('#ask_questions_tags .selected_tags').append(
-					instance.tags[id].html
+					instance.tags[id].removeHtml
 				);
 			}, 666);
 		});
@@ -139,13 +139,14 @@
             }
 			
 			$.each(response, function(ind, tag) {
-				var html = '<span class="tag badge badge-pill badge-info" title="' + tag.name + '" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '">' + tag.name + ' <i class="add_tags fas fa-plus fa-sm"></i></span>';
+				var html = '<span class="tag badge badge-pill badge-info" title="' + tag.name + '" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '">' + tag.name;
 				obj.tags[tag.id] = {
 					id: tag.id,
 					name: tag.name,
-					html: html
+					addHtml: html + ' <i class="add_tags fas fa-plus fa-xs"></i></span>',
+					removeHtml: html + ' <i class="add_tags fas fa-times fa-xs"></i></span>'
 				};
-				$('#tagChoices').append(html);
+				$('#tagChoices').append(obj.tags[tag.id].addHtml);
 			});
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -170,7 +171,7 @@
                 return;
             }
 			
-			console.log(response);
+//			console.log(response);
 			
 //			$.each(response, function(ind, tag) {
 //				var html = '<span class="tag badge badge-pill badge-info" title="' + tag.name + '" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '">' + tag.name + ' <i class="add_tags fas fa-plus fa-sm"></i></span>';
@@ -190,11 +191,15 @@
      */
     QaHelper.prototype.postQuestions = function () {
 		if ($('#ask_question_title').hasClass('is-invalid') || $('#ask_question_description').hasClass('is-invalid')) {
-			GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000, undefined);
+			GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000);
 			return;
 		}
-		var title = $('#ask_questions_title').val();
-		var description = $('#ask_questions_description').val();
+		var title = $('#ask_question_title').val();
+		var description = $('#ask_question_description').val();
+		var labels = [];
+		$.each($('#ask_questions_tags .selected_tags .tag'), function(index, tagEl) {
+			labels.push(tagEl.dataset.tagId);
+		});
 		
 		//	AJAX
         var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_post_question';
@@ -202,10 +207,8 @@
             csrfToken: GlobalVariables.csrfToken,
 			title: JSON.stringify(title),
 			description: JSON.stringify(description),
-			labels: ""
+			labels: JSON.stringify(labels)
         };
-		
-		var obj = this;
 		
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
@@ -213,7 +216,15 @@
                 return;
             }
 			
-			console.log(response);
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_success, 'success', 6000);
+				// clear input and trigger keyup to check
+				// ...
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
