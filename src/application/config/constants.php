@@ -108,6 +108,39 @@ define('PRIV_STUDENTS_ALL_COURSCHEMAS', 'students_all_courschemas');
 define('PRIV_STUDENTS_COLLECTION', 'students_collection');
 define('PRIV_STUDENTS_MY_PLAN', 'students_my_plan');
 define('PRIV_STUDENTS_LEARNED', 'students_learned');
+/*
+| Courschemaster - Secretary
+|--------------------------------------------------------------------------
+| Sidebar
+|--------------------------------------------------------------------------
+*/
+define('PRIV_SECRETARY_ALL_COURSCHEMAS', 'secretary_all_courschemas');
+define('PRIV_SECRETARY_COLLECTION', 'secretary_collection');
+define('PRIV_SECRETARY_STUDENT_INFO', 'secretary_student_info');
+define('PRIV_SECRETARY_COURSE_MANAGEMENT', 'secretary_course_management');
+define('PRIV_SECRETARY_COURSCHEMA_MANAGEMENT', 'secretary_courschema_management');
+define('PRIV_SECRETARY_REVIEW', 'ssecretary_review');
+/*
+| Courschemaster - Mentor
+|--------------------------------------------------------------------------
+| Sidebar
+|--------------------------------------------------------------------------
+*/
+define('PRIV_MENTOR_STUDENT_INFO', 'mentor_my_courschema');
+define('PRIV_MENTOR_ALL_COURSCHEMAS', 'mentor_all_courschemas');
+define('PRIV_MENTOR_COLLECTION', 'mentor_collection');
+/*
+| Courschemaster - TAO
+|--------------------------------------------------------------------------
+| Sidebar
+|--------------------------------------------------------------------------
+*/
+define('PRIV_TAO_ALL_COURSCHEMAS', 'tao_all_courschemas');
+define('PRIV_TAO_COLLECTION', 'tao_collection');
+define('PRIV_TAO_STUDENT_INFO', 'tao_student_info');
+define('PRIV_TAO_COURSE_MANAGEMENT', 'tao_course_management');
+define('PRIV_TAO_COURSCHEMA_MANAGEMENT', 'tao_courschema_management');
+define('PRIV_TAO_REVIEW', 'tao_review');
 
 /*
 | Courschemaster - AJAX variables

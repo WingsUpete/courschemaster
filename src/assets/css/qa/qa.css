@@ -58,3 +58,19 @@
 	border-radius: 20px;
 	transition: 0.2s;
 }
+
+
+
+
+
+
+
+
+
+/* Pagination.js */
+#faq_pagination {
+	margin: 20px 0 0 0;
+}
+.paginationjs .paginationjs-pages {
+	float: right;
+}

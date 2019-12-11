@@ -50,3 +50,7 @@ $lang['number_of_majors'] = '#Majors';
 $lang['number_of_courschemas'] = '#Courschemas';
 $lang['access'] = 'Access';
 $lang['my_questions'] = 'My Questions';
+$lang['student_info'] = 'Students';
+$lang['course_management'] = 'Courses';
+$lang['courschema_management'] = 'Courschemas';
+$lang['review'] = 'Review';

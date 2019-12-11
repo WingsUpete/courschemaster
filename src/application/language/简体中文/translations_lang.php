@@ -50,3 +50,7 @@ $lang['number_of_majors'] = '专业数';
 $lang['number_of_courschemas'] = '培养方案数';
 $lang['access'] = '进入';
 $lang['my_questions'] = '我的提问';
+$lang['student_info'] = '学生';
+$lang['course_management'] = '课程';
+$lang['courschema_management'] = '培养方案管理';
+$lang['review'] = '审核';

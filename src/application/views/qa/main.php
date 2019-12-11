@@ -91,7 +91,8 @@
 					<div class="card-body">
 						<div class="tab-content" id="recommend-box-content">
 							<div class="tab-pane fade show active" id="recommend-box-faqs-content" role="tabpanel" aria-labelledby="recommend-box-faqs">
-								FAQs
+								<div class="list-group" id="faq_contents"></div>
+								<div id="faq_pagination"></div>
 							</div>
 							<div class="tab-pane fade" id="recommend-box-lqs-content" role="tabpanel" aria-labelledby="recommend-box-lqs">
 								Latest Questions

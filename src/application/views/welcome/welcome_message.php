@@ -65,7 +65,7 @@
 <!--		<h1 class="nav-title"><i class="fas fa-user-tie fa-lg"></i>&ensp;Staff</h1>-->
 		<div class="row">
 			<div class="col-sm-4">
-				<a href="<?= site_url('staff') ?>">
+				<a href="<?= site_url('tao') ?>">
 					<div class="nav-icons">
 						<i class="fas fa-user-cog fa-4x"></i>
 					</div>
@@ -75,7 +75,7 @@
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<a href="<?= site_url('staff') ?>">
+				<a href="<?= site_url('secretary') ?>">
 					<div class="nav-icons">
 						<i class="fas fa-user-secret fa-4x"></i>
 					</div>
@@ -85,7 +85,7 @@
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<a href="<?= site_url('staff') ?>">
+				<a href="<?= site_url('mentor') ?>">
 					<div class="nav-icons">
 						<i class="fas fa-chalkboard-teacher fa-4x"></i>
 					</div>
