@@ -45,3 +45,6 @@ $lang['too_many_words_feedback'] = 'Too many words.';
 $lang['invalid_feedback'] = 'Input is still invalid, please check!';
 $lang['qa_post_question_success'] = 'Question posted.';
 $lang['qa_post_question_failure'] = 'Fail to post the question...';
+$lang['number_of_majors'] = '#Majors';
+$lang['number_of_courschemas'] = '#Courschemas';
+$lang['access'] = 'Access';
