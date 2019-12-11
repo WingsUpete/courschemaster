@@ -301,6 +301,24 @@ class Qa_api extends CI_Controller{
         }
     }
 
+    public function ajax_get_my_questionIds(){
+        try{
+
+            $user_id = $this->session->userdata('user_id');
+
+            $result = $this->qa_model->get_my_questionIds($user_id);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
 
 
 
