@@ -23,7 +23,7 @@ class Visitors extends CI_Controller{
 
         $view = array();
         load_header_data($view);
-
+        $view['ci'] = &$this;
         $this->load->view("general/BasicComponents/header", $view);
         $this->load->view("general/cmDisplay/all_courschemas", $view);
         $this->load->view("general/BasicComponents/footer", $view);
