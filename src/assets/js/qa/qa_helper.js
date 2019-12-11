@@ -11,8 +11,10 @@
      */
     function QaHelper() {
         this.tags = {};
+		this.faqIds = {};
 		this.latestQuestionIds = {};
 		this.myQuestionIds = {};
+		this.questions = {};
 //		this.myAnswerIds = {};
     }
 
@@ -127,7 +129,7 @@
 		
 		var obj = this;
 		
-        $.post(postUrl, postData, function (response) {
+        return $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
@@ -164,6 +166,29 @@
     };
     
 	/**
+     * Get all FAQ Ids
+     */
+    QaHelper.prototype.getFaqIds = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_faqs_id';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			obj.faqIds = response;
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
      * Get some Latest Questions Ids
      */
     QaHelper.prototype.getLatestQuestionIds = function (max_num) {
@@ -176,23 +201,13 @@
 		
 		var obj = this;
 		
-        $.post(postUrl, postData, function (response) {
+        return $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
 			
-//			console.log(response);
-			
-//			$.each(response, function(ind, tag) {
-//				var html = '<span class="tag badge badge-pill badge-info" title="' + tag.name + '" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '">' + tag.name + ' <i class="add_tags fas fa-plus fa-sm"></i></span>';
-//				obj.tags[tag.id] = {
-//					id: tag.id,
-//					name: tag.name,
-//					html: html
-//				};
-//				$('#tagChoices').append(html);
-//			});
+			obj.latestQuestionIds = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
@@ -209,13 +224,12 @@
 		
 		var obj = this;
 		
-        $.post(postUrl, postData, function (response) {
+        return $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
 		
-			alert('1');
 			obj.myQuestionIds = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -234,16 +248,23 @@
 		
 		var obj = this;
 		
-        $.post(postUrl, postData, function (response) {
+        return $.post(postUrl, postData, function (response, textStatus, jqxhr) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
 			
-			alert('2');
-			console.log(response);
+			obj.questions = response;
+//			jqxhr.questionData = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Display the retrieved Questions
+     */
+    QaHelper.prototype.displayQuestions = function (type) {
+		
     };
     
 	/**
@@ -272,7 +293,7 @@
 		
 		var obj = this;
 		
-        $.post(postUrl, postData, function (response) {
+        return $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;

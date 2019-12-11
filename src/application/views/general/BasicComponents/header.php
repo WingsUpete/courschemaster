@@ -48,6 +48,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/addons/datatables.min.css', NULL, 'css') ?>" />
 	<!-- bs-stepper -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bs-stepper/dist/css/bs-stepper.min.css', NULL, 'css') ?>" />
+	<!-- Pagination.js -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/paginationjs/dist/pagination.css', NULL, 'css') ?>" />
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-------------------------------------------------------------------------------------------------------->
 	
@@ -80,6 +82,10 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/bs-stepper/dist/js/bs-stepper.min.js', NULL, 'js') ?>"></script>
 	<!-- readmore -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/readmore-js/readmore.min.js', NULL, 'js') ?>"></script>
+	<!-- Moment.js -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/momentjs/moment-with-locales.js', NULL, 'js') ?>"></script>
+	<!-- Pagination.js -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/paginationjs/dist/pagination.min.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
 	
