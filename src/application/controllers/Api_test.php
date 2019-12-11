@@ -9,7 +9,18 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_get_my_questionIds();
+        $this->test_get_my_answerIds();
+    }
+
+    public function test_get_my_answerIds(){
+        $user_id = 1;
+        $result = $this->qa_model->get_my_answerIds($user_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
     }
 
     public function test_get_my_questionIds(){
