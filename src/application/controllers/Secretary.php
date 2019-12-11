@@ -23,6 +23,7 @@ class Secretary extends CI_Controller{
         if( ! $this->has_privileges('secretary', PRIV_SECRETARY)){
             return;
         }
+        $view['ci'] = &$this;
         $view['active_sidebar'] = PRIV_SECRETARY_ALL_COURSCHEMAS;
         $this->load_comb_views($view, "general/cmDisplay/all_courschemas");
     }

@@ -23,6 +23,7 @@ class Tao extends CI_Controller{
         if( ! $this->has_privileges('mentor', PRIV_TAO)){
             return;
         }
+        $view['ci'] = &$this;
         $view['active_sidebar'] = PRIV_TAO_ALL_COURSCHEMAS;
         $this->load_comb_views($view, "general/cmDisplay/all_courschemas");
     }
