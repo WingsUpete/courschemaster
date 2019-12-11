@@ -16,7 +16,7 @@
 	}
 </script>
 <body>
-<audio id="id2" src="<?= asset_url('assets/bgm/Freaks.mp3') ?>" controls="controls" autoplay loop="true" hidden="true"></audio>
+<audio id="id2" src="<?= asset_url('assets/bgm/Freaks.mp3') ?>" controls autoplay loop preload="auto" hidden></audio>
 
 <h1 id="id1"><?php echo $success ? 'Migration Success<br />Wow, you can really update.&ensp;<a href="' . site_url('') . '" style="text-decoration:none;color:#fff;background-color: purple;padding:20px;">back to home page</a>' : 'Failed to migrate: WTF?'; ?></h1>
 
