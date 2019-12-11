@@ -80,6 +80,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/bs-stepper/dist/js/bs-stepper.min.js', NULL, 'js') ?>"></script>
 	<!-- readmore -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/readmore-js/readmore.min.js', NULL, 'js') ?>"></script>
+	<!-- Moment.js -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/momentjs/moment-with-locales.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
 	

@@ -49,3 +49,4 @@ $lang['qa_post_question_failure'] = '问题提交失败...';
 $lang['number_of_majors'] = '专业数';
 $lang['number_of_courschemas'] = '培养方案数';
 $lang['access'] = '进入';
+$lang['my_questions'] = '我的提问';

@@ -49,3 +49,4 @@ $lang['qa_post_question_failure'] = 'Fail to post the question...';
 $lang['number_of_majors'] = '#Majors';
 $lang['number_of_courschemas'] = '#Courschemas';
 $lang['access'] = 'Access';
+$lang['my_questions'] = 'My Questions';
