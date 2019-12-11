@@ -26,15 +26,7 @@
 		 * in the tag panel
 		 */
 		$(document).on('click', '.tags .selected_tags .tag', function() {
-			$(this).fadeOut(500);
-			var $obj = $(this);
-			setTimeout(function() {
-				var id = $obj.prop('dataset').tagId;
-				$obj.remove();
-				$('#tagChoices').append(
-					instance.tags[id].addHtml
-				);
-			}, 666);
+			instance.restoreTag($(this));
 		});
 		
 		/**
@@ -153,6 +145,22 @@
     };
     
 	/**
+     * Remove tags from selected list and place them back to tag panel
+     */
+    QaHelper.prototype.restoreTag = function ($tag) {
+		$tag.fadeOut(500);
+		var $obj = $tag;
+		var obj = this;
+		setTimeout(function() {
+			var id = $obj.prop('dataset').tagId;
+			$obj.remove();
+			$('#tagChoices').append(
+				obj.tags[id].addHtml
+			);
+		}, 666);
+    };
+    
+	/**
      * Get All Latest Questions
      */
     QaHelper.prototype.getLatestQuestionIds = function (max_num) {
@@ -210,6 +218,8 @@
 			labels: JSON.stringify(labels)
         };
 		
+		var obj = this;
+		
         $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
@@ -219,7 +229,11 @@
 			if (response === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_success, 'success', 6000);
 				// clear input and trigger keyup to check
-				// ...
+				$('.ask-question-input').val('');
+				$.each($('#ask_questions_tags .selected_tags .tag'), function(index, tagEl) {
+					obj.restoreTag($(tagEl));
+				});
+				$('#ask_question_title, #ask_question_description').trigger('keyup');
 			} else if (response === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_failure, 'danger', 6000);
 			} else {
