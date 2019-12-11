@@ -59,7 +59,7 @@ class Qa_api extends CI_Controller{
             $labels           = json_decode($this->input->post('labels'));
             $title            = json_decode($this->input->post('title'));
             $description      = json_decode($this->input->post('description'));
-            $user_id          = json_decode($this->input->post('user_id'));
+            $user_id          = $this->session->userdata('user_id');
             
             $result = $this->qa_model->post_question($labels, $title, $description, $user_id);  
             

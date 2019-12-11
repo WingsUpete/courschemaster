@@ -69,3 +69,14 @@
 	background-color: #a14b4b;
 }
 
+
+
+
+
+
+
+/* keep current_courschema.php's .main-content normal margin-left */
+#current_courschema.main-content {
+	margin-left: 12px;
+	margin-right: 12px;
+}

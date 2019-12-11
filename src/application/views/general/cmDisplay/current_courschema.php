@@ -2,10 +2,12 @@
 <script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/current_courschema/current_courschema.js', NULL, 'js') ?>"></script>
 <script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/current_courschema/current_courschema_helper.js', NULL, 'js') ?>"></script>
 <script>
-    var GlobalVariables = {
-        csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
-		baseUrl            : <?= json_encode($base_url) ?>
-    };
+	if ('<?= $template_status ?>' === SCLang.my_courschema) {
+    	var GlobalVariables = {
+    	    csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
+			baseUrl            : <?= json_encode($base_url) ?>
+    	};
+	}
 
     $(document).ready(function() {
 		CurrentCourschema.initialize(true);
@@ -14,7 +16,7 @@
 
 <!-- Main content -->
 <div id="current_courschema" class="main-content">
-	<h1><?= lang('my_courschema') ?></h1>
+	<h1><?= $template_status ?></h1>
 	<hr />
 	<!-- Views -->
 	<?php

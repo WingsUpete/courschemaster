@@ -6,5 +6,55 @@
 
 
 
+/* General Card Styles */
+.card {
+	margin: 10px 0;
+}
 
 
+
+
+
+
+/* Tags */
+.filter-box {
+	width: 90%;
+	margin: 10px auto;
+}
+.tags#tagChoices {
+	padding: 0 20px 20px 20px;
+}
+.tags .badge {
+	cursor: pointer;
+	opacity: 0.66;
+	margin: 3px;
+	transition: all 0.3s;
+}
+.tags .badge:hover, .tags .badge:focus {
+	opacity: 1.0;
+}
+
+
+
+
+
+
+
+
+/* Modal */
+.modal .modal-dialog-scrollable .modal-body::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+	transition: all 0.2s;
+}
+.modal .modal-dialog-scrollable .modal-body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	transition: all 0.2s;
+}
+.modal .modal-dialog-scrollable .modal-body::-webkit-scrollbar-thumb {
+	background-color: gray;
+	outline: 1px solid gray;
+	border-radius: 20px;
+	transition: 0.2s;
+}
