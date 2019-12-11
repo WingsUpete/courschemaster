@@ -39,14 +39,13 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/normalize/normalize.css', NULL, 'css') ?>" />
 	<!-- FontAwesome -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/fontawesome/css/all.min.css', NULL, 'css') ?>" />
+	<!-- JQueryUI -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jqueryui/jquery-ui.min.css', NULL, 'css') ?>" />
 	<!-- Bootstrap -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bootstrap/css/bootstrap.min.css', NULL, 'css') ?>" />
 	<!-- MDB -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/mdb.min.css', NULL, 'css') ?>" />
-	<!-- MDB addons - DataTable -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/addons/datatables.min.css', NULL, 'css') ?>" />
-	<!-- JQueryUI -->
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/jqueryui/jquery-ui.min.css', NULL, 'css') ?>" />
 	<!-- bs-stepper -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bs-stepper/dist/css/bs-stepper.min.css', NULL, 'css') ?>" />
 	<!------------------------------------------------- Link ------------------------------------------------->
@@ -58,6 +57,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-- jQuery -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/jquery/jquery-3.4.1.min.js', NULL, 'js') ?>"></script>
+	<!-- JQueryUI -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/jqueryui/jquery-ui.min.js', NULL, 'js') ?>"></script>
 	<!-- HTML5Shiv -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/html5shiv/html5shiv.min.js', NULL, 'js') ?>"></script>
 	<!-- Respond -->
@@ -74,10 +75,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/bootstrap/js/bootstrap.bundle.min.js', NULL, 'js') ?>"></script>
 	<!-- MDB -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/mdbootstrap/js/mdb.min.js', NULL, 'js') ?>"></script>
-	<!-- MDB addons - DataTable -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/mdbootstrap/js/addons/datatables.min.js', NULL, 'js') ?>"></script>
-	<!-- JQueryUI -->
-	<script type="text/javascript" src="<?= asset_url('assets/ext/jqueryui/jquery-ui.min.js', NULL, 'js') ?>"></script>
 	<!-- bs-stepper -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/bs-stepper/dist/js/bs-stepper.min.js', NULL, 'js') ?>"></script>
 	<!-- readmore -->
@@ -155,7 +153,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	</header>
 	
 	<!-- Later: notification -->
-	<div id="notification" style="display: none;"></div>
+	<div id="notification"></div>
 
 	<!-- Later: loading icon -->
 	<div id="loading" style="display: none;">

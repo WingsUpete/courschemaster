@@ -190,7 +190,7 @@
      */
     QaHelper.prototype.postQuestions = function () {
 		if ($('#ask_question_title').hasClass('is-invalid') || $('#ask_question_description').hasClass('is-invalid')) {
-			GeneralFunctions.displayNotification('valid please', undefined, 'failure');
+			GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000, undefined);
 			return;
 		}
 		var title = $('#ask_questions_title').val();
@@ -214,16 +214,6 @@
             }
 			
 			console.log(response);
-			
-//			$.each(response, function(ind, tag) {
-//				var html = '<span class="tag badge badge-pill badge-info" title="' + tag.name + '" data-tag-id="' + tag.id + '" data-tag-name="' + tag.name + '">' + tag.name + ' <i class="add_tags fas fa-plus fa-sm"></i></span>';
-//				obj.tags[tag.id] = {
-//					id: tag.id,
-//					name: tag.name,
-//					html: html
-//				};
-//				$('#tagChoices').append(html);
-//			});
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
