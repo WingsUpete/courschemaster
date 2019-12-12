@@ -34,6 +34,7 @@ window.Qa = window.Qa || {};
 			helper.getTags();
 			initRecommendBox();
 		} else {
+			helper.retrieveQuestionDetails(GlobalVariables.qid);
 //			initAnswerPagination();
 		}
 		
@@ -59,17 +60,17 @@ window.Qa = window.Qa || {};
 		var type_lq = 'latestQuestions';
 		var type_mq = 'myQuestions';
 		$.when(helper.getFaqs()).then(function() {
-			initQuestionPagination($('#faq_pagination'), $('#faq_contents'), type_faq);
+			Qa.initQuestionPagination($('#faq_pagination'), $('#faq_contents'), type_faq);
 		});
 		$.when(helper.getLatestQuestions(50)).then(function() {
-			initQuestionPagination($('#lq_pagination'), $('#lq_contents'), type_lq);
+			Qa.initQuestionPagination($('#lq_pagination'), $('#lq_contents'), type_lq);
 		});
 		$.when(helper.getMyQuestions()).then(function() {
-			initQuestionPagination($('#mq_pagination'), $('#mq_contents'), type_mq);
+			Qa.initQuestionPagination($('#mq_pagination'), $('#mq_contents'), type_mq);
 		});
 	}
 	
-	function initQuestionPagination($pagination, $contents, type) {
+	exports.initQuestionPagination = function($pagination, $contents, type) {
 		$pagination.pagination({
 			dataSource: function(done) {
 				done(helper[type]);
@@ -87,7 +88,7 @@ window.Qa = window.Qa || {};
 					pagination.el.hide();
 				} else {
 					$.each(data, function(index, item) {
-						var html = '<a href="' + GlobalVariables.generateQLink(item.id) + '" target="_blank" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" data-question-id="' + item.id + '"><h5>' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + ' Answers:' + item.answers_cnt + (item.authentication === '1' ? ' <span class="text-success">authenticated</span></p></a>' : '');
+						var html = '<a href="' + GlobalVariables.generateQLink(item.id) + '" target="_blank" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" data-question-id="' + item.id + '"><h5>' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + ' ' + SCLang.number_of_answers + ':' + item.answers_cnt + (item.authentication === '1' ? ' <span class="authenticated text-success">' + SCLang.authenticated + '</span></p></a>' : '');
 						$contents.append(html);
 					});
 					pagination.el.show();
@@ -95,34 +96,6 @@ window.Qa = window.Qa || {};
 				GeneralFunctions.placeFooterToBottom();
 			}
 		});
-	}
-	
-	function initAnswerPagination($pagination, $contents, type) {
-		$pagination.pagination({
-			dataSource: function(done) {
-				done(helper[type]);
-			},
-			pageSize: 5,
-			showPageNumbers: true,
-			showNavigator: true,
-			className: 'paginationjs-theme-red',
-			prevText: '<i class="fas fa-angle-left"></i>',
-			nextText: '<i class="fas fa-angle-right"></i>',
-			callback: function(data, pagination) {
-				$contents.html('');
-				if (data.length === 0) {
-					$contents.append('<p class="text-muted">' + SCLang.no_record + '</p>');
-					pagination.el.hide();
-				} else {
-					$.each(data, function(index, item) {
-						var html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" style="padding: 20px;" data-question-id="' + item.id + '"><h5 style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + ' Answers:' + item.number_of_answers + (item.authentication === '1' ? ' <span class="text-success">authenticated</span></p></a>' : '');
-						$contents.append(html);
-					});
-					pagination.el.show();
-				}
-				GeneralFunctions.placeFooterToBottom();
-			}
-		});
-	}
+	};
 
 })(window.Qa);

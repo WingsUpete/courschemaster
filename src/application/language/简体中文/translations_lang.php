@@ -55,3 +55,5 @@ $lang['course_management'] = '课程管理';
 $lang['courschema_management'] = '培养方案管理';
 $lang['review'] = '审核';
 $lang['no_record'] = '暂无记录';
+$lang['number_of_answers'] = '回答';
+$lang['authenticated'] = '官方认证';

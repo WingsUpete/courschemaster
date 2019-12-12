@@ -25,6 +25,7 @@
 }
 .tags .badge {
 	cursor: pointer;
+	user-select: none;
 	opacity: 0.66;
 	margin: 3px;
 	transition: all 0.3s;
@@ -63,7 +64,8 @@
 /* Pagination.js */
 #faq_pagination,
 #lq_pagination,
-#mq_pagination {
+#mq_pagination,
+#sq_pagination {
 	margin: 20px 0 0 0;
 }
 .paginationjs .paginationjs-pages {
@@ -85,6 +87,22 @@
 	overflow: hidden;
 	text-overflow: ellipsis;
 }
+#sq_contents {
+	margin-top: 30px;
+}
+#sq_contents .question-brief {
+	
+}
+
+
+
+
+
+/* Specific Question */
+.question-title {
+	color: #b04b4b;
+}
+
 
 
 
