@@ -27,11 +27,12 @@ class Qa extends CI_Controller{
         $this->load_comb_views($view_data, 'qa/main');
     }
 
-    public function question(){
+    public function question($question_id){
         // if( ! $this->has_privileges()){
         //     return; 
         // }
         $view_data = array();
+        $view_data['qid'] = $question_id;
         $this->load_comb_views($view_data, 'qa/question');
     }
 
