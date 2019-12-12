@@ -18,19 +18,15 @@
 	<h1 class="hide-for-now"><?= lang('qa') ?></h1>
 	<hr class="hide-for-now" />
 	<!-- QA System - Question -->
-	<h1 class="question-title font-weight-bold">
-		Title
-	</h1>
-	<p class="question-addi-info text-muted">
-		2019-12-12&ensp;<?= lang('number_of_answers') ?>:3&ensp;<span class="authenticated text-success"><?= lang('authenticated') ?></span>&nbsp;
-		<span class="tags">
-			<span class="tag badge badge-pill badge-info" title="湿乎乎的话题" data-tag-id="2" data-tag-name="湿乎乎的话题">湿乎乎的话题</span>
-			<span class="tag badge badge-pill badge-info" title="湿乎乎的话题" data-tag-id="2" data-tag-name="湿乎乎的话题">湿乎乎的话题</span>
-			<span class="tag badge badge-pill badge-info" title="湿乎乎的话题" data-tag-id="2" data-tag-name="湿乎乎的话题">湿乎乎的话题</span>
-		</span>
+	<input type="hidden" id="question-id" />
+	<h1 class="question-title font-weight-bold h1-responsive"></h1>
+	<p class="question-basic-info text-muted">
+		<a class="question-provider"></a> - <span class="question-provider-major"></span>&ensp;&ensp;<span class="question-creation-time"></span>&ensp;&ensp;<?= lang('number_of_answers') ?>:<span class="question-number-of-answers"></span>&ensp;&ensp;<span class="authenticated question-authenticated text-success"></span>&nbsp;
+		<span class="tags"></span>
 	</p>
+	<h5 class="question-description h5-responsive"></h5>
 	<hr />
-	<div class="description">
-		This is the description of the question. Maybe it should be a lot longer you know?
+	<div class="question-answers">
+		
 	</div>
 </div>

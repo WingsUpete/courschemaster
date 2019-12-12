@@ -328,7 +328,6 @@
 	
 	//	------------------------ Question ---------------------------
 	
-    
 	/**
      * get details of a question
      */
@@ -349,8 +348,36 @@
             }
 			
 			console.log(response);
+			obj.displayQuestionDetails(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+	/**
+     * display details of a question
+     */
+    QaHelper.prototype.displayQuestionDetails = function (data) {
+		var basicInfo = data.info;
+		var labels = data.labels;
+		var answers = data.answers;
+		//	display basic info
+		$('#question-id').val(basicInfo.id);
+		$('.question-title').html(basicInfo.title);
+		$('.question-provider').html(basicInfo.provider_name).prop('href', 'mailto:' + basicInfo.provider_email);
+		$('.question-provider-major').html(basicInfo.provider_major);
+		$('.question-creation-time').html(basicInfo.time);
+		$('.question-number-of-answers').html(answers.length);
+		if (basicInfo.authentication === '1') {
+			$('.question-authenticated').html(SCLang.authenticated);
+		}
+		$('.question-description').html(basicInfo.description);
+		//	display labels
+		$('.tags').html('');
+		$.each(labels, function(index, tag) {
+			$('.tags').append('<span class="tag badge badge-pill badge-info" title="' + tag.name + '">' + tag.name + '</span>');
+		});
+		//	display answers
+		
     };
 	
     window.QaHelper = QaHelper;
