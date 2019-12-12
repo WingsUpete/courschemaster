@@ -331,6 +331,10 @@ class Qa_model extends CI_Model{
     // Basic view function
     public function get_question_brief($id_arr){
 
+        if(sizeof($id_arr) == 0){
+            return array();
+        }
+
         $this->db
             ->select('
                 qa_questions.id             AS id,
@@ -344,7 +348,7 @@ class Qa_model extends CI_Model{
             $this->db->or_where('qa_questions.id', $id);
         }
         $rtn_array = $this->db
-            ->order_by('qa_questions.id')
+            ->order_by('qa_questions.id', 'DESC')
             ->get()
             ->result_array();
 
@@ -359,22 +363,20 @@ class Qa_model extends CI_Model{
         }
         $cnt_arr = $this->db
             ->group_by('qa_answers.id_questions')
-            ->order_by('qa_answers.id_questions')
+            ->order_by('qa_answers.id_questions', 'DESC')
             ->get()
             ->result_array();
         
-        $r_ptr = 0;
-        $c_ptr = 0;
-        $number_of_all = sizeof($rtn_array);
-        $number_of_cnt = sizeof($cnt_arr);
-        while($r_ptr < $number_of_all){
-            if($c_ptr < $number_of_cnt && $cnt_arr[$c_ptr]['id'] == $rtn_array[$r_ptr]['id']){
+        $r_ptr = sizeof($rtn_array) - 1;
+        $c_ptr = sizeof($cnt_arr) - 1;
+        while($r_ptr >= 0){
+            if($c_ptr >= 0 && $cnt_arr[$c_ptr]['id'] == $rtn_array[$r_ptr]['id']){
                 $rtn_array[$r_ptr]['number_of_answers'] = $cnt_arr[$c_ptr]['number_of_answers'];
-                $r_ptr++;
-                $c_ptr++;
+                $r_ptr--;
+                $c_ptr--;
             }else{
                 $rtn_array[$r_ptr]['number_of_answers'] = 0;
-                $r_ptr++;
+                $r_ptr--;
             }
         }
 
@@ -382,6 +384,10 @@ class Qa_model extends CI_Model{
     }
 
     public function get_question_details($id){
+
+        if( ! $id){
+            return array();
+        }
         
         $rtn_array = array();
 
