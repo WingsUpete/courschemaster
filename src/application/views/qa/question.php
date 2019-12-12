@@ -27,6 +27,7 @@
 	<h5 class="question-description h5-responsive"></h5>
 	<hr />
 	<div class="question-answers">
-		
+		<div class="list-group" id="qa_contents"></div>
+		<div id="qa_pagination"></div>
 	</div>
 </div>

@@ -15,6 +15,7 @@
 		this.latestQuestions = [];
 		this.myQuestions = [];
 		this.searchResults = [];
+		this.answers = [];
 //		this.myAnswerIds = [];
     }
 
@@ -377,7 +378,8 @@
 			$('.tags').append('<span class="tag badge badge-pill badge-info" title="' + tag.name + '">' + tag.name + '</span>');
 		});
 		//	display answers
-		
+		this.answers = answers;
+		Qa.initAnswerPagination($('#qa_pagination'), $('#qa_contents'), 'answers');
     };
 	
     window.QaHelper = QaHelper;
