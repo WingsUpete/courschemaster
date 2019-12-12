@@ -11,8 +11,8 @@
 
 <!-- Main content -->
 <div id="student_info" class="main-content">
-	<h1>Student Info</h1>
-	<hr />
+	<h1 class="hide-for-now">Student Info</h1>
+	<hr class="hide-for-now" />
 	<!-- ... -->
 	
 </div>

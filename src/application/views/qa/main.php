@@ -14,8 +14,8 @@
 
 <!-- Main content -->
 <div id="qa" class="main-content">
-	<h1><?= lang('qa') ?></h1>
-	<hr />
+	<h1 class="hide-for-now"><?= lang('qa') ?></h1>
+	<hr class="hide-for-now" />
 	<!-- QA System -->
 	<div class="container-fluid">
 		<div class="row">

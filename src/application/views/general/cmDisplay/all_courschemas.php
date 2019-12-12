@@ -15,8 +15,8 @@
 <!-- Main content -->
 <div id="all_courschemas" class="main-content">
 	<!-- Title -->
-	<h1><?= lang('all_courschemas') ?></h1>
-	<hr />
+	<h1 class="hide-for-now"><?= lang('all_courschemas') ?></h1>
+	<hr class="hide-for-now" />
 	<!-- A Navigation Bar -->
 	<div id="bs-stepper-box" class="bs-stepper">
 		<?php

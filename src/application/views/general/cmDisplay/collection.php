@@ -14,8 +14,8 @@
 
 <!-- Main content -->
 <div id="collection" class="main-content">
-	<h1><?= lang('collection') ?></h1>
-	<hr />
+	<h1 class="hide-for-now"><?= lang('collection') ?></h1>
+	<hr class="hide-for-now" />
 	<!-- Course Table -->
 	<?php
 		$course_table_headers = array(
