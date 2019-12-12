@@ -202,8 +202,9 @@ class Api_test extends CI_Controller{
     }
 
     public function test_get_question_details(){
-        $id = 3;
-        $result =  $this->qa_model->get_question_details($id);
+        $id = 6;
+        $language = $this->session->userdata('language');
+        $result =  $this->qa_model->get_question_details($language, $id);
 
         echo 'info <br />';
         echo 'size:'.sizeof($result['info']).'<br />';

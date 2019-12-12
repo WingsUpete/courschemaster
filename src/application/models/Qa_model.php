@@ -346,7 +346,7 @@ class Qa_model extends CI_Model{
         return $ok;
     }
 
-    public function get_question_details($id){
+    public function get_question_details($language, $id){
 
         if( ! $id){
             return array();
@@ -355,6 +355,11 @@ class Qa_model extends CI_Model{
         $rtn_array = array();
 
         // Get question info
+        if($language == 'english'){
+            $this->db->select('cm_majors.en_name AS provider_major');
+        }else{
+            $this->db->select('cm_majors.name    AS provider_major');
+        }
         $rtn_array['info'] = $this->db
             ->select('
                 qa_questions.id             AS id,
@@ -364,8 +369,6 @@ class Qa_model extends CI_Model{
                 qa_questions.authentication AS authentication,
                 cm_users.name               AS provider_name,
                 cm_users.email              AS provider_email,
-                cm_majors.name              AS provider_major_cn,
-                cm_majors.en_name           AS provider_major_en,
                 cm_privileges.name          AS role
             ')
             ->from('qa_questions')
@@ -377,11 +380,12 @@ class Qa_model extends CI_Model{
             ->row_array();
         
         // Get question labels
+        if($language == 'english'){
+            $this->db->select('qa_labels.en_name AS name');
+        }else{
+            $this->db->select('qa_labels.cn_name AS name');
+        }
         $rtn_array['labels'] = $this->db
-            ->select('
-                qa_labels.cn_name AS cn_name,
-                qa_labels.en_name AS en_name
-            ')
             ->from('qa_labels_questions')
             ->join('qa_labels', 'qa_labels.id = qa_labels_questions.id_labels', 'inner')
             ->where('qa_labels_questions.id_questions', $id)
@@ -389,6 +393,11 @@ class Qa_model extends CI_Model{
             ->result_array();
 
         // Get answers
+        if($language == 'english'){
+            $this->db->select('cm_majors.en_name AS provider_major');
+        }else{
+            $this->db->select('cm_majors.name    AS provider_major');
+        }
         $rtn_array['answers'] = $this->db
             ->select('
                 qa_answers.id               AS id,
@@ -398,8 +407,6 @@ class Qa_model extends CI_Model{
                 qa_answers.authentication   AS authentication,
                 cm_users.name               AS provider_name,
                 cm_users.email              AS provider_email,
-                cm_majors.name              AS provider_major_cn,
-                cm_majors.en_name           AS provider_major_en,
                 cm_privileges.name          AS role
             ')
             ->from('qa_answers')
@@ -435,20 +442,12 @@ class Qa_model extends CI_Model{
     }
 
     public function get_all_labels($language){
+        $this->db->select('qa_labels.id AS id');
         if($language == 'english'){
-            $this->db
-            ->select('
-                qa_labels.id      AS id,
-                qa_labels.cn_name AS name
-            ');
+            $this->db->select('qa_labels.cn_name AS name');
         }else{
-            $this->db
-            ->select('
-                qa_labels.id      AS id,
-                qa_labels.en_name AS name
-            ');
+            $this->db->select('qa_labels.en_name AS name');
         }
-
         return $this->db->from('qa_labels')
             ->get()
             ->result_array();        
