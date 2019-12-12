@@ -62,10 +62,9 @@
 
 
 /* Pagination.js */
-#faq_pagination,
-#lq_pagination,
-#mq_pagination,
-#sq_pagination {
+#faq_pagination, #lq_pagination, #mq_pagination,
+#sq_pagination,
+#qa_pagination {
 	margin: 20px 0 0 0;
 }
 .paginationjs .paginationjs-pages {
@@ -90,8 +89,8 @@
 #sq_contents {
 	margin-top: 30px;
 }
-#sq_contents .question-brief {
-	
+.authenticated {
+	user-select: none;
 }
 
 
@@ -100,10 +99,26 @@
 
 /* Specific Question */
 .question-title {
-	color: #b04b4b;
+/*	color: #b04b4b;*/
+	color: rgba(50,50,50,1.00);
 }
-
-
-
+.question-answers .list-group .list-group-item {
+	background-color: transparent;
+}
+.vote-btns {
+	position: relative;
+	float: right;
+}
+.vote-btns button {
+	padding: 6px 12px!important;
+}
+.vote-btns .vote-positive {
+	border-top-left-radius: 10px;
+	border-bottom-left-radius: 10px;
+}
+.vote-btns .vote-negative {
+	border-top-right-radius: 10px;
+	border-bottom-right-radius: 10px;
+}
 
 
