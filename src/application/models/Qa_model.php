@@ -329,59 +329,59 @@ class Qa_model extends CI_Model{
 
 
     // Basic view function
-    public function get_question_brief($id_arr){
+    // public function get_question_brief($id_arr){
 
-        if( ! $id_arr){
-            return array();
-        }
+    //     if( ! $id_arr){
+    //         return array();
+    //     }
 
-        $this->db
-            ->select('
-                qa_questions.id             AS id,
-                qa_questions.title          AS title,
-                qa_questions.timestamp      AS time,
-                qa_questions.authentication AS authentication
-            ')
-            ->from('qa_questions');
+    //     $this->db
+    //         ->select('
+    //             qa_questions.id             AS id,
+    //             qa_questions.title          AS title,
+    //             qa_questions.timestamp      AS time,
+    //             qa_questions.authentication AS authentication
+    //         ')
+    //         ->from('qa_questions');
 
-        foreach($id_arr AS $id){
-            $this->db->or_where('qa_questions.id', $id);
-        }
-        $rtn_array = $this->db
-            ->order_by('qa_questions.id', 'DESC')
-            ->get()
-            ->result_array();
+    //     foreach($id_arr AS $id){
+    //         $this->db->or_where('qa_questions.id', $id);
+    //     }
+    //     $rtn_array = $this->db
+    //         ->order_by('qa_questions.id', 'DESC')
+    //         ->get()
+    //         ->result_array();
 
-        $this->db->select('
-            qa_answers.id_questions AS id,
-            COUNT(qa_answers.id)    AS number_of_answers
-        ')
-        ->from('qa_answers');
+    //     $this->db->select('
+    //         qa_answers.id_questions AS id,
+    //         COUNT(qa_answers.id)    AS number_of_answers
+    //     ')
+    //     ->from('qa_answers');
 
-        foreach($id_arr AS $id){
-            $this->db->or_where('qa_answers.id_questions', $id);
-        }
-        $cnt_arr = $this->db
-            ->group_by('qa_answers.id_questions')
-            ->order_by('qa_answers.id_questions', 'DESC')
-            ->get()
-            ->result_array();
+    //     foreach($id_arr AS $id){
+    //         $this->db->or_where('qa_answers.id_questions', $id);
+    //     }
+    //     $cnt_arr = $this->db
+    //         ->group_by('qa_answers.id_questions')
+    //         ->order_by('qa_answers.id_questions', 'DESC')
+    //         ->get()
+    //         ->result_array();
         
-        $r_ptr = sizeof($rtn_array) - 1;
-        $c_ptr = sizeof($cnt_arr) - 1;
-        while($r_ptr >= 0){
-            if($c_ptr >= 0 && $cnt_arr[$c_ptr]['id'] == $rtn_array[$r_ptr]['id']){
-                $rtn_array[$r_ptr]['number_of_answers'] = $cnt_arr[$c_ptr]['number_of_answers'];
-                $r_ptr--;
-                $c_ptr--;
-            }else{
-                $rtn_array[$r_ptr]['number_of_answers'] = 0;
-                $r_ptr--;
-            }
-        }
+    //     $r_ptr = sizeof($rtn_array) - 1;
+    //     $c_ptr = sizeof($cnt_arr) - 1;
+    //     while($r_ptr >= 0){
+    //         if($c_ptr >= 0 && $cnt_arr[$c_ptr]['id'] == $rtn_array[$r_ptr]['id']){
+    //             $rtn_array[$r_ptr]['number_of_answers'] = $cnt_arr[$c_ptr]['number_of_answers'];
+    //             $r_ptr--;
+    //             $c_ptr--;
+    //         }else{
+    //             $rtn_array[$r_ptr]['number_of_answers'] = 0;
+    //             $r_ptr--;
+    //         }
+    //     }
 
-        return $rtn_array;
-    }
+    //     return $rtn_array;
+    // }
 
     public function get_question_details($id){
 
@@ -471,35 +471,6 @@ class Qa_model extends CI_Model{
         return $rtn_array;
     }
 
-    public function get_answers_replies($id_arr){
-        foreach($id_arr AS $id){
-
-        }
-    }
-
-    public function get_faqs_id(){
-        return $this->db
-            ->select('
-                qa_questions.id AS id
-            ')
-            ->from('qa_questions')
-            ->where('qa_questions.faq_mark', 1)
-            ->get()
-            ->result_array();
-    }
-
-    public function get_latest_question_id($num_limit){
-        return $this->db
-            ->select(
-                'qa_questions.id AS id'
-            )
-            ->from('qa_questions')
-            ->order_by('qa_questions.timestamp', 'DESC')
-            ->limit($num_limit)
-            ->get()
-            ->result_array();
-    }
-
     public function get_all_labels($language){
         if($language == 'english'){
             $this->db
@@ -520,30 +491,74 @@ class Qa_model extends CI_Model{
             ->result_array();        
     }
 
-    public function get_my_questionIds($user_id){
-        if( ! $user_id){
-            return array();
-        }
-
-        return $this->db->select('
-                qa_questions.id AS id
+    public function get_faqs(){
+        return $this->db
+            ->select('
+                qa_questions.id             AS id,
+                qa_questions.title          AS title,
+                qa_questions.timestamp      AS time,
+                qa_questions.authentication AS authentication,
+                qa_questions.answers_cnt    AS answers_cnt
             ')
             ->from('qa_questions')
-            ->where('qa_questions.id_users_questioner', $user_id)
+            ->where('qa_questions.faq_mark', 1)
+            ->order_by('qa_questions.timestamp', 'DESC')
             ->get()
             ->result_array();
     }
 
-    public function get_my_answerIds($user_id){
+    public function get_latest_questions($num_limit){
+        return $this->db
+            ->select('
+                qa_questions.id             AS id,
+                qa_questions.title          AS title,
+                qa_questions.timestamp      AS time,
+                qa_questions.authentication AS authentication,
+                qa_questions.answers_cnt    AS answers_cnt
+            ')
+            ->from('qa_questions')
+            ->order_by('qa_questions.timestamp', 'DESC')
+            ->limit($num_limit)
+            ->get()
+            ->result_array();
+    }
+
+    public function get_my_questions($user_id){
         if( ! $user_id){
             return array();
         }
 
         return $this->db->select('
-                qa_answers.id_questions AS id
+                qa_questions.id             AS id,
+                qa_questions.title          AS title,
+                qa_questions.timestamp      AS time,
+                qa_questions.authentication AS authentication,
+                qa_questions.answers_cnt    AS answers_cnt
+            ')
+            ->from('qa_questions')
+            ->where('qa_questions.id_users_questioner', $user_id)
+            ->order_by('qa_questions.timestamp', 'DESC')
+            ->get()
+            ->result_array();
+    }
+
+    public function get_my_answers($user_id){
+        if( ! $user_id){
+            return array();
+        }
+
+        return $this->db->select('
+                qa_questions.id             AS id,
+                qa_questions.title          AS title,
+                qa_questions.timestamp      AS time,
+                qa_questions.authentication AS authentication,
+                qa_questions.answers_cnt    AS answers_cnt
             ')
             ->from('qa_answers')
+            ->join('qa_questions', 'qa_questions.id = qa_answers.id_questions', 'inner')
             ->where('qa_answers.id_users_provider', $user_id)
+            ->group_by('qa_questions.id')
+            ->order_by('qa_questions.timestamp', 'DESC')
             ->get()
             ->result_array();
     }

@@ -249,40 +249,6 @@ class Qa_api extends CI_Controller{
         }
     }
 
-    public function ajax_get_faqs_id(){
-        try{
-
-            $result = $this->qa_model->get_faqs_id();
-
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($result));
-
-        }catch(Exception $exc){
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
-        }
-    }
-
-    public function ajax_get_latest_question(){
-        try{
-
-            $num_limit = json_decode($this->input->post('num_limit'));
-
-            $result = $this->qa_model->get_latest_question_id($num_limit);
-
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode($result));
-
-        }catch(Exception $exc){
-            $this->output
-                ->set_content_type('application/json')
-                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
-        }
-    }
-
     public function ajax_get_all_labels(){
         try{
 
@@ -301,12 +267,10 @@ class Qa_api extends CI_Controller{
         }
     }
 
-    public function ajax_get_my_questionIds(){
+    public function ajax_get_faqs(){
         try{
 
-            $user_id = $this->session->userdata('user_id');
-
-            $result = $this->qa_model->get_my_questionIds($user_id);
+            $result = $this->qa_model->get_faqs();
 
             $this->output
                 ->set_content_type('application/json')
@@ -319,12 +283,48 @@ class Qa_api extends CI_Controller{
         }
     }
 
-    public function ajax_get_my_answersIds(){
+    public function ajax_get_latest_questions(){
+        try{
+
+            $num_limit = json_decode($this->input->post('num_limit'));
+
+            $result = $this->qa_model->get_latest_questions($num_limit);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function ajax_get_my_questions(){
         try{
 
             $user_id = $this->session->userdata('user_id');
 
-            $result = $this->qa_model->ajax_get_my_answersIds($user_id);
+            $result = $this->qa_model->get_my_questions($user_id);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function ajax_get_my_answers(){
+        try{
+
+            $user_id = $this->session->userdata('user_id');
+
+            $result = $this->qa_model->ajax_get_my_answers($user_id);
 
             $this->output
                 ->set_content_type('application/json')

@@ -21,9 +21,9 @@ class Api_test extends CI_Controller{
         echo $result ? 1 : 0;
     }
 
-    public function test_get_my_answerIds(){
+    public function test_get_my_answers(){
         $user_id = 1;
-        $result = $this->qa_model->get_my_answerIds($user_id);
+        $result = $this->qa_model->get_my_answers($user_id);
         foreach($result AS $row){
             foreach($row AS $k => $v){
                 echo $k . ' ' . $v . '<br />';
@@ -32,9 +32,9 @@ class Api_test extends CI_Controller{
         }
     }
 
-    public function test_get_my_questionIds(){
+    public function test_get_my_questions(){
         $user_id = 1;
-        $result = $this->qa_model->get_my_questionIds($user_id);
+        $result = $this->qa_model->get_my_questions($user_id);
         foreach($result AS $row){
             foreach($row AS $k => $v){
                 echo $k . ' ' . $v . '<br />';
@@ -182,18 +182,22 @@ class Api_test extends CI_Controller{
         echo $result ? 1 : 0;
     }
 
-    public function test_latest_question_id(){
+    public function test_get_latest_questions(){
         $num_limit = 10;
-        $result = $this->qa_model->get_latest_question_id($num_limit);
+        $result = $this->qa_model->get_latest_questions($num_limit);
         foreach($result AS $row){
-            echo $row['id'] . '<br />';
+            foreach($row AS $k => $v){
+                echo $k .' => '. $v . '<br />';
+            }
         }
     }
 
-    public function test_get_faqs_id(){
-        $result = $this->qa_model->get_faqs_id();
+    public function test_get_faqs(){
+        $result = $this->qa_model->get_faqs();
         foreach($result AS $row){
-            echo $row['id'] . '<br />';
+            foreach($row AS $k => $v){
+                echo $k .' => '. $v . '<br />';
+            }
         }
     }
 
