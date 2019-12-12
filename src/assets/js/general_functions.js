@@ -46,14 +46,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
         }
 
         if (buttons == undefined) {
-            buttons = [
-                {
-                    text: SCLang.close,
-                    click: function () {
-                        $('#message_box').dialog('close');
-                    }
-                }
-            ];
+            buttons = [];
         }
 
         // Destroy previous modal instances.
@@ -64,12 +57,24 @@ window.GeneralFunctions = window.GeneralFunctions || {};
             '<div id="message_box"></div>'
         );
 		
+		buttonHTML = GeneralFunctions.decodeButtons(buttons);
+		
 		//	Modal
-		var html = '<div class="modal fade top" id="msgBox" tabindex="-1" role="dialog" aria-labelledby="msgBoxLabel" aria-hidden="true" data-backdrop="false"><div class="modal-dialog modal-dialog-centered modal-xl side-modal modal-dialog-scrollable" role="document"><dic class="modal-content"><div class="modal-header"><h5 class="modal-title" id="msbBoxLabel">' + title + '</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button></div><div class="modal-body"><p class="text-muted">' + message + '</p><hr /><div class="exceptionsHTML"></div></div><div class="modal-footer"><button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">' + SCLang.close + '</button></div></div></div></div>';
+		var html = '<div class="modal fade top" id="msgBox" tabindex="-1" role="dialog" aria-labelledby="msgBoxLabel" aria-hidden="true" data-backdrop="false"><div class="modal-dialog modal-dialog-centered modal-xl side-modal modal-dialog-scrollable" role="document"><dic class="modal-content"><div class="modal-header"><h5 class="modal-title" id="msbBoxLabel">' + title + '</h5><button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">×</span></button></div><div class="modal-body"><p class="text-muted">' + message + '</p><hr /><div class="exceptionsHTML"></div></div><div class="modal-footer">' + buttonHTML + '<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal">' + SCLang.close + '</button></div></div></div></div>';
 		
 		$('#message_box').append(html);
 		$('#msgBox').modal('show');
-		
+    };
+
+    /**
+     * decodes the button map list and return a set of buttons as html
+     */
+    exports.decodeButtons = function (buttons) {
+        var html = '';
+		$.each(buttons, function(index, button) {
+			html += '<button type="button" class="btn btn-primary btn-sm" title="' + button.text + '" onClick="' + button.click + '">' + button.text + '</button>';
+		});
+		return html;
     };
 
     /**
