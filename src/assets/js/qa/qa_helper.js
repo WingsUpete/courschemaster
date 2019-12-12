@@ -14,6 +14,7 @@
 		this.faqs = [];
 		this.latestQuestions = [];
 		this.myQuestions = [];
+		this.searchResults = [];
 //		this.myAnswerIds = [];
     }
 
@@ -111,10 +112,26 @@
 			instance.postQuestions();
 		});
 		
+		/**
+		 * Search question button
+		 */
+		var t_sqs = null;
+		$('#qa-search').on('keyup', function() {
+			if (t_sqs) {
+				clearTimeout(t_sqs);
+			}
+			var obj = $(this);
+			t_sqs = setTimeout(function() {
+				instance.searchQuestions(obj.val());
+			}, 300);
+		}).trigger('keyup');
+		
 		
 	};
 
 	//	Additional Methods
+	
+	//	------------------------ Main ---------------------------
     
 	/**
      * Get All Courschema Versions
@@ -235,6 +252,32 @@
     };
     
 	/**
+     * Search for some questions
+     */
+    QaHelper.prototype.searchQuestions = function (input) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_search_questions';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			input: JSON.stringify(input)
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+//			console.log(response);
+			obj.searchResults = response;
+			Qa.initQuestionPagination($('#sq_pagination'), $('#sq_contents'), 'searchResults');
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
      * Post Questions
      */
     QaHelper.prototype.postQuestions = function () {
@@ -279,6 +322,33 @@
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
 			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+	//	------------------------ Question ---------------------------
+	
+    
+	/**
+     * get details of a question
+     */
+    QaHelper.prototype.retrieveQuestionDetails = function (id) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_question_details';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			question_id: id
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			console.log(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };

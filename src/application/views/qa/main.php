@@ -36,10 +36,12 @@
 					<div class="card-body">
 						<div class="tab-content" id="question-box-content">
 							<div class="tab-pane fade show active" id="question-box-search-content" role="tabpanel" aria-labelledby="question-box-search">
-								<div class="md-form md-outline">
-									<i class="fas fa-search prefix"></i>
+								<div class="md-form md-outline mb-0">
+									<i class="fas fa-search fa-4x prefix"></i>
 									<input type="text" id="qa-search" class="form-control">
 									<label for="qa-search"><?= lang('search') ?></label>
+									<div class="list-group" id="sq_contents"></div>
+									<div id="sq_pagination"></div>
 								</div>
 							</div>
 							<div class="tab-pane fade" id="question-box-ask-content" role="tabpanel" aria-labelledby="question-box-ask">
