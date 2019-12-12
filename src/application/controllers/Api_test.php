@@ -263,10 +263,13 @@ class Api_test extends CI_Controller{
     }
 
     public function test_search_questions(){
-        $input = 'CSE 培养方案';
+        $input = '熬夜';
         $result = $this->qa_model->search_questions($input);
-        foreach($result AS $id){
-            echo $id . '<br />';   
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . '=>' .$v . '<br />';
+            }
+            echo '<br />';
         }
     }
 

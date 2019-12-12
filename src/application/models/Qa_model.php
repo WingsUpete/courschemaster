@@ -62,7 +62,8 @@ class Qa_model extends CI_Model{
             'id_users_questioner' => $user_id,
             'timestamp' => $timestamp,
             'authentication' => $autentication,
-            'num_of_views' => $default_view_cnt
+            'num_of_views' => $default_view_cnt,
+            'answers_cnt' => 0
         );
 
         $insert_id = -1;
@@ -198,8 +199,15 @@ class Qa_model extends CI_Model{
 
         // Search labels - exact
         $this->db
-            ->select('qa_labels_questions.id_questions AS question_id')
+            ->select('
+                qa_questions.id             AS id,
+                qa_questions.title          AS title,
+                qa_questions.timestamp      AS time,
+                qa_questions.authentication AS authentication,
+                qa_questions.answers_cnt    AS answers_cnt
+            ')
             ->from('qa_labels_questions')
+            ->join('qa_questions', 'qa_questions.id = qa_labels_questions.id_questions', 'inner')
             ->join('qa_labels', 'qa_labels.id = qa_labels_questions.id_labels', 'inner');
         
         foreach($key_arr AS $key){
@@ -209,12 +217,18 @@ class Qa_model extends CI_Model{
         }
 
         $result_label = $this->db
-            ->order_by('question_id')
+            ->order_by('qa_questions.id')
             ->get()->result_array();
 
         // Search questions title, description - exact
         $this->db
-            ->select('qa_questions.id AS question_id')
+            ->select('
+                qa_questions.id             AS id,
+                qa_questions.title          AS title,
+                qa_questions.timestamp      AS time,
+                qa_questions.authentication AS authentication,
+                qa_questions.answers_cnt    AS answers_cnt
+            ')
             ->from('qa_questions');
         
         foreach($key_arr AS $key){
@@ -224,18 +238,17 @@ class Qa_model extends CI_Model{
         }
 
         $result_title = $this->db
-            ->order_by('question_id')
+            ->order_by('qa_questions.id')
             ->get()->result_array();
 
         $l_ptr = 0;
         $t_ptr = 0;
-        $max = max(sizeof($result_label), sizeof($result_title));
         $rtn_arr = array();
         $rtn_ptr = 0;
         //
         while($l_ptr < sizeof($result_label) && $t_ptr < sizeof($result_title)){
-            $cur_result_label = $result_label[$l_ptr]['question_id'];
-            $cur_result_title = $result_title[$t_ptr]['question_id'];
+            $cur_result_label = $result_label[$l_ptr];
+            $cur_result_title = $result_title[$t_ptr];
             if($cur_result_label == $cur_result_title){
                 $rtn_arr[$rtn_ptr++] = $cur_result_label;
                 $l_ptr++;
@@ -245,6 +258,12 @@ class Qa_model extends CI_Model{
             }else{
                 $t_ptr++;
             }
+        }
+        while($l_ptr < sizeof($result_label)){
+            $rtn_arr[$rtn_ptr++] = $result_label[$l_ptr++];
+        }
+        while($t_ptr < sizeof($result_title)){
+            $rtn_arr[$rtn_ptr++] = $result_title[$t_ptr++];
         }
 
         return $rtn_arr;
@@ -326,62 +345,6 @@ class Qa_model extends CI_Model{
 
         return $ok;
     }
-
-
-    // Basic view function
-    // public function get_question_brief($id_arr){
-
-    //     if( ! $id_arr){
-    //         return array();
-    //     }
-
-    //     $this->db
-    //         ->select('
-    //             qa_questions.id             AS id,
-    //             qa_questions.title          AS title,
-    //             qa_questions.timestamp      AS time,
-    //             qa_questions.authentication AS authentication
-    //         ')
-    //         ->from('qa_questions');
-
-    //     foreach($id_arr AS $id){
-    //         $this->db->or_where('qa_questions.id', $id);
-    //     }
-    //     $rtn_array = $this->db
-    //         ->order_by('qa_questions.id', 'DESC')
-    //         ->get()
-    //         ->result_array();
-
-    //     $this->db->select('
-    //         qa_answers.id_questions AS id,
-    //         COUNT(qa_answers.id)    AS number_of_answers
-    //     ')
-    //     ->from('qa_answers');
-
-    //     foreach($id_arr AS $id){
-    //         $this->db->or_where('qa_answers.id_questions', $id);
-    //     }
-    //     $cnt_arr = $this->db
-    //         ->group_by('qa_answers.id_questions')
-    //         ->order_by('qa_answers.id_questions', 'DESC')
-    //         ->get()
-    //         ->result_array();
-        
-    //     $r_ptr = sizeof($rtn_array) - 1;
-    //     $c_ptr = sizeof($cnt_arr) - 1;
-    //     while($r_ptr >= 0){
-    //         if($c_ptr >= 0 && $cnt_arr[$c_ptr]['id'] == $rtn_array[$r_ptr]['id']){
-    //             $rtn_array[$r_ptr]['number_of_answers'] = $cnt_arr[$c_ptr]['number_of_answers'];
-    //             $r_ptr--;
-    //             $c_ptr--;
-    //         }else{
-    //             $rtn_array[$r_ptr]['number_of_answers'] = 0;
-    //             $r_ptr--;
-    //         }
-    //     }
-
-    //     return $rtn_array;
-    // }
 
     public function get_question_details($id){
 
