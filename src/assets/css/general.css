@@ -26,6 +26,15 @@ body::-webkit-scrollbar-thumb {
 
 
 
+/* Hide sth we've done but not needed for now */
+.hide-for-now {
+	display: none!important;
+}
+
+
+
+
+
 /* wow animations */
 .wow {
 	visibility: hidden;

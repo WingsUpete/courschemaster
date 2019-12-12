@@ -74,8 +74,8 @@ window.Qa = window.Qa || {};
 			showPageNumbers: true,
 			showNavigator: true,
 			className: 'paginationjs-theme-red',
-			prevText: '<-',
-			nextText: '->',
+			prevText: '<i class="fas fa-angle-left"></i>',
+			nextText: '<i class="fas fa-angle-right"></i>',
 			callback: function(data, pagination) {
 				$contents.html('');
 				$.each(data, function(index, item) {
