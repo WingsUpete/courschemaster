@@ -37,7 +37,9 @@ class Migration_Add_answers_cnt_in_qa_questions extends CI_Migration{
             ->get()
             ->result_array();
         
-        $this->db->update_batch('qa_questions', $data, 'id');
+        if($data){
+            $this->db->update_batch('qa_questions', $data, 'id');
+        }        
     }
 }
 ?>
