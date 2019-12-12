@@ -27,7 +27,7 @@
 							<li class="nav-item">
 								<a class="nav-link font-weight-bold active" id="question-box-search" data-toggle="tab" title="Events" href="#question-box-search-content" role="tab" aria-controls="question-box-search-content" aria-selected="true"><?= lang('search_questions') ?></a>
 							</li>
-							<li class="nav-item">
+							<li class="nav-item<?= $logged_in == 'true' ? '' : ' disabled' ?>">
 								<a class="nav-link font-weight-bold" id="question-box-ask" data-toggle="tab" title="Courses" href="#question-box-ask-content" role="tab" aria-controls="question-box-ask-content" aria-selected="false"><?= lang('ask_questions') ?></a>
 							</li>
 						</ul>
@@ -95,10 +95,12 @@
 								<div id="faq_pagination"></div>
 							</div>
 							<div class="tab-pane fade" id="recommend-box-lqs-content" role="tabpanel" aria-labelledby="recommend-box-lqs">
-								Latest Questions
+								<div class="list-group" id="lq_contents"></div>
+								<div id="lq_pagination"></div>
 							</div>
 							<div class="tab-pane fade" id="recommend-box-myqs-content" role="tabpanel" aria-labelledby="recommend-box-myqs">
-								My Questions
+								<div class="list-group" id="mq_contents"></div>
+								<div id="mq_pagination"></div>
 							</div>
 						</div>
 					</div>

@@ -14,7 +14,9 @@
 		this.faqIds = {};
 		this.latestQuestionIds = {};
 		this.myQuestionIds = {};
-		this.questions = {};
+		this.faqs = {};
+		this.latestQuestions = {};
+		this.myQuestions = {};
 //		this.myAnswerIds = {};
     }
 
@@ -238,7 +240,7 @@
 	/**
      * Get the required Questions
      */
-    QaHelper.prototype.getQuestions = function (ids) {
+    QaHelper.prototype.getQuestions = function (ids, type) {
 		//	AJAX
         var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_question_brief';
         var postData = {
@@ -254,17 +256,9 @@
                 return;
             }
 			
-			obj.questions = response;
-//			jqxhr.questionData = response;
+			obj[type] = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-    };
-    
-	/**
-     * Display the retrieved Questions
-     */
-    QaHelper.prototype.displayQuestions = function (type) {
-		
     };
     
 	/**

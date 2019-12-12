@@ -488,7 +488,7 @@ class Qa_model extends CI_Model{
                 'qa_questions.id AS id'
             )
             ->from('qa_questions')
-            ->order_by('qa_questions.timestamp')
+            ->order_by('qa_questions.timestamp', 'DESC')
             ->limit($num_limit)
             ->get()
             ->result_array();

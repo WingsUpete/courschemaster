@@ -15,7 +15,6 @@
 
 
 
-
 /* Tags */
 .filter-box {
 	width: 90%;
@@ -33,8 +32,6 @@
 .tags .badge:hover, .tags .badge:focus {
 	opacity: 1.0;
 }
-
-
 
 
 
@@ -63,14 +60,18 @@
 
 
 
-
-
-
-
 /* Pagination.js */
 #faq_pagination {
 	margin: 20px 0 0 0;
 }
 .paginationjs .paginationjs-pages {
 	float: right;
+}
+
+
+
+
+/* Questions */
+.question-brief:hover {
+	border-left: 10px solid #b04b4b;
 }
