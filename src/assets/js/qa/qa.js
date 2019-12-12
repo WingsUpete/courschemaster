@@ -58,13 +58,13 @@ window.Qa = window.Qa || {};
 		var type_faq = 'faqs';
 		var type_lq = 'latestQuestions';
 		var type_mq = 'myQuestions';
-		$.when(helper.getFaqIds()).then(helper.getQuestions(helper.faqIds, type_faq)).then(function() {
+		$.when(helper.getFaqs()).then(function() {
 			initQuestionPagination($('#faq_pagination'), $('#faq_contents'), type_faq);
 		});
-		$.when(helper.getLatestQuestionIds(50)).then(helper.getQuestions(helper.latestQuestionIds, type_lq)).then(function() {
+		$.when(helper.getLatestQuestions(50)).then(function() {
 			initQuestionPagination($('#lq_pagination'), $('#lq_contents'), type_lq);
 		});
-		$.when(helper.getMyQuestionIds()).then(helper.getQuestions(helper.myQuestionIds, type_mq)).then(function() {
+		$.when(helper.getMyQuestions()).then(function() {
 			initQuestionPagination($('#mq_pagination'), $('#mq_contents'), type_mq);
 		});
 	}
@@ -87,7 +87,7 @@ window.Qa = window.Qa || {};
 					pagination.el.hide();
 				} else {
 					$.each(data, function(index, item) {
-						var html = '<a href="javascript:void(0);" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" style="padding: 20px;" data-question-id="' + item.id + '"><h5 style="white-space:nowrap;overflow:hidden;text-overflow:ellipsis;">' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + ' Answers:' + item.number_of_answers + (item.authentication === '1' ? ' <span class="text-success">authenticated</span></p></a>' : '');
+						var html = '<a href="' + GlobalVariables.generateQLink(item.id) + '" target="_blank" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" data-question-id="' + item.id + '"><h5>' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + ' Answers:' + item.answers_cnt + (item.authentication === '1' ? ' <span class="text-success">authenticated</span></p></a>' : '');
 						$contents.append(html);
 					});
 					pagination.el.show();
