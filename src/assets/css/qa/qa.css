@@ -77,3 +77,15 @@
 .question-brief:hover {
 	border-left: 10px solid #b04b4b;
 }
+.question-brief {
+	padding: 20px;
+}
+.question-brief h5 {
+	white-space: nowrap;
+	overflow: hidden;
+	text-overflow: ellipsis;
+}
+
+
+
+
