@@ -11,8 +11,8 @@
 
 <!-- Main content -->
 <div id="courschema_management" class="main-content">
-	<h1>Courschema Management</h1>
-	<hr />
+	<h1 class="hide-for-now">Courschema Management</h1>
+	<hr class="hide-for-now" />
 	<!-- ... -->
 	
 </div>

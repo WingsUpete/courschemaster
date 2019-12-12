@@ -16,8 +16,8 @@
 
 <!-- Main content -->
 <div id="current_courschema" class="main-content">
-	<h1><?= $template_status ?></h1>
-	<hr />
+	<h1 class="hide-for-now"><?= $template_status ?></h1>
+	<hr class="hide-for-now" />
 	<!-- Views -->
 	<?php
 		// Array for couschema view icons (alias, active, icon, lang)

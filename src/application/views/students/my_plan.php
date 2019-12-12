@@ -13,8 +13,8 @@
 
 <!-- Main content -->
 <div id="students_my_plan" class="main-content">
-	<h1><?= lang('my_plan') ?></h1>
-	<hr />
+	<h1 class="hide-for-now"><?= lang('my_plan') ?></h1>
+	<hr class="hide-for-now" />
 	<!-- Others -->
     <ul class="nav nav-tabs" id="courschema_list" role="tablist">
             <li class="nav-item">

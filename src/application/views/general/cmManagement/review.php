@@ -11,8 +11,8 @@
 
 <!-- Main content -->
 <div id="review" class="main-content">
-	<h1>Review</h1>
-	<hr />
+	<h1 class="hide-for-now">Review</h1>
+	<hr class="hide-for-now" />
 	<!-- ... -->
 	
 </div>

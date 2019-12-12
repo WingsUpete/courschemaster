@@ -61,7 +61,9 @@
 
 
 /* Pagination.js */
-#faq_pagination {
+#faq_pagination,
+#lq_pagination,
+#mq_pagination {
 	margin: 20px 0 0 0;
 }
 .paginationjs .paginationjs-pages {

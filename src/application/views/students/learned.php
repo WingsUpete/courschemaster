@@ -13,8 +13,8 @@
 
 <!-- Main content -->
 <div id="students_learned" class="main-content">
-	<h1><?= lang('learned') ?></h1>
-	<hr />
+	<h1 class="hide-for-now"><?= lang('learned') ?></h1>
+	<hr class="hide-for-now" />
 	<!-- Others -->
 
 </div>
