@@ -1,3 +1,8 @@
+<?php
+	if($template_status == lang('visitor')) {
+		echo('<link rel="stylesheet" type="text/css" href="' . asset_url('assets/css/visitors/visitors.css', NULL, 'css') . '" />');
+	}
+?>
 <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/cmDisplay/current_courschema.css', NULL, 'css') ?>" />
 <script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/current_courschema/current_courschema.js', NULL, 'js') ?>"></script>
 <script type="text/javascript" src="<?= asset_url('assets/js/cmDisplay/current_courschema/current_courschema_helper.js', NULL, 'js') ?>"></script>

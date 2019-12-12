@@ -79,7 +79,7 @@ class Tao extends CI_Controller{
                 ),
                 array(
                     'name' => lang('collection'),
-                    'icon' => 'layer-group',
+                    'icon' => 'star',
                     'url'  => site_url('tao/collection'),
                     'mark' => PRIV_TAO_COLLECTION
                 )
@@ -87,7 +87,7 @@ class Tao extends CI_Controller{
             'g1' => array(
                 array(
                     'name' => lang('student_info'),
-                    'icon' => 'layer-group',
+                    'icon' => 'graduation-cap',
                     'url'  => site_url('tao/student_info'),
                     'mark' => PRIV_TAO_STUDENT_INFO
                 )
@@ -95,19 +95,19 @@ class Tao extends CI_Controller{
             'g2' => array(
                 array(
                     'name' => lang('course_management'),
-                    'icon' => 'layer-group',
+                    'icon' => 'pen',
                     'url'  =>  site_url('tao/course_management'),
                     'mark' => PRIV_TAO_COURSE_MANAGEMENT
                 ),
                 array(
                     'name' => lang('courschema_management'),
-                    'icon' => 'layer-group',
+                    'icon' => 'edit',
                     'url'  =>  site_url('tao/courschema_management'),
                     'mark' => PRIV_TAO_COURSCHEMA_MANAGEMENT
                 ),
                 array(
                     'name' => lang('review'),
-                    'icon' => 'layer-group',
+                    'icon' => 'check',
                     'url'  => site_url('tao/review'),
                     'mark' => PRIV_TAO_REVIEW
                 )
