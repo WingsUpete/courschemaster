@@ -11,9 +11,6 @@
      */
     function QaHelper() {
         this.tags = [];
-		this.faqIds = [];
-		this.latestQuestionIds = [];
-		this.myQuestionIds = [];
 		this.faqs = [];
 		this.latestQuestions = [];
 		this.myQuestions = [];
@@ -170,9 +167,9 @@
 	/**
      * Get all FAQ Ids
      */
-    QaHelper.prototype.getFaqIds = function () {
+    QaHelper.prototype.getFaqs = function () {
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_faqs_id';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_faqs';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
         };
@@ -185,7 +182,7 @@
                 return;
             }
 			
-			obj.faqIds = response;
+			obj.faqs = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
@@ -193,9 +190,9 @@
 	/**
      * Get some Latest Questions Ids
      */
-    QaHelper.prototype.getLatestQuestionIds = function (max_num) {
+    QaHelper.prototype.getLatestQuestions = function (max_num) {
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_latest_question';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_latest_questions';
         var postData = {
             csrfToken: GlobalVariables.csrfToken,
 			num_limit: max_num
@@ -209,7 +206,7 @@
                 return;
             }
 			
-			obj.latestQuestionIds = response;
+			obj.latestQuestions = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
@@ -217,9 +214,9 @@
 	/**
      * Get All of the user's Question Ids
      */
-    QaHelper.prototype.getMyQuestionIds = function () {
+    QaHelper.prototype.getMyQuestions = function () {
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_my_questionIds';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_my_questions';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
         };
@@ -232,31 +229,7 @@
                 return;
             }
 		
-			obj.myQuestionIds = response;
-			
-        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-    };
-    
-	/**
-     * Get the required Questions
-     */
-    QaHelper.prototype.getQuestions = function (ids, type) {
-		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_get_question_brief';
-        var postData = {
-            csrfToken: GlobalVariables.csrfToken,
-			question_id_arr: JSON.stringify(ids)
-        };
-		
-		var obj = this;
-		
-        return $.post(postUrl, postData, function (response, textStatus, jqxhr) {
-			//	Test whether response is an exception or a warning
-            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                return;
-            }
-			
-			obj[type] = response;
+			obj.myQuestions = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
