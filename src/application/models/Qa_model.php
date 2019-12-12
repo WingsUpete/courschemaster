@@ -331,7 +331,7 @@ class Qa_model extends CI_Model{
     // Basic view function
     public function get_question_brief($id_arr){
 
-        if(sizeof($id_arr) == 0){
+        if( ! $id_arr){
             return array();
         }
 
