@@ -19,10 +19,11 @@
 			$('#nav-components--staff').fadeOut(fadeTime);
 			$('#nav-components--general').fadeIn(fadeTime);
 		});
+		$(document).on('click', '.staff-links', function() {
+			$('#bg-img').removeClass('flip');
+		});
 	});
 </script>
-
-<div id="bg-img"></div>
 
 <!-- Main content -->
 <div id="welcome_page" class="main-content">
@@ -65,7 +66,7 @@
 <!--		<h1 class="nav-title"><i class="fas fa-user-tie fa-lg"></i>&ensp;Staff</h1>-->
 		<div class="row">
 			<div class="col-sm-4">
-				<a href="<?= site_url('tao') ?>">
+				<a href="<?= site_url('tao') ?>" class="staff-links">
 					<div class="nav-icons">
 						<i class="fas fa-user-cog fa-4x"></i>
 					</div>
@@ -75,7 +76,7 @@
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<a href="<?= site_url('secretary') ?>">
+				<a href="<?= site_url('secretary') ?>" class="staff-links">
 					<div class="nav-icons">
 						<i class="fas fa-user-secret fa-4x"></i>
 					</div>
@@ -85,7 +86,7 @@
 				</a>
 			</div>
 			<div class="col-sm-4">
-				<a href="<?= site_url('mentor') ?>">
+				<a href="<?= site_url('mentor') ?>" class="staff-links">
 					<div class="nav-icons">
 						<i class="fas fa-chalkboard-teacher fa-4x"></i>
 					</div>

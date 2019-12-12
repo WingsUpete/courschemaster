@@ -96,6 +96,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script>
 		var availableLanguages = <?= json_encode($this->config->item('available_languages')) ?>;
 		var SCLang = <?= json_encode($this->lang->language) ?>;
+		var curLang = '<?= $this->config->item('language') ?>';
 	</script>
 	
 	<!-- Customize JS -->
@@ -104,6 +105,9 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 </head>
 
 <body>
+	<div id="bg-img"></div>
+
+<div id="body-container">
 	<!-- Header -->
 	<header>
 		<nav id="navCourschemaster" class="navbar navbar-expand-md navbar-dark lighten-1">

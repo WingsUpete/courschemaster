@@ -55,7 +55,7 @@ class Mentor extends CI_Controller{
                 ),
                 array(
                     'name' => lang('collection'),
-                    'icon' => 'layer-group',
+                    'icon' => 'star',
                     'url'  => site_url('mentor/collection'),
                     'mark' => PRIV_MENTOR_COLLECTION
                 )
@@ -63,7 +63,7 @@ class Mentor extends CI_Controller{
             'g1' => array(
                 array(
                     'name' => lang('student_info'),
-                    'icon' => 'layer-group',
+                    'icon' => 'graduation-cap',
                     'url'  => site_url('mentor/student_info'),
                     'mark' => PRIV_MENTOR_STUDENT_INFO
                 )

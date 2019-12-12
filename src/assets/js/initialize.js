@@ -76,6 +76,16 @@ window.Initialize = window.Initialize || {};
 //			}
 //		});
 		
+		//	Generate a sidebar width according to the maximum item width
+		var maxWidth = Number.NEGATIVE_INFINITY;
+		$.each($('#sidebar .sidenav-items a span.sd_epn'), function(index, item) {
+			var width = $(item).width() + 100;
+			if (width > maxWidth) {
+				maxWidth = width;
+			}
+		});
+		$('head').append('<style>.sidenav.expanded{width:' + maxWidth + 'px;}.sidenav.expanded ~ .main-content{margin-left:' + maxWidth + 'px;}</style>');
+		
 		//	Language Selection
 		GeneralFunctions.enableLanguageSelection($('#select-language'));
 	});
@@ -83,7 +93,8 @@ window.Initialize = window.Initialize || {};
 	window.addEventListener('load', function() {
 		//	after everything loaded, show body content
 		setTimeout(function() {
-			$('body').css('opacity', '1.0');
+			$('#body-container').css('opacity', '1.0');
+			$('#bg-img').css('opacity', '0.08');
 		}, 666);
 	});
 

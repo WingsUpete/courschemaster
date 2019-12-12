@@ -8,7 +8,7 @@
     };
 
     $(document).ready(function() {
-		Qa.initialize(true);
+		Qa.initialize(true, true);
     });
 </script>
 
