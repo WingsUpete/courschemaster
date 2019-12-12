@@ -10,14 +10,14 @@
      * @class QaHelper
      */
     function QaHelper() {
-        this.tags = {};
-		this.faqIds = {};
-		this.latestQuestionIds = {};
-		this.myQuestionIds = {};
-		this.faqs = {};
-		this.latestQuestions = {};
-		this.myQuestions = {};
-//		this.myAnswerIds = {};
+        this.tags = [];
+		this.faqIds = [];
+		this.latestQuestionIds = [];
+		this.myQuestionIds = [];
+		this.faqs = [];
+		this.latestQuestions = [];
+		this.myQuestions = [];
+//		this.myAnswerIds = [];
     }
 
     /**
