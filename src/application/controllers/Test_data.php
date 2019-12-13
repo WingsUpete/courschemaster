@@ -48,6 +48,8 @@ class Test_data extends CI_Controller{
 			'Arts Center');
 		$dep_id_arr[$ptr++] = $this->data_model->add_one_department('EEE', '电子与电气工程系',
 			'Department of Electrical and Electronic Engineering');
+		$dep_id_arr[$ptr++] = $this->data_model->add_one_department('SAD', '学生工作部',
+			'Student Affairs Department');
 
 		echo 'import the department info successfully!';
 		echo '<br>';
@@ -73,6 +75,15 @@ class Test_data extends CI_Controller{
 		echo '<br>';
 		echo '<br>';
 		echo 'import cs2017 courses successfully!';
+		echo '<br>';
+		echo '<br>';
+
+		$this->Course_model->add_course_record_by_excel(dirname(__FILE__).
+			"\..\..\../test_data/cs_2018.xlsx");
+
+		echo '<br>';
+		echo '<br>';
+		echo 'import cs2018 courses successfully!';
 		echo '<br>';
 		echo '<br>';
 
