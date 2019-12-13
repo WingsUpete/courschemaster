@@ -33,8 +33,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<!-------------------------------------------------------------------------------------------------------->
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-- Logo icon for title and bookmark -->
-	<link rel="shortcut icon" type="image/png" href="<?= asset_url('assets/img/favicon.png') ?>" sizes="32x32" />
-	
+<!--	<link rel="shortcut icon" type="image/png" href="--><?//= asset_url('assets/img/favicon.png') ?><!--" sizes="32x32" />-->
+	<link rel="shortcut icon" href="<?= asset_url('assets/img/bitbug_favicon.ico') ?>" />
 	<!-- Normalize.css -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/normalize/normalize.css', NULL, 'css') ?>" />
 	<!-- FontAwesome -->
