@@ -70,11 +70,29 @@ class Cas_model extends CI_Model{
     }
 
     protected function get_college($sid){
-        return 1;
+        $result = $this->db->select('
+                cm_colleges.id AS id
+            ')
+            ->from('cm_colleges')
+            ->get()
+            ->result_array();
+
+        $num = sizeof($result);
+
+        return $result[rand(0, $num - 1)]['id'];
     }
 
     protected function get_major($sid){
-        return 1;
+        $result = $this->db->select('
+                cm_majors.id AS id
+            ')
+            ->from('cm_majors')
+            ->get()
+            ->result_array();
+
+        $num = sizeof($result);
+
+        return $result[rand(0, $num - 1)]['id'];
     }
 }
 ?>
