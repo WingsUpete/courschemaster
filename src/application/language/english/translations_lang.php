@@ -55,5 +55,6 @@ $lang['course_management'] = 'Courses Management';
 $lang['courschema_management'] = 'Courschemas Management';
 $lang['review'] = 'Review';
 $lang['no_record'] = 'No Record';
+$lang['no_answer'] = 'No Answer';
 $lang['number_of_answers'] = 'Answers';
 $lang['authenticated'] = 'authenticated';
