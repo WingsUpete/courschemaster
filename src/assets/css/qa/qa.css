@@ -64,7 +64,8 @@
 /* Pagination.js */
 #faq_pagination, #lq_pagination, #mq_pagination,
 #sq_pagination,
-#qa_pagination {
+#qa_pagination,
+#reply_pagination {
 	margin: 20px 0 0 0;
 }
 .paginationjs .paginationjs-pages {
@@ -105,12 +106,8 @@
 .question-answers .list-group .list-group-item {
 	background-color: transparent;
 }
-.vote-btns {
-	position: relative;
-	float: right;
-}
 .vote-btns button {
-	padding: 6px 12px!important;
+	padding: 2px 10px!important;
 }
 .vote-btns .btn-outline-primary.vote-positive:hover, .vote-btns .btn-outline-primary.vote-negative:hover {
 	background-color: #4285f4!important;
@@ -123,6 +120,15 @@
 .vote-btns .vote-negative {
 	border-top-right-radius: 10px;
 	border-bottom-right-radius: 10px;
+}
+.reply_contents {
+	background-color: rgb(230, 230, 230);
+	padding: 10px;
+}
+.answer-button {
+	text-transform: none;
+	padding: 5px 10px!important;
+	border-radius: 6px!important;
 }
 
 

@@ -110,7 +110,7 @@ class Qa_api extends CI_Controller{
             $sender_id   = $this->session->userdata('user_id');
         
             if($sender_id){
-                $result = post_reply($answer_id, $sender_id, $receiver_id, $content);
+                $result = $this->qa_model->post_reply($answer_id, $sender_id, $receiver_id, $content);
             }
             
             $this->output
