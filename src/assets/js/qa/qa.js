@@ -117,11 +117,32 @@ window.Qa = window.Qa || {};
 					$.each(data, function(index, item) {
 						var html = '<div class="list-group-item list-group-item-action flex-column align-items-start question-answer" data-answer-id="' + item.id + '"><small class="text-muted"><a class="question-answer-provider" href="mailto:' + item.provider_email + '">' + item.provider_name + '</a>' + (item.role.toLowerCase().indexOf('admin') > -1 ? '&nbsp;(<span class="text-danger">' + SCLang.admin + '</span>)' : '') + ' - <span class="question-answer-provider-major">' + item.provider_major + '</span>  <span class="question-answer-creation-time">' + item.time + '</span>' + (item.authentication === '1' ? '  <span class="authenticated answer-authenticated text-success">' + SCLang.authenticated + '</span>' : '') + '</small>';
 						html += '<h5 class="question-answer-content mt-1 mb-1">' + item.content + '</h5>';
-						html += '<div class="btn-group vote-btns"><button type="button" class="btn btn-outline-primary btn-sm ml-0 vote-positive"><i class="fas fa-thumbs-up"></i></button><button type="button" class="btn btn-primary btn-sm font-weight-bold vote-value">' + item.vote + '</button><button type="button" class="btn btn-outline-primary btn-sm mr-0 vote-negative"><i class="fas fa-thumbs-down"></i></button></div></div>';
+						html += '<div class="btn-group vote-btns" data-user-vote-status="' + item.user_vote_status + '"><button type="button" class="btn btn-outline-primary btn-sm ml-0 vote-positive"><i class="fas fa-thumbs-up"></i></button><button type="button" class="btn btn-primary btn-sm font-weight-bold vote-value">' + item.vote + '</button><button type="button" class="btn btn-outline-primary btn-sm mr-0 vote-negative"><i class="fas fa-thumbs-down"></i></button></div></div>';
 						$contents.append(html);
 					});
+					$.each($('.vote-btns'), function(index, btn_group) {
+						var vote_status = btn_group.dataset.userVoteStatus;
+						switch (vote_status) {
+							case '0': break;	// not yet voted or not logged in
+							case '1': {
+								//	voted positive
+								$(btn_group).find('button').addClass('disabled');
+								$(btn_group).find('.vote-positive').removeClass('btn-outline-primary').addClass('btn-primary');
+								break;
+							}
+							case '-1': {
+								//	voted negative
+								$(btn_group).find('button').addClass('disabled');
+								$(btn_group).find('.vote-negative').removeClass('btn-outline-primary').addClass('btn-primary');
+								break;
+							}
+							default: break;
+						}
+					});
 					if (GlobalVariables.logged_in === 'false') {
-						$('.vote-btns button').addClass('disabled');
+						if (!$('.vote-btns button').hasClass('disabled')) {
+							$('.vote-btns button').addClass('disabled');
+						}
 					}
 					pagination.el.show();
 				}

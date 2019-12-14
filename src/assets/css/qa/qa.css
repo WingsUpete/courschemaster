@@ -112,6 +112,10 @@
 .vote-btns button {
 	padding: 6px 12px!important;
 }
+.vote-btns .btn-outline-primary.vote-positive:hover, .vote-btns .btn-outline-primary.vote-negative:hover {
+	background-color: #4285f4!important;
+	color: #fff!important;
+}
 .vote-btns .vote-positive {
 	border-top-left-radius: 10px;
 	border-bottom-left-radius: 10px;
