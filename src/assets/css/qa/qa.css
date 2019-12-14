@@ -122,3 +122,21 @@
 }
 
 
+
+
+/* top bar */
+.top-bar {
+	margin: 10px 10px 10px 0;
+}
+.top-bar a {
+	font-weight: 500;
+	color: rgba(90,90,90,1.00);
+	text-transform: uppercase;
+	transition: all 0.3s;
+}
+.top-bar a:hover, .top-bar a:focus {
+	background-color: #b04b4b;
+	color: #fff;
+	padding: 5px 10px;
+	border-radius: 5px;
+}

@@ -84,7 +84,7 @@
 				//	true
 				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
 			}, 300);
-		});
+		}).trigger('keyup');
 		/**
 		 * Input Descriptions
 		 */
@@ -104,7 +104,7 @@
 				//	true
 				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
 			}, 300);
-		});
+		}).trigger('keyup');
 		
 		/**
 		 * Post question button
@@ -123,10 +123,37 @@
 			}
 			var obj = $(this);
 			t_sqs = setTimeout(function() {
-				instance.searchQuestions(obj.val());
+				instance.searchQuestion(obj.val());
 			}, 300);
 		}).trigger('keyup');
 		
+		/**
+		 * Post Answer button
+		 */
+		$('#answer-submit').click(function() {
+			instance.postAnswer();
+		});
+		
+		/**
+		 * Post Answer block
+		 */
+		var t_pab = null;
+		$('#answer-content').on('keyup', function() {
+			if (t_pab) {
+				clearTimeout(t_pab);
+			}
+			var obj = $(this);
+			t_pab = setTimeout(function() {
+				if (!GeneralFunctions.checkEmpty(obj)) {
+					return;
+				}
+				if (!GeneralFunctions.checkTooManyWords(obj, 250)) {
+					return;
+				}
+				//	true
+				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
+			}, 300);
+		}).trigger('keyup');
 		
 	};
 
@@ -255,7 +282,7 @@
 	/**
      * Search for some questions
      */
-    QaHelper.prototype.searchQuestions = function (input) {
+    QaHelper.prototype.searchQuestion = function (input) {
 		//	AJAX
         var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_search_questions';
         var postData = {
@@ -380,6 +407,48 @@
 		//	display answers
 		this.answers = answers;
 		Qa.initAnswerPagination($('#qa_pagination'), $('#qa_contents'), 'answers');
+    };
+    
+	/**
+     * Post Questions
+     */
+    QaHelper.prototype.postAnswer = function () {
+		if ($('#answer-content').hasClass('is-invalid')) {
+			GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000);
+			return;
+		}
+		var id = $('#question-id').val();
+		var content = $('#answer-content').val();
+		
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_post_answer';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			question_id: id,
+			content: JSON.stringify(content)
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_post_answer_success, 'success', 6000);
+				//	refresh page
+				setTimeout(function() {
+					location.reload(false);
+				}, 3000);
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_post_answer_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
     window.QaHelper = QaHelper;

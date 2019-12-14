@@ -87,7 +87,7 @@ window.Qa = window.Qa || {};
 					pagination.el.hide();
 				} else {
 					$.each(data, function(index, item) {
-						var html = '<a href="' + GlobalVariables.generateQLink(item.id) + '" target="_blank" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" data-question-id="' + item.id + '"><h5>' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + ' ' + SCLang.number_of_answers + ':' + item.answers_cnt + (item.authentication === '1' ? ' <span class="authenticated text-success">' + SCLang.authenticated + '</span></p></a>' : '');
+						var html = '<a href="' + GlobalVariables.generateQLink(item.id) + '" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" data-question-id="' + item.id + '"><h5>' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + ' ' + SCLang.number_of_answers + ':' + item.answers_cnt + (item.authentication === '1' ? ' <span class="authenticated text-success">' + SCLang.authenticated + '</span></p></a>' : '');
 						$contents.append(html);
 					});
 					pagination.el.show();
@@ -111,15 +111,18 @@ window.Qa = window.Qa || {};
 			callback: function(data, pagination) {
 				$contents.html('');
 				if (data.length === 0) {
-					$contents.append('<p class="text-muted">' + SCLang.no_record + '</p>');
+					$contents.append('<p class="text-muted">' + SCLang.no_answer + '</p>');
 					pagination.el.hide();
 				} else {
 					$.each(data, function(index, item) {
-						var html = '<div class="list-group-item list-group-item-action flex-column align-items-start question-answer" data-answer-id="' + item.id + '"><small class="text-muted"><a class="question-answer-provider" href="mailto:' + item.provider_email + '">' + item.provider_name + '</a> - <span class="question-answer-provider-major">' + item.provider_major + '</span>&ensp;&ensp;<span class="question-answer-creation-time">' + item.time + '</span>' + (item.authentication === '1' ? '&ensp;&ensp;<span class="authenticated answer-authenticated text-success">' + SCLang.authenticated + '</span>' : '') + '</small>';
+						var html = '<div class="list-group-item list-group-item-action flex-column align-items-start question-answer" data-answer-id="' + item.id + '"><small class="text-muted"><a class="question-answer-provider" href="mailto:' + item.provider_email + '">' + item.provider_name + '</a>' + (item.role.toLowerCase().indexOf('admin') > -1 ? '&nbsp;(<span class="text-danger">' + SCLang.admin + '</span>)' : '') + ' - <span class="question-answer-provider-major">' + item.provider_major + '</span>  <span class="question-answer-creation-time">' + item.time + '</span>' + (item.authentication === '1' ? '  <span class="authenticated answer-authenticated text-success">' + SCLang.authenticated + '</span>' : '') + '</small>';
 						html += '<h5 class="question-answer-content mt-1 mb-1">' + item.content + '</h5>';
 						html += '<div class="btn-group vote-btns"><button type="button" class="btn btn-outline-primary btn-sm ml-0 vote-positive"><i class="fas fa-thumbs-up"></i></button><button type="button" class="btn btn-primary btn-sm font-weight-bold vote-value">' + item.vote + '</button><button type="button" class="btn btn-outline-primary btn-sm mr-0 vote-negative"><i class="fas fa-thumbs-down"></i></button></div></div>';
 						$contents.append(html);
 					});
+					if (GlobalVariables.logged_in === 'false') {
+						$('.vote-btns button').addClass('disabled');
+					}
 					pagination.el.show();
 				}
 				GeneralFunctions.placeFooterToBottom();
