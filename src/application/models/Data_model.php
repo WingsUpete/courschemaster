@@ -125,8 +125,9 @@ class Data_model extends CI_Model{
 
 	}
 
+
 	public function add_majors_batch($data){
-		return $this->db->insert_batch('cm_majors', $data);
+		return $this->db->insert_batch('cm_majors', $data) && $this->db->update('cm_users', array('id_majors' => 1));
 	}
 }
 ?>

@@ -63,7 +63,7 @@ class Test_data extends CI_Controller
 				array('name' => '微电子科学与工程', 'en_name' => 'Microelectronics Science and Engineering', 'id_departments' => $dep_id_arr[13]),
 				array('name' => '化学', 'en_name' => 'Chemistry', 'id_departments' => $dep_id_arr[3])
 			);
-//			echo $this->data_model->add_majors_batch($majors_data) ? 'Import majors successfully<br /> <br />' : 'Fail to import majors <br /> <br />';
+			echo $this->data_model->add_majors_batch($majors_data) ? 'Import majors successfully<br /> <br />' : 'Fail to import majors <br /> <br />';
 
 			$this->Course_model->add_course_record_by_excel(dirname(__FILE__) .
 				"\..\..\../test_data/general_2017.xlsx");
