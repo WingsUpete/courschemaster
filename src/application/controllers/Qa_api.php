@@ -232,6 +232,28 @@ class Qa_api extends CI_Controller{
         }
     }
 
+    public function ajax_delete_reply(){
+        try{
+
+            $reply_id = json_decode($this->input->post('reply_id'));
+            $user_id     = $this->session->userdata('user_id');
+
+            $result = AJAX_FALSE;
+
+            if($user_id){
+                $result = $this->qa_model->delete_reply($user_id, $reply_id);
+            }
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
 
     // Basic view function
 
