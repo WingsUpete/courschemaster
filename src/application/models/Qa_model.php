@@ -19,6 +19,20 @@ class Qa_model extends CI_Model{
         return $timestamp_datetime->format('Y-m-d H:i:s');
     }
 
+    public function reply_can_be_deleted($reply_id, $user_id){
+        if($this->_is_admin($user_id)){
+            return TRUE;
+        }
+
+        $result = $this->db
+            ->select('qa_replies.sender_id AS id')
+            ->from('qa_replies')
+            ->where('qa_replies.id', $reply_id)
+            ->get()->row_array()['id'];
+
+        return $result == $user_id;
+    }
+
     public function answer_can_be_deleted($answer_id, $user_id){
         if($this->_is_admin($user_id)){
             return TRUE;
@@ -145,8 +159,12 @@ class Qa_model extends CI_Model{
 
     }
 
-    public function delete_reply(){
-
+    public function delete_reply($user_id, $reply_id){
+        if( (! $user_id) || (! $this->reply_can_be_deleted($reply_id, $user_id))){
+            return FALSE;
+        }
+        $this->db->where('qa_replies.id', $reply_id);
+        return $this->db->delete('qa_replies');
     }
 
     /**
@@ -279,7 +297,6 @@ class Qa_model extends CI_Model{
         // Delete votes
         $this->db->trans_begin();
         $ok = TRUE;
-    
 
         $this->db->where('qa_user_vote_answer.id_answers', $answer_id);
         $ok &= $this->db->delete('qa_user_vote_answer');
@@ -427,8 +444,10 @@ class Qa_model extends CI_Model{
                 qa_replies.id        AS id,
                 sender.id            AS sender_id,
                 sender.name          AS sender_name,
+                sender.email         AS sender_email,
                 receiver.id          AS receiver_id,
                 receiver.name        AS receiver_name,
+                receiver.email       AS receiver_email,
                 qa_replies.content   AS content,
                 qa_replies.timestamp AS timestamp
             ')
@@ -439,6 +458,20 @@ class Qa_model extends CI_Model{
             ->order_by('qa_replies.timestamp')
             ->get()
             ->result_array();
+        }
+
+        // Find which replies can be deleted
+        for($i = 0; $i < sizeof($rtn_array['answers']); $i++){
+            for($j = 0; $j < sizeof($rtn_array['answers'][$i]['replies']); $j++){
+                $rtn_array['answers'][$i]['replies'][$j]['can_be_deleted'] = 
+                $user_id
+                    ? $this->_is_admin($user_id)
+                        ? 1
+                        : $rtn_array['answers'][$i]['replies']['sender_id'] == $user_id 
+                            ? 1 
+                            : 0
+                    : 0;
+            }
         }
 
         // Get if it is voted

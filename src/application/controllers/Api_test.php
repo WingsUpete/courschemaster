@@ -9,7 +9,14 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_post_reply();
+        $this->test_delete_reply();
+    }
+
+    public function test_delete_reply(){
+        $reply_id = 1;
+        $user_id = 1;
+        $result = $this->qa_model->delete_reply($user_id, $reply_id);
+        echo $result ? 1 : 0;
     }
 
     public function test_post_reply(){
@@ -225,6 +232,8 @@ class Api_test extends CI_Controller{
         foreach($result['answers'] AS $row){
             foreach($row AS $k => $v){
                 if($k == 'replies'){
+                    echo '<br />';
+                    echo 'replies <br />';
                     foreach($v AS $rrow){
                         foreach($rrow AS $rk => $rv){
                             echo $rk . '=>' . $rv . '<br />';

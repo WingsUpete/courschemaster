@@ -102,6 +102,28 @@ class Qa_api extends CI_Controller{
         }
     }
 
+    public function ajax_post_reply(){
+        try{
+            $receiver_id = json_decode($this->input->post('receiver_id')); 
+            $content     = json_decode($this->input->post('content'));;
+            $answer_id   = json_decode($this->input->post('answer_id'));;
+            $sender_id   = $this->session->userdata('user_id');
+        
+            if($sender_id){
+                $result = post_reply($answer_id, $sender_id, $receiver_id, $content);
+            }
+            
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result ?AJAX_SUCCESS : AJAX_FAIL));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
     public function ajax_is_already_voted(){
         try{
 
