@@ -457,6 +457,10 @@ class Qa_model extends CI_Model{
                     ? $vote
                     : 0;
             }
+        }else{
+            for($i = 0; $i < sizeof($rtn_array['answers']); $i++){
+                $rtn_array['answers'][$i]['user_vote_status'] = 0;
+            }
         }
         
         
