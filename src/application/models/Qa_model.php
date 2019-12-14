@@ -387,6 +387,7 @@ class Qa_model extends CI_Model{
                 qa_questions.description    AS description,
                 qa_questions.timestamp      AS time,
                 qa_questions.authentication AS authentication,
+                cm_users.id                 AS provider_id,
                 cm_users.name               AS provider_name,
                 cm_users.email              AS provider_email,
                 cm_privileges.name          AS role
@@ -425,6 +426,7 @@ class Qa_model extends CI_Model{
                 qa_answers.content          AS content,
                 qa_answers.timestamp        AS time,
                 qa_answers.authentication   AS authentication,
+                cm_users.id                 AS provider_id,
                 cm_users.name               AS provider_name,
                 cm_users.email              AS provider_email,
                 cm_privileges.name          AS role
