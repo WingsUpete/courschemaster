@@ -88,7 +88,7 @@ class Qa_api extends CI_Controller{
             $result = AJAX_FALSE;
 
             if($user_id){
-                $result = $this->qa_modelpost_answer($question_id, $content, $user_id);
+                $result = $this->qa_model->post_answer($question_id, $content, $user_id);
             }
             
             $this->output
