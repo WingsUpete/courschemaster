@@ -155,6 +155,20 @@
 			}, 300);
 		}).trigger('keyup');
 		
+		/**
+		 * Vote positive buttons
+		 */
+		$(document).on('click', '.vote-positive', function() {
+			instance.voteAnswer($(this).parent().parent(), true);
+		});
+		
+		/**
+		 * Vote negative buttons
+		 */
+		$(document).on('click', '.vote-negative', function() {
+			instance.voteAnswer($(this).parent().parent(), false);
+		});
+		
 	};
 
 	//	Additional Methods
@@ -375,7 +389,7 @@
                 return;
             }
 			
-			console.log(response);
+//			console.log(response);
 			obj.displayQuestionDetails(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -410,7 +424,7 @@
     };
     
 	/**
-     * Post Questions
+     * Post Answer
      */
     QaHelper.prototype.postAnswer = function () {
 		if ($('#answer-content').hasClass('is-invalid')) {
@@ -444,6 +458,45 @@
 				}, 3000);
 			} else if (response === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_answer_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Vote Answer
+     */
+    QaHelper.prototype.voteAnswer = function ($answer, isPositive) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_vote_answer';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			answer_id: JSON.stringify($answer.prop('dataset').answerId),
+			is_good: isPositive ? 1 : 0
+        };
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_vote_answer_success, 'success', 6000);
+				$answer.find('.vote-btns button').addClass('disabled');
+				var vote_val = parseInt($answer.find('.vote-value').html());
+				if (isPositive) {
+					vote_val += 1;
+					$answer.find('.vote-positive').removeClass('btn-outline-primary').addClass('btn-primary');
+				} else {
+					vote_val -= 1;
+					$answer.find('.vote-negative').removeClass('btn-outline-primary').addClass('btn-primary');
+				}
+				$answer.find('.vote-value').html(vote_val);
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_vote_answer_failure, 'danger', 6000);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
 			}
