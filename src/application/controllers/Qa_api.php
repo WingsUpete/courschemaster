@@ -235,8 +235,9 @@ class Qa_api extends CI_Controller{
         try{
             $question_id = json_decode($this->input->post('question_id'));
             $language = $this->session->userdata('language');
+            $user_id = $this->session->userdata('user_id');
 
-            $result = $this->qa_model->get_question_details($language, $question_id);
+            $result = $this->qa_model->get_question_details($user_id, $language, $question_id);
 
             $this->output
                 ->set_content_type('application/json')

@@ -149,6 +149,9 @@ class Qa_model extends CI_Model{
 
     }
 
+    /**
+     * @deprecated This method is unused now. is_already_voted is integrated in get_question_details
+     */
     public function is_already_voted($answer_id, $user_id){
         $result = $this->db
             ->select('COUNT(*) AS cnt')
@@ -183,7 +186,7 @@ class Qa_model extends CI_Model{
         }
 
         // update user vote answer to make sure every user can only vote once
-        if( ! $this->db->insert('qa_user_vote_answer', array('id_answers' => $answer_id, 'id_users' => $user_id))){
+        if( ! $this->db->insert('qa_user_vote_answer', array('id_answers' => $answer_id, 'id_users' => $user_id, 'is_good' => $is_good ? 1 : -1))){
             $this->db->rollback();
             $this->db->trans_complete();
             return FALSE;
@@ -346,7 +349,7 @@ class Qa_model extends CI_Model{
         return $ok;
     }
 
-    public function get_question_details($language, $id){
+    public function get_question_details($user_id, $language, $id){
 
         if( ! $id){
             return array();
@@ -437,6 +440,25 @@ class Qa_model extends CI_Model{
             ->get()
             ->result_array();
         }
+
+        // Get if it is voted
+        if($user_id){
+            for($i = 0; $i < sizeof($rtn_array['answers']); $i++){
+                $vote = $this->db->select('
+                        qa_user_vote_answer.is_good AS user_vote_status
+                    ')
+                    ->from('qa_user_vote_answer')
+                    ->where('qa_user_vote_answer.id_users', $user_id)
+                    ->where('qa_user_vote_answer.id_answers', $rtn_array['answers'][$i]['id'])
+                    ->get()
+                    ->row_array()['user_vote_status'];
+
+                $rtn_array['answers'][$i]['user_vote_status'] = $vote
+                    ? $vote
+                    : 0;
+            }
+        }
+        
         
         return $rtn_array;
     }
@@ -444,9 +466,9 @@ class Qa_model extends CI_Model{
     public function get_all_labels($language){
         $this->db->select('qa_labels.id AS id');
         if($language == 'english'){
-            $this->db->select('qa_labels.cn_name AS name');
-        }else{
             $this->db->select('qa_labels.en_name AS name');
+        }else{
+            $this->db->select('qa_labels.cn_name AS name');
         }
         return $this->db->from('qa_labels')
             ->get()
