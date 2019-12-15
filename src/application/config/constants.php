@@ -84,12 +84,20 @@ defined('EXIT_DATABASE')       OR define('EXIT_DATABASE', 8); // database error
 defined('EXIT__AUTO_MIN')      OR define('EXIT__AUTO_MIN', 9); // lowest automatically-assigned error code
 defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest automatically-assigned error code
 
+// ------------------------------------------------------------------------
+// LOCAL RESOURCES SETTINGS
+// ------------------------------------------------------------------------
+
+define('PDF_PATH', APPPATH . '..'   .DIRECTORY_SEPARATOR .'assets'  .DIRECTORY_SEPARATOR .'pdf'  . DIRECTORY_SEPARATOR);
+define('EXCEL_PATH', APPPATH . '..'  .DIRECTORY_SEPARATOR .'assets'  .DIRECTORY_SEPARATOR .'excel'  . DIRECTORY_SEPARATOR);
+
 /*
 | Courschemaster 
 |--------------------------------------------------------------------------
 | Privileges
 |--------------------------------------------------------------------------
 */
+
 define('PRVI_SYSTEM_CONFIGS', 20);
 define('PRIV_STUDENTS', 20);
 define('PRIV_SECRETARY', 20);
