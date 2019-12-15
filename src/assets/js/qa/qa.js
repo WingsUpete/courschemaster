@@ -131,7 +131,7 @@ window.Qa = window.Qa || {};
 						$contents.append(html);
 						$.each(item.replies, function(index, reply) {
 							var replyHtml = '<small><span class="text-muted"><a href="mailto:' + reply.receiver_email + '">@<span class="reply-detail-receiver">' + reply.receiver_name + '</span></a></span> <span class="reply-detail-content font-weight-bold">' + reply.content + '</span> <span class="text-muted">- <a href="mailto:' + reply.sender_email + '" class="reply-detail-sender">' + reply.sender_name + '</a> <span class="reply-detail-time">' + reply.timestamp + '</span>' + (reply.can_be_deleted === 1 ? ' <a href="javascript:void(0);" class="delete-reply">' + SCLang.delete + '</a>' : '') + '</span></small>';
-							$('.reply_contents').append(replyHtml);
+							$('.reply_contents').last().append(replyHtml);
 						});
 					});
 					$.each($('.vote-btns'), function(index, btn_group) {
