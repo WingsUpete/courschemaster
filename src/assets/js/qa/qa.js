@@ -157,7 +157,7 @@ window.Qa = window.Qa || {};
 						if (!$('.vote-btns button').hasClass('disabled')) {
 							$('.vote-btns button').addClass('disabled');
 						}
-						$('.reply').addClass('disabled');
+						$('.reply').hide();
 					}
 					pagination.el.show();
 				}
