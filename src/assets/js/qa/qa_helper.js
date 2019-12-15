@@ -17,6 +17,9 @@
 		this.searchResults = [];
 		this.answers = [];
 //		this.myAnswerIds = [];
+		this.replyHTML = function() {
+//			return '<small><span class="text-muted">@<span class="reply-detail-receiver">' + item.id_users_receiver + '</span></span>&ensp;&ensp;<span class="reply-detail-content">' + item.content + '</span>&ensp;&ensp;-&ensp;<span class="reply-detail-sender">' + item.id_users_receiver + '</span>&ensp;&ensp;<span class="reply-detail-time">' + item.timestamp + '</span></small>';
+		};
     }
 
     /**
@@ -159,16 +162,56 @@
 		 * Vote positive buttons
 		 */
 		$(document).on('click', '.vote-positive', function() {
-			instance.voteAnswer($(this).parent().parent(), true);
+			instance.voteAnswer($(this).closest('.question-answer'), true);
 		});
 		
 		/**
 		 * Vote negative buttons
 		 */
 		$(document).on('click', '.vote-negative', function() {
-			instance.voteAnswer($(this).parent().parent(), false);
+			instance.voteAnswer($(this).closest('.question-answer'), false);
 		});
 		
+		/**
+		 * reply buttons
+		 */
+		$(document).on('click', '.reply', function() {
+			//	load id, cache and provider_id
+			var cache = $(this).next('.reply_msg_cache').val();
+			var dataset = $(this).closest('.question-answer').prop('dataset');
+			$('#reply_answer_id').val(dataset.answerId);
+			$('#reply_receiver_id').val(dataset.providerId);
+			$('#reply-content').val(cache).trigger('keyup');
+			$('#replyWindow').modal('show');
+		});
+		
+		/**
+		 * Post Reply block
+		 */
+		var t_prb = null;
+		$('#reply-content').on('keyup', function() {
+			if (t_prb) {
+				clearTimeout(t_prb);
+			}
+			var obj = $(this);
+			t_prb = setTimeout(function() {
+				if (!GeneralFunctions.checkEmpty(obj)) {
+					return;
+				}
+				if (!GeneralFunctions.checkTooManyWords(obj, 250)) {
+					return;
+				}
+				//	true
+				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
+			}, 300);
+		}).trigger('keyup');
+		
+		/**
+		 * Post Reply button
+		 */
+		$('#reply-submit').click(function() {
+			instance.postReply();
+		});
 	};
 
 	//	Additional Methods
@@ -389,7 +432,7 @@
                 return;
             }
 			
-//			console.log(response);
+			console.log(response);
 			obj.displayQuestionDetails(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -497,6 +540,48 @@
 				$answer.find('.vote-value').html(vote_val);
 			} else if (response === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_vote_answer_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Post Replay
+     */
+    QaHelper.prototype.postReply = function () {
+		if ($('#reply-content').hasClass('is-invalid')) {
+			GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000);
+			return;
+		}
+		var answer_id = $('#reply_answer_id').val();
+		var receiver_id = $('#reply_receiver_id').val();
+		var content = $('#reply-content').val();
+		
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_post_reply';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			answer_id: answer_id,
+			content: JSON.stringify(content),
+			receiver_id: receiver_id
+        };
+		
+		console.log(postData);
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_post_reply_success, 'success', 6000);
+				//	refresh page
+				
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_post_reply_failure, 'danger', 6000);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
 			}
