@@ -121,8 +121,18 @@ class Qa_model extends CI_Model{
         $this->db->trans_commit();
         $this->db->trans_complete();
         $rtn['status'] = true;
-        $rtn['info'] = $data_inserted;
-        $rtn['info']['id'] = $insert_id;
+        $rtn['info'] = $this->db->select('
+            qa_questions.id             AS id,
+            qa_questions.title          AS title,
+            qa_questions.timestamp      AS time,
+            qa_questions.authentication AS authentication,
+            qa_questions.answers_cnt    AS answers_cnt
+        ')
+        ->from('qa_questions')
+        ->where('qa_questions.id', $insert_id)
+        ->order_by('qa_questions.timestamp', 'DESC')
+        ->get()
+        ->row_array();
         return $rtn;
     }
 
@@ -145,8 +155,26 @@ class Qa_model extends CI_Model{
             $insert_id = $this->db->insert_id();
             log_operation('qa/post_answer', $user_id, $data_inserted, 'success');
             $rtn['status'] = true;
-            $rtn['info'] = $data_inserted;
-            $rtn['info']['id'] = $insert_id;
+            $rtn['info'] = $this->db
+                ->select('
+                    qa_answers.id               AS id,
+                    qa_answers.vote             AS vote,
+                    qa_answers.content          AS content,
+                    qa_answers.timestamp        AS time,
+                    qa_answers.authentication   AS authentication,
+                    cm_users.id                 AS provider_id,
+                    cm_users.name               AS provider_name,
+                    cm_users.email              AS provider_email,
+                    cm_privileges.name          AS role
+                ')
+                ->from('qa_answers')
+                ->join('cm_users', 'cm_users.id = qa_answers.id_users_provider', 'inner')
+                ->join('cm_privileges', 'cm_privileges.id = cm_users.id_privileges', 'inner')
+                ->join('cm_majors', 'cm_majors.id = cm_users.id_majors', 'inner')
+                ->where('qa_answers.id', $insert_id)
+                ->order_by('qa_answers.vote', 'DESC')
+                ->get()
+                ->row_array();
             return $rtn;
         }
     }
@@ -169,8 +197,24 @@ class Qa_model extends CI_Model{
             $insert_id = $this->db->insert_id();
             log_operation('qa/post_reply', $sender_id, $data_inserted, 'success');
             $rtn['status'] = true;
-            $rtn['info'] = $data_inserted;
-            $rtn['info']['id'] = $insert_id;
+            $rtn['info'] = $this->db->select('
+                qa_replies.id        AS id,
+                sender.id            AS sender_id,
+                sender.name          AS sender_name,
+                sender.email         AS sender_email,
+                receiver.id          AS receiver_id,
+                receiver.name        AS receiver_name,
+                receiver.email       AS receiver_email,
+                qa_replies.content   AS content,
+                qa_replies.timestamp AS timestamp
+            ')
+            ->from('qa_replies')
+            ->join('cm_users AS sender', 'sender.id = qa_replies.id_users_sender', 'inner')
+            ->join('cm_users AS receiver', 'receiver.id = qa_replies.id_users_receiver', 'inner')
+            ->where('qa_replies.id', $insert_id)
+            ->order_by('qa_replies.timestamp', 'DESC')
+            ->get()
+            ->row_array();
             return $rtn;
         }
 
