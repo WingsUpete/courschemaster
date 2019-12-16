@@ -128,7 +128,7 @@ class Secretary extends CI_Controller{
         // Check if user is logged in.
         $user_id = $this->session->userdata('user_id');
         if ($user_id == FALSE){
-            
+            $this->session->set_userdata('dest_url', 'secretary');
             header('Location: ' . site_url('user/login'));
             return FALSE;
         }

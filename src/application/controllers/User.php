@@ -52,10 +52,9 @@ class User extends CI_Controller {
         
         if($user){
             $user_data = $this->cas_model->get_user_data($user);
-            
             $this->session->set_userdata($user_data);
             if($this->session->userdata('dest_url')){
-                header('Location: ' . $this->session->userdata('dest_url'));
+                header('Location: ' . site_url($this->session->userdata('dest_url')));
             }else{
                 header('Location: ' . site_url(''));
             }

@@ -4,7 +4,7 @@ class Qa extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->library('session');
-		
+		$this->session->set_userdata('dest_url', 'qa');
         // Set user's selected language.
         if ($this->session->userdata('language')){
             $this->config->set_item('language', $this->session->userdata('language'));
@@ -28,6 +28,7 @@ class Qa extends CI_Controller{
     }
 
     public function question($question_id){
+        $this->session->set_userdata('dest_url', 'qa/question/'.$question_id);
         // if( ! $this->has_privileges()){
         //     return; 
         // }
@@ -47,6 +48,7 @@ class Qa extends CI_Controller{
         // Check if user is logged in.
         $user_id = $this->session->userdata('user_id');
         if ($user_id == FALSE){
+            $this->session->set_userdata('dest_url', 'qa');
             header('Location: ' . site_url('user/login'));
             return FALSE;
         }
