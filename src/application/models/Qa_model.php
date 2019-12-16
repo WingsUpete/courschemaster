@@ -93,7 +93,6 @@ class Qa_model extends CI_Model{
             $this->db->trans_rollback();
             $this->db->trans_complete();
             $rtn['status'] = false;
-            $rtn['id'] = -1; 
             return $rtn;
         }
 
@@ -115,7 +114,6 @@ class Qa_model extends CI_Model{
             $this->db->trans_complete();
 
             $rtn['status'] = false;
-            $rtn['id'] = -1; 
             return $rtn;
         }
 
@@ -124,7 +122,8 @@ class Qa_model extends CI_Model{
         $this->db->trans_commit();
         $this->db->trans_complete();
         $rtn['status'] = true;
-        $rtn['id'] = $insert_id ;
+        $rtn['info'] = $data_inserted;
+        $rtn['info']['id'] = $insert_id;
         return $rtn;
     }
 
@@ -142,13 +141,13 @@ class Qa_model extends CI_Model{
         if( ! $this->db->insert('qa_answers', $data_inserted)){
             log_operation('qa/post_answer', $user_id, $data_inserted, 'fail');
             $rtn['status'] = false;
-            $rtn['id'] = -1;
             return $rtn;
         }else{
             $insert_id = $this->db->insert_id();
             log_operation('qa/post_answer', $user_id, $data_inserted, 'success');
             $rtn['status'] = true;
-            $rtn['id'] = $insert_id;
+            $rtn['info'] = $data_inserted;
+            $rtn['info']['id'] = $insert_id;
             return $rtn;
         }
     }
@@ -166,13 +165,13 @@ class Qa_model extends CI_Model{
         if( ! $this->db->insert('qa_replies', $data_inserted)){
             log_operation('qa/post_reply', $sender_id, $data_inserted, 'fail');
             $rtn['status'] = false;
-            $rtn['id'] = -1;
             return $rtn;
         }else{
             $insert_id = $this->db->insert_id();
             log_operation('qa/post_reply', $sender_id, $data_inserted, 'success');
             $rtn['status'] = true;
-            $rtn['id'] = $insert_id;
+            $rtn['info'] = $data_inserted;
+            $rtn['info']['id'] = $insert_id;
             return $rtn;
         }
 
