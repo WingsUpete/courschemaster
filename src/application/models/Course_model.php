@@ -6,6 +6,53 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Course_model extends CI_Model{
 
+	public function query_course_pre($code){
+		$result = $this->db
+			->select('cm_courses.code AS main,
+			cm_prerequisites.id_pre_course AS pre,
+			type AS type')
+			->from('cm_prerequisites')
+			->join('cm_courses', 'cm_prerequisites.id_main_course = cm_courses.id')
+			->where('cm_courses.code', $code)
+			->get()->result_array();
+
+		$counter = 0;
+
+		foreach ($result as $row){
+			$pre = $row['pre'];
+
+			$pre_res = $this->db
+				->select('cm_courses.code as pre')
+				->from('cm_courses')
+				->where('cm_courses.id', $pre)
+				->get()->result_array();
+
+			$result[$counter]['pre'] = $pre_res[0]['pre'];
+			$counter += 1;
+		}
+
+		return $result;
+
+	}
+
+	/**
+	 * This method is used to determine if one course exists in database or not
+	 *
+	 * @param $code: the code of the course
+	 * @return bool: exits or not
+	 */
+	public function one_course_exits_or_not($code){
+		$count = $this->db
+			->where('cm_courses.code', $code)
+			->from('cm_courses')
+			->count_all_results();
+		if ($count == 0){
+			return False;
+		}else{
+			return True;
+		}
+	}
+
 	/**
 	 * this method is used to query all the course info
 	 *
