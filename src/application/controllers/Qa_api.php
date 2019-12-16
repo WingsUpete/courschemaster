@@ -61,15 +61,17 @@ class Qa_api extends CI_Controller{
             $description      = json_decode($this->input->post('description'));
             $user_id          = $this->session->userdata('user_id');
 
-            $result = AJAX_FALSE;
+            $result['status'] = AJAX_FAIL;
 
             if($user_id){
                 $result = $this->qa_model->post_question($labels, $title, $description, $user_id); 
             }
             
+            $result['status'] = $result['status'] ? AJAX_SUCCESS : AJAX_FAIL;
+
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result ? $result  : AJAX_FAIL));
+                ->set_output(json_encode($result));
 
         }catch (Exception $exc){
             $this->output
@@ -85,15 +87,17 @@ class Qa_api extends CI_Controller{
             $content     = json_decode($this->input->post('content'));
             $user_id     = $this->session->userdata('user_id');
 
-            $result = AJAX_FALSE;
+            $result['status'] = AJAX_FAIL;
 
             if($user_id){
                 $result = $this->qa_model->post_answer($question_id, $content, $user_id);
             }
+
+            $result['status'] = $result['status'] ? AJAX_SUCCESS : AJAX_FAIL;
             
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result ? $result  : AJAX_FAIL));
+                ->set_output(json_encode($result));
 
         }catch(Exception $exc){
             $this->output
@@ -109,13 +113,17 @@ class Qa_api extends CI_Controller{
             $answer_id   = json_decode($this->input->post('answer_id'));;
             $sender_id   = $this->session->userdata('user_id');
         
+            $result['status'] = AJAX_FAIL;
+
             if($sender_id){
                 $result = $this->qa_model->post_reply($answer_id, $sender_id, $receiver_id, $content);
             }
+
+            $result['status'] = $result['status'] ? AJAX_SUCCESS : AJAX_FAIL;
             
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result ? $result : AJAX_FAIL));
+                ->set_output(json_encode($result));
 
         }catch(Exception $exc){
             $this->output

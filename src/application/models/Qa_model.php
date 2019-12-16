@@ -63,6 +63,8 @@ class Qa_model extends CI_Model{
 
     public function post_question($labels, $title, $description, $user_id){
 
+        $rtn = array();
+
         $autentication = $this->_is_admin($user_id) ? 1 : 0;
 
         $timestamp_datetime = new DateTime('NOW');
@@ -90,7 +92,9 @@ class Qa_model extends CI_Model{
             log_operation('qa/post_question', $user_id, $data_inserted, 'database fails on insert into questions');
             $this->db->trans_rollback();
             $this->db->trans_complete();
-            return false;
+            $rtn['status'] = false;
+            $rtn['id'] = -1; 
+            return $rtn;
         }
 
         // build relation between question and labels
@@ -110,14 +114,18 @@ class Qa_model extends CI_Model{
             $this->db->trans_rollback();
             $this->db->trans_complete();
 
-            return false;
+            $rtn['status'] = false;
+            $rtn['id'] = -1; 
+            return $rtn;
         }
 
         // Finished. 
         log_operation('qa/post_question', $user_id, $data_inserted, 'success');
         $this->db->trans_commit();
         $this->db->trans_complete();
-        return $insert_id;
+        $rtn['status'] = true;
+        $rtn['id'] = $insert_id ;
+        return $rtn;
     }
 
     public function post_answer($question_id, $content, $user_id){
@@ -133,11 +141,15 @@ class Qa_model extends CI_Model{
 
         if( ! $this->db->insert('qa_answers', $data_inserted)){
             log_operation('qa/post_answer', $user_id, $data_inserted, 'fail');
-            return false;
+            $rtn['status'] = false;
+            $rtn['id'] = -1;
+            return $rtn;
         }else{
             $insert_id = $this->db->insert_id();
             log_operation('qa/post_answer', $user_id, $data_inserted, 'success');
-            return $insert_id;
+            $rtn['status'] = true;
+            $rtn['id'] = $insert_id;
+            return $rtn;
         }
     }
 
@@ -153,11 +165,15 @@ class Qa_model extends CI_Model{
 
         if( ! $this->db->insert('qa_replies', $data_inserted)){
             log_operation('qa/post_reply', $sender_id, $data_inserted, 'fail');
-            return false;
+            $rtn['status'] = false;
+            $rtn['id'] = -1;
+            return $rtn;
         }else{
             $insert_id = $this->db->insert_id();
             log_operation('qa/post_reply', $sender_id, $data_inserted, 'success');
-            return $insert_id;
+            $rtn['status'] = true;
+            $rtn['id'] = $insert_id;
+            return $rtn;
         }
 
     }
