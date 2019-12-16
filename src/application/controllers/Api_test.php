@@ -209,7 +209,7 @@ class Api_test extends CI_Controller{
     }
 
     public function test_get_question_details(){
-        $id = 3;
+        $id = 4;
         $user_id = 1;
         $language = $this->session->userdata('language');
         $result =  $this->qa_model->get_question_details($user_id, $language, $id);
@@ -260,14 +260,14 @@ class Api_test extends CI_Controller{
     }
 
     public function test_delete_question(){
-        $question_id = 1;
+        $question_id = 3;
         $user_id = 1;
         $result = $this->qa_model->delete_question($question_id, $user_id);
         echo $result ? 1 : 0;
     }
 
     public function test_delete_answer(){
-        $answer_id = 1;
+        $answer_id = 6;
         $user_id = 1;
         $result = $this->qa_model->delete_answer($answer_id, $user_id);
         echo $result ? 1 : 0;

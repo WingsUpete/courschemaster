@@ -109,6 +109,7 @@ class Qa_model extends CI_Model{
             log_operation('qa/post_question', $user_id, $data_inserted, 'database fails on insert into labels_questions');
             $this->db->trans_rollback();
             $this->db->trans_complete();
+
             return false;
         }
 
@@ -116,7 +117,7 @@ class Qa_model extends CI_Model{
         log_operation('qa/post_question', $user_id, $data_inserted, 'success');
         $this->db->trans_commit();
         $this->db->trans_complete();
-        return true;
+        return $insert_id;
     }
 
     public function post_answer($question_id, $content, $user_id){
@@ -134,8 +135,9 @@ class Qa_model extends CI_Model{
             log_operation('qa/post_answer', $user_id, $data_inserted, 'fail');
             return false;
         }else{
+            $insert_id = $this->db->insert_id();
             log_operation('qa/post_answer', $user_id, $data_inserted, 'success');
-            return true;
+            return $insert_id;
         }
     }
 
@@ -153,8 +155,9 @@ class Qa_model extends CI_Model{
             log_operation('qa/post_reply', $sender_id, $data_inserted, 'fail');
             return false;
         }else{
+            $insert_id = $this->db->insert_id();
             log_operation('qa/post_reply', $sender_id, $data_inserted, 'success');
-            return true;
+            return $insert_id;
         }
 
     }
@@ -301,6 +304,9 @@ class Qa_model extends CI_Model{
         $this->db->where('qa_user_vote_answer.id_answers', $answer_id);
         $ok &= $this->db->delete('qa_user_vote_answer');
 
+        $this->db->where('qa_replies.id_answers', $answer_id);
+        $ok &= $this->db->delete('qa_replies');
+
         $this->db->where('qa_answers.id', $answer_id);
         $ok &= $this->db->delete('qa_answers');
 
@@ -339,6 +345,11 @@ class Qa_model extends CI_Model{
             $this->db->where('id_answers', $row['id']);
             $ok &= $this->db->delete('qa_user_vote_answer');
         }
+        // Delete relative answers - delete replies
+        foreach($result_answers AS $row){
+            $this->db->where('id_answers', $row['id']);
+            $ok &= $this->db->delete('qa_replies');
+        }
         // Delete relative answers - answers
         $this->db->where('qa_answers.id_questions', $question_id);
         $ok &= $this->db->delete('qa_answers');
@@ -346,7 +357,7 @@ class Qa_model extends CI_Model{
         // :: Delete questions
 
         // Delete questions - relative labels
-        $this->db->where('qa_labels_questions.id_questions');
+        $this->db->where('qa_labels_questions.id_questions', $question_id);
         $ok &= $this->db->delete('qa_labels_questions');
 
         // Delete questions - questions
@@ -400,6 +411,9 @@ class Qa_model extends CI_Model{
             ->get()
             ->row_array();
         
+        // Get question - can_be_deleted
+        $rtn_array['info']['can_be_deleted'] = ($rtn_array['info']['provider_id'] == $user_id || $this->_is_admin($user_id)) ? 1 : 0;
+
         // Get question labels
         if($language == 'english'){
             $this->db->select('qa_labels.en_name AS name');
@@ -440,6 +454,21 @@ class Qa_model extends CI_Model{
             ->get()
             ->result_array();
 
+        // Get answer - can_be_deleted
+        if($this->_is_admin($user_id)){
+            for($i = 0; $i < sizeof($rtn_array['answers']); $i++){
+                $rtn_array['answers'][$i]['can_be_deleted'] = 1;
+            }
+        }else{
+            for($i = 0; $i < sizeof($rtn_array['answers']); $i++){
+                if($rtn_array['answers'][$i]['provider_id'] == $user_id){
+                    $rtn_array['answers'][$i]['can_be_deleted'] = 1;
+                }else{
+                    $rtn_array['answers'][$i]['can_be_deleted'] = 0;
+                }
+            }
+        }
+        
         // Get replies of answers
         for($i = 0; $i < sizeof($rtn_array['answers']); $i++){
             $rtn_array['answers'][$i]['replies'] = $this->db->select('
@@ -457,7 +486,7 @@ class Qa_model extends CI_Model{
             ->join('cm_users AS sender', 'sender.id = qa_replies.id_users_sender', 'inner')
             ->join('cm_users AS receiver', 'receiver.id = qa_replies.id_users_receiver', 'inner')
             ->where('qa_replies.id_answers', $rtn_array['answers'][$i]['id'])
-            ->order_by('qa_replies.timestamp')
+            ->order_by('qa_replies.timestamp', 'DESC')
             ->get()
             ->result_array();
         }

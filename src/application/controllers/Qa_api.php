@@ -69,7 +69,7 @@ class Qa_api extends CI_Controller{
             
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL));
+                ->set_output(json_encode($result ? $result  : AJAX_FAIL));
 
         }catch (Exception $exc){
             $this->output
@@ -93,7 +93,7 @@ class Qa_api extends CI_Controller{
             
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result ?AJAX_SUCCESS : AJAX_FAIL));
+                ->set_output(json_encode($result ? $result  : AJAX_FAIL));
 
         }catch(Exception $exc){
             $this->output
@@ -115,7 +115,7 @@ class Qa_api extends CI_Controller{
             
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result ?AJAX_SUCCESS : AJAX_FAIL));
+                ->set_output(json_encode($result ? $result : AJAX_FAIL));
 
         }catch(Exception $exc){
             $this->output
