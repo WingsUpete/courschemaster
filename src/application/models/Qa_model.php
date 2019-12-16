@@ -2,6 +2,14 @@
 
 class Qa_model extends CI_Model{
 
+    public function question_exists($question_id){
+        return $this->db->select('COUNT(*) AS cnt')
+            ->from('qa_questions')
+            ->where('qa_questions.id', $question_id)
+            ->get()
+            ->row_array()['cnt'] != 0;
+    }
+
     public function _is_admin($user_id){
 
         $result = $this->db

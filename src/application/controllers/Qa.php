@@ -28,6 +28,15 @@ class Qa extends CI_Controller{
     }
 
     public function question($question_id){
+
+        $this->load->model('qa_model');
+        if( ! $this->qa_model->question_exists($question_id)){
+            $view['heading'] = '404';
+            $view['message'] = 'NOT FOUND';
+            $this->load->view('errors/cli/error_404', $view);
+            return;
+        }
+
         $this->session->set_userdata('dest_url', 'qa/question/'.$question_id);
         // if( ! $this->has_privileges()){
         //     return; 
