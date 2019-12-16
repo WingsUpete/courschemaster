@@ -93,6 +93,10 @@
 .authenticated {
 	user-select: none;
 }
+.reply-of-reply-block {
+	display: none;
+}
+
 
 
 

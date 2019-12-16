@@ -16,10 +16,6 @@
 		this.myQuestions = [];
 		this.searchResults = [];
 		this.answers = [];
-//		this.myAnswerIds = [];
-		this.replyHTML = function() {
-//			return '<small><span class="text-muted">@<span class="reply-detail-receiver">' + item.id_users_receiver + '</span></span>&ensp;&ensp;<span class="reply-detail-content">' + item.content + '</span>&ensp;&ensp;-&ensp;<span class="reply-detail-sender">' + item.id_users_receiver + '</span>&ensp;&ensp;<span class="reply-detail-time">' + item.timestamp + '</span></small>';
-		};
     }
 
     /**
@@ -186,6 +182,20 @@
 		});
 		
 		/**
+		 * reply buttons
+		 */
+		$(document).on('click', '.reply-of-reply', function() {
+			var $rorb = $(this).parent().find('.reply-of-reply-block');
+			var display = $rorb.css('display');
+			if (display === 'none') {
+				$rorb.slideDown();
+				$rorb.find('input').focus().trigger('keyup');
+			} else {
+				$rorb.slideUp();
+			}
+		});
+		
+		/**
 		 * Post Reply block
 		 */
 		var t_prb = null;
@@ -207,10 +217,61 @@
 		}).trigger('keyup');
 		
 		/**
+		 * reply of reply block
+		 */
+		var t_rorb = null;
+		$(document).on('keyup', '.reply-of-reply-content', function() {
+			if (t_rorb) {
+				clearTimeout(t_rorb);
+			}
+			var obj = $(this);
+			t_rorb = setTimeout(function() {
+				if (!GeneralFunctions.checkEmpty(obj)) {
+					return;
+				}
+				if (!GeneralFunctions.checkTooManyWords(obj, 250)) {
+					return;
+				}
+				//	true
+				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
+			}, 300);
+		});
+		
+		/**
 		 * Post Reply button
 		 */
 		$('#reply-submit').click(function() {
-			instance.postReply();
+			if ($('#reply-content').hasClass('is-invalid')) {
+				GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000);
+				return;
+			}
+			instance.postReply(
+				$('#reply_answer_id').val(),
+				$('#reply_receiver_id').val(),
+				$('#reply-content').val()
+			);
+			$('#reply-content').val('');
+			$('#replyWindow').modal('hide');
+		});
+		
+		/**
+		 * Post Reply button
+		 */
+		$(document).on('click', '.reply-of-reply-submit', function() {
+			var $ans = $(this).closest('.question-answer');
+			var $rb = $(this).closest('.reply-block');
+			var $rorc = $rb.find('.reply-of-reply-content');
+			if ($rorc.hasClass('is-invalid')) {
+				GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000);
+				return;
+			}
+			instance.postReply(
+				$ans.prop('dataset').answerId,
+				$rb.prop('dataset').receiverId,
+				$rorc.val()
+			);
+			$rorc.val('');
+			$ans.find('.reply-of-reply').click();
 		});
 	};
 
@@ -394,7 +455,7 @@
                 return;
             }
 			
-			if (response === 'success') {
+			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_success, 'success', 6000);
 				// clear input and trigger keyup to check
 				$('.ask-question-input').val('');
@@ -402,7 +463,7 @@
 					obj.restoreTag($(tagEl));
 				});
 				$('#ask_question_title, #ask_question_description').trigger('keyup');
-			} else if (response === 'fail') {
+			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_failure, 'danger', 6000);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
@@ -432,7 +493,7 @@
                 return;
             }
 			
-			console.log(response);
+//			console.log(response);
 			obj.displayQuestionDetails(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -493,16 +554,21 @@
                 return;
             }
 			
-			if (response === 'success') {
+			var obj = this;
+//			console.log(response);
+			
+			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_answer_success, 'success', 6000);
-				//	refresh page
-				setTimeout(function() {
-					location.reload(false);
-				}, 3000);
-			} else if (response === 'fail') {
+				//	update
+				obj.answers.unshift(response.info);
+				$('#answer-content').val('');
+				$('#answerWindow').modal('hide');
+				$('#qa_pagination, #qa_contents').html('');
+				Qa.initAnswerPagination($('#qa_pagination'), $('#qa_contents'), 'answers');
+			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_answer_failure, 'danger', 6000);
 			} else {
-				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-ANSWERS', 'warning', 60000);
 			}
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -550,15 +616,7 @@
 	/**
      * Post Replay
      */
-    QaHelper.prototype.postReply = function () {
-		if ($('#reply-content').hasClass('is-invalid')) {
-			GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000);
-			return;
-		}
-		var answer_id = $('#reply_answer_id').val();
-		var receiver_id = $('#reply_receiver_id').val();
-		var content = $('#reply-content').val();
-		
+    QaHelper.prototype.postReply = function (answer_id, receiver_id, content) {		
 		//	AJAX
         var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_post_reply';
         var postData = {
@@ -568,19 +626,31 @@
 			receiver_id: receiver_id
         };
 		
-		console.log(postData);
-		
         return $.post(postUrl, postData, function (response) {
 			//	Test whether response is an exception or a warning
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
 			
-			if (response === 'success') {
+			var obj = this;
+			
+			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_reply_success, 'success', 6000);
-				//	refresh page
-				
-			} else if (response === 'fail') {
+				//	update
+				$.each(obj.answers, function(index, answer) {
+					if (answer.id === answer_id) {
+						if (obj.answers[index].replies === undefined || obj.answers[index].replies.length === 0) {
+							obj.answers[index].replies.append(response.info);
+						} else {
+							obj.answers[index].replies.unshift(response.info);
+						}
+						return;
+					}
+				});
+//				console.log(obj.answers);
+				$('#qa_pagination, #qa_contents').html('');
+				Qa.initAnswerPagination($('#qa_pagination'), $('#qa_contents'), 'answers');
+			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_reply_failure, 'danger', 6000);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);

@@ -182,7 +182,7 @@ class Qa_model extends CI_Model{
                 ->order_by('qa_answers.vote', 'DESC')
                 ->get()
                 ->row_array();
-            $rtn['info']['can_be_delected'] = 1;
+            $rtn['info']['can_be_deleted'] = 1;
             return $rtn;
         }
     }
@@ -223,7 +223,7 @@ class Qa_model extends CI_Model{
             ->order_by('qa_replies.timestamp', 'DESC')
             ->get()
             ->row_array();
-            $rtn['info']['can_be_delected'] = 1;
+            $rtn['info']['can_be_deleted'] = 1;
             return $rtn;
         }
 
