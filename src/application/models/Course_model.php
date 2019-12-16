@@ -7,6 +7,40 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Course_model extends CI_Model{
 
 	/**
+	 * this method is used to query all the course info
+	 *
+	 * @param $language: the language of query info
+	 * @return mixed: the query result
+	 */
+	public function get_all_course_info($language){
+
+		if($language == 'english'){
+			$result = $this->db
+				->select('cm_courses.code AS course_id, 
+				cm_courses.en_name AS course_name, 
+				cm_courses.credit AS total_credit, 
+				cm_courses.weekly_period AS weekly_period,
+				cm_departments.en_name AS department')
+				->from('cm_courses')
+				->join('cm_departments', 'cm_departments.id = cm_courses.id_departments')
+				->get()->result_array();
+		}else{
+			$result = $this->db
+				->select('cm_courses.code AS course_id, 
+				cm_courses.name AS course_name, 
+				cm_courses.credit AS total_credit, 
+				cm_courses.weekly_period AS weekly_period,
+				cm_departments.name AS department')
+				->from('cm_courses')
+				->join('cm_departments', 'cm_departments.id = cm_courses.id_departments')
+				->get()->result_array();
+		}
+
+		return $result;
+
+	}
+
+	/**
 	 * This method is used to query the course id by fuzzy search
 	 *
 	 * @param $match: the matching string, can match the cn_name, en_name or code
@@ -487,8 +521,6 @@ class Course_model extends CI_Model{
 						->where('cm_departments.code', strtoupper($res[$i][12]))
 						->get();
 
-//					$query = $this->db->query('select * from cm_departments where code=\''
-//						.strtoupper($res[$i][12]).'\'');
 					foreach ($query->result() as $row)
 					{
 						$course_department_id = $row->id;

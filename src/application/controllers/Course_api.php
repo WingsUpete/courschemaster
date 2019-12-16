@@ -13,6 +13,140 @@ class Course_api extends CI_Controller{
 	}
 
 	/**
+	 * this ajax is used to add one course to the database
+	 */
+	public function ajax_add_one_course(){
+		try{
+			$name = json_decode($this->input->post('name'));
+
+			$en_name = json_decode($this->input->post('en_name'));
+
+			$code = json_decode($this->input->post('code'));
+			$query = $this->db
+				->select('*')
+				->from('cm_courses')
+				->where('cm_courses.code', $code)
+				->get();
+			if($query->num_rows() > 0){
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode(['messages' => 'the course code already in']));
+				return;
+			}
+
+			$department_code = json_decode($this->input->post('department_code'));
+			$course_department_id = 0;
+			$query = $this->db
+				->select('*')
+				->from('cm_departments')
+				->where('cm_departments.code', $department_code)
+				->get();
+
+			foreach ($query->result() as $row)
+			{
+				$course_department_id = $row->id;
+			}
+			if($course_department_id == 0){
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode(['messages' => 'the department code is not exist']));
+				return;
+			}
+
+			$credit = json_decode($this->input->post('credit'));
+			$credit = (float)$credit;
+
+			$exp_credit = json_decode($this->input->post('exp_credit'));
+			$exp_credit = (float)$exp_credit;
+
+			$weekly_period = json_decode($this->input->post('weekly_period'));
+			$weekly_period = (float)$weekly_period;
+
+			$semester = json_decode($this->input->post('semester'));
+			$course_semester_temp = $semester;
+			$semester = '';
+			if ( (strpos($course_semester_temp, '2') !== false) or
+				(strpos($course_semester_temp, '春') !== false) or
+				(strpos($course_semester_temp, 'spring') !== false)){
+				$course_semester = $semester.'2; ';
+			}
+			if ( (strpos($course_semester_temp, '3') !== false) or
+				(strpos($course_semester_temp, '夏') !== false) or
+				(strpos($course_semester_temp, 'summer') !== false)){
+				$course_semester = $semester.'3; ';
+			}
+			if ( (strpos($course_semester_temp, '1') !== false) or
+				(strpos($course_semester_temp, '秋') !== false) or
+				(strpos($course_semester_temp, 'fall') !== false)){
+				$course_semester = $semester.'1; ';
+			}
+
+			$language = json_decode($this->input->post('language'));
+			$course_language_temp = $language;
+			$language = '';
+			if ( (strpos($course_language_temp, '中文') !== false) or
+				(strpos($course_language_temp, 'cn') !== false) or
+				(strpos($course_language_temp, 'C') !== false) or
+				(strpos($course_language_temp, 'chinese') !== false)){
+				$course_language = $language.'C; ';
+			}
+			if ( (strpos($course_language_temp, '英文') !== false) or
+				(strpos($course_language_temp, 'en') !== false) or
+				(strpos($course_language_temp, 'E') !== false) or
+				(strpos($course_language_temp, 'english') !== false)){
+				$course_language = $language.'E; ';
+			}
+			if ( (strpos($course_language_temp, '中英文') !== false) or
+				(strpos($course_language_temp, 'both') !== false) or
+				(strpos($course_language_temp, 'B') !== false)){
+				$course_language = $language.'B; ';
+			}
+
+			$description = json_decode($this->input->post('description'));
+
+			$en_description = json_decode($this->input->post('en_description'));
+
+			$pre_logic = json_decode($this->input->post('pre_logic'));
+			$pre_logic = str_replace(' ', '', $pre_logic);
+			$pre_logic = str_replace('\r', '', $pre_logic);
+			$pre_logic = str_replace('\n', '', $pre_logic);
+			$pre_logic = str_replace('\t', '', $pre_logic);
+
+			$this->course_model->add_one_course($name, $en_name, $code, $course_department_id,
+				$credit, $exp_credit, $weekly_period,
+				$semester, $language, $description, $en_description, $pre_logic);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['messages' => 'successfully']));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
+	/**
+	 * this method is used to get all the courses information to initialize the course management page
+	 */
+	public function ajax_get_all_course_info(){
+		try{
+
+			$result = $this->course_model->get_all_course_info($language);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
+	/**
 	 * this ajax is used to get all the course id by fuzzy search
 	 *
 	 * the $match is used to matching the cn_name, en_name or code
