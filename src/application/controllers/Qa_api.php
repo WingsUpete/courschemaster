@@ -86,11 +86,12 @@ class Qa_api extends CI_Controller{
             $question_id = json_decode($this->input->post('question_id'));
             $content     = json_decode($this->input->post('content'));
             $user_id     = $this->session->userdata('user_id');
+            $language    = $this->session->userdata('language');
 
             $result['status'] = AJAX_FAIL;
 
             if($user_id){
-                $result = $this->qa_model->post_answer($question_id, $content, $user_id);
+                $result = $this->qa_model->post_answer($language, $question_id, $content, $user_id);
             }
 
             $result['status'] = $result['status'] ? AJAX_SUCCESS : AJAX_FAIL;

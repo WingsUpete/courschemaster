@@ -136,7 +136,7 @@ class Qa_model extends CI_Model{
         return $rtn;
     }
 
-    public function post_answer($question_id, $content, $user_id){
+    public function post_answer($language, $question_id, $content, $user_id){
         $autentication = $this->_is_admin($user_id) ? 1 : 0;
         $data_inserted = array(
             'id_questions' => $question_id,
@@ -155,6 +155,13 @@ class Qa_model extends CI_Model{
             $insert_id = $this->db->insert_id();
             log_operation('qa/post_answer', $user_id, $data_inserted, 'success');
             $rtn['status'] = true;
+
+            if($language == 'english'){
+                $this->db->select('cm_majors.en_name AS provider_major');
+            }else{
+                $this->db->select('cm_majors.name    AS provider_major');
+            }
+
             $rtn['info'] = $this->db
                 ->select('
                     qa_answers.id               AS id,
@@ -175,6 +182,7 @@ class Qa_model extends CI_Model{
                 ->order_by('qa_answers.vote', 'DESC')
                 ->get()
                 ->row_array();
+            $rtn['info']['can_be_delected'] = 1;
             return $rtn;
         }
     }
@@ -215,6 +223,7 @@ class Qa_model extends CI_Model{
             ->order_by('qa_replies.timestamp', 'DESC')
             ->get()
             ->row_array();
+            $rtn['info']['can_be_delected'] = 1;
             return $rtn;
         }
 
