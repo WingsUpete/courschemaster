@@ -183,6 +183,7 @@ class Qa_model extends CI_Model{
                 ->get()
                 ->row_array();
             $rtn['info']['can_be_deleted'] = 1;
+            $rtn['replies'] = array();
             return $rtn;
         }
     }
@@ -553,7 +554,7 @@ class Qa_model extends CI_Model{
             ->join('cm_users AS sender', 'sender.id = qa_replies.id_users_sender', 'inner')
             ->join('cm_users AS receiver', 'receiver.id = qa_replies.id_users_receiver', 'inner')
             ->where('qa_replies.id_answers', $rtn_array['answers'][$i]['id'])
-            ->order_by('qa_replies.timestamp', 'DESC')
+            ->order_by('qa_replies.timestamp', 'ASC')
             ->get()
             ->result_array();
         }
