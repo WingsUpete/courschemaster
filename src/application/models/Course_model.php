@@ -7,6 +7,25 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Course_model extends CI_Model{
 
 	/**
+	 * This method is used to query the id of all the course with $label for a courschema
+	 *
+	 * @param $courschema_id: the id of this courschema
+	 * @param $label: the label for the course you query
+	 * @return mixed: the array with all the course id
+	 */
+	public function get_course_id_by_label($courschema_id, $label){
+		$result = $this->db
+			->select('id_courses AS id')
+			->from('cm_course_label_courschemas')
+			->like('cm_course_labels.cn_name', $label)
+			->or_like('cm_course_labels.en_name', $label)
+			->join('cm_course_labels', 'cm_course_labels.id = cm_course_label_courschemas.id_labels')
+			->get()->result_array();
+
+		return $result;
+	}
+
+	/**
 	 * This method used to query the course by filter
 	 * if the filter is null, query all
 	 *
