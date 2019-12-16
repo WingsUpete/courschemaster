@@ -268,6 +268,7 @@ class Course_model extends CI_Model{
 	 * all the dependence about this course will be deleted
 	 *
 	 * @param $code: the code of this course
+	 * @return bool: delete successfully or not
 	 */
 	public function delete_one_course($code){
 		$id = $this->db
@@ -278,6 +279,16 @@ class Course_model extends CI_Model{
 
 		if ($id->num_rows() > 0){
 			$id = $id->row_array()['id'];
+
+			$as_pre = $this->db
+				->select('*')
+				->from('cm_prerequisites')
+				->where('cm_prerequisites.id_pre_course', $id)
+				->get();
+
+			if($as_pre->num_rows() > 0){
+				return False;
+			}
 
 			$this->db
 				->where('cm_prerequisites.id_main_course', $id)
@@ -290,8 +301,11 @@ class Course_model extends CI_Model{
 			$this->db
 				->where('cm_courses.code', $code)
 				->delete('cm_courses');
+
+			return True;
 		}
 
+		return False;
 
 	}
 

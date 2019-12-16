@@ -13,6 +13,26 @@ class Course_api extends CI_Controller{
 	}
 
 	/**
+	 * this ajax is used to delete one course by course code
+	 */
+	public function ajax_delete_one_course_by_course_code(){
+		try{
+			$code = json_decode($this->input->post('code'));
+
+			$result = $this->course_model->delete_one_course($code);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
+	/**
 	 * this ajax is used to add one course to the database
 	 */
 	public function ajax_add_one_course(){
