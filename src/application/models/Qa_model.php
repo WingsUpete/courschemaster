@@ -183,7 +183,7 @@ class Qa_model extends CI_Model{
                 ->get()
                 ->row_array();
             $rtn['info']['can_be_deleted'] = 1;
-            $rtn['replies'] = array();
+            $rtn['info']['replies'] = array();
             return $rtn;
         }
     }
