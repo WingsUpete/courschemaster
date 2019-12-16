@@ -6,11 +6,24 @@ class Api_test extends CI_Controller{
         $this->load->model('qa_model');
         $this->load->model('courschemas_model');
         $this->load->model('collections_model');
+        $this->load->model('students_model');
         $this->load->library('session');
     }
 
     public function index(){
-        $this->test_get_my_collections();
+        $this->test_get_my_learned();
+    }
+
+    public function test_get_my_learned(){
+        $language = $this->session->userdata('language');
+        $user_id  = 1;
+        $result = $this->students_model->get_my_learned($language, $user_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
     }
 
     public function test_get_my_collections(){
