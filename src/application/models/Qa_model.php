@@ -112,7 +112,6 @@ class Qa_model extends CI_Model{
             log_operation('qa/post_question', $user_id, $data_inserted, 'database fails on insert into labels_questions');
             $this->db->trans_rollback();
             $this->db->trans_complete();
-
             $rtn['status'] = false;
             return $rtn;
         }

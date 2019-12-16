@@ -10,44 +10,21 @@ class Students_api extends CI_Controller{
         }
     }
 
-    public function ajax_search_courses(){
+    public function ajax_get_my_learned(){
+        try{
 
+            $user_id = $this->session->userdata('user_id');
+
+            $result = $this->course_model->get_my_learned($user_id);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result)); 
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
     }
-
-    public function ajax_new_plan(){
-
-    }
-
-    public function ajax_save_changes(){
-
-    }
-
-    public function ajax_get_my_plan_info(){
-
-    }
-
-    public function ajax_export_courses(){
-
-    }
-
-    public function ajax_get_all_departments(){
-
-    }
-
-    public function ajax_get_majors(){
-
-    }
-
-    public function ajax_filter_courschemas(){
-
-    }
-
-    public function ajax_get_courschema_info(){
-
-    }
-
-    public function ajax_download_courschema_pdf(){
-
-    }
-
 }

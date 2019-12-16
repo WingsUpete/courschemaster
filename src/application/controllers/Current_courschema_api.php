@@ -64,5 +64,5 @@ class Current_courschema_api extends CI_Controller{
 				->set_content_type('application/json')
 				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
 		}
-	}
+    }
 }

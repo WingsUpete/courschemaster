@@ -5,11 +5,38 @@ class Api_test extends CI_Controller{
         parent::__construct();
         $this->load->model('qa_model');
         $this->load->model('courschemas_model');
+        $this->load->model('collections_model');
         $this->load->library('session');
     }
 
     public function index(){
-        $this->test_delete_reply();
+        $this->test_get_my_collections();
+    }
+
+    public function test_get_my_collections(){
+        $language = 'english';
+        $user_id = 1;
+        $result = $this->collections_model->get_my_collections($language, $user_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
+    }
+
+    public function test_uncollect_courschema(){
+        $courschema_id = 1;
+        $user_id = 1;
+        $result = $this->collections_model->uncollect_courschema($courschema_id, $user_id);
+        echo $result ? 1 : 0;
+    }
+
+    public function test_collect_courschema(){
+        $courschema_id = 1;
+        $user_id = 1;
+        $result = $this->collections_model->collect_courschema($courschema_id, $user_id);
+        echo $result ? 1 : 0;
     }
 
     public function test_delete_reply(){
