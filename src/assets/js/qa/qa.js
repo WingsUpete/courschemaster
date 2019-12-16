@@ -33,6 +33,10 @@ window.Qa = window.Qa || {};
 		if (questionPage) {
 			helper.getTags();
 			initRecommendBox();
+			setInterval(function() {
+				//	refresh every 60s
+				initRecommendBox();
+			}, 60000);
 		} else {
 			helper.retrieveQuestionDetails(GlobalVariables.qid);
 		}
@@ -68,6 +72,9 @@ window.Qa = window.Qa || {};
 		var type_faq = 'faqs';
 		var type_lq = 'latestQuestions';
 		var type_mq = 'myQuestions';
+		$('#faq_pagination, #faq_contents').html('');
+		$('#lq_pagination, #lq_contents').html('');
+		$('#mq_pagination, #mq_contents').html('');
 		$.when(helper.getFaqs()).then(function() {
 			Qa.initQuestionPagination($('#faq_pagination'), $('#faq_contents'), type_faq);
 		});
@@ -97,7 +104,7 @@ window.Qa = window.Qa || {};
 					pagination.el.hide();
 				} else {
 					$.each(data, function(index, item) {
-						var html = '<a href="' + GlobalVariables.generateQLink(item.id) + '" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" data-question-id="' + item.id + '"><h5>' + item.title + '</h5><p class="text-muted mb-0">' + moment(item.time).format('YYYY-MM-DD') + ' ' + SCLang.number_of_answers + ':' + item.answers_cnt + (item.authentication === '1' ? ' <span class="authenticated text-success">' + SCLang.authenticated + '</span></p></a>' : '');
+						var html = Qa.questionHTML(item);
 						$contents.append(html);
 					});
 					pagination.el.show();
@@ -105,6 +112,10 @@ window.Qa = window.Qa || {};
 				GeneralFunctions.placeFooterToBottom();
 			}
 		});
+	};
+	
+	exports.questionHTML = function(data) {
+		return '<a href="' + GlobalVariables.generateQLink(data.id) + '" class="list-group-item list-group-item-action flex-column aligh-items-start question-brief" data-question-id="' + data.id + '"><h5>' + data.title + '</h5><p class="text-muted mb-0">' + moment(data.time).format('YYYY-MM-DD') + ' ' + SCLang.number_of_answers + ':' + data.answers_cnt + (data.authentication === '1' ? ' <span class="authenticated text-success">' + SCLang.authenticated + '</span></p></a>' : '');
 	};
 	
 	exports.initAnswerPagination = function($pagination, $contents, type) {
@@ -125,45 +136,62 @@ window.Qa = window.Qa || {};
 					pagination.el.hide();
 				} else {
 					$.each(data, function(index, item) {
-						var html = '<div class="list-group-item list-group-item-action flex-column align-items-start question-answer" data-answer-id="' + item.id + '" data-provider-id="' + item.provider_id + '"><small class="text-muted"><a class="question-answer-provider" href="mailto:' + item.provider_email + '">' + item.provider_name + '</a>' + (item.role.toLowerCase().indexOf('admin') > -1 ? ' (<span class="text-danger">' + SCLang.admin + '</span>)' : '') + ' - <span class="question-answer-provider-major">' + item.provider_major + '</span>  <span class="question-answer-creation-time">' + item.time + '</span>' + (item.authentication === '1' ? '  <span class="authenticated answer-authenticated text-success">' + SCLang.authenticated + '</span>' : '') + ' <a class="reply" href="javascript:void(0);">' + SCLang.reply + '</a><input class="reply_msg_cache" value="" type="hidden" /></small>';
-						html += '<h5 class="question-answer-content mt-1 mb-1">' + item.content + '</h5>';
-						html += '<div class="row justify-content-start pl-3 mb-1"><div class="btn-group vote-btns" data-user-vote-status="' + item.user_vote_status + '"><button type="button" class="btn btn-outline-primary btn-sm ml-0 vote-positive"><i class="fas fa-thumbs-up"></i></button><button type="button" class="btn btn-primary btn-sm font-weight-bold vote-value">' + item.vote + '</button><button type="button" class="btn btn-outline-primary btn-sm mr-0 vote-negative"><i class="fas fa-thumbs-down"></i></button></div></div>' + '<div class="list-group reply_contents"></div></div>';
+						var html = Qa.answerHTML(item);
 						$contents.append(html);
 						$.each(item.replies, function(index, reply) {
-							var replyHtml = '<small><span class="text-muted"><a href="mailto:' + reply.receiver_email + '">@<span class="reply-detail-receiver">' + reply.receiver_name + '</span></a></span> <span class="reply-detail-content font-weight-bold">' + reply.content + '</span> <span class="text-muted">- <a href="mailto:' + reply.sender_email + '" class="reply-detail-sender">' + reply.sender_name + '</a> <span class="reply-detail-time">' + reply.timestamp + '</span>' + (reply.can_be_deleted === 1 ? ' <a href="javascript:void(0);" class="delete-reply">' + SCLang.delete + '</a>' : '') + '</span></small>';
+							var replyHtml = Qa.replyHTML(reply);
 							$('.reply_contents').last().append(replyHtml);
 						});
 					});
-					$.each($('.vote-btns'), function(index, btn_group) {
-						var vote_status = btn_group.dataset.userVoteStatus;
-						switch (vote_status) {
-							case '0': break;	// not yet voted or not logged in
-							case '1': {
-								//	voted positive
-								$(btn_group).find('button').addClass('disabled');
-								$(btn_group).find('.vote-positive').removeClass('btn-outline-primary').addClass('btn-primary');
-								break;
-							}
-							case '-1': {
-								//	voted negative
-								$(btn_group).find('button').addClass('disabled');
-								$(btn_group).find('.vote-negative').removeClass('btn-outline-primary').addClass('btn-primary');
-								break;
-							}
-							default: break;
-						}
-					});
-					if (GlobalVariables.logged_in === 'false') {
-						if (!$('.vote-btns button').hasClass('disabled')) {
-							$('.vote-btns button').addClass('disabled');
-						}
-						$('.reply').hide();
-					}
+					Qa.handleVoteAnswer();
+					Qa.handlePriviledge();
 					pagination.el.show();
 				}
 				GeneralFunctions.placeFooterToBottom();
 			}
 		});
+	};
+	
+	exports.answerHTML = function(data) {
+		var html = '<div class="list-group-item list-group-item-action flex-column align-items-start question-answer" data-answer-id="' + data.id + '" data-provider-id="' + data.provider_id + '"><small class="text-muted"><a class="question-answer-provider" href="mailto:' + data.provider_email + '">' + data.provider_name + '</a>' + (data.role.toLowerCase().indexOf('admin') > -1 ? (' <span class="text-danger">' + SCLang.admin + '</span>') : '') + ' - <span class="question-answer-provider-major">' + data.provider_major + '</span>  <span class="question-answer-creation-time">' + data.time + '</span>' + (data.authentication === '1' ? ('  <span class="authenticated answer-authenticated text-success">' + SCLang.authenticated + '</span>') : '') + ' <a class="reply" href="javascript:void(0);">' + SCLang.reply + '</a><input class="reply_msg_cache" value="" type="hidden" />' + (data.can_be_deleted === 1 ? ' <a href="javascript:void(0);" class="delete-reply">' + SCLang.delete + '</a>' : '') + '</small>';
+		html += '<h5 class="question-answer-content mt-1 mb-1">' + data.content + '</h5>';
+		html += '<div class="row justify-content-start pl-3 mb-1"><div class="btn-group vote-btns" data-user-vote-status="' + data.user_vote_status + '"><button type="button" class="btn btn-outline-primary btn-sm ml-0 vote-positive"><i class="fas fa-thumbs-up"></i></button><button type="button" class="btn btn-primary btn-sm font-weight-bold vote-value">' + data.vote + '</button><button type="button" class="btn btn-outline-primary btn-sm mr-0 vote-negative"><i class="fas fa-thumbs-down"></i></button></div></div>' + '<div class="list-group reply_contents"></div></div>';
+		return html;
+	};
+	
+	exports.replyHTML = function(data) {
+		return '<small class="reply-block" data-reply-id="' + data.id + '" data-receiver-id="' + data.receiver_id + '" data-sender-id="' + data.sender_id + '"><span class="text-muted"><a href="mailto:' + data.receiver_email + '">@<span class="reply-detail-receiver">' + data.receiver_name + '</span></a></span> <span class="reply-detail-content font-weight-bold">' + data.content + '</span> <span class="text-muted">- <a href="mailto:' + data.sender_email + '" class="reply-detail-sender">' + data.sender_name + '</a> <span class="reply-detail-time">' + data.timestamp + '</span>' + ' <a class="reply-of-reply" href="javascript:void(0);">' + SCLang.reply + '</a>' + (data.can_be_deleted === 1 ? ' <a href="javascript:void(0);" class="delete-reply">' + SCLang.delete + '</a>' : '') + '<div class="reply-of-reply-block"><div class="md-form md-outline mt-0 mb-0"><input type="text" class="form-control form-control-sm mt-1 mb-1 is-invalid reply-of-reply-content" max="150" /><div class="invalid-feedback ml-1"></div></div><div class="row pl-2"><button type="button" class="btn btn-primary btn-sm reply-of-reply-submit pl-3 pr-3 pt-1 pb-1" style="border-radius: 10px;text-transform:none;">' + SCLang.submit + '</button></div></div></span></small>';
+	};
+	
+	exports.handleVoteAnswer = function() {
+		$.each($('.vote-btns'), function(index, btn_group) {
+			var vote_status = btn_group.dataset.userVoteStatus;
+			switch (vote_status) {
+				case '0': break;	// not yet voted or not logged in
+				case '1': {
+					//	voted positive
+					$(btn_group).find('button').addClass('disabled');
+					$(btn_group).find('.vote-positive').removeClass('btn-outline-primary').addClass('btn-primary');
+					break;
+				}
+				case '-1': {
+					//	voted negative
+					$(btn_group).find('button').addClass('disabled');
+					$(btn_group).find('.vote-negative').removeClass('btn-outline-primary').addClass('btn-primary');
+					break;
+				}
+				default: break;
+			}
+		});
+	};
+	
+	exports.handlePriviledge = function() {
+		if (GlobalVariables.logged_in === 'false') {
+			if (!$('.vote-btns button').hasClass('disabled')) {
+				$('.vote-btns button').addClass('disabled');
+			}
+			$('.reply').hide();
+		}
 	};
 
 })(window.Qa);
