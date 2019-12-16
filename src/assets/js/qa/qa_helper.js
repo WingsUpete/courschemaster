@@ -273,6 +273,56 @@
 			$rorc.val('');
 			$ans.find('.reply-of-reply').click();
 		});
+		
+		/**
+		 * delete Reply button
+		 */
+		$(document).on('click', '.delete-reply', function() {
+			var $reply_blk = $(this).closest('.reply-block');
+			var buttons = [
+				{
+					text: SCLang.delete,
+					click: function() {
+						instance.deleteReply($reply_blk.prop('dataset').replyId);
+						$('#msgBox').modal('hide');
+					}
+				}
+			];
+			GeneralFunctions.displayMessageBox(SCLang.delete_reply_title, SCLang.delete_reply_message, buttons);
+		});
+		
+		/**
+		 * delete Reply button
+		 */
+		$(document).on('click', '.delete-answer', function() {
+			var $answer_blk = $(this).closest('.question-answer');
+			var buttons = [
+				{
+					text: SCLang.delete,
+					click: function() {
+						instance.deleteAnswer($answer_blk.prop('dataset').answerId);
+						$('#msgBox').modal('hide');
+					}
+				}
+			];
+			GeneralFunctions.displayMessageBox(SCLang.delete_answer_title, SCLang.delete_answer_message, buttons);
+		});
+		
+		/**
+		 * delete question button
+		 */
+		$(document).on('click', '.delete_question', function() {
+			var buttons = [
+				{
+					text: SCLang.delete,
+					click: function() {
+						instance.deleteQuestion($('#question-id').val());
+						$('#msgBox').modal('hide');
+					}
+				}
+			];
+			GeneralFunctions.displayMessageBox(SCLang.delete_question_title, SCLang.delete_question_message, buttons);
+		});
 	};
 
 	//	Additional Methods
@@ -516,6 +566,9 @@
 		if (basicInfo.authentication === '1') {
 			$('.question-authenticated').html(SCLang.authenticated);
 		}
+		if (basicInfo.can_be_deleted !== 1) {
+			$('.delete_question').hide();
+		}
 		$('.question-description').html(basicInfo.description);
 		//	display labels
 		$('.tags').html('');
@@ -637,21 +690,139 @@
 			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_reply_success, 'success', 6000);
 				//	update
+				var ind = 0;
 				$.each(obj.answers, function(index, answer) {
 					if (answer.id === answer_id) {
-						if (obj.answers[index].replies === undefined || obj.answers[index].replies.length === 0) {
-							obj.answers[index].replies.append(response.info);
-						} else {
-							obj.answers[index].replies.unshift(response.info);
-						}
+						ind = index;
 						return;
 					}
 				});
-//				console.log(obj.answers);
+				if (obj.answers[ind].replies === undefined || obj.answers[ind].replies.length === 0) {
+					obj.answers[ind].replies.push(response.info);
+				} else {
+					obj.answers[ind].replies.unshift(response.info);
+				}
 				$('#qa_pagination, #qa_contents').html('');
 				Qa.initAnswerPagination($('#qa_pagination'), $('#qa_contents'), 'answers');
 			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_reply_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Delete Reply
+     */
+    QaHelper.prototype.deleteReply = function (reply_id) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_delete_reply';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			reply_id: reply_id
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_delete_reply_success, 'success', 6000);
+				//	delete that record in the data sheet
+				var ind = 0, jpos = 0;
+				$.each(obj.answers, function(index, answer) {
+					if (answer.replies !== undefined && answer.replies.length !== 0) {
+						$.each(answer.replies, function(j, reply) {
+							if (reply.id === reply_id) {
+								ind = index;
+								jpos = j;
+								return;
+							}
+						});
+					}
+				});
+				obj.answers[ind].replies.splice(jpos, 1);
+				$('#qa_pagination, #qa_contents').html('');
+				Qa.initAnswerPagination($('#qa_pagination'), $('#qa_contents'), 'answers');
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_delete_reply_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Delete Reply
+     */
+    QaHelper.prototype.deleteAnswer = function (answer_id) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_delete_answer';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			answer_id: answer_id
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_delete_answer_success, 'success', 6000);
+				//	delete that record in the data sheet
+				var ind = 0;
+				$.each(obj.answers, function(index, answer) {
+					if (answer.id === answer_id) {
+						ind = index;
+						return;
+					}
+				});
+				obj.answers.splice(ind, 1);
+				$('#qa_pagination, #qa_contents').html('');
+				Qa.initAnswerPagination($('#qa_pagination'), $('#qa_contents'), 'answers');
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_delete_answer_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Delete Reply
+     */
+    QaHelper.prototype.deleteQuestion = function (question_id) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_delete_question';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			question_id: question_id
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				window.location.href = GlobalVariables.main_page_url;
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_delete_question_failure, 'danger', 6000);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
 			}

@@ -6,7 +6,8 @@
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>,
 		qid                : <?= $qid ?>,
-		logged_in          : '<?= $logged_in ?>'
+		logged_in          : '<?= $logged_in ?>',
+		main_page_url      : '<?= site_url('qa') ?>'
     };
 
     $(document).ready(function() {
@@ -23,6 +24,10 @@
 	<div class="top-bar">
 		<a href="<?= site_url('qa') ?>">
 			<?= lang('back') ?>
+		</a>
+		&ensp;&ensp;
+		<a href="javascript:void(0);" class="delete_question">
+			<?= lang('delete') ?>
 		</a>
 	</div>
 	<hr style="margin-top: 0;" />

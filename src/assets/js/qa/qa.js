@@ -109,6 +109,14 @@ window.Qa = window.Qa || {};
 					});
 					pagination.el.show();
 				}
+			},
+			afterInit: function() {
+				GeneralFunctions.placeFooterToBottom();
+			},
+			afterRender: function() {
+				GeneralFunctions.placeFooterToBottom();
+			},
+			afterPaging: function() {
 				GeneralFunctions.placeFooterToBottom();
 			}
 		});
@@ -138,22 +146,34 @@ window.Qa = window.Qa || {};
 					$.each(data, function(index, item) {
 						var html = Qa.answerHTML(item);
 						$contents.append(html);
-						$.each(item.replies, function(index, reply) {
-							var replyHtml = Qa.replyHTML(reply);
-							$('.reply_contents').last().append(replyHtml);
-						});
+						if (item.replies.length === 0) {
+							$('.reply_contents').last().hide();
+						} else {
+							$.each(item.replies, function(index, reply) {
+								var replyHtml = Qa.replyHTML(reply);
+								$('.reply_contents').last().append(replyHtml);
+							});
+						}
 					});
 					Qa.handleVoteAnswer();
 					Qa.handlePriviledge();
 					pagination.el.show();
 				}
+			},
+			afterInit: function() {
+				GeneralFunctions.placeFooterToBottom();
+			},
+			afterRender: function() {
+				GeneralFunctions.placeFooterToBottom();
+			},
+			afterPaging: function() {
 				GeneralFunctions.placeFooterToBottom();
 			}
 		});
 	};
 	
 	exports.answerHTML = function(data) {
-		var html = '<div class="list-group-item list-group-item-action flex-column align-items-start question-answer" data-answer-id="' + data.id + '" data-provider-id="' + data.provider_id + '"><small class="text-muted"><a class="question-answer-provider" href="mailto:' + data.provider_email + '">' + data.provider_name + '</a>' + (data.role.toLowerCase().indexOf('admin') > -1 ? (' <span class="text-danger">' + SCLang.admin + '</span>') : '') + ' - <span class="question-answer-provider-major">' + data.provider_major + '</span>  <span class="question-answer-creation-time">' + data.time + '</span>' + (data.authentication === '1' ? ('  <span class="authenticated answer-authenticated text-success">' + SCLang.authenticated + '</span>') : '') + ' <a class="reply" href="javascript:void(0);">' + SCLang.reply + '</a><input class="reply_msg_cache" value="" type="hidden" />' + (data.can_be_deleted === 1 ? ' <a href="javascript:void(0);" class="delete-reply">' + SCLang.delete + '</a>' : '') + '</small>';
+		var html = '<div class="list-group-item list-group-item-action flex-column align-items-start question-answer" data-answer-id="' + data.id + '" data-provider-id="' + data.provider_id + '"><small class="text-muted"><a class="question-answer-provider" href="mailto:' + data.provider_email + '">' + data.provider_name + '</a>' + (data.role.toLowerCase().indexOf('admin') > -1 ? (' <span class="text-danger">' + SCLang.admin + '</span>') : '') + ' - <span class="question-answer-provider-major">' + data.provider_major + '</span>  <span class="question-answer-creation-time">' + data.time + '</span>' + (data.authentication === '1' ? ('  <span class="authenticated answer-authenticated text-success">' + SCLang.authenticated + '</span>') : '') + ' <a class="reply" href="javascript:void(0);">' + SCLang.reply + '</a><input class="reply_msg_cache" value="" type="hidden" />' + (data.can_be_deleted === 1 ? ' <a href="javascript:void(0);" class="delete-answer">' + SCLang.delete + '</a>' : '') + '</small>';
 		html += '<h5 class="question-answer-content mt-1 mb-1">' + data.content + '</h5>';
 		html += '<div class="row justify-content-start pl-3 mb-1"><div class="btn-group vote-btns" data-user-vote-status="' + data.user_vote_status + '"><button type="button" class="btn btn-outline-primary btn-sm ml-0 vote-positive"><i class="fas fa-thumbs-up"></i></button><button type="button" class="btn btn-primary btn-sm font-weight-bold vote-value">' + data.vote + '</button><button type="button" class="btn btn-outline-primary btn-sm mr-0 vote-negative"><i class="fas fa-thumbs-down"></i></button></div></div>' + '<div class="list-group reply_contents"></div></div>';
 		return html;
@@ -191,6 +211,7 @@ window.Qa = window.Qa || {};
 				$('.vote-btns button').addClass('disabled');
 			}
 			$('.reply').hide();
+			$('.reply-of-reply').hide();
 		}
 	};
 
