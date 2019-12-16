@@ -13,6 +13,11 @@ class MatryonaIDE_api extends CI_Controller{
 		$this->load->model('course_model');
 	}
 
+	/**
+	 * this ajax is used to check courses exists or not
+	 * input a list of course id
+	 * output a list of boolean
+	 */
 	public function ajax_check_courses_existence(){
 
 		try{
@@ -36,6 +41,11 @@ class MatryonaIDE_api extends CI_Controller{
 
 	}
 
+	/**
+	 * this ajax is used to find the prerequisites course for courses
+	 * input is a list of course code
+	 * output is a list of prerequisites relationship
+	 */
 	public function ajax_find_courses_pre_course(){
 		try{
 			$code_list = json_decode($this->input->post('code_list'));
