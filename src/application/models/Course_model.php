@@ -7,6 +7,24 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Course_model extends CI_Model{
 
 	/**
+	 * This method is used to query the course id by fuzzy search
+	 *
+	 * @param $match: the matching string, can match the cn_name, en_name or code
+	 * @return mixed: the query result
+	 */
+	public function get_course_id_by_fuzzy_search($match){
+		$result = $this->db
+			->select('id AS id')
+			->from('cm_courses')
+			->like('cm_course_labels.name', $match)
+			->or_like('cm_course_labels.en_name', $match)
+			->or_like('cm_course_labels.code', $match)
+			->get()->result_array();
+
+		return $result;
+	}
+
+	/**
 	 * This method is used to query the id of all the course with $label for a courschema
 	 *
 	 * @param $courschema_id: the id of this courschema

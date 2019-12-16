@@ -13,6 +13,28 @@ class Course_api extends CI_Controller{
 	}
 
 	/**
+	 * this ajax is used to get all the course id by fuzzy search
+	 *
+	 * the $match is used to matching the cn_name, en_name or code
+	 */
+	public function ajax_get_course_id_by_fuzzy_search(){
+		try{
+			$match = json_decode($this->input->post('match'));
+
+			$result = $this->course_model->get_course_id_by_fuzzy_search($match);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
+	/**
 	 *  this ajax is used to get all the course id with the label for a courschema
 	 */
 	public function ajax_get_course_id_by_label(){
