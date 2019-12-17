@@ -26,7 +26,7 @@ class MatryonaIDE_api extends CI_Controller{
 
 			for ($i = 0; $i < count($code_list); $i++){
 				$code = $code_list[$i];
-				$result_list[$i] = one_course_exits_or_not($code);
+				$result_list[$i] = $this->course_model->one_course_exits_or_not($code);
 			}
 
 			$this->output
@@ -53,7 +53,7 @@ class MatryonaIDE_api extends CI_Controller{
 
 			for ($i = 0; $i < count($code_list); $i++){
 				$code = $code_list[$i];
-				$result_list[$i] = query_course_pre($code);
+				$result_list[$i] = $this->course_model->query_course_pre($code);
 			}
 
 			$this->output
