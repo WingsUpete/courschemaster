@@ -7,7 +7,8 @@
 		baseUrl            : <?= json_encode($base_url) ?>,
 		qid                : <?= $qid ?>,
 		logged_in          : '<?= $logged_in ?>',
-		main_page_url      : '<?= site_url('qa') ?>'
+		main_page_url      : '<?= site_url('qa') ?>',
+		role               : '<?= $role ?>'
     };
 
     $(document).ready(function() {
@@ -28,6 +29,10 @@
 		&ensp;&ensp;
 		<a href="javascript:void(0);" class="delete_question">
 			<?= lang('delete') ?>
+		</a>
+		&ensp;&ensp;
+		<a href="javascript:void(0);" class="change_faq">
+			<?= lang('faq') ?>
 		</a>
 	</div>
 	<hr style="margin-top: 0;" />
