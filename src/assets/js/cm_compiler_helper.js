@@ -16,15 +16,18 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 	 * @return {string}
 	 */
 	exports.Matryona_to_List = function (){//get the list
-		let courschema = load("courschema.cmc");
+		//here we need give it a courschema by click*************
+		let courschema = load("计算机科学与技术 1+3 (2018).cmc");
 
-		let english_req = load("english_req.cmh");
-
-		let political_class_req = load("political_class_req.cmh");
-
-		let public_elective_class_req = load("public_elective_class_req.cmh");
-
-		var all = courschema + english_req + political_class_req + public_elective_class_req;
+		var files = courschema.split("INCLUDE = ");
+		for (var i=0; i<files.length; i++){
+			files[i] = files[i].split(";")[0];
+		}
+		var all = courschema;
+		for (var i=0; i<files.length; i++){
+			let file_content = load(files[i]);
+			all = all + file_content;
+		}
 
 		//base information of courschema
 		var NAME = courschema.split("NAME = ")[1].split("\"")[1];
@@ -162,16 +165,17 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 	 * @return {string}
 	 */
 	exports.Matryona_to_Graph = function (){//get the graph
-		let courschema = load("courschema.cmc");
+		let courschema = load("计算机科学与技术 1+3 (2018).cmc");
 
-		let english_req = load("english_req.cmh");
-
-		let political_class_req = load("political_class_req.cmh");
-
-		let public_elective_class_req = load("public_elective_class_req.cmh");
-
-		var all = courschema + english_req + political_class_req + public_elective_class_req;
-
+		var files = courschema.split("INCLUDE = ");
+		for (var i=0; i<files.length; i++){
+			files[i] = files[i].split(";")[0];
+		}
+		var all = courschema;
+		for (var i=0; i<files.length; i++){
+			let file_content = load(files[i]);
+			all = all + file_content;
+		}
 		window.list = [];
 
 		//base information of courschema
@@ -210,20 +214,20 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 
 		var node;
 		var node_list = [];
-		var id_num ;
+		var id_num;
 		var node_id;
 		var node_name;
 		var node_type;
 		var event_type;
 
 		var temp = all.split("Event ");
-		for (var i=1; i<temp.length; i++) {
-			node_id = i-1;
+		for (var i = 1; i < temp.length; i++) {
+			node_id = i - 1;
 			node_name = temp[i].split(" = ")[0];
 			event_type = temp[i].split(" = ")[1].split("(")[0];
 			if (node_name === "GRADUATION") {
 				node_type = 2;                 //root
-			}else{
+			} else {
 				node_type = 0;
 			}
 			node = {node_id: node_id, node_name: node_name, node_type: node_type};
@@ -238,164 +242,168 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		var s;
 		var status = [];   //avoid course repeat
 
-		for (var i=1; i<temp.length; i++){
+		for (var i = 1; i < temp.length; i++) {
 			event_type = temp[i].split(" = ")[1].split("(")[0];
-			if (event_type === "ScoreEvent"){
+			if (event_type === "ScoreEvent") {
 				s = temp[i].split("Event")[1].split(";")[0];
-				node = {node_id:id_num, node_name:s, node_type:3};
+				node = {node_id: id_num, node_name: s, node_type: 3};
 				node_list.push(node);
 				id_num++;
 
 				son_list = [];
-				son = {node_id:node.node_id, node_name:node.node_name};
+				son = {node_id: node.node_id, node_name: node.node_name};
 				son_list.push(son);
 				nest_node = {
-					node_id:node_list[i-1].node_id,
-					node_name:node_list[i-1].node_name,
-					node_type:node_list[i-1].node_type,
-					node_son:son_list
+					node_id: node_list[i - 1].node_id,
+					node_name: node_list[i - 1].node_name,
+					node_type: node_list[i - 1].node_type,
+					node_son: son_list
 				};
 				list.push(nest_node);
 				//varevent
-			}else if (event_type === "VariableEvent"){
+			} else if (event_type === "VariableEvent") {
 				//son1
 				son_list = [];
-				s = temp[i].split("Event")[1].split(";")[0].replace("( ","").replace(" )","").split(",");
-				node = {node_id:id_num, node_name:s[0], node_type:3};
+				s = temp[i].split("Event")[1].split(";")[0].replace("( ", "").replace(" )", "").split(",");
+				node = {node_id: id_num, node_name: s[0], node_type: 3};
 				node_list.push(node);
 				id_num++;
-				son = {node_id:node.node_id, node_name:node.node_name};
+				son = {node_id: node.node_id, node_name: node.node_name};
 				son_list.push(son);
 				//son2
-				s[1] = s[1].replace(" ","");
-				for (var j=0; j<node_list.length; j++){
-					if (node_list[j].node_name === s[1]){
+				s[1] = s[1].replace(" ", "");
+				for (var j = 0; j < node_list.length; j++) {
+					if (node_list[j].node_name === s[1]) {
 						break;
 					}
 				}
-				son = {node_id:node_list[j].node_id, node_name:s[1]};
+				son = {node_id: node_list[j].node_id, node_name: s[1]};
 				son_list.push(son);
 				//nest_node
 				nest_node = {
-					node_id:node_list[i-1].node_id,
-					node_name:node_list[i-1].node_name,
-					node_type:node_list[i-1].node_type,
-					node_son:son_list
+					node_id: node_list[i - 1].node_id,
+					node_name: node_list[i - 1].node_name,
+					node_type: node_list[i - 1].node_type,
+					node_son: son_list
 				};
 				list.push(nest_node);
 				//comevent
-			}else if (event_type === "ComEvent"){
+			} else if (event_type === "ComEvent") {
 				s = temp[i].split("Event")[1].split(";")[0];
-				if (s.indexOf("||") === -1 ){
+				if (s.indexOf("||") === -1) {
 					s = Remove_parentheses(s);
 					s = s.split(" && ");
 					son_list = [];
-					for (var j=0; j<s.length; j++){
-						for (var k=0; k<node_list.length; k++){
-							if (node_list[k].node_name === s[j]){
+					for (var j = 0; j < s.length; j++) {
+						for (var k = 0; k < node_list.length; k++) {
+							if (node_list[k].node_name === s[j].replace(" ", "")) {
 								break;
 							}
 						}
-						son = {node_id:node_list[k].node_id, node_name:node_list[k].node_name};
+						son = {node_id: node_list[k].node_id, node_name: node_list[k].node_name};
 						son_list.push(son);
 					}
 					nest_node = {
-						node_id:node_list[i-1].node_id,
-						node_name:node_list[i-1].node_name,
-						node_type:node_list[i-1].node_type,
-						node_son:son_list
+						node_id: node_list[i - 1].node_id,
+						node_name: node_list[i - 1].node_name,
+						node_type: node_list[i - 1].node_type,
+						node_son: son_list
 					};
 					list.push(nest_node);
-				}else{
+				} else {
 					son_list = [];
-					node = {node_id:id_num, node_name:s, node_type:1};
+					node = {node_id: id_num, node_name: s, node_type: 1};
 					node_list.push(node);
 					id_num++;
 					son_list = [];
 					s = Remove_parentheses(s);
 					s = s.split(" || ");
 					son_list = [];
-					for (var j=0; j<s.length; j++){
-						for (var k=0; k<node_list.length; k++){
-							if (node_list[k].node_name === s[j]){
+					for (var j = 0; j < s.length; j++) {
+						for (var k = 0; k < node_list.length; k++) {
+							if (node_list[k].node_name === s[j]) {
 								break;
 							}
 						}
-						son = {node_id:node_list[k].node_id, node_name:node_list[k].node_name};
+						son = {node_id: node_list[k].node_id, node_name: node_list[k].node_name};
 						son_list.push(son);
 					}
 					nest_node = {
-						node_id:node.node_id,
-						node_name:temp[i].split(" = ")[0],
-						node_type:node.node_type,
-						node_son:son_list
+						node_id: node.node_id,
+						node_name: temp[i].split(" = ")[0],
+						node_type: node.node_type,
+						node_son: son_list
 					};
 					list.push(nest_node);
 				}
 				//course event
-			}else{
+			} else {
 				son_list = [];
 				s = temp[i].split("Event")[1].split(";")[0];
 				s = Remove_parentheses(s);
 				//没有或关系存在
-				if (s.indexOf("||") === -1){
+				if (s.indexOf("||") === -1) {
 					s = s.split(" && ");
-					for (var j=0; j<s.length; j++){
-						if (status[s[j]] !== true){
-							node = {node_id:id_num, node_name:s[j], node_type:3};
+					for (var j = 0; j < s.length; j++) {
+						if (status[s[j]] !== true) {
+							node = {node_id: id_num, node_name: s[j], node_type: 4};
 							node_list.push(node);
 							id_num++;
 							status[s[j]] = true;
-							son = {node_id:node.node_id, node_name:node.node_name};
+							son = {node_id: node.node_id, node_name: node.node_name};
 							son_list.push(son);
-						}else {
-							for (var k=0; k<node_list.length; k++){
-								if (node_list[k].node_name === s[j]){
+						} else {
+							for (var k = 0; k < node_list.length; k++) {
+								if (node_list[k].node_name === s[j]) {
 									break;
 								}
 							}
-							son = {node_id:node_list[k].node_id, node_name:node_list[k].node_name};
+							son = {node_id: node_list[k].node_id, node_name: node_list[k].node_name};
 							son_list.push(son);
 						}
 					}
 					nest_node = {
-						node_id:node_list[i-1].node_id,
-						node_name:node_list[i-1].node_name,
-						node_type:node_list[i-1].node_type,
-						node_son:son_list
+						node_id: node_list[i - 1].node_id,
+						node_name: node_list[i - 1].node_name,
+						node_type: node_list[i - 1].node_type,
+						node_son: son_list
 					};
 					list.push(nest_node);
 					//有或关系存在
-				}else {
+				} else {
 					let q = new Queue();
 					s = s + " &";
 					s = s.split("");
 					var parentheses = 0;
 					var coursecom;
-					son_list  = [];
-					for (var l=0; l<s.length; l++) {
-						if (s[l] === "&"){
+					son_list = [];
+					for (var l = 0; l < s.length; l++) {
+						if (s[l] === "&") {
 
-							if (parentheses === 0){
+							if (parentheses === 0) {
 								coursecom = "";
-								while(q.size() !== 0){
+								while (q.size() !== 0) {
 									coursecom = coursecom + q.pop().ele;
 								}
 								//课程逻辑组合，一层儿子
-								if (coursecom.indexOf("(") !== -1){
-									if(status[coursecom] === true){
-										for (var m=0; m<node_list.length; m++){
-											if (node_list[m].node_name === coursecom){
+								if (coursecom.indexOf("(") !== -1) {
+									if (status[coursecom] === true) {
+										for (var m = 0; m < node_list.length; m++) {
+											if (node_list[m].node_name === coursecom) {
 												break;
 											}
 										}
-										node = {node_id: node_list[m].node_id, node_name:node_list[m].node_name, node_type:1};
-									}else{
-										node = {node_id:id_num, node_name:coursecom, node_type:1};
+										node = {
+											node_id: node_list[m].node_id,
+											node_name: node_list[m].node_name,
+											node_type: 1
+										};
+									} else {
+										node = {node_id: id_num, node_name: coursecom, node_type: 1};
 										node_list.push(node);
 										id_num++;
 									}
-									son = {node_id:node.node_id, node_name:node.node_name};
+									son = {node_id: node.node_id, node_name: node.node_name};
 									son_list.push(son);
 
 									//二层儿子
@@ -405,132 +413,216 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 									var son2_list = [];
 									var coursecombin;
 									// 用或分隔后的课程逻辑组合
-									for (var k=0; k<coursecom.length; k++){
+									for (var k = 0; k < coursecom.length; k++) {
 										//多个课程且
-										if (coursecom[k].indexOf("&") !== -1){
+										if (coursecom[k].indexOf("&") !== -1) {
 
-											node2 = {node_id:id_num, node_name:coursecom[k], node_type:0};
+											node2 = {node_id: id_num, node_name: coursecom[k], node_type: 0};
 											node_list.push(node2);
-											status[node2] = true;
 											id_num++;
-											son2 = {node_id:id_num, node_name:coursecom[k]};
+											son2 = {node_id: id_num, node_name: coursecom[k]};
 											son2_list.push(son2);
 											//三层儿子
 											coursecombin = Remove_parentheses(coursecom[k]).split(" && ");
 											var node3;
 											var son3;
 											var son3_list = [];
-											for (var p=0; p<coursecombin.length; p++){
-												coursecombin[p] = coursecombin[p].replace(" ","");
-												if (status[coursecombin[p]] !== true){
+											for (var p = 0; p < coursecombin.length; p++) {
+												coursecombin[p] = coursecombin[p].replace(" ", "");
+												if (status[coursecombin[p]] !== true) {
 													//单个课程
-													node3 = {node_id:id_num, node_name:coursecombin[p], node_type:3};
+													node3 = {node_id: id_num, node_name: coursecombin[p], node_type: 4};
 													node_list.push(node3);
 													id_num++;
 													status[coursecombin[p]] = true;
-													son3 = {node_id:node3.node_id, node_name:node3.node_name};
+													son3 = {node_id: node3.node_id, node_name: node3.node_name};
 													son3_list.push(son3);
-												}else{
-													for (var m=0; m<node_list.length; m++){
-														if (coursecombin[p] === node_list[m].node_name){
+												} else {
+													for (var m = 0; m < node_list.length; m++) {
+														if (coursecombin[p] === node_list[m].node_name) {
 															break;
 														}
 													}
-													son3 = {node_id:node_list[m].node_id, node_name:node_list[m].node_name};
+													son3 = {
+														node_id: node_list[m].node_id,
+														node_name: node_list[m].node_name
+													};
 													son3_list.push(son3);
 												}
 											}
 											nest_node = {
-												node_id:node2.node_id,
-												node_name:node2.node_name,
-												node_type:node2.node_type,
-												node_son:son3_list
+												node_id: node2.node_id,
+												node_name: node2.node_name,
+												node_type: node2.node_type,
+												node_son: son3_list
 											};
 											list.push(nest_node);
 											//单个课程
-										}else{
-											coursecom[k] = coursecom[k].replace(" ","");
-											if (status[coursecom[k]] !== true){
-												node2 = {node_id:id_num, node_name:coursecom[k], node_type:3};
+										} else {
+											coursecom[k] = coursecom[k].replace(" ", "");
+											if (status[coursecom[k]] !== true) {
+												node2 = {node_id: id_num, node_name: coursecom[k], node_type: 4};
 												node_list.push(node2);
 												id_num++;
 												status[coursecom[k]] = true;
-												son2 = {node_id:node2.node_id, node_name:node2.node_name};
+												son2 = {node_id: node2.node_id, node_name: node2.node_name};
 												son2_list.push(son2);
 
-											}else{
-												for (var p=0; p<node_list.length; p++){
-													if (coursecom[k] === node_list[p].node_name){
+											} else {
+												for (var p = 0; p < node_list.length; p++) {
+													if (coursecom[k] === node_list[p].node_name) {
 														break;
 													}
-													son2 = {node_id:node_list[p].node_id, node_name:node_list[p].node_name};
+													son2 = {
+														node_id: node_list[p].node_id,
+														node_name: node_list[p].node_name
+													};
 													son2_list.push(son2);
 												}
 											}
 										}
 									}
 									nest_node = {
-										node_id:node.node_id,
-										node_name:node.node_name,
-										node_type:node.node_type,
-										node_son:son2_list
+										node_id: node.node_id,
+										node_name: node.node_name,
+										node_type: node.node_type,
+										node_son: son2_list
 									};
 									list.push(nest_node);
 									//单个课程
-								}else{
-									if(status[coursecom] !== true){
-										node = {node_id:id_num, node_name:coursecom, node_type:3};
+								} else {
+									if (status[coursecom] !== true) {
+										node = {node_id: id_num, node_name: coursecom, node_type: 4};
 										node_list.push(node);
 										id_num++;
 										status[coursecom] = true;
-										son = {node_id:node.node_id, node_name:node.node_name};
+										son = {node_id: node.node_id, node_name: node.node_name};
 										son_list.push(son);
-									}else{
-										for (var k=0; k<node_list.length; k++){
-											if (node_list[k].node_name === coursecom){
+									} else {
+										for (var k = 0; k < node_list.length; k++) {
+											if (node_list[k].node_name === coursecom) {
 												break;
 											}
 										}
-										son = {node_id:node_list[k].node_id, node_name:node_list[k].node_name};
+										son = {node_id: node_list[k].node_id, node_name: node_list[k].node_name};
 										son_list.push(son);
 									}
 								}
 								l = l + 1;
-							}else{
+							} else {
 								q.push(s[l]);
 							}
-						}else if (s[l] === "("){
+						} else if (s[l] === "(") {
 							parentheses++;
 							q.push(s[l]);
-						}else if (s[l] === ")"){
+						} else if (s[l] === ")") {
 							parentheses--;
 							q.push(s[l]);
-						}else if (s[l] === " "){
-							if (parentheses !== 0){
+						} else if (s[l] === " ") {
+							if (parentheses !== 0) {
 								q.push(s[l]);
 							}
-						}else {
+						} else {
 							q.push(s[l]);
 						}
 					}
 					nest_node = {
-						node_id:node_list[i-1].node_id,
-						node_name:node_list[i-1].node_name,
-						node_type:node_list[i-1].node_type,
-						node_son:son_list
+						node_id: node_list[i - 1].node_id,
+						node_name: node_list[i - 1].node_name,
+						node_type: node_list[i - 1].node_type,
+						node_son: son_list
 					};
 					list.push(nest_node);
 				}
 			}
 		}
+
+
 		var List = [];
-		for (var i=0; i<list.length; i++){
+		var courses = [];
+		var courses_name = [];
+		var courses_exsitence = [];
+		var noexistence_courses = [];
+		var pre_courses = [];
+		var course_plus_precourse;
+		for (var i = 0; i < list.length; i++) {
 			List.push(list[i]);
 		}
-		for (var i=0; i<node_list.length; i++){
-			List.push(node_list[i]);
+		for (var i = 0; i < node_list.length; i++) {
+			if (node_list[i].node_type !== 4) {
+				List.push(node_list[i]);
+			} else {
+				courses.push(node_list[i]);
+				courses_name.push(node_list[i].node_name);
+			}
 		}
-		return JSON.stringify(List);
+
+
+		courses_exsitence = check_course_existence(courses_name);
+
+		/*
+		for (var i=0; i<courses.length; i++){
+			courses_exsitence[i] = true;
+		}
+		courses_exsitence[10] = false;
+		*/
+		for (var i = 0; i < courses_exsitence.length; i++) {
+			if (courses_exsitence[i] === false) {
+				noexistence_courses.push(courses_name[i]);
+			}
+		}
+		if (noexistence_courses.length !== 0) {
+			console.log(noexistence_courses);
+		} else {
+			pre_courses = get_Pre_course(courses_name);
+			/*
+			for (var i=0; i<courses.length; i++){
+				pre_courses[i] = [{"main": "CS201", "pre": "CS101", "type": "1"},
+					{"main": "CS201", "pre": "CS103", "type": "1"},
+					{"main": "CS201", "pre": "CS104", "type": "2"}]};
+			}
+			*/
+			for (var i = 0; i < pre_courses.length; i++) {
+				course_plus_precourse = {
+					node_id: courses[i].node_id,
+					node_name: courses[i].node_name,
+					node_type: courses[i].node_type,
+					node_pre: pre_courses[i]
+				};
+				List.push(course_plus_precourse);
+			}
+
+			return JSON.stringify(List);
+		}
+	}
+
+	function check_course_existence(courses) {
+		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_check_courses_existence';
+		var postData = {
+			csrfToken: GlobalVariables.csrfToken,
+			courses_arr:JSON.stringify(courses)
+		};
+		$.post(posturl, postData, function (response) {
+			if(!GeneralFunctions.handleAjaxExceptions(response)){
+				return;
+			}
+			return response;
+			//console.log(response);
+		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+	}
+	function get_Pre_course(courses) {
+		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_find_courses_Pre-course';
+		var postData = {
+			csrfToken: GlobalVariables.csrfToken,
+			courses_arr:JSON.stringify(courses)
+		};
+		$.post(posturl, postData, function (response) {
+			if(!GeneralFunctions.handleAjaxExceptions(response)){
+				return;
+			}
+			return response;
+			//console.log(response);
+		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 	}
 	/**
 	 * @return {string}
@@ -542,7 +634,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		r.overrideMimeType("text/html;charset=utf-8");
 		r.send(null);
 		return r.status === okStatus ? r.responseText : null;
-	};
+	}
 	function Remove_parentheses(str) {
 		//remove "(" and ")" in the left side and right side
 		var s1 = str.split("");
@@ -625,8 +717,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			return true;
 		}
 	}
-
-
 
 })(window.MatryonaTranslateClass);
 
