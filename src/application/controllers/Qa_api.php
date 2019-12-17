@@ -452,7 +452,7 @@ class Qa_api extends CI_Controller{
             $result = AJAX_FALSE;
 
             if($user_id){
-                $result = admin_change_faq_mark($question_id, $mark, $user_id);
+                $result = $this->qa_model->admin_change_faq_mark($question_id, $mark, $user_id);
             }
             $this->output
                 ->set_content_type('application/json')

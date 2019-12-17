@@ -323,6 +323,16 @@
 			];
 			GeneralFunctions.displayMessageBox(SCLang.delete_question_title, SCLang.delete_question_message, buttons);
 		});
+		
+		/**
+		 * change faq button
+		 */
+		$('.change_faq').click(function() {
+			instance.changeFaq(
+				$('#question-id').val(),
+				$('.change_faq').hasClass('selected') ? 0 : 1
+			);
+		});
 	};
 
 	//	Additional Methods
@@ -570,6 +580,12 @@
 		}
 		if (basicInfo.can_be_deleted !== 1) {
 			$('.delete_question').hide();
+		}
+		if (GlobalVariables.role.indexOf('admin') === -1) {
+			$('.change_faq').hide();
+		}
+		if (basicInfo.faq === '1') {
+			$('.change_faq').addClass('selected');
 		}
 		$('.question-description').html(basicInfo.description);
 		//	display labels
@@ -825,6 +841,38 @@
 				window.location.href = GlobalVariables.main_page_url;
 			} else if (response === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_delete_question_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+    
+	/**
+     * Delete Reply
+     */
+    QaHelper.prototype.changeFaq = function (question_id, faq) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/qa_api/ajax_admin_change_faq_mark';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			question_id: question_id,
+			mark: faq
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_change_faq_success, 'success', 6000);
+				$('.change_faq').toggleClass('selected');
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.qa_change_faq_failure, 'danger', 6000);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
 			}

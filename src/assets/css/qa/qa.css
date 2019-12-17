@@ -148,7 +148,8 @@
 	text-transform: uppercase;
 	transition: all 0.3s;
 }
-.top-bar a:hover, .top-bar a:focus {
+.top-bar a:hover,
+.change_faq.selected {
 	background-color: #b04b4b;
 	color: #fff;
 	padding: 5px 10px;
