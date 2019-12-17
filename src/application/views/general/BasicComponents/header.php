@@ -14,7 +14,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1" />
 	<!-- Additional Info of the page -->
 	<meta name="Keywords" content="SUSTech, SUSMusic, Courschemaster, OOAD" />
-	<meta name="Description" content="An OOAD Project for SUSTech_2017 - SUSMusic-Courschemaster Team" />
+	<meta name="Description" content="An OOAD Project for SUSTech_2017 - SUSMusic x Courschemaster Team" />
 	<!-- Robots are for web crawling maybe... -->
 	<meta name="Robots" content="index,follow" />
 	<meta name="Author" content="SUSMusic x Courschemaster Team" />
@@ -26,7 +26,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	
 	
 	<!-- Title -->
-	<title>Welcome&nbsp;|&nbsp;Courschemaster</title>
+	<title>Courschemaster</title>
 	
 	
 	
@@ -51,6 +51,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bs-stepper/dist/css/bs-stepper.min.css', NULL, 'css') ?>" />
 	<!-- Pagination.js -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/paginationjs/dist/pagination.css', NULL, 'css') ?>" />
+	<!-- Prism -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/prism/prism.css', NULL, 'css') ?>" />
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-------------------------------------------------------------------------------------------------------->
 	
@@ -87,6 +89,8 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/momentjs/moment-with-locales.js', NULL, 'js') ?>"></script>
 	<!-- Pagination.js -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/paginationjs/dist/pagination.min.js', NULL, 'js') ?>"></script>
+	<!-- Prism -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/prism/prism.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
 	
@@ -167,9 +171,15 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<div id="notification"></div>
 
 	<!-- Later: loading icon -->
-	<div id="loading" style="display: none;">
-		<div class="any-element animation is-loading">
-			&nbsp;
+	<div id="loading">
+		<div class="spinner-grow text-danger" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+		<div class="spinner-grow text-warning" role="status">
+			<span class="sr-only">Loading...</span>
+		</div>
+		<div class="spinner-grow text-info" role="status">
+			<span class="sr-only">Loading...</span>
 		</div>
 	</div>
 	
