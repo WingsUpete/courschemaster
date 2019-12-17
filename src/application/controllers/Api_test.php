@@ -11,7 +11,26 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_get_my_learned();
+        $this->test_get_pdf_by_user_id();
+        
+    }
+
+    public function test_get_pdf_by_user_id(){
+        $language = 'english';
+        $user_id = $this->session->userdata('user_id');
+        $result = $this->courschemas_model->get_pdf_by_user_id($language, $user_id);
+        foreach($result AS $k => $v){
+            echo $k . ' => ' . $v . '<br />';
+        }
+    }
+
+    public function test_get_pdf_by_id(){
+        $language = 'english';
+        $courschema_id = 1;
+        $result = $this->courschemas_model-> get_pdf_by_id($language, $courschema_id);
+        foreach($result AS $k => $v){
+            echo $k . ' => ' . $v . '<br />';
+        }
     }
 
     public function test_get_my_learned(){
