@@ -43,6 +43,7 @@ class Qa extends CI_Controller{
         // }
         $view_data = array();
         $view_data['qid'] = $question_id;
+        $view_data['role'] = $this->session->userdata('role');
         $this->load_comb_views($view_data, 'qa/question');
     }
 
