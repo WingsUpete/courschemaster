@@ -34,13 +34,11 @@ class Current_courschema_api extends CI_Controller{
     public function ajax_get_pdf(){
         try{
 
-            $courschema_id = json_deocde($this->input->post('courschema_id'));
-
-            $result = $this->courschemas_model->get_pdf($language, $courschema_id);
+            $result = $this->courschemas_model->get_pdf_by_user_id($language, $courschema_id);
 
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode(asset_url('data/courschema_pdf/'.$result)));
+                ->set_output(json_encode($result));
         }catch(Exception $exc){
             $this->output
                 ->set_content_type('application/json')
