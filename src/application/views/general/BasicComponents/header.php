@@ -46,6 +46,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<!-- MDB -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/mdb.min.css', NULL, 'css') ?>" />
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/addons/datatables.min.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/mdbootstrap/css/modules/animations-extended.min.css', NULL, 'css') ?>" />
 	<!-- bs-stepper -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bs-stepper/dist/css/bs-stepper.min.css', NULL, 'css') ?>" />
 	<!-- Pagination.js -->
