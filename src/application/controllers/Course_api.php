@@ -10,6 +10,7 @@ class Course_api extends CI_Controller{
 		}
 		$this->load->library('session');
 		$this->load->model('course_model');
+
 	}
 
 	/**
@@ -152,7 +153,7 @@ class Course_api extends CI_Controller{
 	 */
 	public function ajax_get_all_course_info(){
 		try{
-
+			$language = $this->session->userdata('language');
 			$result = $this->course_model->get_all_course_info($language);
 
 			$this->output
