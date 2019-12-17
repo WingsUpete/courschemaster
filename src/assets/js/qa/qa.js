@@ -32,10 +32,10 @@ window.Qa = window.Qa || {};
 		// Initializations
 		if (questionPage) {
 			helper.getTags();
-			initRecommendBox();
+			Qa.initRecommendBox();
 			setInterval(function() {
 				//	refresh every 60s
-				initRecommendBox();
+				Qa.initRecommendBox();
 			}, 60000);
 		} else {
 			helper.retrieveQuestionDetails(GlobalVariables.qid);
@@ -68,18 +68,18 @@ window.Qa = window.Qa || {};
         helper.bindEventHandlers();
     }
 	
-	function initRecommendBox() {
+	exports.initRecommendBox = function() {
 		var type_faq = 'faqs';
 		var type_lq = 'latestQuestions';
 		var type_mq = 'myQuestions';
 		$('#faq_pagination, #faq_contents').html('');
 		$('#lq_pagination, #lq_contents').html('');
 		$('#mq_pagination, #mq_contents').html('');
-		$.when(helper.getFaqs()).then(function() {
-			Qa.initQuestionPagination($('#faq_pagination'), $('#faq_contents'), type_faq);
-		});
 		$.when(helper.getLatestQuestions(50)).then(function() {
 			Qa.initQuestionPagination($('#lq_pagination'), $('#lq_contents'), type_lq);
+		});
+		$.when(helper.getFaqs()).then(function() {
+			Qa.initQuestionPagination($('#faq_pagination'), $('#faq_contents'), type_faq);
 		});
 		$.when(helper.getMyQuestions()).then(function() {
 			Qa.initQuestionPagination($('#mq_pagination'), $('#mq_contents'), type_mq);
