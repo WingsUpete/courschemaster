@@ -1,0 +1,20 @@
+/* CSS Document */
+.add {
+	margin: 0 0 2px 0;
+	background-color: #b04b4b;
+	color: #fff;
+	padding-left: 16px!important;
+	padding-right: 16px!important;
+	border-radius: 6px;
+}
+.add:hover {
+	color: #fff;
+}
+#upload-file {
+	cursor: pointer;
+	transition: all 0.3s;
+}
+#upload-file:hover {
+	background-color: #b04b4b;
+	color: #fff;
+}

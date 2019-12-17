@@ -443,11 +443,11 @@ a {
 	color: #a0a6ab;
 }
 .md-form.md-outline .prefix.active,
-.md-form.md-outline input[type="text"]:focus:not([readonly]) + label,
+.md-form.md-outline input:focus:not([readonly]) + label,
 .md-form.md-outline textarea:focus:not([readonly]) + label {
 	color: #b04b4b!important;
 }
-.md-form.md-outline input[type="text"]:focus:not([readonly]),
+.md-form.md-outline input:focus:not([readonly]),
 .md-form.md-outline textarea:focus:not([readonly]) {
 	border-color: #b04b4b!important;
 	box-shadow: inset 0 0 0 1px #b04b4b!important;
@@ -487,3 +487,36 @@ a {
 }
 
 
+
+
+
+
+
+/* Courses Datatable */
+.table-responsive::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+	transition: all 0.2s;
+}
+.table-responsive::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	transition: all 0.2s;
+}
+.table-responsive::-webkit-scrollbar-thumb {
+	background-color: gray;
+	outline: 1px solid gray;
+	border-radius: 20px;
+	transition: 0.2s;
+}
+.table-responsive table thead {
+	background-color: #b04b4b;
+	color: #fff;
+	border-color: #a14b4b;
+}
+.table-responsive table tbody {
+	background-color: rgba(255, 255, 255, 0.5);
+}
+.table-responsive table tbody tr {
+	cursor: pointer;
+}

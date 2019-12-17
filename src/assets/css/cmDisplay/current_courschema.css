@@ -53,27 +53,3 @@ iframe#cc-pdf-window:hover, iframe#cc-pdf-window:focus {
 
 
 
-
-
-/* List - Courses Datatable */
-.table-responsive::-webkit-scrollbar {
-    width: 0.6em;
-    height: 0.6em;
-	transition: all 0.2s;
-}
-.table-responsive::-webkit-scrollbar-track {
-    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
-	transition: all 0.2s;
-}
-.table-responsive::-webkit-scrollbar-thumb {
-	background-color: gray;
-	outline: 1px solid gray;
-	border-radius: 20px;
-	transition: 0.2s;
-}
-#courses-datatable thead {
-	background-color: #b04b4b;
-	color: #fff;
-	border-color: #a14b4b;
-}
