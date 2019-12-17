@@ -469,6 +469,7 @@ class Qa_model extends CI_Model{
         }
         $rtn_array['info'] = $this->db
             ->select('
+                qa_questions.faq_mark       AS faq,
                 qa_questions.id             AS id,
                 qa_questions.title          AS title,
                 qa_questions.description    AS description,
