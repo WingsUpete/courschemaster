@@ -175,6 +175,25 @@ header .language#lang_chzn {
 
 
 
+/* Loading Ajax Spinner */
+#loading {
+	display: none;
+	position: fixed;
+	z-index: 99999;
+	top: 50%;
+	left: 50%;
+	transform: translate(-50%, -50%);
+	transition: all 0.3s;
+}
+#loading .spinner-grow {
+	margin: 0 3px;
+}
+
+
+
+
+
+
 /* SIDEBAR */
 #main-block {
 	position: relative;

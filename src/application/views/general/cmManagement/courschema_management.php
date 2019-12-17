@@ -14,5 +14,11 @@
 	<h1 class="hide-for-now">Courschema Management</h1>
 	<hr class="hide-for-now" />
 	<!-- ... -->
-	
+	<pre>
+		<code class="language-css" contenteditable="true">
+			p {
+				color: red;
+			}
+		</code>
+	</pre>
 </div>
