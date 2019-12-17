@@ -3,6 +3,26 @@
 class Plans_model extends CI_Model{
 
 	/**
+	 * this method is used to delete one course record from a plan
+	 *
+	 * @param $plan_id: the id of the plan
+	 * @param $course_id: the id of the course
+	 * @return bool: successfully or not
+	 */
+	public function remove_from_my_plan($plan_id, $course_id){
+		try{
+			$this->db
+				->where('cm_plans_courses.id_plans', $plan_id)
+				->where('cm_plans_courses.id_courses', $course_id)
+				->delete('cm_plans_courses');
+
+			return True;
+		}catch (Exception $exc){
+			return False;
+		}
+	}
+
+	/**
 	 * This method is used to get all plans info for a user
 	 *
 	 * @param $user_id: the user id
@@ -63,7 +83,8 @@ class Plans_model extends CI_Model{
 
 				}
 
-				$result[$plan['name']] = $courses;
+				$result[$plan['name']]['courses'] = $courses;
+				$result[$plan['name']]['plan_id'] = $plan['id'];
 			}
 		}else{
 			foreach ($plans as $plan) {
@@ -112,9 +133,6 @@ class Plans_model extends CI_Model{
 				$result[$plan['name']] = $courses;
 			}
 		}
-
-
-		print_r($result);
 
 		return $result;
 

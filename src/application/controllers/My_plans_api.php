@@ -33,6 +33,28 @@ class My_plans_api extends CI_Controller{
 		}
 	}
 
+	/**
+	 * this ajax is used to remove one course from a plan
+	 */
+	public function ajax_remove_from_my_plan(){
+		try{
+			$user_id = $this->session->userdata('user_id');
+			$plan_id = json_decode($this->input->post('plan_id'));
+			$course_id = json_decode($this->input->post('course_id'));
+
+			$result = $this->plans_model->remove_from_my_plan($user_id, $plan_id, $course_id);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
 
 
 }
