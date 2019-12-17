@@ -365,6 +365,9 @@ footer ul {
 	user-select: none;
 	transition: all 0.3s;
 }
+footer ul li {
+	line-height: 1.8;
+}
 footer ul#power_copyright {
 	text-align: left;
 }
@@ -373,7 +376,15 @@ footer ul#support_info {
 	text-align: right;
 }
 footer ul#support_info #footer_QA {
-	text-decoration: underline;
+	border: 2px solid #fff;
+	padding: 0 10px;
+	border-radius: 6px;
+	transition: all 0.3s;
+}
+footer ul#support_info #footer_QA:hover, 
+footer ul#support_info #footer_QA:focus {
+	background-color: #fff;
+	color: black;
 }
 footer #admin_phone_number {
 	user-select: text;

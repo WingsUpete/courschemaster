@@ -15,7 +15,7 @@ window.Initialize = window.Initialize || {};
 	
 
 	$(document).ready(function() {
-//		$('[data-toggle="tooltip"]').tooltip();
+		$('[data-toggle="tooltip"]').tooltip();
 		
 		window.console = window.console || function () {
 		}; // IE compatibility

@@ -513,6 +513,8 @@
 					obj.restoreTag($(tagEl));
 				});
 				$('#ask_question_title, #ask_question_description').trigger('keyup');
+				Qa.initRecommendBox();
+				$('#recommend-box-myqs').click();
 			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.qa_post_question_failure, 'danger', 6000);
 			} else {

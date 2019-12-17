@@ -81,10 +81,10 @@
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs" id="recommend-box" role="tablist">
 							<li class="nav-item">
-								<a class="nav-link font-weight-bold active" id="recommend-box-faqs" data-toggle="tab" title="Events" href="#recommend-box-faqs-content" role="tab" aria-controls="recommend-box-faqs-content" aria-selected="true"><?= lang('faqs') ?></a>
+								<a class="nav-link font-weight-bold active" id="recommend-box-lqs" data-toggle="tab" title="Courses" href="#recommend-box-lqs-content" role="tab" aria-controls="recommend-box-lqs-content" aria-selected="false"><?= lang('latest_questions') ?></a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link font-weight-bold" id="recommend-box-lqs" data-toggle="tab" title="Courses" href="#recommend-box-lqs-content" role="tab" aria-controls="recommend-box-lqs-content" aria-selected="false"><?= lang('latest_questions') ?></a>
+								<a class="nav-link font-weight-bold" id="recommend-box-faqs" data-toggle="tab" title="Events" href="#recommend-box-faqs-content" role="tab" aria-controls="recommend-box-faqs-content" aria-selected="true"><?= lang('faqs') ?></a>
 							</li>
 							<li class="nav-item<?= $logged_in == 'true' ? '' : ' disabled' ?>">
 								<a class="nav-link font-weight-bold" id="recommend-box-myqs" data-toggle="tab" title="Courses" href="#recommend-box-myqs-content" role="tab" aria-controls="recommend-box-myqs-content" aria-selected="false"><?= lang('my_questions') ?></a>
@@ -93,13 +93,13 @@
 					</div>
 					<div class="card-body">
 						<div class="tab-content" id="recommend-box-content">
-							<div class="tab-pane fade show active" id="recommend-box-faqs-content" role="tabpanel" aria-labelledby="recommend-box-faqs">
-								<div class="list-group" id="faq_contents"></div>
-								<div id="faq_pagination"></div>
-							</div>
-							<div class="tab-pane fade" id="recommend-box-lqs-content" role="tabpanel" aria-labelledby="recommend-box-lqs">
+							<div class="tab-pane fade show active" id="recommend-box-lqs-content" role="tabpanel" aria-labelledby="recommend-box-lqs">
 								<div class="list-group" id="lq_contents"></div>
 								<div id="lq_pagination"></div>
+							</div>
+							<div class="tab-pane fade" id="recommend-box-faqs-content" role="tabpanel" aria-labelledby="recommend-box-faqs">
+								<div class="list-group" id="faq_contents"></div>
+								<div id="faq_pagination"></div>
 							</div>
 							<div class="tab-pane fade" id="recommend-box-myqs-content" role="tabpanel" aria-labelledby="recommend-box-myqs">
 								<div class="list-group" id="mq_contents"></div>
