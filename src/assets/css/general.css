@@ -520,3 +520,27 @@ a {
 .table-responsive table tbody tr {
 	cursor: pointer;
 }
+
+
+
+
+
+
+
+/* modal scrollbar */
+.modal .modal-body::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+	transition: all 0.2s;
+}
+.modal .modal-body::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	transition: all 0.2s;
+}
+.modal .modal-body::-webkit-scrollbar-thumb {
+	background-color: gray;
+	outline: 1px solid gray;
+	border-radius: 20px;
+	transition: 0.2s;
+}
