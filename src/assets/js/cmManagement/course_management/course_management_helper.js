@@ -11,6 +11,7 @@
      */
     function CourseManagementHelper() {
         this.courses = {};
+		this.timeOutVars = {};
     }
 
     /**
@@ -33,171 +34,27 @@
 			$('#courseWindow').modal('show');
 		});
 		
-		//	code
-		var t_code = null;
-		$('#course_code').on('keyup', function() {
-			if (t_code) {
-				clearTimeout(t_code);
-			}
-			var obj = $(this);
-			t_code = setTimeout(function() {
-				if (!GeneralFunctions.checkEmpty(obj)) {
-					return;
+		//	input validators
+		$.each(GlobalVariables.course_info, function(index, course) {
+			instance.timeOutVars[course[0]] = null;
+			$('#' + course[0]).on('keyup', function() {
+				if (instance.timeOutVars[course[0]]) {
+					clearTimeout(instance.timeOutVars[course[0]]);
 				}
-				//	true
-				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-			}, 300);
-		}).trigger('keyup');
-		//	chinese name
-		var t_chn = null;
-		$('#course_chinese_name').on('keyup', function() {
-			if (t_chn) {
-				clearTimeout(t_chn);
-			}
-			var obj = $(this);
-			t_chn = setTimeout(function() {
-				if (!GeneralFunctions.checkEmpty(obj)) {
-					return;
-				}
-				//	true
-				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-			}, 300);
-		}).trigger('keyup');
-		//	english name
-		var t_enn = null;
-		$('#course_english_name').on('keyup', function() {
-			if (t_enn) {
-				clearTimeout(t_enn);
-			}
-			var obj = $(this);
-			t_enn = setTimeout(function() {
-				if (!GeneralFunctions.checkEmpty(obj)) {
-					return;
-				}
-				//	true
-				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-			}, 300);
-		}).trigger('keyup');
-		//	english name
-		var t_ctc = null;
-		$('#course_total_credit').on('keyup', function() {
-			if (t_ctc) {
-				clearTimeout(t_ctc);
-			}
-			var obj = $(this);
-			t_ctc = setTimeout(function() {
-				if (!GeneralFunctions.checkEmpty(obj)) {
-					return;
-				}
-				//	true
-				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-			}, 300);
-		}).trigger('keyup');
-		//	english name
-		var t_cec = null;
-		$('#course_experiment_credit').on('keyup', function() {
-			if (t_cec) {
-				clearTimeout(t_cec);
-			}
-			var obj = $(this);
-			t_cec = setTimeout(function() {
-				if (!GeneralFunctions.checkEmpty(obj)) {
-					return;
-				}
-				//	true
-				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-			}, 300);
-		}).trigger('keyup');
-		//	english name
-		var t_cwp = null;
-		$('#course_weekly_period').on('keyup', function() {
-			if (t_cwp) {
-				clearTimeout(t_cwp);
-			}
-			var obj = $(this);
-			t_cwp = setTimeout(function() {
-				if (!GeneralFunctions.checkEmpty(obj)) {
-					return;
-				}
-				//	true
-				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-			}, 300);
-		}).trigger('keyup');
-		//	english name
-		var t_cs = null;
-		$('#course_semester').on('keyup', function() {
-			if (t_cs) {
-				clearTimeout(t_cs);
-			}
-			var obj = $(this);
-			t_cs = setTimeout(function() {
-				if (!GeneralFunctions.checkEmpty(obj)) {
-					return;
-				}
-				//	true
-				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-			}, 300);
-		}).trigger('keyup');
-//		//	english name
-//		var t_ctc = null;
-//		$('#course_total_credit').on('keyup', function() {
-//			if (t_ctc) {
-//				clearTimeout(t_ctc);
-//			}
-//			var obj = $(this);
-//			t_ctc = setTimeout(function() {
-//				if (!GeneralFunctions.checkEmpty(obj)) {
-//					return;
-//				}
-//				//	true
-//				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-//			}, 300);
-//		}).trigger('keyup');
-//		//	english name
-//		var t_ctc = null;
-//		$('#course_total_credit').on('keyup', function() {
-//			if (t_ctc) {
-//				clearTimeout(t_ctc);
-//			}
-//			var obj = $(this);
-//			t_ctc = setTimeout(function() {
-//				if (!GeneralFunctions.checkEmpty(obj)) {
-//					return;
-//				}
-//				//	true
-//				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-//			}, 300);
-//		}).trigger('keyup');
-//		//	english name
-//		var t_ctc = null;
-//		$('#course_total_credit').on('keyup', function() {
-//			if (t_ctc) {
-//				clearTimeout(t_ctc);
-//			}
-//			var obj = $(this);
-//			t_ctc = setTimeout(function() {
-//				if (!GeneralFunctions.checkEmpty(obj)) {
-//					return;
-//				}
-//				//	true
-//				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-//			}, 300);
-//		}).trigger('keyup');
-//		//	english name
-//		var t_ctc = null;
-//		$('#course_total_credit').on('keyup', function() {
-//			if (t_ctc) {
-//				clearTimeout(t_ctc);
-//			}
-//			var obj = $(this);
-//			t_ctc = setTimeout(function() {
-//				if (!GeneralFunctions.checkEmpty(obj)) {
-//					return;
-//				}
-//				//	true
-//				obj.removeClass('is-valid, is-invalid').addClass('is-valid');
-//			}, 300);
-//		}).trigger('keyup');
+				var obj = $(this);
+				instance.timeOutVars[course[0]] = setTimeout(function() {
+					if (!GeneralFunctions.checkEmpty(obj)) {
+						return;
+					}
+					//	true
+					obj.removeClass('is-valid, is-invalid').addClass('is-valid');
+				}, 300);
+			}).trigger('keyup');
+		});
+		
+		$('#add-course-submit').click(function() {
+			alert('fuck');
+		});
 		
 	};
 
@@ -207,7 +64,7 @@
      * clear modal inputs
      */
     CourseManagementHelper.prototype.resetModal = function () {
-		$('#courseWindow').find('input, textarea').val('');
+		$('#courseWindow').find('input, textarea').val('').trigger('keyup');
     };
 	
 	/**

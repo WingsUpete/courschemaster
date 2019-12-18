@@ -51,7 +51,7 @@ window.CourseManagement = window.CourseManagement || {};
 	
 	exports.initialize_courses = function () {
 		datatable = $('#courses-datatable').DataTable({
-			"autoWidth": true,
+			"autoWidth": false,
 			"initComplete": function(settings, json) {
 				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
 			},
@@ -78,7 +78,14 @@ window.CourseManagement = window.CourseManagement || {};
 				callback({
 					data: dataArray
 				});
-			}
+			},
+//			"columns": [
+//				{"visible": false},
+//				null,
+//				null,
+//				null,
+//				null
+//			]
 		});
 	};
 
