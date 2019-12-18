@@ -1,0 +1,9 @@
+/* CSS Document */
+#upload-file {
+	cursor: pointer;
+	transition: all 0.3s;
+}
+#upload-file:hover {
+	background-color: #b04b4b;
+	color: #fff;
+}
