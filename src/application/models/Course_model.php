@@ -6,6 +6,93 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 
 class Course_model extends CI_Model{
 
+	/**
+	 * this method is used to query all the course complete information
+	 *
+	 * @return mixed: the query result
+	 */
+	public function get_all_course_full_info(){
+
+		$result = $this->db
+			->select('cm_courses.id AS course_id, 
+				cm_courses.name AS course_cn_name,
+				cm_courses.en_name AS course_en_name, 
+				cm_courses.code AS course_code,
+				cm_departments.code AS department_code,
+				cm_departments.name AS department_cn_name,
+				cm_departments.en_name AS department_en_name,
+				cm_courses.credit AS total_credit, 
+				cm_courses.experiment_credit AS exp_credit,
+				cm_courses.weekly_period AS weekly_period,
+				cm_courses.semester AS semester,
+				cm_courses.language AS language,
+				cm_courses.description_cn AS cn_description,
+				cm_courses.description_en AS en_description,
+				cm_courses.prerequisite_logic AS pre_logic
+				')
+			->from('cm_courses')
+			->join('cm_departments', 'cm_departments.id = cm_courses.id_departments')
+			->get()->result_array();
+
+		for ($i = 0; $i<sizeof($result); $i++){
+			//semester
+			$en_semester = '';
+			$cn_semester = '';
+			if(strpos($result[$i]['semester'], '2') !== false){
+				$en_semester = $en_semester.'spring; ';
+				$cn_semester = $cn_semester.'春；';
+			}
+			if(strpos($result[$i]['semester'], '1') !== false){
+				$en_semester = $en_semester.'fall; ';
+				$cn_semester = $cn_semester.'秋；';
+			}
+			if(strpos($result[$i]['semester'], '3') !== false){
+				$en_semester = $en_semester.'summer; ';
+				$cn_semester = $cn_semester.'夏；';
+			}
+			$result[$i]['en_semester'] = $en_semester;
+			$result[$i]['cn_semester'] = $cn_semester;
+
+			// language
+			$en_language = '';
+			$cn_language = '';
+			if(strpos($result[$i]['language'], 'C') !== false){
+				$en_language = $en_language.'Chinese; ';
+				$cn_language = $cn_language.'中文；';
+			}
+			if(strpos($result[$i]['language'], 'E') !== false){
+				$en_language = $en_language.'English; ';
+				$cn_language = $cn_language.'英文；';
+			}
+			if(strpos($result[$i]['language'], 'B') !== false){
+				$en_language = $en_language.'Both Chinese and English; ';
+				$cn_language = $cn_language.'中英文；';
+			}
+			$result[$i]['en_language'] = $en_language;
+			$result[$i]['cn_language'] = $cn_language;
+
+			// logic relationship
+			$logic = $this->db
+				->select('cm_courses.code AS pre_code,
+				cm_prerequisites.type AS pre_type')
+				->from('cm_prerequisites')
+				->join('cm_courses', 'cm_courses.id = cm_prerequisites.id_pre_course')
+				->where('cm_prerequisites.id_main_course', $result[$i]['course_id'])
+				->get()->result_array();
+
+			$result[$i]['pre_logic_relationship'] = $logic;
+		}
+
+		return $result;
+
+	}
+
+	/**
+	 * this method is used to query the pre course info for a course
+	 *
+	 * @param $code: the code of main course
+	 * @return mixed: the relationship between main and pre course
+	 */
 	public function query_course_pre($code){
 		$result = $this->db
 			->select('cm_courses.code AS main,

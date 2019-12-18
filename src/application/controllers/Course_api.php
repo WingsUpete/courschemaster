@@ -151,6 +151,24 @@ class Course_api extends CI_Controller{
 	/**
 	 * this method is used to get all the courses information to initialize the course management page
 	 */
+	public function ajax_get_all_course_full_info(){
+		try{
+			$result = $this->course_model->get_all_course_full_info();
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
+	/**
+	 * this method is used to get all the courses information to initialize the course management page
+	 */
 	public function ajax_get_all_course_info(){
 		try{
 			$language = $this->session->userdata('language');
