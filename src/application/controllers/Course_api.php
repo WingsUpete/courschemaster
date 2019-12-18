@@ -37,6 +37,8 @@ class Course_api extends CI_Controller{
 	 * this ajax is used to add one course to the database
 	 */
 	public function ajax_add_one_course(){
+		$msg = array();
+
 		try{
 			$name = json_decode($this->input->post('name'));
 
@@ -52,6 +54,11 @@ class Course_api extends CI_Controller{
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode(['messages' => 'the course code already in']));
+				$msg['status'] = 'fail';
+				$msg['message'] = 'the code of course already exists.';
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($msg));
 				return;
 			}
 
@@ -71,6 +78,11 @@ class Course_api extends CI_Controller{
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode(['messages' => 'the department code is not exist']));
+				$msg['status'] = 'fail';
+				$msg['message'] = 'the code of department not exists.';
+				$this->output
+					->set_content_type('application/json')
+					->set_output(json_encode($msg));
 				return;
 			}
 
@@ -137,14 +149,19 @@ class Course_api extends CI_Controller{
 				$credit, $exp_credit, $weekly_period,
 				$semester, $language, $description, $en_description, $pre_logic);
 
+			$msg['status'] = 'success';
+			$msg['message'] = 'add the course successfully.';
 			$this->output
 				->set_content_type('application/json')
-				->set_output(json_encode(['messages' => 'successfully']));
+				->set_output(json_encode($msg));
 
 		}catch (Exception $exc){
+			$msg['status'] = 'fail';
+			$msg['message'] = 'exception happens.';
+			$msg['exceptions'] = [exceptionToJavaScript($exc)];
 			$this->output
 				->set_content_type('application/json')
-				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+				->set_output(json_encode($msg));
 		}
 	}
 
