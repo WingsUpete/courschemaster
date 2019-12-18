@@ -37,10 +37,10 @@ window.Initialize = window.Initialize || {};
 		
 		//	Loading Icon will do their work on ajax
 		$(document).ajaxStart(function () {
-			$('#loading').show();
+			$('#loading').fadeIn();
 		});
 		$(document).ajaxStop(function () {
-			$('#loading').hide();
+			$('#loading').fadeOut();
 		});
 		
 		//	Navicon
