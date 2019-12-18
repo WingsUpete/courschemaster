@@ -63,6 +63,8 @@ window.CourseManagement = window.CourseManagement || {};
 			},
 			"ajax": function(data, callback, settings) {
 				var courses = helper.courses;
+//				console.log(courses);
+				
 				if (courses === undefined) {
 					callback({data:[]});
 				}
@@ -71,7 +73,30 @@ window.CourseManagement = window.CourseManagement || {};
 				var subArray = [];
 				for (var i = 0; i < courses.length; ++i) {
 					var course = courses[i];
-					subArray = [course.course_id, course.course_name, course.total_credit, course.weekly_period, course.department];
+					helper.courseMap[course.course_code] = course;
+					var lang = GlobalVariables.language;
+					var course_name = undefined;
+					var department = undefined;
+					var semester = undefined;
+					var language = undefined;
+					var description = undefined;
+					if (lang === 'english') {
+						course_name = course.course_en_name;
+						department = course.department_en_name;
+						description = course.en_description;
+						semester = course.en_semester;
+						language = course.en_language;
+					} else if (lang === '简体中文') {
+						course_name = course.course_cn_name;
+						department = course.department_cn_name;
+						description = course.cn_description;
+						semester = course.cn_semester;
+						language = course.cn_language;
+					}
+					subArray = [
+									course.course_code, course_name, course.total_credit, course.weekly_period, department,
+							   		semester, language, course.exp_credit, course.pre_logic, description
+							   ];
 					dataArray.push(subArray);
 				}
 				
@@ -79,13 +104,18 @@ window.CourseManagement = window.CourseManagement || {};
 					data: dataArray
 				});
 			},
-//			"columns": [
-//				{"visible": false},
-//				null,
-//				null,
-//				null,
-//				null
-//			]
+			"columns": [
+				null,
+				null,
+				null,
+				null,
+				null,
+				{"visible": false},
+				{"visible": false},
+				{"visible": false},
+				{"visible": false},
+				{"visible": false}
+			]
 		});
 	};
 

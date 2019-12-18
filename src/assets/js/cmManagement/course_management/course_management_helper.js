@@ -10,7 +10,8 @@
      * @class CourseManagementHelper
      */
     function CourseManagementHelper() {
-        this.courses = {};
+        this.courses = [];
+		this.courseMap = {};
 		this.timeOutVars = {};
     }
 
@@ -25,6 +26,7 @@
 		//	table row
 		$(document).on('click', '#courses-datatable tbody tr', function() {
 			instance.resetModal();
+			instance.loadModal($(this));
 			$('#courseWindow').modal('show');
 		});
 		
@@ -53,7 +55,16 @@
 		});
 		
 		$('#add-course-submit').click(function() {
-			alert('fuck');
+			if ($('#courseWindow').find('input, textarea').hasClass('is-invalid')) {
+				GeneralFunctions.displayMessageAlert(SCLang.invalid_feedback, 'danger', 6000);
+				return;
+			}
+			instance.addCourse(
+				$('#course_code').val(), $('#course_chinese_name').val(), $('#course_english_name').val(),
+				$('#course_department').val(), $('#course_total_credit').val(), $('#course_experiment_credit').val(),
+				$('#course_weekly_period').val(), $('#course_semester').val(), $('#course_language').val(),
+				$('#course_prelogic').val(), $('#course_prelogic').val(), $('#course_english_desciption').val()
+			);
 		});
 		
 	};
@@ -61,18 +72,11 @@
 	//	Additional Methods
 	
 	/**
-     * clear modal inputs
-     */
-    CourseManagementHelper.prototype.resetModal = function () {
-		$('#courseWindow').find('input, textarea').val('').trigger('keyup');
-    };
-	
-	/**
      * get details of a question
      */
     CourseManagementHelper.prototype.retrieveCourses = function () {
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/course_api/ajax_get_all_course_info';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/course_api/ajax_get_all_course_full_info';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
         };
@@ -87,6 +91,34 @@
 			obj.courses = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+	/**
+     * clear modal inputs
+     */
+    CourseManagementHelper.prototype.resetModal = function () {
+		$('#courseWindow').find('input, textarea').val('').trigger('keyup');
+    };
+	
+	/**
+     * load modal inputs
+     */
+    CourseManagementHelper.prototype.loadModal = function ($row) {
+		var course = this.courseMap[$row.find('td').first().html()];
+		$('#course_code').val(course.course_code);
+		$('#course_chinese_name').val(course.course_cn_name);
+		$('#course_english_name').val(course.course_en_name);
+		$('#course_department').val(course.department_code);
+		$('#course_total_credit').val(course.total_credit);
+		$('#course_experiment_credit').val(course.exp_credit);
+		$('#course_weekly_period').val(course.weekly_period);
+		$('#course_semester').val(course.semester);
+		$('#course_language').val(course.language);
+		$('#course_prelogic').val(course.pre_logic);
+		$('#course_description').val(course.cn_description);
+		$('#course_english_desciption').val(course.en_description);
+		$('#courseWindow').find('input, textarea').trigger('keyup');
+		$('#courseWindow').find('input + label, textarea + label').addClass('active');
     };
 	
 	/**
@@ -119,7 +151,31 @@
                 return;
             }
 			
-			obj.courses = response;
+			console.log(response);
+			
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.add_course_success, 'success', 6000);
+				var course = {
+					course_code: code,
+					course_cn_name: chz_name,
+					course_en_name: en_name,
+					department_code: department_code,
+					total_credit: total_credit,
+					exp_credit: exp_credit,
+					weekly_period: weekly_period,
+					semester: semester,
+					language: language,
+					pre_logic: pre_logic,
+					cn_description: description,
+					en_description: en_description
+				};
+				obj.courses.push(course);
+				obj.courseMap[code] = course;
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.add_course_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };

@@ -4,7 +4,8 @@
 <script>
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
-		baseUrl            : <?= json_encode($base_url) ?>
+		baseUrl            : <?= json_encode($base_url) ?>,
+		language           : '<?= $this->config->item('language') ?>'
 		//	course_info, find it elsewhere
     };
 
@@ -39,8 +40,8 @@
 			'Professional elective', 'General elective', 'Practice'
 		);
 		$course_table_headers = array(
-			lang('course_code'), lang('course_name'), lang('course_total_credit'), lang('course_weekly_period'), lang('course_department')
-//			'Semester', 'Language', 'Experimental Credit', 'Advanced Placement', 'Course Description'
+			lang('course_code'), lang('course_name'), lang('course_total_credit'), lang('course_weekly_period'), lang('course_department'),
+			lang('course_semester'), lang('course_language'), lang('course_experiment_credit'), lang('course_prelogic'), lang('course_description')
 		);
 	?>
 	<div class="table-responsive"><table id="courses-datatable" class="table table-bordered table-hover table-condensed text-center">
@@ -53,9 +54,6 @@
 				?>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr><?php echo('<td colspan="' . count($course_table_headers) . '" class="text-muted font-weight-bold">Click a course item to modify</td>'); ?></tr>
-		</tfoot>
 		<tbody></tbody>
 	</table></div>
 	<!-- courseWindow -->
@@ -63,7 +61,7 @@
 		<div class="modal-dialog modal-dialog-centered modal-lg side-modal modal-dialog-scrollable" role="document">
 			<div class="modal-content">
 				<div class="modal-header">
-					<h5 class="modal-title" id="courseWindowLabel">Handle Courses</h5>
+					<h5 class="modal-title" id="courseWindowLabel"><?= lang('details') ?></h5>
 					<button type="button" class="close" data-dismiss="modal" aria-label="Close">
 						<span aria-hidden="true">&times;</span>
 					</button>
@@ -82,7 +80,7 @@
 							array('course_semester', 'input', 'text', lang('course_semester')),
 							array('course_language', 'input', 'text', lang('course_language')),
 							array('course_prelogic', 'textarea', '2', lang('course_prelogic')),
-							array('course_description', 'textarea', '5', lang('course_description')),
+							array('course_description', 'textarea', '5', lang('course_cn_description')),
 							array('course_english_description', 'textarea', '5', lang('course_english_description')),
 						);
 					?>
