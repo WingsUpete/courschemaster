@@ -3,6 +3,61 @@
 class Plans_model extends CI_Model{
 
 	/**
+	 * this method is used to add a course to a plan
+	 *
+	 * @param $plan_id: the id of the plan
+	 * @param $course_id: the id of the course
+	 * @return array: the add movement result
+	 */
+	public function add_course_to_plan($plan_id, $course_id){
+		$msg = array();
+		$exits = $this->db
+			->select('*')
+			->from('cm_plans_courses')
+			->where('cm_plans_courses.id_plans', $plan_id)
+			->where('cm_plans_courses.id_courses', $course_id)
+			->get()->result_array();
+		if(sizeof($exits) > 0){
+			$msg['status'] = 'fail';
+			$msg['message'] = 'the course already exists in the plan.';
+			return $msg;
+		}
+
+		$exits = $this->db
+			->select('*')
+			->from('cm_plans')
+			->where('cm_plans.id', $plan_id)
+			->get()->result_array();
+		if(sizeof($exits) == 0){
+			$msg['status'] = 'fail';
+			$msg['message'] = 'the id of plan not exists.';
+			return $msg;
+		}
+
+		$exits = $this->db
+			->select('*')
+			->from('cm_courses')
+			->where('cm_courses.id', $course_id)
+			->get()->result_array();
+		if(sizeof($exits) == 0){
+			$msg['status'] = 'fail';
+			$msg['message'] = 'the id of course not exists.';
+			return $msg;
+		}
+
+		$data = array(
+			'id_plans' => $plan_id,
+			'id_courses' => $course_id
+		);
+
+		$this->db->insert('cm_plans_courses', $data);
+		$msg['status'] = 'success';
+		$msg['message'] = 'add the course to plan successfully.';
+		return $msg;
+
+	}
+
+	/**
 	 * this method is used to delete one course record from a plan
 	 *
 	 * @param $plan_id: the id of the plan
