@@ -151,9 +151,9 @@
                 return;
             }
 			
-			console.log(response);
+//			console.log(response.status === 'success');
 			
-			if (response === 'success') {
+			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.add_course_success, 'success', 6000);
 				var course = {
 					course_code: code,
@@ -171,8 +171,9 @@
 				};
 				obj.courses.push(course);
 				obj.courseMap[code] = course;
-			} else if (response === 'fail') {
+			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.add_course_failure, 'danger', 6000);
+				console.error(response.message);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
 			}
