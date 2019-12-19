@@ -126,17 +126,17 @@ class Course_api extends CI_Controller{
 			if ( (strpos($course_semester_temp, '2') !== false) or
 				(strpos($course_semester_temp, '春') !== false) or
 				(strpos($course_semester_temp, 'spring') !== false)){
-				$course_semester = $semester.'2; ';
+				$semester = $semester.'2; ';
 			}
 			if ( (strpos($course_semester_temp, '3') !== false) or
 				(strpos($course_semester_temp, '夏') !== false) or
 				(strpos($course_semester_temp, 'summer') !== false)){
-				$course_semester = $semester.'3; ';
+				$semester = $semester.'3; ';
 			}
 			if ( (strpos($course_semester_temp, '1') !== false) or
 				(strpos($course_semester_temp, '秋') !== false) or
 				(strpos($course_semester_temp, 'fall') !== false)){
-				$course_semester = $semester.'1; ';
+				$semester = $semester.'1; ';
 			}
 
 			$language = json_decode($this->input->post('language'));
@@ -146,18 +146,18 @@ class Course_api extends CI_Controller{
 				(strpos($course_language_temp, 'cn') !== false) or
 				(strpos($course_language_temp, 'C') !== false) or
 				(strpos($course_language_temp, 'chinese') !== false)){
-				$course_language = $language.'C; ';
+				$language = $language.'C; ';
 			}
 			if ( (strpos($course_language_temp, '英文') !== false) or
 				(strpos($course_language_temp, 'en') !== false) or
 				(strpos($course_language_temp, 'E') !== false) or
 				(strpos($course_language_temp, 'english') !== false)){
-				$course_language = $language.'E; ';
+				$language = $language.'E; ';
 			}
 			if ( (strpos($course_language_temp, '中英文') !== false) or
 				(strpos($course_language_temp, 'both') !== false) or
 				(strpos($course_language_temp, 'B') !== false)){
-				$course_language = $language.'B; ';
+				$language = $language.'B; ';
 			}
 
 			$description = json_decode($this->input->post('description'));
