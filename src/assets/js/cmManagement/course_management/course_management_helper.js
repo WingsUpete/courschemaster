@@ -63,7 +63,7 @@
 				$('#course_code').val(), $('#course_chinese_name').val(), $('#course_english_name').val(),
 				$('#course_department').val(), $('#course_total_credit').val(), $('#course_experiment_credit').val(),
 				$('#course_weekly_period').val(), $('#course_semester').val(), $('#course_language').val(),
-				$('#course_prelogic').val(), $('#course_prelogic').val(), $('#course_english_desciption').val()
+				$('#course_prelogic').val(), $('#course_description').val(), $('#course_english_description').val()
 			);
 		});
 		
@@ -116,7 +116,7 @@
 		$('#course_language').val(course.language);
 		$('#course_prelogic').val(course.pre_logic);
 		$('#course_description').val(course.cn_description);
-		$('#course_english_desciption').val(course.en_description);
+		$('#course_english_description').val(course.en_description);
 		$('#courseWindow').find('input, textarea').trigger('keyup');
 		$('#courseWindow').find('input + label, textarea + label').addClass('active');
     };
@@ -151,8 +151,6 @@
                 return;
             }
 			
-//			console.log(response.status === 'success');
-			
 			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.add_course_success, 'success', 6000);
 				var course = {
@@ -173,6 +171,7 @@
 				obj.courseMap[code] = course;
 			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.add_course_failure, 'danger', 6000);
+				alert('cao');
 				console.error(response.message);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
