@@ -14,6 +14,31 @@ class Course_api extends CI_Controller{
 	}
 
 	/**
+	 * this ajax is used to add courses by excel
+	 */
+	public function ajax_add_courses_by_excel(){
+		try{
+			$file = $_FILES['target_file'];
+			$name = $file['name'];
+			$temp_name = $file['tmp_name'];
+			$type = $file['type'];
+			$error = $file['error'];
+			$size = $file['size'];
+
+			$result = $this->course_model->add_course_record_by_excel($temp_name);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
+	/**
 	 * this ajax is used to delete one course by course code
 	 */
 	public function ajax_delete_one_course_by_course_code(){
