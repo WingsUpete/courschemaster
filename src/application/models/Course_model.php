@@ -487,23 +487,14 @@ class Course_model extends CI_Model{
 			->where('cm_courses.code', strtoupper($code))
 			->get();
 
-//		$query = $this->db->query('select * from cm_courses where code=\''
-//			.strtoupper($code).'\'');
 		foreach ($query->result() as $row)
 		{
 			$main_id = $row->id;
 		}
-//		echo $main_id;
-//		echo '<br>';
 
 		$type_count = 0;
 		if (strlen($pre_logic) > 0){
-//			echo '<br>';
-//			echo $pre_logic;
 			$or_list = explode('&', $pre_logic);
-//			echo '<br>';
-//			print_r($or_list);
-//			echo '<br>';
 			for ($i = 0; $i < count($or_list); $i++) {
 				$this_list = $or_list[$i];
 				$this_list = str_replace('(', '', $this_list);
@@ -512,8 +503,6 @@ class Course_model extends CI_Model{
 				if(strlen($this_list) > 0){
 					$type_count++;
 					$this_list = explode('|', $this_list);
-//					print_r($this_list);
-//					echo '<br>';
 
 					for ($j = 0; $j < count($this_list); $j++) {
 
@@ -523,8 +512,7 @@ class Course_model extends CI_Model{
 							->from('cm_courses')
 							->where('cm_courses.code', strtoupper($this_list[$j]))
 							->get();
-//						$query = $this->db->query('select * from cm_courses where code=\''
-//							.strtoupper($this_list[$j]).'\'');
+
 						foreach ($query->result() as $row)
 						{
 							$pre_id = $row->id;
@@ -539,8 +527,6 @@ class Course_model extends CI_Model{
 							'type' => $type_count
 						);
 
-//						print_r($data);
-//						echo '<br>';
 						$this->db->insert('cm_prerequisites', $data);
 
 					}
@@ -556,9 +542,11 @@ class Course_model extends CI_Model{
 	 * @param $path: the path of the specific excel files
 	 * @throws \PhpOffice\PhpSpreadsheet\Exception
 	 * @throws \PhpOffice\PhpSpreadsheet\Reader\Exception
+	 * @return  array: the add result
 	 */
 	public function add_course_record_by_excel($path){
 
+		$result = array();
 
 		$spreadsheet = \PhpOffice\PhpSpreadsheet\IOFactory::load($path);
 
@@ -585,18 +573,20 @@ class Course_model extends CI_Model{
 
 			if($start and !$end){
 				if(strlen($res[$i][1]) > 0){
+
 					// check course id, next row if exits
 					$query = $this->db
 						->select('*')
 						->from('cm_courses')
 						->where('cm_courses.code', strtoupper($res[$i][1]))
 						->get();
+					$course_id = strtoupper($res[$i][1]);
 
-//					$query = $this->db->query('select * from cm_courses where code=\''.strtoupper($res[$i][1]).'\'');
 					if($query->num_rows() > 0){
+						$result[$course_id]['status'] = 'fail';
+						$result[$course_id]['message'] = 'the code of course already exists.';
 						continue;
 					}
-					$course_id = strtoupper($res[$i][1]);
 
 					// name
 					$course_name = $res[$i][2];
@@ -674,6 +664,8 @@ class Course_model extends CI_Model{
 						$course_department_id = $row->id;
 					}
 					if($course_department_id == 0){
+						$result[$course_id]['status'] = 'fail';
+						$result[$course_id]['message'] = 'the code of department not exists.';
 						continue;
 					}
 
@@ -682,6 +674,9 @@ class Course_model extends CI_Model{
 						$course_semester, $course_language, $course_cn_description, $course_en_description,
 						$advanced_placement
 						);
+
+					$result[$course_id]['status'] = 'success';
+					$result[$course_id]['message'] = 'add this course success.';
 				}
 			}
 
@@ -689,6 +684,7 @@ class Course_model extends CI_Model{
 				$start = TRUE;
 			}
 		}
+		return $result;
 
 	}
 
