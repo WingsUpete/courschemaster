@@ -103,3 +103,7 @@ $lang['upload'] = '上传';
 $lang['choose_file'] = '选择文件';
 $lang['add_course_success'] = '成功添加课程';
 $lang['add_course_failure'] = '添加课程失败...';
+$lang['delete_course_success'] = '成功删除课程';
+$lang['delete_course_failure'] = '删除课程失败...';
+$lang['delete_delete_course_title'] = '删除课程';
+$lang['delete_delete_course_message'] = '确定要删除本课程吗？';

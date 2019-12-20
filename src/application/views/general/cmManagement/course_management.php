@@ -68,20 +68,20 @@
 				</div>
 				<div class="modal-body">
 					<?php
-						// id, input / textarea, input type / textarea rows, display
+						// id, input / textarea, input type / textarea rows, display / optional
 						$course_info = array(
-							array('course_code', 'input', 'text', lang('course_code')),
-							array('course_chinese_name', 'input', 'text', lang('course_chinese_name')),
-							array('course_english_name', 'input', 'text', lang('course_english_name')),
-							array('course_department', 'input', 'text', lang('course_department')),
-							array('course_total_credit', 'input', 'number', lang('course_total_credit')),
-							array('course_experiment_credit', 'input', 'number', lang('course_experiment_credit')),
-							array('course_weekly_period', 'input', 'number', lang('course_weekly_period')),
-							array('course_semester', 'input', 'text', lang('course_semester')),
-							array('course_language', 'input', 'text', lang('course_language')),
-							array('course_prelogic', 'textarea', '2', lang('course_prelogic')),
-							array('course_description', 'textarea', '5', lang('course_cn_description')),
-							array('course_english_description', 'textarea', '5', lang('course_english_description')),
+							array('course_code', 'input', 'text', lang('course_code'), '1'),
+							array('course_chinese_name', 'input', 'text', lang('course_chinese_name'), '1'),
+							array('course_english_name', 'input', 'text', lang('course_english_name'), '1'),
+							array('course_department', 'input', 'text', lang('course_department'), '1'),
+							array('course_total_credit', 'input', 'number', lang('course_total_credit'), '0'),
+							array('course_experiment_credit', 'input', 'number', lang('course_experiment_credit'), '0'),
+							array('course_weekly_period', 'input', 'number', lang('course_weekly_period'), '0'),
+							array('course_semester', 'input', 'text', lang('course_semester'), '0'),
+							array('course_language', 'input', 'text', lang('course_language'), '0'),
+							array('course_prelogic', 'textarea', '2', lang('course_prelogic'), '0'),
+							array('course_description', 'textarea', '5', lang('course_cn_description'), '0'),
+							array('course_english_description', 'textarea', '5', lang('course_english_description'), '0'),
 						);
 					?>
 					<script>
@@ -102,6 +102,7 @@
 					?>
 				</div>
 				<div class="modal-footer">
+					<button id="delete-course" type="button" class="btn btn-danger btn-sm"><?= lang('delete') ?></button>
 					<button id="add-course-submit" type="button" class="btn btn-primary btn-sm"><?= lang('submit') ?></button>
 					<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><?= lang('close') ?></button>
 				</div>
