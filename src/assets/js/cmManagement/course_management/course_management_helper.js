@@ -36,6 +36,20 @@
 			$('#courseWindow').modal('show');
 		});
 		
+		//	add
+		$(document).on('click', '#delete-course', function() {
+			var buttons = [
+				{
+					text: SCLang.delete,
+					click: function() {
+						instance.deleteCourse($('#course_code').val());
+						$('#msgBox').modal('hide');
+					}
+				}
+			]
+			GeneralFunctions.displayMessageBox(SCLang.delete_delete_course_title, SCLang.delete_delete_course_message, buttons);
+		});
+		
 		//	input validators
 		$.each(GlobalVariables.course_info, function(index, course) {
 			instance.timeOutVars[course[0]] = null;
@@ -45,7 +59,7 @@
 				}
 				var obj = $(this);
 				instance.timeOutVars[course[0]] = setTimeout(function() {
-					if (!GeneralFunctions.checkEmpty(obj)) {
+					if (course[4] === '1' && !GeneralFunctions.checkEmpty(obj)) {
 						return;
 					}
 					//	true
@@ -153,25 +167,66 @@
 			
 			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.add_course_success, 'success', 6000);
-				var course = {
-					course_code: code,
-					course_cn_name: chz_name,
-					course_en_name: en_name,
-					department_code: department_code,
-					total_credit: total_credit,
-					exp_credit: exp_credit,
-					weekly_period: weekly_period,
-					semester: semester,
-					language: language,
-					pre_logic: pre_logic,
-					cn_description: description,
-					en_description: en_description
-				};
+				var course = null;	// modify
 				obj.courses.push(course);
 				obj.courseMap[code] = course;
+				$('#courseWindow').modal('hide');
+				obj.refreshTable();
 			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.add_course_failure, 'danger', 6000);
-				alert('cao');
+				console.error(response.message);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+	/**
+     * refresh table
+     */
+    CourseManagementHelper.prototype.refreshTable = function () {
+		var datatable = $('#courses-datatable').DataTable();
+		datatable.ajax.reload(function() {
+			GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+		});
+    };
+	
+	/**
+     * refresh table
+     */
+    CourseManagementHelper.prototype.deleteCourse = function (code) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/course_api/ajax_delete_one_course_by_course_code';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			code: JSON.stringify(code)
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			console.log(response);
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.delete_course_success, 'success', 6000);
+				var ind = 0;
+				for (var i = 0; i < obj.courses.length; ++i) {
+					if (obj.courses[i].course_code === code) {
+						ind = i;
+						break;
+					}
+				}
+				obj.courses[ind].splice(ind, 1);
+				obj.courseMap[code] = null;
+				$('#courseWindow').modal('hide');
+				console.log(obj.courses);
+				obj.refreshTable();
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.delete_course_failure, 'danger', 6000);
 				console.error(response.message);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);

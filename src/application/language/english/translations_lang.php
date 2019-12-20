@@ -103,3 +103,7 @@ $lang['upload'] = 'Upload';
 $lang['choose_file'] = 'Choose File';
 $lang['add_course_success'] = 'Course(s) added successfully.';
 $lang['add_course_failure'] = 'Fail to add course(s)...';
+$lang['delete_course_success'] = 'Course deleted successfully.';
+$lang['delete_course_failure'] = 'Fail to delete course...';
+$lang['delete_delete_course_title'] = 'Delete a Course';
+$lang['delete_delete_course_message'] = 'Are you sure you want to delete this course?';
