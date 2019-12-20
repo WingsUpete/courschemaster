@@ -86,7 +86,7 @@
 	//	Additional Methods
 	
 	/**
-     * get details of a question
+     * get details of courses
      */
     CourseManagementHelper.prototype.retrieveCourses = function () {
 		//	AJAX
@@ -210,8 +210,7 @@
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
-			console.log(response);
-			if (response === 'success') {
+			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.delete_course_success, 'success', 6000);
 				var ind = 0;
 				for (var i = 0; i < obj.courses.length; ++i) {
@@ -220,12 +219,11 @@
 						break;
 					}
 				}
-				obj.courses[ind].splice(ind, 1);
+				obj.courses.splice(ind, 1);
 				obj.courseMap[code] = null;
 				$('#courseWindow').modal('hide');
-				console.log(obj.courses);
 				obj.refreshTable();
-			} else if (response === 'fail') {
+			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.delete_course_failure, 'danger', 6000);
 				console.error(response.message);
 			} else {

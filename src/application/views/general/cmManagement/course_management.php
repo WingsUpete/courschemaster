@@ -20,16 +20,16 @@
 	<hr class="hide-for-now" />
 	<!-- Button group -->
 	<div class="row pl-3 pr-3 mb-4">
-		<button type="button" class="btn btn-sm add" data-toggle="tooltip" data-title="<?= lang('add') ?>"><i class="fas fa-plus fa-lg"></i></button>
+		<button type="button" class="btn btn-sm tool-btn add" data-toggle="tooltip" data-title="<?= lang('add') ?>"><i class="fas fa-plus fa-lg"></i></button>
 		&ensp;&ensp;
 		<div>
 		<div class="input-group">
 			<div class="custom-file">
-				<input type="file" class="custom-file-input" id="choose-file" aria-describedby="upload-file" />
+				<input type="file" class="custom-file-input" id="choose-file" aria-describedby="submit-files" />
 				<label class="custom-file-label" for="choose-file"><?= lang('choose_file') ?></label>
 			</div>
 			<div class="input-group-append">
-				<span class="input-group-text" id="upload-file" data-toggle="tooltip" data-title="<?= lang('upload') ?>" data-placement="right"><i class="fas fa-upload fa-sm"></i></span>
+				<span class="input-group-text" id="submit-files" data-toggle="tooltip" data-title="<?= lang('upload') ?>" data-placement="right"><i class="fas fa-upload fa-sm"></i></span>
 			</div>
 		</div>
 		</div>

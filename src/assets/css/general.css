@@ -544,3 +544,43 @@ a {
 	border-radius: 20px;
 	transition: 0.2s;
 }
+
+
+
+
+
+/* card */
+.card {
+	background-color: rgba(255, 255, 255, 0.6);
+}
+
+
+
+
+
+
+/* management */
+.tool-btn {
+	margin: 0 0 2px 0;
+	background-color: #b04b4b;
+	color: #fff;
+	padding-left: 16px!important;
+	padding-right: 16px!important;
+	border-radius: 6px;
+}
+.tool-btn:hover {
+	color: #fff;
+}
+#submit-files {
+	cursor: pointer;
+	transition: all 0.3s;
+}
+#submit-files:hover {
+	background-color: #b04b4b;
+	color: #fff;
+}
+.custom-file-label {
+	white-space: nowrap;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
+}
