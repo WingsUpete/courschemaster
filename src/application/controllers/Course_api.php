@@ -14,6 +14,38 @@ class Course_api extends CI_Controller{
 	}
 
 	/**
+	 * this ajax is used to delete one course by course code
+	 */
+	public function ajax_delete_one_course_by_course_code(){
+		try{
+			$code = json_decode($this->input->post('code'));
+
+			$result = $this->course_model->delete_one_course($code);
+
+			$msg = array();
+			if($result){
+				$msg['status'] = 'success';
+				$msg['message'] = 'delete the course successfully.';
+			}else{
+				$msg['status'] = 'fail';
+				$msg['message'] = 'fail for dependence problem.';
+			}
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($msg));
+
+		}catch (Exception $exc){
+			$msg = array();
+			$msg['status'] = 'fail';
+			$msg['message'] = 'fail for exceptions.';
+			$msg['exceptions'] = [exceptionToJavaScript($exc)];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($msg));
+		}
+	}
+
+	/**
 	 * this ajax is used to add courses by excel
 	 */
 	public function ajax_add_courses_by_excel(){
@@ -26,26 +58,6 @@ class Course_api extends CI_Controller{
 			$size = $file['size'];
 
 			$result = $this->course_model->add_course_record_by_excel($temp_name);
-
-			$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode($result));
-
-		}catch (Exception $exc){
-			$this->output
-				->set_content_type('application/json')
-				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
-		}
-	}
-
-	/**
-	 * this ajax is used to delete one course by course code
-	 */
-	public function ajax_delete_one_course_by_course_code(){
-		try{
-			$code = json_decode($this->input->post('code'));
-
-			$result = $this->course_model->delete_one_course($code);
 
 			$this->output
 				->set_content_type('application/json')
@@ -176,6 +188,7 @@ class Course_api extends CI_Controller{
 
 			$msg['status'] = 'success';
 			$msg['message'] = 'add the course successfully.';
+			$msg['obj'] = $this->course_model->query_course_by_code($code);
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($msg));
