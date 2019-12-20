@@ -171,6 +171,8 @@ class Courschemas_model extends CI_Model{
             return array('status' => 'wrong_pdf_json', 'pdf_url' => $rtn['msg']);
         }
 
+        $this->db->trans_begin();
+
         $pdf_url = $rtn['pdf_url'];
 
         $data_inserted = array(
@@ -180,12 +182,30 @@ class Courschemas_model extends CI_Model{
             'pdf_url' => $pdf_url,
             'graph_json' => $graph_json,
             'source_code' => $source_code,
-            'list_json' => $list_json
+            'list_json' => $list_json,
+            'is_available' => 0
         );
 
-        $rtn = $this->db->insert('cm_courschemas', $data_inserted);
+        if( ! $this->db->insert('cm_courschemas', $data_inserted)){
+            $this->db->trans_rollback();
+            $rtn = FALSE;
+        }else{
+            // This thing will go to review table
+            $courschema_id = $this->db->insert_id();
+            $data_inserted = array(
+                'id_courschemas' => $courschema_id,
+                'status' => 'pending'
+            );
+            $rtn = $this->db->insert('cm_review', $data_inserted);
+            if($rtn){
+                $this->db->trans_commit();       
+            }else{
+                $this->db->trans_rollback();
+            }
+        }
+        
         log_operation('submit_courschema', $user_id, array('pdf_url'=>$pdf_url, 'id_major'=>$major_id), $rtn);
-
+        $this->db->trans_complete();
         return $rtn;
     }
 

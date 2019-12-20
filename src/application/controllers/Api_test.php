@@ -11,8 +11,7 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_get_visible_courschema();
-        
+        $this->test_submit_courschema();
     }
 
     public function test_get_visible_courschema(){
@@ -211,6 +210,9 @@ class Api_test extends CI_Controller{
     }
 
     public function test_pdf(){
+
+        $list_json = '';
+
         $this->load->library('courschemapdf');
         $this->courschemapdf->init('english');
         $this->courschemapdf->add_page();
