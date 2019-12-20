@@ -7,6 +7,90 @@ use PhpOffice\PhpSpreadsheet\Writer\Xlsx;
 class Course_model extends CI_Model{
 
 	/**
+	 * this method is used to query the course by code
+	 *
+	 * @param $code : the code of the course, can just a part of the exact code
+	 * @return array: the result of query
+	 */
+	public function query_course_by_code($code){
+
+		$result = $this->db
+			->select('cm_courses.id AS course_id, 
+				cm_courses.name AS course_cn_name,
+				cm_courses.en_name AS course_en_name, 
+				cm_courses.code AS course_code,
+				cm_departments.code AS department_code,
+				cm_departments.name AS department_cn_name,
+				cm_departments.en_name AS department_en_name,
+				cm_courses.credit AS total_credit, 
+				cm_courses.experiment_credit AS exp_credit,
+				cm_courses.weekly_period AS weekly_period,
+				cm_courses.semester AS semester,
+				cm_courses.language AS language,
+				cm_courses.description_cn AS cn_description,
+				cm_courses.description_en AS en_description,
+				cm_courses.prerequisite_logic AS pre_logic
+				')
+			->from('cm_courses')
+			->join('cm_departments', 'cm_departments.id = cm_courses.id_departments')
+			->where('cm_courses.code', $code)
+			->get()->result_array();
+
+		if(sizeof($result) == 0){
+			return $result;
+		}
+
+		//semester
+		$en_semester = '';
+		$cn_semester = '';
+		if(strpos($result[0]['semester'], '2') !== false){
+			$en_semester = $en_semester.'spring; ';
+			$cn_semester = $cn_semester.'春；';
+		}
+		if(strpos($result[0]['semester'], '1') !== false){
+			$en_semester = $en_semester.'fall; ';
+			$cn_semester = $cn_semester.'秋；';
+		}
+		if(strpos($result[0]['semester'], '3') !== false){
+			$en_semester = $en_semester.'summer; ';
+			$cn_semester = $cn_semester.'夏；';
+		}
+		$result[0]['en_semester'] = $en_semester;
+		$result[0]['cn_semester'] = $cn_semester;
+
+		// language
+		$en_language = '';
+		$cn_language = '';
+		if(strpos($result[0]['language'], 'C') !== false){
+			$en_language = $en_language.'Chinese; ';
+			$cn_language = $cn_language.'中文；';
+		}
+		if(strpos($result[0]['language'], 'E') !== false){
+			$en_language = $en_language.'English; ';
+			$cn_language = $cn_language.'英文；';
+		}
+		if(strpos($result[0]['language'], 'B') !== false){
+			$en_language = $en_language.'Both Chinese and English; ';
+			$cn_language = $cn_language.'中英文；';
+		}
+		$result[0]['en_language'] = $en_language;
+		$result[0]['cn_language'] = $cn_language;
+
+		// logic relationship
+		$logic = $this->db
+			->select('cm_courses.code AS pre_code,
+				cm_prerequisites.type AS pre_type')
+			->from('cm_prerequisites')
+			->join('cm_courses', 'cm_courses.id = cm_prerequisites.id_pre_course')
+			->where('cm_prerequisites.id_main_course', $result[0]['course_id'])
+			->get()->result_array();
+
+		$result[0]['pre_logic_relationship'] = $logic;
+
+		return $result[0];
+	}
+
+	/**
 	 * this method is used to query all the course complete information
 	 *
 	 * @return mixed: the query result
@@ -263,22 +347,6 @@ class Course_model extends CI_Model{
 	}
 
 	/**
-	 * this method is used to query the course by code
-	 *
-	 * @param $code : the code of the course, can just a part of the exact code
-	 * @return array: the result of query
-	 */
-	public function query_course_by_code($code){
-		$result = $this->db
-			->select('*')
-			->from('cm_courses')
-			->like('cm_courses.code', $code, 'both')
-			->get()->result();
-
-		return $result;
-	}
-
-	/**
 	 * this method is used to query the information of all course
 	 *
 	 * @return array: the query result
@@ -310,12 +378,18 @@ class Course_model extends CI_Model{
 	 * @param $new_description: the new Chinese description of this course
 	 * @param $new_en_description: the new English description of this course
 	 * @param $new_pre_logic: the new advanced placement logic for this course
+	 * @return bool: update successfully or not
 	 */
 	// need to be finished
 	public function update_one_course($old_code, $new_code, $new_name, $new_en_name,
 									  $new_department_id, $new_credit, $new_exp_credit,
 									  $new_weekly_period, $new_semester, $new_language,
 									  $new_description, $new_en_description, $new_pre_logic){
+
+		$pre_logic = strtoupper($new_pre_logic);
+		if(!$this->test_pre($new_pre_logic)){
+			return false;
+		}
 
 		$data = array(
 			'name' => $new_name,
@@ -337,7 +411,6 @@ class Course_model extends CI_Model{
 			->update('cm_courses', $data);
 
 		$code = $new_code;
-		$pre_logic = strtoupper($new_pre_logic);
 
 		$main_id = 0;
 		$query = $this->db
@@ -350,6 +423,10 @@ class Course_model extends CI_Model{
 		{
 			$main_id = $row->id;
 		}
+
+		$this->db
+			->where('cm_prerequisites.id_main_course', $main_id)
+			->delte('cm_prerequisites');
 
 		$type_count = 0;
 		if (strlen($pre_logic) > 0){
@@ -377,9 +454,6 @@ class Course_model extends CI_Model{
 						{
 							$pre_id = $row->id;
 						}
-						if ($pre_id == 0){
-							continue;
-						}
 
 						$data = array(
 							'id_main_course' => $main_id,
@@ -394,7 +468,44 @@ class Course_model extends CI_Model{
 				}
 			}
 		}
+		return true;
+	}
 
+	public function test_pre($pre_logic){
+		$type_count = 0;
+		if (strlen($pre_logic) > 0){
+			$or_list = explode('&', $pre_logic);
+			print_r($or_list);
+			for ($i = 0; $i < count($or_list); $i++) {
+				$this_list = $or_list[$i];
+				$this_list = str_replace('(', '', $this_list);
+				$this_list = str_replace(')', '', $this_list);
+
+				if(strlen($this_list) > 0){
+					$type_count++;
+					$this_list = explode('|', $this_list);
+					print_r($this_list);
+
+					for ($j = 0; $j < count($this_list); $j++) {
+
+						$pre_id = 0;
+						$query = $this->db
+							->select('*')
+							->from('cm_courses')
+							->where('cm_courses.code', strtoupper($this_list[$j]))
+							->get();
+						foreach ($query->result() as $row)
+						{
+							$pre_id = $row->id;
+						}
+						if ($pre_id == 0){
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -677,6 +788,7 @@ class Course_model extends CI_Model{
 
 					$result[$course_id]['status'] = 'success';
 					$result[$course_id]['message'] = 'add this course success.';
+					$result[$course_id]['obj'] = $this->query_course_by_code($course_id);
 				}
 			}
 
