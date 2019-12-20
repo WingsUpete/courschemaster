@@ -1,9 +1,16 @@
 /* CSS Document */
-#upload-file {
-	cursor: pointer;
-	transition: all 0.3s;
+.file-txt {
+	white-space: nowrap;
+	width: 80%;
+	overflow-x: hidden;
+	text-overflow: ellipsis;
 }
-#upload-file:hover {
-	background-color: #b04b4b;
-	color: #fff;
+.file-list-item {
+	display: none;
+}
+.badge {
+	user-select: none;
+}
+.file-txt--addi {
+	font-size: 60%;
 }
