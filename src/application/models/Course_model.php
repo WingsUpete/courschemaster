@@ -378,12 +378,18 @@ class Course_model extends CI_Model{
 	 * @param $new_description: the new Chinese description of this course
 	 * @param $new_en_description: the new English description of this course
 	 * @param $new_pre_logic: the new advanced placement logic for this course
+	 * @return bool: update successfully or not
 	 */
 	// need to be finished
 	public function update_one_course($old_code, $new_code, $new_name, $new_en_name,
 									  $new_department_id, $new_credit, $new_exp_credit,
 									  $new_weekly_period, $new_semester, $new_language,
 									  $new_description, $new_en_description, $new_pre_logic){
+
+		$pre_logic = strtoupper($new_pre_logic);
+		if(!$this->test_pre($new_pre_logic)){
+			return false;
+		}
 
 		$data = array(
 			'name' => $new_name,
@@ -405,7 +411,6 @@ class Course_model extends CI_Model{
 			->update('cm_courses', $data);
 
 		$code = $new_code;
-		$pre_logic = strtoupper($new_pre_logic);
 
 		$main_id = 0;
 		$query = $this->db
@@ -418,6 +423,10 @@ class Course_model extends CI_Model{
 		{
 			$main_id = $row->id;
 		}
+
+		$this->db
+			->where('cm_prerequisites.id_main_course', $main_id)
+			->delte('cm_prerequisites');
 
 		$type_count = 0;
 		if (strlen($pre_logic) > 0){
@@ -445,9 +454,6 @@ class Course_model extends CI_Model{
 						{
 							$pre_id = $row->id;
 						}
-						if ($pre_id == 0){
-							continue;
-						}
 
 						$data = array(
 							'id_main_course' => $main_id,
@@ -462,7 +468,44 @@ class Course_model extends CI_Model{
 				}
 			}
 		}
+		return true;
+	}
 
+	public function test_pre($pre_logic){
+		$type_count = 0;
+		if (strlen($pre_logic) > 0){
+			$or_list = explode('&', $pre_logic);
+			print_r($or_list);
+			for ($i = 0; $i < count($or_list); $i++) {
+				$this_list = $or_list[$i];
+				$this_list = str_replace('(', '', $this_list);
+				$this_list = str_replace(')', '', $this_list);
+
+				if(strlen($this_list) > 0){
+					$type_count++;
+					$this_list = explode('|', $this_list);
+					print_r($this_list);
+
+					for ($j = 0; $j < count($this_list); $j++) {
+
+						$pre_id = 0;
+						$query = $this->db
+							->select('*')
+							->from('cm_courses')
+							->where('cm_courses.code', strtoupper($this_list[$j]))
+							->get();
+						foreach ($query->result() as $row)
+						{
+							$pre_id = $row->id;
+						}
+						if ($pre_id == 0){
+							return false;
+						}
+					}
+				}
+			}
+		}
+		return true;
 	}
 
 	/**
@@ -745,6 +788,7 @@ class Course_model extends CI_Model{
 
 					$result[$course_id]['status'] = 'success';
 					$result[$course_id]['message'] = 'add this course success.';
+					$result[$course_id]['obj'] = $this->query_course_by_code($course_id);
 				}
 			}
 
