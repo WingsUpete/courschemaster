@@ -4,15 +4,48 @@ class Api_test extends CI_Controller{
     public function __construct(){
         parent::__construct();
         $this->load->model('qa_model');
-        $this->load->model('courschemas_model');
         $this->load->model('collections_model');
+        $this->load->model('courschemas_model');
         $this->load->model('students_model');
         $this->load->library('session');
     }
 
     public function index(){
-        $this->test_get_pdf_by_user_id();
+        $this->test_get_visible_courschema();
         
+    }
+
+    public function test_get_visible_courschema(){
+        $user_id = 1;
+        $language = $this->session->userdata('language');
+        $result = $this->courschemas_model->get_visible_courschema($language, $user_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
+    }
+
+    public function test_get_courschema_matryona(){
+        $courschema_id = 1;
+        $result = $this->courschemas_model->get_courschema_matryona($courschema_id);
+        foreach($result AS $k => $v){
+            echo $k . '=>' . $v . '<br />';
+        }
+    }
+
+    public function test_submit_courschema(){
+        $user_id = 1;
+        $pdf_json = 'test';
+        $graph_json = 'test_json';
+        $list_json = 'test_json';
+        $courschema_name = 'test_courschema';
+        $type = 'cmh';
+        $major_id = 1;
+        $source_code = 'Event GRADUATION = CourseEvent(CS101);';
+        $result = $this->courschemas_model->submit_courschema($user_id, $pdf_json, $graph_json, $list_json, $courschema_name, $type, $major_id, $source_code);
+        echo $result ? 1 : 0;
     }
 
     public function test_get_pdf_by_user_id(){

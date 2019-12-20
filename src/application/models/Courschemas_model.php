@@ -162,4 +162,81 @@ class Courschemas_model extends CI_Model{
             'download_link' => base_url('index.php/download/pdf/'.$url)
         );
     }
+
+    public function submit_courschema($user_id, $pdf_json, $graph_json, $list_json, $courschema_name, $type, $major_id, $source_code){
+        $this->load->helper('courschema');
+        $rtn = upload_pdf($pdf_json, $courschema_name);
+
+        if($rtn['status'] == FALSE){
+            return array('status' => 'wrong_pdf_json', 'pdf_url' => $rtn['msg']);
+        }
+
+        $pdf_url = $rtn['pdf_url'];
+
+        $data_inserted = array(
+            'name' => $courschema_name,
+            'type' => $type,
+            'id_majors' => $major_id,
+            'pdf_url' => $pdf_url,
+            'graph_json' => $graph_json,
+            'source_code' => $source_code,
+            'list_json' => $list_json
+        );
+
+        $rtn = $this->db->insert('cm_courschemas', $data_inserted);
+        log_operation('submit_courschema', $user_id, array('pdf_url'=>$pdf_url, 'id_major'=>$major_id), $rtn);
+
+        return $rtn;
+    }
+
+    public function get_courschema_matryona($courschema_id){
+        return $this->db->select('
+                cm_courschemas.source_code AS matryona_source_code,
+                cm_courschemas.pdf_url     AS pdf_url,
+                cm_courschemas.graph_json  AS graph_json,
+                cm_courschemas.list_json   AS list_json,
+                cm_courschemas.name        AS courschema_name,
+                cm_courschemas.type        AS type
+            ')
+            ->from('cm_courschemas')
+            ->where('cm_courschemas.id', $courschema_id)
+            ->get()
+            ->row_array();
+    }
+
+    public function get_visible_courschema($language, $user_id){
+        
+
+        if($language == 'english'){
+            $this->db->select('
+                cm_majors.en_name      AS major_name,
+                cm_departments.en_name AS department_name
+            ');
+        }else{
+            $this->db->select('
+                cm_majors.name      AS major_name,
+                cm_departments.name AS department_name
+            ');
+        }
+
+        $this->db->select('
+                cm_courschemas.id   AS id,
+                cm_courschemas.name AS name
+            ')
+            ->from('cm_courschemas')
+            ->join('cm_majors', 'cm_majors.id = cm_courschemas.id_majors', 'inner')
+            ->join('cm_departments', 'cm_departments.id = cm_majors.id_departments', 'inner');
+
+        $role = $this->session->userdata('role');
+
+        if($role != 'tao_x' && $role != 'admin_8c6fc01'){
+            $this->load->model('users_model');
+            $id_user_dep = $this->users_model->get_dep_id($user_id);
+            $this->db->where('cm_majors.id_departments', $id_user_dep);
+        }
+            
+        return $this->db
+            ->get()
+            ->result_array();
+    }
 }
