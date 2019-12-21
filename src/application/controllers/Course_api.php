@@ -1,11 +1,12 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Course_api extends CI_Controller{
-	public function __construct(){
+class Course_api extends CI_Controller
+{
+	public function __construct()
+	{
 		parent::__construct();
 
-		if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST')
-		{
+		if (strtoupper($_SERVER['REQUEST_METHOD']) !== 'POST') {
 			$this->security->csrf_show_error();
 		}
 		$this->load->library('session');
@@ -13,13 +14,40 @@ class Course_api extends CI_Controller{
 
 	}
 
+	public function ajax_get_my_learned()
+	{
+		try {
+			$user_id = $this->session->userdata('user_id');
+
+			$result = $this->course_model->query_courses_by_user($user_id);
+
+			$msg = array();
+			$msg['status'] = 'success';
+			$msg['message'] = 'get all the courses even learned successfully.';
+			$msg['result'] = $result;
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($msg));
+
+		} catch (Exception $exc) {
+			$msg = array();
+			$msg['status'] = 'fail';
+			$msg['message'] = 'fail for exceptions.';
+			$msg['exceptions'] = [exceptionToJavaScript($exc)];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($msg));
+		}
+	}
+
 	/**
 	 * this ajax is used to add one course to the database
 	 */
-	public function ajax_update_one_course(){
+	public function ajax_update_one_course()
+	{
 		$msg = array();
 
-		try{
+		try {
 			$old_code = json_decode($this->input->post('old_code'));
 
 			$name = json_decode($this->input->post('name'));
@@ -32,7 +60,7 @@ class Course_api extends CI_Controller{
 				->from('cm_courses')
 				->where('cm_courses.code', $code)
 				->get();
-			if($query->num_rows() > 0){
+			if ($query->num_rows() > 0) {
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode(['messages' => 'the course code already in']));
@@ -52,11 +80,10 @@ class Course_api extends CI_Controller{
 				->where('cm_departments.code', $department_code)
 				->get();
 
-			foreach ($query->result() as $row)
-			{
+			foreach ($query->result() as $row) {
 				$course_department_id = $row->id;
 			}
-			if($course_department_id == 0){
+			if ($course_department_id == 0) {
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode(['messages' => 'the department code is not exist']));
@@ -80,41 +107,41 @@ class Course_api extends CI_Controller{
 			$semester = json_decode($this->input->post('semester'));
 			$course_semester_temp = $semester;
 			$semester = '';
-			if ( (strpos($course_semester_temp, '2') !== false) or
+			if ((strpos($course_semester_temp, '2') !== false) or
 				(strpos($course_semester_temp, '春') !== false) or
-				(strpos($course_semester_temp, 'spring') !== false)){
-				$semester = $semester.'2; ';
+				(strpos($course_semester_temp, 'spring') !== false)) {
+				$semester = $semester . '2; ';
 			}
-			if ( (strpos($course_semester_temp, '3') !== false) or
+			if ((strpos($course_semester_temp, '3') !== false) or
 				(strpos($course_semester_temp, '夏') !== false) or
-				(strpos($course_semester_temp, 'summer') !== false)){
-				$semester = $semester.'3; ';
+				(strpos($course_semester_temp, 'summer') !== false)) {
+				$semester = $semester . '3; ';
 			}
-			if ( (strpos($course_semester_temp, '1') !== false) or
+			if ((strpos($course_semester_temp, '1') !== false) or
 				(strpos($course_semester_temp, '秋') !== false) or
-				(strpos($course_semester_temp, 'fall') !== false)){
-				$semester = $semester.'1; ';
+				(strpos($course_semester_temp, 'fall') !== false)) {
+				$semester = $semester . '1; ';
 			}
 
 			$language = json_decode($this->input->post('language'));
 			$course_language_temp = $language;
 			$language = '';
-			if ( (strpos($course_language_temp, '中文') !== false) or
+			if ((strpos($course_language_temp, '中文') !== false) or
 				(strpos($course_language_temp, 'cn') !== false) or
 				(strpos($course_language_temp, 'C') !== false) or
-				(strpos($course_language_temp, 'chinese') !== false)){
-				$language = $language.'C; ';
+				(strpos($course_language_temp, 'chinese') !== false)) {
+				$language = $language . 'C; ';
 			}
-			if ( (strpos($course_language_temp, '英文') !== false) or
+			if ((strpos($course_language_temp, '英文') !== false) or
 				(strpos($course_language_temp, 'en') !== false) or
 				(strpos($course_language_temp, 'E') !== false) or
-				(strpos($course_language_temp, 'english') !== false)){
-				$language = $language.'E; ';
+				(strpos($course_language_temp, 'english') !== false)) {
+				$language = $language . 'E; ';
 			}
-			if ( (strpos($course_language_temp, '中英文') !== false) or
+			if ((strpos($course_language_temp, '中英文') !== false) or
 				(strpos($course_language_temp, 'both') !== false) or
-				(strpos($course_language_temp, 'B') !== false)){
-				$language = $language.'B; ';
+				(strpos($course_language_temp, 'B') !== false)) {
+				$language = $language . 'B; ';
 			}
 
 			$description = json_decode($this->input->post('description'));
@@ -127,16 +154,16 @@ class Course_api extends CI_Controller{
 			$pre_logic = str_replace('\n', '', $pre_logic);
 			$pre_logic = str_replace('\t', '', $pre_logic);
 
-			if($this->course_model->update_one_course($old_code, $code, $name, $en_name, $course_department_id,
+			if ($this->course_model->update_one_course($old_code, $code, $name, $en_name, $course_department_id,
 				$credit, $exp_credit, $weekly_period,
-				$semester, $language, $description, $en_description, $pre_logic)){
+				$semester, $language, $description, $en_description, $pre_logic)) {
 				$msg['status'] = 'success';
 				$msg['message'] = 'update the course successfully.';
 				$msg['obj'] = $this->course_model->query_course_by_code($code);
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode($msg));
-			}else{
+			} else {
 				$msg['status'] = 'fail';
 				$msg['message'] = 'some pre courses not exist.';
 				$this->output
@@ -144,7 +171,7 @@ class Course_api extends CI_Controller{
 					->set_output(json_encode($msg));
 			}
 
-		}catch (Exception $exc){
+		} catch (Exception $exc) {
 			$msg['status'] = 'fail';
 			$msg['message'] = 'exception happens.';
 			$msg['exceptions'] = [exceptionToJavaScript($exc)];
@@ -157,17 +184,18 @@ class Course_api extends CI_Controller{
 	/**
 	 * this ajax is used to delete one course by course code
 	 */
-	public function ajax_delete_one_course_by_course_code(){
-		try{
+	public function ajax_delete_one_course_by_course_code()
+	{
+		try {
 			$code = json_decode($this->input->post('code'));
 
 			$result = $this->course_model->delete_one_course($code);
 
 			$msg = array();
-			if($result){
+			if ($result) {
 				$msg['status'] = 'success';
 				$msg['message'] = 'delete the course successfully.';
-			}else{
+			} else {
 				$msg['status'] = 'fail';
 				$msg['message'] = 'fail for dependence problem.';
 			}
@@ -175,7 +203,7 @@ class Course_api extends CI_Controller{
 				->set_content_type('application/json')
 				->set_output(json_encode($msg));
 
-		}catch (Exception $exc){
+		} catch (Exception $exc) {
 			$msg = array();
 			$msg['status'] = 'fail';
 			$msg['message'] = 'fail for exceptions.';
@@ -189,8 +217,9 @@ class Course_api extends CI_Controller{
 	/**
 	 * this ajax is used to add courses by excel
 	 */
-	public function ajax_add_courses_by_excel(){
-		try{
+	public function ajax_add_courses_by_excel()
+	{
+		try {
 			$file = $_FILES['target_file'];
 			$name = $file['name'];
 			$temp_name = $file['tmp_name'];
@@ -198,20 +227,20 @@ class Course_api extends CI_Controller{
 			$error = $file['error'];
 			$size = $file['size'];
 
-			$uploads_dir = dirname(__FILE__)."\..\../assets/excel";
+			$uploads_dir = dirname(__FILE__) . "\..\../assets/excel";
 
 			$msg = array();
-			if(move_uploaded_file($temp_name, "$uploads_dir/$name")){
+			if (move_uploaded_file($temp_name, "$uploads_dir/$name")) {
 				$result = $this->course_model->add_course_record_by_excel("$uploads_dir/$name");
 				$msg['status'] = 'success';
 				$msg['message'] = 'upload file successfully, the completion of adding courses is as follows.';
 				$counter = 0;
-				foreach ($result as $item){
+				foreach ($result as $item) {
 					$msg['courses'][$counter] = $item['obj'];
 					$counter++;
 				}
 				$msg['result'] = $result;
-			}else{
+			} else {
 				$msg['status'] = 'fail';
 				$msg['message'] = 'move file fail.';
 			}
@@ -220,7 +249,7 @@ class Course_api extends CI_Controller{
 				->set_content_type('application/json')
 				->set_output(json_encode($msg));
 
-		}catch (Exception $exc){
+		} catch (Exception $exc) {
 			$msg = array();
 			$msg['status'] = 'success';
 			$msg['message'] = 'exceptions happen.';
@@ -234,10 +263,11 @@ class Course_api extends CI_Controller{
 	/**
 	 * this ajax is used to add one course to the database
 	 */
-	public function ajax_add_one_course(){
+	public function ajax_add_one_course()
+	{
 		$msg = array();
 
-		try{
+		try {
 			$name = json_decode($this->input->post('name'));
 
 			$en_name = json_decode($this->input->post('en_name'));
@@ -248,7 +278,7 @@ class Course_api extends CI_Controller{
 				->from('cm_courses')
 				->where('cm_courses.code', $code)
 				->get();
-			if($query->num_rows() > 0){
+			if ($query->num_rows() > 0) {
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode(['messages' => 'the course code already in']));
@@ -268,11 +298,10 @@ class Course_api extends CI_Controller{
 				->where('cm_departments.code', $department_code)
 				->get();
 
-			foreach ($query->result() as $row)
-			{
+			foreach ($query->result() as $row) {
 				$course_department_id = $row->id;
 			}
-			if($course_department_id == 0){
+			if ($course_department_id == 0) {
 				$this->output
 					->set_content_type('application/json')
 					->set_output(json_encode(['messages' => 'the department code is not exist']));
@@ -296,41 +325,41 @@ class Course_api extends CI_Controller{
 			$semester = json_decode($this->input->post('semester'));
 			$course_semester_temp = $semester;
 			$semester = '';
-			if ( (strpos($course_semester_temp, '2') !== false) or
+			if ((strpos($course_semester_temp, '2') !== false) or
 				(strpos($course_semester_temp, '春') !== false) or
-				(strpos($course_semester_temp, 'spring') !== false)){
-				$semester = $semester.'2; ';
+				(strpos($course_semester_temp, 'spring') !== false)) {
+				$semester = $semester . '2; ';
 			}
-			if ( (strpos($course_semester_temp, '3') !== false) or
+			if ((strpos($course_semester_temp, '3') !== false) or
 				(strpos($course_semester_temp, '夏') !== false) or
-				(strpos($course_semester_temp, 'summer') !== false)){
-				$semester = $semester.'3; ';
+				(strpos($course_semester_temp, 'summer') !== false)) {
+				$semester = $semester . '3; ';
 			}
-			if ( (strpos($course_semester_temp, '1') !== false) or
+			if ((strpos($course_semester_temp, '1') !== false) or
 				(strpos($course_semester_temp, '秋') !== false) or
-				(strpos($course_semester_temp, 'fall') !== false)){
-				$semester = $semester.'1; ';
+				(strpos($course_semester_temp, 'fall') !== false)) {
+				$semester = $semester . '1; ';
 			}
 
 			$language = json_decode($this->input->post('language'));
 			$course_language_temp = $language;
 			$language = '';
-			if ( (strpos($course_language_temp, '中文') !== false) or
+			if ((strpos($course_language_temp, '中文') !== false) or
 				(strpos($course_language_temp, 'cn') !== false) or
 				(strpos($course_language_temp, 'C') !== false) or
-				(strpos($course_language_temp, 'chinese') !== false)){
-				$language = $language.'C; ';
+				(strpos($course_language_temp, 'chinese') !== false)) {
+				$language = $language . 'C; ';
 			}
-			if ( (strpos($course_language_temp, '英文') !== false) or
+			if ((strpos($course_language_temp, '英文') !== false) or
 				(strpos($course_language_temp, 'en') !== false) or
 				(strpos($course_language_temp, 'E') !== false) or
-				(strpos($course_language_temp, 'english') !== false)){
-				$language = $language.'E; ';
+				(strpos($course_language_temp, 'english') !== false)) {
+				$language = $language . 'E; ';
 			}
-			if ( (strpos($course_language_temp, '中英文') !== false) or
+			if ((strpos($course_language_temp, '中英文') !== false) or
 				(strpos($course_language_temp, 'both') !== false) or
-				(strpos($course_language_temp, 'B') !== false)){
-				$language = $language.'B; ';
+				(strpos($course_language_temp, 'B') !== false)) {
+				$language = $language . 'B; ';
 			}
 
 			$description = json_decode($this->input->post('description'));
@@ -354,7 +383,7 @@ class Course_api extends CI_Controller{
 				->set_content_type('application/json')
 				->set_output(json_encode($msg));
 
-		}catch (Exception $exc){
+		} catch (Exception $exc) {
 			$msg['status'] = 'fail';
 			$msg['message'] = 'exception happens.';
 			$msg['exceptions'] = [exceptionToJavaScript($exc)];
@@ -367,15 +396,16 @@ class Course_api extends CI_Controller{
 	/**
 	 * this method is used to get all the courses information to initialize the course management page
 	 */
-	public function ajax_get_all_course_full_info(){
-		try{
+	public function ajax_get_all_course_full_info()
+	{
+		try {
 			$result = $this->course_model->get_all_course_full_info();
 
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode($result));
 
-		}catch (Exception $exc){
+		} catch (Exception $exc) {
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
@@ -385,8 +415,9 @@ class Course_api extends CI_Controller{
 	/**
 	 * this method is used to get all the courses information to initialize the course management page
 	 */
-	public function ajax_get_all_course_info(){
-		try{
+	public function ajax_get_all_course_info()
+	{
+		try {
 			$language = $this->session->userdata('language');
 			$result = $this->course_model->get_all_course_info($language);
 
@@ -394,7 +425,7 @@ class Course_api extends CI_Controller{
 				->set_content_type('application/json')
 				->set_output(json_encode($result));
 
-		}catch (Exception $exc){
+		} catch (Exception $exc) {
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
@@ -406,8 +437,9 @@ class Course_api extends CI_Controller{
 	 *
 	 * the $match is used to matching the cn_name, en_name or code
 	 */
-	public function ajax_get_course_id_by_fuzzy_search(){
-		try{
+	public function ajax_get_course_id_by_fuzzy_search()
+	{
+		try {
 			$match = json_decode($this->input->post('match'));
 
 			$result = $this->course_model->get_course_id_by_fuzzy_search($match);
@@ -416,7 +448,7 @@ class Course_api extends CI_Controller{
 				->set_content_type('application/json')
 				->set_output(json_encode($result));
 
-		}catch (Exception $exc){
+		} catch (Exception $exc) {
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
@@ -426,8 +458,9 @@ class Course_api extends CI_Controller{
 	/**
 	 *  this ajax is used to get all the course id with the label for a courschema
 	 */
-	public function ajax_get_course_id_by_label(){
-		try{
+	public function ajax_get_course_id_by_label()
+	{
+		try {
 			$courschema_id = json_decode($this->input->post('courschema'));
 			$label = json_decode($this->input->post('label'));
 
@@ -437,7 +470,7 @@ class Course_api extends CI_Controller{
 				->set_content_type('application/json')
 				->set_output(json_encode($result));
 
-		}catch (Exception $exc){
+		} catch (Exception $exc) {
 			$this->output
 				->set_content_type('application/json')
 				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
