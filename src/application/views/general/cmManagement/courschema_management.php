@@ -29,7 +29,7 @@
 				<li class="nav-item">
 					<a class="nav-link font-weight-bold active" id="specify_courschema" data-toggle="tab" title="<?= lang('specify_courschema') ?>" href="#specify_courschema-content" role="tab" aria-controls="specify_courschema-content" aria-selected="true"><?= lang('specify_courschema') ?></a>
 				</li>
-				<li class="nav-item disabled">
+				<li class="nav-item">
 					<a class="nav-link font-weight-bold" id="courschema_editor" data-toggle="tab" title="<?= lang('courschema_editor') ?>" href="#courschema_editor-content" role="tab" aria-controls="courschema_editor-content" aria-selected="false"><?= lang('courschema_editor') ?></a>
 				</li>
 			</ul>
@@ -38,7 +38,7 @@
 			<div class="tab-content" id="list-tabs-content">
 				<div class="tab-pane fade show active" id="specify_courschema-content" role="tabpanel" aria-labelledby="specify_courschema">
 					<!-- add & upload -->
-					<div class="row pl-3 pr-3 mb-4">
+					<div class="row pl-3 pr-3 mb-3">
 						<button type="button" class="btn btn-sm tool-btn new" data-toggle="tooltip" data-title="<?= lang('new') ?>"><i class="fas fa-plus fa-lg"></i></button>
 						&ensp;&ensp;
 						<button type="button" class="btn btn-sm tool-btn upload" data-toggle="tooltip" data-title="<?= lang('upload') ?>"><i class="fas fa-cloud-upload-alt fa-lg"></i></button>
@@ -63,7 +63,47 @@
 					</table></div>
 				</div>
 				<div class="tab-pane fade" id="courschema_editor-content" role="tabpanel" aria-labelledby="courschema_editor">
-					
+    				<div class="container-fluid">
+    					<div class="row">
+    						<div class="col-xs-12 col-lg-6">
+								<div class="input-group mb-3">
+									<div class="input-group-prepend">
+										<span class="input-group-text"><?= lang('file_name') ?></span>
+									</div>
+									<input id="editor-filename" type="text" class="form-control" />
+									<div class="input-group-append">
+										<span class="input-group-text">
+											<select name="editor-file-extension" id="editor-file-extension">
+												<option value="cmh" selected>.cmh</option>
+												<option value="cmc">.cmc</option>
+											</select>
+										</span>
+									</div>
+								</div>
+    							<pre id="editor"></pre>
+    						</div>
+    						<div class="col-xs-12 col-lg-6">
+    							<div class="btn-toolbar justify-content-end mb-2 editor-btns">
+    								<div class="btn-group mr-1">
+    									<button id="editor-compile" type="button" class="btn btn-sm font-weight-bold editor-btn">
+    										<?= lang('compile') ?>
+    									</button>
+    								</div>
+    								<div class="btn-group ml-1">
+    									<button id="editor-submit" type="button" class="btn btn-sm font-weight-bold editor-btn">
+    										<?= lang('submit') ?>
+    									</button>
+    								</div>
+    							</div>
+								<div class="card border-light mb-3 list-graph-window">
+									<div class="card-header"><?= lang('graph') ?></div>
+									<div class="card-body">
+										
+									</div>
+								</div>
+    						</div>
+    					</div>
+    				</div>
 				</div>
 			</div>
 		</div>

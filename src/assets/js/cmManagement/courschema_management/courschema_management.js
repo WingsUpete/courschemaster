@@ -36,6 +36,8 @@ window.CourschemaManagement = window.CourschemaManagement || {};
 			CourschemaManagement.initialize_courschemas();
 		});
 		
+		CourschemaManagement.initialize_editor();
+		
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }
@@ -92,4 +94,16 @@ window.CourschemaManagement = window.CourschemaManagement || {};
 		});
 	};
 
+	exports.initialize_editor = function() {
+        ace.require("ace/ext/language_tools");
+        var editor = ace.edit("editor");
+        editor.setOptions({
+            enableLiveAutocompletion: true,	// autocompelete only
+        });
+        editor.setTheme("ace/theme/monokai");	// monokai mode automatically display hints
+        editor.getSession().setMode("ace/mode/javascript");	// language
+        editor.setFontSize(16);
+        var code_content = editor.getValue();
+	};
+	
 })(window.CourschemaManagement);

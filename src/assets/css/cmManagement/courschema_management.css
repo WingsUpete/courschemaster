@@ -14,3 +14,36 @@
 .file-txt--addi {
 	font-size: 60%;
 }
+
+
+
+
+/* Editor */
+#editor {
+	width: 100%;
+	min-height: 350px;
+}
+.list-graph-window {
+	height: 352px;
+}
+.list-graph-window .card-header {
+	background-color: #b04b4b;
+	color: #fff;
+	font-weight: 500;
+}
+.editor-btn {
+	text-transform: none;
+	color: #fff;
+	padding: 10px 20px;
+	border-radius: 5px;
+	letter-spacing: 2px;
+}
+.editor-btn:hover {
+	color: #fff;
+}
+#editor-compile {
+	background-color: #54ae54;
+}
+#editor-submit {
+	background-color: #d44b47;
+}
