@@ -59,17 +59,29 @@ var identifierRe = "[a-zA-Z\\$_\u00a1-\uffff][a-zA-Z\\d\\$_\u00a1-\uffff]*";
 var JavaScriptHighlightRules = function(options) {
     var keywordMapper = this.createKeywordMapper({
         "variable.language":
-            "Event|NAME|EN_NAME|VERSION|OBJECTIVES|EN_OBJECTIVES|PROGRAM_LENGTH|DEGREE|EN_DEGREE|INTRO|EN_INTRO|STUDENT_VARIABLE entrolled_english_level english_level|",
+            "Array|Boolean|Date|Function|Iterator|Number|Object|RegExp|String|Proxy|"  + // Constructors
+            "Namespace|QName|XML|XMLList|"                                             + // E4X
+            "ArrayBuffer|Float32Array|Float64Array|Int16Array|Int32Array|Int8Array|"   +
+            "Uint16Array|Uint32Array|Uint8Array|Uint8ClampedArray|"                    +
+            "Error|EvalError|InternalError|RangeError|ReferenceError|StopIteration|"   + // Errors
+            "SyntaxError|TypeError|URIError|"                                          +
+            "decodeURI|decodeURIComponent|encodeURI|encodeURIComponent|eval|isFinite|" + // Non-constructor functions
+            "isNaN|parseFloat|parseInt|"                                               +
+            "JSON|Math|"                                                               + // Other
+            "this|arguments|prototype|window|document"                                 , // Pseudo
         "keyword":
-            "INCLUDE|ComEvent|CourseEvent|ScoreEvent|VariableEvent|" +
-            "|",
+            "const|yield|import|get|set|async|await|" +
+            "break|case|catch|continue|default|delete|do|else|finally|for|function|" +
+            "if|in|of|instanceof|new|return|switch|throw|try|typeof|let|var|while|with|debugger|" +
+            "__parent__|__count__|escape|unescape|with|__proto__|" +
+            "class|enum|extends|super|export|implements|private|public|interface|package|protected|static",
         "storage.type":
-            "ComEvent|CourseEvent|ScoreEvent|VariableEvent|",
+            "const|let|var|function",
         "constant.language":
-            "GRADUATION",
-        // "support.function":
-        //     "alert",
-        // "constant.language.boolean": "true|false"
+            "null|Infinity|NaN|undefined",
+        "support.function":
+            "alert",
+        "constant.language.boolean": "true|false"
     }, "identifier");
     var kwBeforeRe = "case|do|else|finally|in|instanceof|return|throw|try|typeof|yield|void";
 

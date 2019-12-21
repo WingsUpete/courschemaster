@@ -122,3 +122,5 @@ $lang['upload-courses-support-file-types'] = '支持: <code>.xls</code>,&ensp;<c
 $lang['file_type_mismatch'] = '存在不支持的文件格式';
 $lang['upload_courses_success'] = '课程上传成功';
 $lang['upload_courses_failure'] = '课程上传失败...';
+$lang['file_name'] = '文件名';
+$lang['compile'] = '编译';
