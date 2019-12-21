@@ -292,30 +292,6 @@
 				console.error(e);
 			}
 		});
-		
-//        return $.post(postUrl, postData, function (response) {
-//			//	Test whether response is an exception or a warning
-//            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-//                return;
-//            }
-//			
-//			if (response.status === 'success') {
-//				GeneralFunctions.displayMessageAlert(SCLang.upload_courses_success, 'success', 6000);
-//				var courses = response.courses;
-//				$.each(courses, function(index, course) {
-//					obj.courses.push(course);
-//					obj.courseMap[course.course_code] = course;
-//				});
-//				$('#courseWindow').modal('hide');
-//				obj.refreshTable();
-//			} else if (response.status === 'fail') {
-//				GeneralFunctions.displayMessageAlert(SCLang.upload_courses_failure, 'danger', 6000);
-//				console.error(response.message);
-//			} else {
-//				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
-//			}
-//			
-//        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
 	
