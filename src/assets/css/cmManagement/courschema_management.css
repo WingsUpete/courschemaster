@@ -21,10 +21,26 @@
 /* Editor */
 #editor {
 	width: 100%;
-	min-height: 350px;
+	min-height: 500px;
+}
+.ace_scrollbar-v::-webkit-scrollbar {
+    width: 0.6em;
+    height: 0.6em;
+	transition: all 0.2s;
+}
+.ace_scrollbar-v::-webkit-scrollbar-track {
+    -webkit-box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+    box-shadow: inset 0 0 6px rgba(0,0,0,0.3);
+	transition: all 0.2s;
+}
+.ace_scrollbar-v::-webkit-scrollbar-thumb {
+	background-color: gray;
+	outline: 1px solid gray;
+	border-radius: 20px;
+	transition: 0.2s;
 }
 .list-graph-window {
-	height: 352px;
+	height: 506px;
 }
 .list-graph-window .card-header {
 	background-color: #b04b4b;

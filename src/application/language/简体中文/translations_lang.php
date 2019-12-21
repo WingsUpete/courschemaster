@@ -124,3 +124,4 @@ $lang['upload_courses_success'] = '课程上传成功';
 $lang['upload_courses_failure'] = '课程上传失败...';
 $lang['file_name'] = '文件名';
 $lang['compile'] = '编译';
+$lang['collection_tutorial'] = '点击表格中的某项收藏的培养方案，可以进入该培养方案的详细信息页面。';

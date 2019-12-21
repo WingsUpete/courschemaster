@@ -10,7 +10,8 @@
      * @class CollectionHelper
      */
     function CollectionHelper() {
-        this.filterResults = {};
+        this.courschemas = [];
+		this.courschemaMap = {};
     }
 
     /**
@@ -24,6 +25,29 @@
 	};
 
 	//	Additional Methods
+	
+	/**
+     * get collected courschemas
+     */
+    CollectionHelper.prototype.retrieveCollections = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/collections_api/ajax_get_my_collections';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			obj.courschemas = response;
+			console.log(response);
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
 	
     window.CollectionHelper = CollectionHelper;
 })();

@@ -76,6 +76,10 @@ window.Initialize = window.Initialize || {};
 //			}
 //		});
 		
+		$('.alert.tutorial').on('closed.bs.alert', function() {
+			GeneralFunctions.placeFooterToBottom();	// fix footer issue
+		});
+		
 		//	Generate a sidebar width according to the maximum item width
 		var maxWidth = Number.NEGATIVE_INFINITY;
 		$.each($('#sidebar .sidenav-items a span.sd_epn'), function(index, item) {

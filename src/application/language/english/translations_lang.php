@@ -124,3 +124,4 @@ $lang['upload_courses_success'] = 'Courses uploaded successfully';
 $lang['upload_courses_failure'] = 'Fail to upload courses...';
 $lang['file_name'] = 'File Name';
 $lang['compile'] = 'Compile';
+$lang['collection_tutorial'] = 'Click on a collected courschema table entry to access its detail page.';
