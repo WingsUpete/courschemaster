@@ -24,6 +24,9 @@
 		&ensp;&ensp;
 		<div>
 		<div class="input-group">
+			<div class="input-group-prepend">
+				<span class="input-group-text"><?= lang('upload-courses-support-file-types') ?></span>
+			</div>
 			<div class="custom-file">
 				<input type="file" class="custom-file-input" id="choose-file" aria-describedby="submit-files" />
 				<label class="custom-file-label" for="choose-file"><?= lang('choose_file') ?></label>

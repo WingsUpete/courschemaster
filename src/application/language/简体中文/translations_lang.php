@@ -118,3 +118,7 @@ $lang['courschema_tutorial'] = '先通过新建/上传一个新培养方案，�
 $lang['upload-courschema-support-file-types'] = '支持: <code>.cmh</code>,&ensp;<code>.cmc</code>';
 $lang['pending'] = '审核中...';
 $lang['checking'] = '检查中...';
+$lang['upload-courses-support-file-types'] = '支持: <code>.xls</code>,&ensp;<code>.xlsx</code>';
+$lang['file_type_mismatch'] = '存在不支持的文件格式';
+$lang['upload_courses_success'] = '课程上传成功';
+$lang['upload_courses_failure'] = '课程上传失败...';

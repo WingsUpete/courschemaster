@@ -81,6 +81,11 @@
 			);
 		});
 		
+		//	submit excel
+		$('#submit-files').click(function() {
+			instance.uploadCourses();
+		});
+		
 	};
 
 	//	Additional Methods
@@ -225,6 +230,52 @@
 				obj.refreshTable();
 			} else if (response.status === 'fail') {
 				GeneralFunctions.displayMessageAlert(SCLang.delete_course_failure, 'danger', 6000);
+				console.error(response.message);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+	/**
+     * refresh table
+     */
+    CourseManagementHelper.prototype.uploadCourses = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/course_api/ajax_add_courses_by_excel';
+		
+        var file = $('#choose-file').prop('files')[0];
+		var filename = file.name;
+		var extension = filename.substring(filename.lastIndexOf('.')+1);
+		if (extension != 'xls' && extension != 'xlsx') {
+			GeneralFunctions.displayMessageAlert(SCLang.file_type_mismatch, 'danger', 6000);
+			return null;
+		}
+		
+		var postData = new FormData();
+		postData.append('csrfToken', GlobalVariables.csrfToken);
+		postData.append('target_file', file, filename);
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			if (response.status === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.upload_courses_success, 'success', 6000);
+				var courses = response.courses;
+				$.each(courses, function(index, course) {
+					obj.courses.push(course);
+					obj.courseMap[course.course_code] = course;
+				});
+				$('#courseWindow').modal('hide');
+				obj.refreshTable();
+			} else if (response.status === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.upload_courses_failure, 'danger', 6000);
 				console.error(response.message);
 			} else {
 				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
