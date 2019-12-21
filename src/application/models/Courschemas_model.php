@@ -18,7 +18,7 @@ class Courschemas_model extends CI_Model{
                 COUNT(cm_majors.id)    AS number_of_majors
             ');
         }
-        
+
         return $this->db->from('cm_departments')
             ->join('cm_majors', 'cm_majors.id_departments = cm_departments.id', 'inner')
             ->group_by('cm_departments.id')
@@ -234,8 +234,8 @@ class Courschemas_model extends CI_Model{
             ');
         }else{
             $this->db->select('
-                cm_majors.name      AS major_name,
-                cm_departments.name AS department_name
+                cm_majors.name         AS major_name,
+                cm_departments.name    AS department_name
             ');
         }
 
