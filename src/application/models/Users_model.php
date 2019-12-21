@@ -11,4 +11,14 @@ class Users_model extends CI_Model{
             ->get()
             ->row_array()['dep_id'];
     }
+
+    public function get_name($user_id){
+        return $this->db->select('
+                cm_users.name AS name
+            ')
+            ->from('cm_users')
+            ->where('cm_users.id', $user_id)
+            ->get()
+            ->row_array()['name'];
+    }
 }

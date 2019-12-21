@@ -7,11 +7,36 @@ class Api_test extends CI_Controller{
         $this->load->model('collections_model');
         $this->load->model('courschemas_model');
         $this->load->model('students_model');
+        $this->load->model('review_model');
         $this->load->library('session');
     }
 
     public function index(){
-        $this->test_submit_courschema();
+        $this->test_get_tao_review_list();
+    }
+
+    public function test_get_tao_review_list(){
+        $user_id = 1;
+        $language = $this->session->userdata('language');
+        $result = $this->review_model->get_tao_review_list($language, $user_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
+    }
+
+    public function test_get_review_status(){
+        $user_id = 1;
+        $language = $this->session->userdata('language');
+        $result = $this->review_model->get_review_status($language, $user_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
     }
 
     public function test_get_visible_courschema(){
