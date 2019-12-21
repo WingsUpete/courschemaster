@@ -167,7 +167,7 @@
 			
 			if (response.status === 'success') {
 				GeneralFunctions.displayMessageAlert(SCLang.add_course_success, 'success', 6000);
-				var course = null;	// modify
+				var course = response.obj;
 				obj.courses.push(course);
 				obj.courseMap[code] = course;
 				$('#courseWindow').modal('hide');
