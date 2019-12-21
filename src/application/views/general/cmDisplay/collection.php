@@ -16,34 +16,28 @@
 <div id="collection" class="main-content">
 	<h1 class="hide-for-now"><?= lang('collection') ?></h1>
 	<hr class="hide-for-now" />
-	<!-- Course Table -->
+	<div class="alert alert-info alert-dismissible fade show tutorial" role="alert">
+		<?= lang('collection_tutorial') ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  		<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<!-- Collection Table -->
 	<?php
-		$course_table_headers = array(
-			'Name', 'Version', 'Department', 'Major', 'Program Length', 'Degree Requirement'
-//			'Objectives', 'Discipline', 'Introduction'
-//			'Course Structure and Credit Requirements'
+		$courschema_table_headers = array(
+			lang('courschema_id'), lang('courschema_name'), lang('courschema_major'), lang('courschema_department')
 		);
 	?>
-	<div class="table-filter">
-		<div class="container-fluid">
-			<div class="row">
-				
-			</div>
-		</div>
-	</div>
-	<div class="table-responsive"><table id="courses-datatable" class="table table-striped table-bordered table-hover table-condensed text-center">
+	<div class="table-responsive"><table id="courschemas-datatable" class="table table-bordered table-hover table-condensed text-center">
 		<thead>
 			<tr>
 				<?php
-				for ($i = 0; $i < count($course_table_headers); $i++) {
-					echo('<th class="th-sm justify-content-center">' . $course_table_headers[$i] . '</th>');
-				}
-			?>
+					for ($i = 0; $i < count($courschema_table_headers); $i++) {
+						echo('<th class="th-sm justify-content-center">' . $courschema_table_headers[$i] . '</th>');
+					}
+				?>
 			</tr>
 		</thead>
-		<tfoot>
-			<tr><?php echo('<td colspan="' . count($course_table_headers) . '" class="text-muted">Footer Information</td>'); ?></tr>
-		</tfoot>
 		<tbody></tbody>
 	</table></div>
 </div>

@@ -8,6 +8,8 @@ class Collections_api extends CI_Controller{
         {
             $this->security->csrf_show_error();
         }
+		$this->load->library('session');
+		$this->load->model('collections_model');
     }
 
     public function ajax_get_my_collections(){
