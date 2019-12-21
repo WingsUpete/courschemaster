@@ -84,12 +84,12 @@
     						</div>
     						<div class="col-xs-12 col-lg-6">
     							<div class="btn-toolbar justify-content-end mb-2 editor-btns">
-    								<div class="btn-group mr-1">
+    								<div class="btn-group">
     									<button id="editor-compile" type="button" class="btn btn-sm font-weight-bold editor-btn">
     										<?= lang('compile') ?>
     									</button>
     								</div>
-    								<div class="btn-group ml-1">
+    								<div class="btn-group">
     									<button id="editor-submit" type="button" class="btn btn-sm font-weight-bold editor-btn">
     										<?= lang('submit') ?>
     									</button>
