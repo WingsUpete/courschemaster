@@ -3,20 +3,20 @@
     'use strict';
 
     /**
-     * StudentsMyPlanHelper Class
+     * MyPlanHelper Class
      *
-     * This class contains the methods that are used in the Students My Plan page.
+     * This class contains the methods that are used in the My Plan page.
      *
-     * @class StudentsMyPlanHelper
+     * @class MyPlanHelper
      */
-    function StudentsMyPlanHelper() {
+    function MyPlanHelper() {
         this.filterResults = {};
     }
 
     /**
-     * Binds the default event handlers of the Students My Appointment page.
+     * Binds the default event handlers of the My Plan page.
      */
-    StudentsMyPlanHelper.prototype.bindEventHandlers = function () {
+    MyPlanHelper.prototype.bindEventHandlers = function () {
         var instance = this;
 
 		// Listners
@@ -25,5 +25,5 @@
 
 	//	Additional Methods
 	
-    window.StudentsMyPlanHelper = StudentsMyPlanHelper;
+    window.MyPlanHelper = MyPlanHelper;
 })();

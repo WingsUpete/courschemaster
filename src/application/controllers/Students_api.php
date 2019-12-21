@@ -8,14 +8,18 @@ class Students_api extends CI_Controller{
         {
             $this->security->csrf_show_error();
         }
+		
+		$this->load->library('session');
+		$this->load->model('students_model');
     }
 
     public function ajax_get_my_learned(){
         try{
 
             $user_id = $this->session->userdata('user_id');
+			$language = $this->session->userdata('language');
 
-            $result = $this->course_model->get_my_learned($user_id);
+            $result = $this->students_model->get_my_learned($language, $user_id);
 
             $this->output
                 ->set_content_type('application/json')
