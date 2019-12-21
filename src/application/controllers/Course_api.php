@@ -205,6 +205,11 @@ class Course_api extends CI_Controller{
 				$result = $this->course_model->add_course_record_by_excel("$uploads_dir/$name");
 				$msg['status'] = 'success';
 				$msg['message'] = 'upload file successfully, the completion of adding courses is as follows.';
+				$counter = 0;
+				foreach ($result as $item){
+					$msg['courses'][$counter] = $item['obj'];
+					$counter++;
+				}
 				$msg['result'] = $result;
 			}else{
 				$msg['status'] = 'fail';
