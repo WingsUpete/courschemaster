@@ -92,7 +92,7 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/ext-static_highlight.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/ext-language_tools.js', NULL, 'js') ?>"></script>
 	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/theme-monokai.js', NULL, 'js') ?>"></script>
-	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/mode-javascript.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/js/mode-matryona.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
 	
