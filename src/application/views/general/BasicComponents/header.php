@@ -51,8 +51,6 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/bs-stepper/dist/css/bs-stepper.min.css', NULL, 'css') ?>" />
 	<!-- Pagination.js -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/paginationjs/dist/pagination.css', NULL, 'css') ?>" />
-	<!-- Prism -->
-	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/ext/prism/prism.css', NULL, 'css') ?>" />
 	<!------------------------------------------------- Link ------------------------------------------------->
 	<!-------------------------------------------------------------------------------------------------------->
 	
@@ -89,8 +87,12 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<script type="text/javascript" src="<?= asset_url('assets/ext/momentjs/moment-with-locales.js', NULL, 'js') ?>"></script>
 	<!-- Pagination.js -->
 	<script type="text/javascript" src="<?= asset_url('assets/ext/paginationjs/dist/pagination.min.js', NULL, 'js') ?>"></script>
-	<!-- Prism -->
-	<script type="text/javascript" src="<?= asset_url('assets/ext/prism/prism.js', NULL, 'js') ?>"></script>
+	<!-- ACE -->
+	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/ace.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/ext-static_highlight.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/ext-language_tools.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/theme-monokai.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/ext/ace-builds-master/src-noconflict/mode-javascript.js', NULL, 'js') ?>"></script>
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
 	

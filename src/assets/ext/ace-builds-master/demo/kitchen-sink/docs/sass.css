@@ -1,0 +1,26 @@
+@import url(http://fonts.googleapis.com/css?family=Ace:700);
+html, body {
+  background-color: #ace;
+  text-align: center;
+  height: 100%;
+  /*;*********;
+   * ;comment  ;
+   * ;*********; */ }
+
+.toggle {
+  background: url(http://subtlepatterns.com/patterns/dark_stripes.png);
+  border-radius: 8px;
+  height: 14px; }
+  .toggle:before {
+    box-shadow: 0 0 1.75px 0.875px #fff;
+    border-radius: 11.83px; }
+    .toggle:before:active ~ .button {
+      box-shadow: 0 15px 25px -4px rgba(0, 0, 0, 0.4); }
+    .toggle:before:active ~ .label {
+      font-size: 40px;
+      color: rgba(0, 0, 0, 0.45); }
+    .toggle:before:checked ~ .button {
+      box-shadow: 0 15px 25px -4px #ace; }
+    .toggle:before:checked ~ .label {
+      font-size: 40px;
+      color: #c9c9c9; }
