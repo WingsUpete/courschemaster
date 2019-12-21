@@ -17,7 +17,7 @@
 	<h1 class="hide-for-now">Courschema Management</h1>
 	<hr class="hide-for-now" />
 	<!-- card group -->
-	<div class="alert alert-info alert-dismissible fade show" role="alert">
+	<div class="alert alert-info alert-dismissible fade show tutorial" role="alert">
 		<?= lang('courschema_tutorial') ?>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 	  		<span aria-hidden="true">&times;</span>
