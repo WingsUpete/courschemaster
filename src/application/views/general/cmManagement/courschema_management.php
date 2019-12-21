@@ -91,7 +91,7 @@
 							<label class="custom-file-label" for="choose-files"><?= lang('choose_file') ?></label>
 						</div>
 						<div class="input-group-append">
-							<span class="input-group-text" id="submit-files" title="<?= lang('submit') ?>"><i class="fas fa-upload fa-sm"></i></span>
+							<span class="input-group-text" id="submit-files" title="<?= lang('submit') ?>"><i class="fas fa-spell-check fa-sm"></i></span>
 						</div>
 					</div>
 				</div>
