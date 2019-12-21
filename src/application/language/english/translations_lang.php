@@ -118,3 +118,7 @@ $lang['courschema_tutorial'] = 'Specify a courschema first, either by adding / u
 $lang['upload-courschema-support-file-types'] = 'Support: <code>.cmh</code>,&ensp;<code>.cmc</code>';
 $lang['pending'] = 'Pending...';
 $lang['checking'] = 'Checking...';
+$lang['upload-courses-support-file-types'] = 'Support: <code>.xls</code>,&ensp;<code>.xlsx</code>';
+$lang['file_type_mismatch'] = 'Unsupported file types exist';
+$lang['upload_courses_success'] = 'Courses uploaded successfully';
+$lang['upload_courses_failure'] = 'Fail to upload courses...';
