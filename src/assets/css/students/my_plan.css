@@ -1,0 +1,23 @@
+/* CSS Document */
+
+/* left half */
+#add_plan i {
+	color: #b04b4b;
+	transition: all 0.3s;
+}
+#add_plan:hover i {
+	transform: rotate(90deg);
+}
+.plan-window {
+	min-height: 600px;
+}
+
+/* right half */
+.graph-window {
+	height: 600px;
+}
+.graph-window .card-header {
+	background-color: #b04b4b;
+	color: #fff;
+	font-weight: 500;
+}
