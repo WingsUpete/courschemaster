@@ -12,51 +12,94 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 
 	// an example static method
 	// to call this method, write `StaticClass.exampleStaticMethod('Hi')`
+
+	//上传cmh文件
+	exports.registerCmhFiles = function(cmhFiles){
+		//上传的所有.cmh文件的File对象数组
+		MatryonaTranslateClass.cmh = [];
+		MatryonaTranslateClass.cmh = cmhFiles;
+
+
+		//将.cmh上传至数据库
+	};
+
+	//检查依赖性和语法准群性
+	exports.check = function(cmcFile){
+		//输入：cmc文件，cmhFiles[]
+		//检查上传的cmc和cmh文件的依赖关系和语法正确性
+
+		//读cmc文件
+		MatryonaTranslateClass.all = "";
+		var cmc_content = "";
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			cmc_content = e.target.result;
+		};
+		reader.readAsText(cmcFile);
+		MatryonaTranslateClass.all = cmc_content;
+
+		var cmh_notfound = [];
+		var cmh_content;
+		//检查依赖关系
+		//找到此cmc文件INCLUDE的文件，首先在注册的cmhFiles中匹配文件名
+		var cmh_need = cmc_content.split("INCLUDE = ");
+		for (var i=0; i<cmh_need.length; i++){
+			cmh_need[i] = cmh_need[i].split(";")[0];
+		}
+		for (var i=0; i<cmh_need.length; i++){
+			for (var j=0; j<cmh.length; j++){
+				if (cmh_need[i] === cmh[j].name){
+					//读文件并把文件内容与cmc_content拼接起来
+					var reader = new FileReader();
+					reader.onload = function (e) {
+						cmh_content = e.target.result;
+					};
+					reader.readAsText(cmh[j]);
+					all = all + cmh_content;
+					break;
+				}
+			}
+			if (j === cmh.length){
+				cmh_notfound.push(cmh_need[i]);
+			}
+		}
+		if (cmh_notfound.length !== 0){ // 如果部分cmh未找到，则去已有文件夹中寻找文件
+			var cmh_database_check = find_cmh(cmh_notfound);
+			if (cmh_database_check[0].status === true){
+				for (var j=1; j<cmh_database_check.length; j++){
+					all = all + cmh_database_check[j].cmh_content;
+				}
+			}else{
+				return {status:"rejected",message:"Cmh files are insufficient !"}
+			}
+
+		}else{//所用到的cmh在上传的文件中全部找到，返回{status:accepted, message: accepted}, 此时的all即为全部内容，可以直接解析
+			// 检查正确性
+			all = all.split("（").join("(");
+			all = all.split("）").join(")");
+			all = all.split("“").join("\"");
+			all = all.split("”").join("\"");
+
+			if (all.indexOf("GRADUATION") === -1){
+				return {status: "rejected", message:"No Graduation !"};
+			}else if (all.indexOf("NAME") === -1 || all.indexOf("EN_NAME") || all.indexOf("VERSION") === -1 || all.indexOf("GROUP") || all.indexOf("PROGRAM_LENGTH") === -1){
+				return {status: "rejected", message:"Missing basic information !"};
+			}else{
+				return {status:"accepted",message:"accepted"}
+			}
+		}
+	};
+
 	/**
 	 * @return {string}
 	 */
 	exports.Matryona_to_List = function (){
-		//get the list
-		//here we need give it a courschema by click*************
-		let courschema = load("计算机科学与技术 1+3 (2018).cmc");
-
-		var files = courschema.split("INCLUDE = ");
-		for (var i=0; i<files.length; i++){
-			files[i] = files[i].split(";")[0];
-		}
-		var all = courschema;
-		for (var i=0; i<files.length; i++){
-			let file_content = load(files[i]);
-			all = all + file_content;
-		}
-
-		//base information of courschema
-		var NAME = courschema.split("NAME = ")[1].split("\"")[1];
-		var EN_NAME = courschema.split("EN_NAME = ")[1].split("\"")[1];
-		var G = courschema.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
-		var GROUP = [];
-		for (var i=0; i<G.length; i++){
-			GROUP.push(G[i].replace(" && "," "));
-		}
-
-		var VERSION = courschema.split("VERSION = ")[1].split(";")[0];
-		var PROGRAM_LENGTH = courschema.split("PROGRAM_LENGTH = ")[1].split(";")[0];
-		var INTRO = courschema.split("INTRO = ")[1].split("\"")[1];
-		var EN_INTRO = courschema.split("EN_INTRO = ")[1].split("\"")[1];
-		var OBJECTIVES = courschema.split("OBJECTIVES = ")[1].split("\"")[1];
-		var EN_OBJECTIVES = courschema.split("EN_OBJECTIVES = ")[1].split("\"")[1];
-		var DEGREE = courschema.split("DEGREE = ")[1].split("\"")[1];
-		var EN_DEGREE = courschema.split("EN_DEGREE = ")[1].split("\"")[1];
-
-		//resolve event of courschema
 		var temp = all.split("Event ");
 
 		var list = [];
 		var nest_event;
 		var char;
 		var char_list = [];
-
-		var expression;
 
 		var event_list = [];
 		var event;
@@ -105,10 +148,9 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 
 		//json
 		for (var j = 1; j < temp.length; j++) {
-
 			char_list = [];
 			if (event_list[j-1].rank === 4){
-				expression = temp[j].split("Event")[1].split(";")[0].split(", ");
+				var expression = temp[j].split("Event")[1].split(";")[0].split(", ");
 				char = ["variable", expression[0].replace("( ","")];
 				char_list.push(char);
 				event_name = expression[1].replace(" )","");
@@ -123,7 +165,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 				char = ["scorevent", temp[j].split("Event")[1].split(";")[0]];
 				char_list.push(char);
 			}else if (event_list[j-1].rank === 2){
-				expression = temp[j].split("Event")[1].split(";")[0].split(" ");
+				var expression = temp[j].split("Event")[1].split(";")[0].split(" ");
 				for (var k=0; k<expression.length; k++){
 					if (expression[k].indexOf("=") !== -1 || expression[k].indexOf("&&") !== -1 || expression[k].indexOf("^") !== -1 || expression[k].indexOf("||") !== -1 || expression[k].indexOf("!") !== -1 || expression[k].indexOf("(") !== -1 || expression[k].indexOf(")") !== -1){
 						char = ["operator", expression[k]];
@@ -134,7 +176,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 					}
 				}
 			}else{
-				expression = temp[j].split("Event")[1].split(";")[0].split(" ");
+				var expression = temp[j].split("Event")[1].split(";")[0].split(" ");
 				for (var k=0; k<expression.length; k++){
 					if (expression[k].indexOf("=") !== -1 || expression[k].indexOf("&&") !== -1 || expression[k].indexOf("^") !== -1 || expression[k].indexOf("||") !== -1 || expression[k].indexOf("!") !== -1 || expression[k].indexOf("(") !== -1 || expression[k].indexOf(")") !== -1){
 						char = ["operator", expression[k]];
@@ -160,43 +202,33 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			list.push(nest_event);
 		}
 		return JSON.stringify(list);
+		//console.log(JSON.stringify(list));
 	};
 
 	/**
 	 * @return {string}
 	 */
 	exports.Matryona_to_Graph = function (){//get the graph
-		let courschema = load("计算机科学与技术 1+3 (2018).cmc");
-
-		var files = courschema.split("INCLUDE = ");
-		for (var i=0; i<files.length; i++){
-			files[i] = files[i].split(";")[0];
-		}
-		var all = courschema;
-		for (var i=0; i<files.length; i++){
-			let file_content = load(files[i]);
-			all = all + file_content;
-		}
-		window.list = [];
+		var list = [];
 		var status_list = [];
 
 		//base information of courschema
-		var NAME = courschema.split("NAME = ")[1].split("\"")[1];
-		var EN_NAME = courschema.split("EN_NAME = ")[1].split("\"")[1];
-		var G = courschema.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
+		var NAME = all.split("NAME = ")[1].split("\"")[1];
+		var EN_NAME = all.split("EN_NAME = ")[1].split("\"")[1];
+		var G = all.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
 		var GROUP = [];
 		for (var i = 0; i < G.length; i++) {
 			GROUP.push(G[i].replace(" && ", " "));
 		}
 
-		var VERSION = courschema.split("VERSION = ")[1].split(";")[0];
-		var PROGRAM_LENGTH = courschema.split("PROGRAM_LENGTH = ")[1].split(";")[0];
-		var INTRO = courschema.split("INTRO = ")[1].split("\"")[1];
-		var EN_INTRO = courschema.split("EN_INTRO = ")[1].split("\"")[1];
-		var OBJECTIVES = courschema.split("OBJECTIVES = ")[1].split("\"")[1];
-		var EN_OBJECTIVES = courschema.split("EN_OBJECTIVES = ")[1].split("\"")[1];
-		var DEGREE = courschema.split("DEGREE = ")[1].split("\"")[1];
-		var EN_DEGREE = courschema.split("EN_DEGREE = ")[1].split("\"")[1];
+		var VERSION = all.split("VERSION = ")[1].split(";")[0];
+		var PROGRAM_LENGTH = all.split("PROGRAM_LENGTH = ")[1].split(";")[0];
+		var INTRO = all.split("INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_INTRO = all.split("EN_INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var OBJECTIVES = all.split("OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_OBJECTIVES = all.split("EN_OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var DEGREE = all.split("DEGREE = ")[1].split("\"")[1];
+		var EN_DEGREE = all.split("EN_DEGREE = ")[1].split("\"")[1];
 
 		var description = {
 			name: NAME,
@@ -236,7 +268,9 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			node_list.push(node);
 		}
 		id_num = temp.length - 1;
-		
+
+
+
 		var nest_node;
 		var son;
 		var son_list;
@@ -528,7 +562,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 											/**********************************************************/
 											//单个课程
 										} else {
-											coursecom[k] = coursecom[k].replace(" ", "");
+											coursecom[k] = coursecom[k].split(" ").join("");
 											if (status[coursecom[k]] !== true) {
 												node2 = {node_id: id_num, node_name: coursecom[k], node_type: 4};
 												node_list.push(node2);
@@ -536,17 +570,17 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 												status[coursecom[k]] = true;
 
 												son2 = {node_id: node2.node_id, node_name: node2.node_name};
+												console.log(node2.node_name);
 											} else {
 												for (var p = 0; p < node_list.length; p++) {
 													if (coursecom[k] === node_list[p].node_name) {
 														break;
 													}
-													son2 = {
-														node_id: node_list[p].node_id,
-														node_name: node_list[p].node_name
-													};
-
 												}
+												son2 = {
+													node_id: node_list[p].node_id,
+													node_name: node_list[p].node_name
+												};
 											}
 											son2_list.push(son2);
 										}
@@ -613,7 +647,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			}
 
 		}
-		//console.log(node_list);
+
 
 		var List = [];
 		var courses = [];
@@ -639,6 +673,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		// for (var i=0; i<courses.length; i++){
 		//     courses_exsitence[i] = true;
 		// }
+
 		//courses_exsitence[10] = false;
 
 		for (var i = 0; i < courses_exsitence.length; i++) {
@@ -647,17 +682,17 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			}
 		}
 		if (noexistence_courses.length !== 0) {
-			console.log(noexistence_courses);
+			return noexistence_courses;
+			//console.log(noexistence_courses);
 		} else {
-			pre_courses = get_Pre_course(courses_name);
-
 			for (var i=0; i<courses.length; i++){
 				pre_courses[i] = [];
 			}
+			pre_courses = get_Pre_course(courses_name);
 		}
 		// pre_courses[14] = [{"main": "CS307", "pre": "CS201", "type": "1"},
-		//      {"main": "CS307", "pre": "CS202", "type": "1"},
-		//      {"main": "CS307", "pre": "CS208", "type": "2"}];
+		//     {"main": "CS307", "pre": "CS202", "type": "1"},
+		//     {"main": "CS307", "pre": "CS208", "type": "2"}];
 		// pre_courses[13] = [{"main": "CS208", "pre": "MA101A", "type": "1"},
 		//     {"main": "CS208", "pre": "MA102A", "type": "1"},
 		//     {"main": "CS208", "pre": "CS102A", "type": "2"}];
@@ -673,8 +708,310 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		}
 		//console.log(List);
 		return JSON.stringify(List);
+	};
+
+	/**
+	 * @return {string}
+	 */
+	exports.Matryona_to_Pdf = function () {
+		//base information of courschema
+		var NAME = all.split("NAME = ")[1].split("\"")[1];
+		var EN_NAME = all.split("EN_NAME = ")[1].split("\"")[1];
+		var G = all.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
+		var GROUP = [];
+		for (var i = 0; i < G.length; i++) {
+			GROUP.push(G[i].replace(" && ", " "));
+		}
+
+		var VERSION = all.split("VERSION = ")[1].split(";")[0];
+		var PROGRAM_LENGTH = all.split("PROGRAM_LENGTH = ")[1].split(";")[0];
+		var INTRO = all.split("INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_INTRO = all.split("EN_INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var OBJECTIVES = all.split("OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_OBJECTIVES = all.split("EN_OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var DEGREE = all.split("DEGREE = ")[1].split("\"")[1];
+		var EN_DEGREE = all.split("EN_DEGREE = ")[1].split("\"")[1];
+
+
+		var temp = all.split("Event ");
+
+		var event;
+		var event_name;
+		var list = [];
+		var event_list = [];
+		var subevent_list = [];
+		var course_list = [];
+		var comment;
+		var comment_list = [];
+		var event_express = [];
+		var courses;
+		var parentheses = 0;
+		var q;
+		var c;
+		var cou;
+		var all_course = [];
+		var description = {
+			name: NAME,
+			en_name: EN_NAME,
+			group: GROUP,
+			version: VERSION,
+			program_length: PROGRAM_LENGTH,
+			intro: INTRO,
+			en_intro: EN_INTRO,
+			objectives: OBJECTIVES,
+			en_objectives: EN_OBJECTIVES,
+			degree: DEGREE,
+			en_degree: EN_DEGREE
+		};
+		list.push(description);
+
+		//type : Graduation:0     ComEvent:1     VariableEvent:2      ScoreEvent:3    CourseEvent:4
+		for (var i = 1; i < temp.length; i++) {
+			if (temp[i].indexOf("GRADUATION") !== -1) {
+				subevent_list = [];
+				event_express = Remove_parentheses(temp[i].split("Event")[1].split(";")[0]).split(" && ");
+				for (var j=0; j < event_express.length; j++){
+					subevent_list.push(event_express[j]);
+				}
+
+				event = {id: i - 1, name: "Graduation",event_type:0,subevent_list:subevent_list};
+				event_list.push(event);
+			} else {
+				if (temp[i].indexOf("ComEvent") !== -1) {
+					subevent_list = [];
+					if (temp[i].indexOf("English_requirements") !== -1){
+						event_express = Remove_parentheses(temp[i].split("Event")[1].split(";")[0]).split(" || ");
+						for (var j=0; j<event_express.length; j++){
+							subevent_list.push(event_express[j]);
+						}
+					}else{
+						event_express = Remove_parentheses(temp[i].split("Event")[1].split(";")[0]).split(" && ");
+						for (var j=0; j<event_express.length; j++){
+							subevent_list.push(event_express[j]);
+						}
+					}
+					event_name = temp[i].split("=")[0].replace(" ","");
+					event = {id: i - 1, name:event_name, event_type:1,subevent_list:subevent_list};
+					event_list.push(event);
+				}else if (temp[i].indexOf("CourseEvent") !== -1){
+					course_list = [];
+					comment_list = [];
+					event_express = Remove_parentheses(temp[i].split("Event")[1].split(";")[0]);
+
+					courses = event_express.split("||").join("&&").split("(").join("").split(")").join("");
+					courses = courses.split("&&");
+					for (var j=0; j<courses.length; j++){
+						cou = courses[j].split(" ").join("");
+						course_list.push(cou);
+						if(all_course.indexOf(cou) === -1){
+							all_course.push(cou);
+						}
+					}
+
+					comment = event_express + "&";
+					q = new Queue();
+					comment = comment.split("");
+					for(var l=0; l<comment.length; l++){
+						if(comment[l] === "&"){
+							if(parentheses === 0){
+								c = "";
+								while(q.size() !== 0){
+									c = c + q.pop().ele;
+								}
+								if(c.indexOf("||") !== -1){
+									comment_list.push(c);
+								}
+								l = l + 1;
+							}else{
+								q.push(comment[l]);
+							}
+						}else if(comment[l] === "("){
+							parentheses++;
+							q.push(comment[l]);
+						}else if(comment[l] === ")"){
+							parentheses--;
+							q.push(comment[l]);
+						}else if(comment[l] === " "){
+							if(parentheses !== 0){
+								q.push(comment[l]);
+							}
+						}else{
+							q.push(comment[l]);
+						}
+					}
+					event_name = temp[i].split("=")[0].replace(" ","");
+
+					event = {id: i - 1, name:event_name, event_type:4,courses_list:course_list, comment_list:comment_list};
+					event_list.push(event);
+				}else if (temp[i].indexOf("ScoreEvent") !== -1){
+					comment_list = [];
+					event_express = Remove_parentheses(temp[i].split("Event")[1].split(";")[0]);
+					comment_list.push(event_express);
+					event_name = temp[i].split("=")[0].replace(" ","");
+					event = {id: i - 1, name:event_name, event_type:3,comment_list:comment_list};
+					event_list.push(event);
+				}else if (temp[i].indexOf("VariableEvent") !== -1){
+					subevent_list = [];
+					event_express = Remove_parentheses(temp[i].split("Event")[1].split(";")[0]).split(", ");
+					for (var j=0; j < event_express.length; j++){
+						subevent_list.push(event_express[j]);
+					}
+					event_name = temp[i].split("=")[0].replace(" ","");
+
+					event = {id: i - 1, name:event_name, event_type:2,subevent_list:subevent_list};
+					event_list.push(event);
+				}
+			}
+		}
+		for (var i=0; i<event_list.length; i++){
+			if(event_list[i].name === "Graduation"){
+				break;
+			}
+		}
+		//向后端发送课程信息请求
+
+		var all_courses_info = get_courses_info(all_course);
+
+		var table;
+		var table_name;
+		var table_courses = [];
+		var table_commit = [];
+		var SecondEvent = event_list[i].subevent_list;
+		var English_req = [];
+
+		let event_queue = new Queue();
+		var e;
+		for (var j=0; j<SecondEvent.length; j++){
+			if (SecondEvent[j] === 'English_requirements'){
+
+				for(var o=0; o<event_list.length; o++){
+					if(event_list[o].name === 'English_requirements'){
+						break;
+					}
+				}
+				for(var l=0; l<event_list[o].subevent_list.length; l++){//
+
+					table_name = event_list[o].subevent_list[l]; // English 1 / 2 / 3
+					//English 1
+					if (table_name.indexOf("II") === -1 && table_name.indexOf("III") === -1){
+						table_courses = [];
+						table_commit = [];
+						for(var m=0; m<event_list.length; m++){
+							if(event_list[m].name === table_name){
+								break;
+							}
+						}
+						table_commit.push(event_list[m].subevent_list[0]);
+						for(var n=0; n<event_list.length; n++){
+							if(event_list[n].name === event_list[m].subevent_list[1]){
+								break;
+							}
+						}
+						//console.log(event_list[n]);
+						for(var p=0; p<event_list[n].courses_list.length; p++){
+							table_courses.push(all_courses_info[event_list[n].courses_list[p]]);
+						}
+						//English 2 / 3
+					}else{
+						table_courses = [];
+						table_commit = [];
+						for(var m=0; m<event_list.length; m++){
+							if(event_list[m].name === table_name){
+								break;
+							}
+						}
+						table_commit.push(event_list[m].subevent_list[0]);
+						for(var n=0; n<event_list.length; n++){
+							if (event_list[n].name === event_list[m].subevent_list[1]){
+								break;
+							}
+						}
+						for(var x=0; x<event_list.length; x++){
+							if(event_list[x].name === event_list[n].subevent_list[0]){
+								break;
+							}
+						}
+						for (var r=0; r<event_list[x].courses_list.length; r++){
+							table_courses.push(all_courses_info[event_list[x].courses_list[r]]);
+						}
+						for(var p=0; p<event_list.length; p++){
+							if(event_list[p].name === event_list[n].subevent_list[1]){
+								break;
+							}
+						}
+						table_commit = table_commit.concat(event_list[p].comment_list);
+					}
+					table = {table_name:table_name, table_courses:table_courses, table_commit:table_commit};
+					English_req.push(table);
+				}
+				var English_req_commit = "";
+				for (var y=0; y<English_req.length; y++){
+					if (y === 0){
+						English_req_commit = English_req[y].table_name;
+					}else{
+						English_req_commit = English_req_commit + " || " + English_req[y].table_name;
+					}
+				}
+				table_commit = [];
+				table_commit.push(English_req_commit);
+				list.push({table_name:'English_requirements', subtables:English_req, table_commit:table_commit})
+			}else {
+				table_courses = [];
+				table_commit = [];
+				table_name = SecondEvent[j];
+				event_queue.push(SecondEvent[j]);
+				while(event_queue.size() !== 0){
+					// for(var o=0; o<event_queue.size(); o++){
+					//     console.log(event_queue.getFront().ele);
+					// }
+
+					e = event_queue.pop().ele;
+					for(var k=0; k<event_list.length; k++) {
+						if (event_list[k].name === e) {
+							break;
+						}
+					}
+
+					if (event_list[k].event_type === 3){
+						table_commit = table_commit.concat(event_list[k].comment_list);
+					}else if(event_list[k].event_type === 4){
+						table_commit = table_commit.concat(event_list[k].comment_list);
+						for (var m=0; m<event_list[k].courses_list.length; m++){
+							table_courses.push(all_courses_info[event_list[k].courses_list[m]]);
+						}
+					}else if(event_list[k].event_type === 1){
+						for (var m=0; m<event_list[k].subevent_list.length; m++){
+							event_queue.push(event_list[k].subevent_list[m]);
+						}
+					}
+				}
+				table = {table_name:table_name, table_courses:table_courses, table_commit:table_commit};
+				list.push(table);
+			}
+
+		}
+		return JSON.stringify(list);
+	};
+
+	
+	//ajax : check cmh existence and their content in the database
+	function find_cmh(cmh_notfound) {
+		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_find_cmh';
+		var postData = {
+			csrfToken: GlobalVariables.csrfToken,
+			courses_arr:JSON.stringify(cmh_notfound)
+		};
+		$.post(posturl, postData, function (response) {
+			if(!GeneralFunctions.handleAjaxExceptions(response)){
+				return;
+			}
+			return response;
+			//console.log(response);
+		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+
 	}
 
+	//ajax : check course existence and their content
 	function check_course_existence(courses) {
 		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_check_courses_existence';
 		var postData = {
@@ -689,6 +1026,8 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			//console.log(response);
 		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 	}
+
+	//ajax : get the pre course
 	function get_Pre_course(courses) {
 		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_find_courses_Pre-course';
 		var postData = {
@@ -703,17 +1042,33 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			//console.log(response);
 		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 	}
-	/**
-	 * @return {string}
-	 */
-	function load(Matyrona_file_name){
-		let r = new XMLHttpRequest(),
-			okStatus = document.location.protocol === "file:" ? 0 : 200;
-		r.open('GET', Matyrona_file_name, false);
-		r.overrideMimeType("text/html;charset=utf-8");
-		r.send(null);
-		return r.status === okStatus ? r.responseText : null;
+
+	//ajax : get the information of courses
+	function get_courses_info(courses) {
+		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_get_courses_info';
+		var postData = {
+			csrfToken: GlobalVariables.csrfToken,
+			courses_arr:JSON.stringify(courses)
+		};
+		$.post(posturl, postData, function (response) {
+			if(!GeneralFunctions.handleAjaxExceptions(response)){
+				return;
+			}
+			return response;
+		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 	}
+
+	// /**
+	//  * @return {string}
+	//  */
+	// function load(Matyrona_file_name){
+	// 	let r = new XMLHttpRequest(),
+	// 		okStatus = document.location.protocol === "file:" ? 0 : 200;
+	// 	r.open('GET', Matyrona_file_name, false);
+	// 	r.overrideMimeType("text/html;charset=utf-8");
+	// 	r.send(null);
+	// 	return r.status === okStatus ? r.responseText : null;
+	// }
 	function Remove_parentheses(str) {
 		//remove "(" and ")" in the left side and right side
 		var s1 = str.split("");
