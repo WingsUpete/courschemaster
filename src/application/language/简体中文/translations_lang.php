@@ -131,3 +131,7 @@ $lang['add_plan'] = '新建计划';
 $lang['course_label'] = '课程标签';
 $lang['course_learned_date'] = '完成学习日期';
 $lang['operation'] = '操作';
+$lang['reviews-wide'] = '宽视图';
+$lang['reviews-func'] = '功能视图';
+$lang['stauts'] = '状态';
+$lang['submit_time'] = '提交时间';

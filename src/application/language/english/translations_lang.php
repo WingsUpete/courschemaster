@@ -131,3 +131,7 @@ $lang['add_plan'] = 'Add Plan';
 $lang['course_label'] = 'Course Label';
 $lang['course_learned_date'] = 'Learned Date';
 $lang['operation'] = 'Operation';
+$lang['reviews-wide'] = 'Wide View';
+$lang['reviews-func'] = 'Functional View';
+$lang['status'] = 'Status';
+$lang['submit_time'] = 'Status';
