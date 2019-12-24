@@ -20,10 +20,13 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		MatryonaTranslateClass.cmh = cmhFiles;
 
 
+
+
+
 		//将.cmh上传至数据库
 	};
 
-	//检查依赖性和语法准群性
+	//检查依赖性和语法准缺性
 	exports.check = function(cmcFile){
 		//输入：cmc文件，cmhFiles[]
 		//检查上传的cmc和cmh文件的依赖关系和语法正确性
@@ -38,8 +41,9 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		reader.readAsText(cmcFile);
 		MatryonaTranslateClass.all = cmc_content;
 
-		var cmh_notfound = [];
-		var cmh_content;
+		var cmh_notfound = []; //cmc需要的，但是没有在上传的文件中找到的cmh
+		var cmh_content; //cmh内容
+
 		//检查依赖关系
 		//找到此cmc文件INCLUDE的文件，首先在注册的cmhFiles中匹配文件名
 		var cmh_need = cmc_content.split("INCLUDE = ");
@@ -47,27 +51,27 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			cmh_need[i] = cmh_need[i].split(";")[0];
 		}
 		for (var i=0; i<cmh_need.length; i++){
-			for (var j=0; j<cmh.length; j++){
-				if (cmh_need[i] === cmh[j].name){
+			for (var j=0; j<MatryonaTranslateClass.cmh.length; j++){
+				if (cmh_need[i] === MatryonaTranslateClass.cmh[j].name){
 					//读文件并把文件内容与cmc_content拼接起来
-					var reader = new FileReader();
+					reader = new FileReader();
 					reader.onload = function (e) {
 						cmh_content = e.target.result;
 					};
-					reader.readAsText(cmh[j]);
-					all = all + cmh_content;
+					reader.readAsText(MatryonaTranslateClass.cmh[j]);
+					MatryonaTranslateClass.all = MatryonaTranslateClass.all + cmh_content;
 					break;
 				}
 			}
-			if (j === cmh.length){
+			if (j === MatryonaTranslateClass.cmh.length){
 				cmh_notfound.push(cmh_need[i]);
 			}
 		}
-		if (cmh_notfound.length !== 0){ // 如果部分cmh未找到，则去已有文件夹中寻找文件
+		if (cmh_notfound.length !== 0){ // 如果部分cmh未找到，则去数据库中找这些文件
 			var cmh_database_check = find_cmh(cmh_notfound);
 			if (cmh_database_check[0].status === true){
 				for (var j=1; j<cmh_database_check.length; j++){
-					all = all + cmh_database_check[j].cmh_content;
+					MatryonaTranslateClass.all = MatryonaTranslateClass.all + cmh_database_check[j].cmh_content;
 				}
 			}else{
 				return {status:"rejected",message:"Cmh files are insufficient !"}
@@ -75,14 +79,14 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 
 		}else{//所用到的cmh在上传的文件中全部找到，返回{status:accepted, message: accepted}, 此时的all即为全部内容，可以直接解析
 			// 检查正确性
-			all = all.split("（").join("(");
-			all = all.split("）").join(")");
-			all = all.split("“").join("\"");
-			all = all.split("”").join("\"");
+			MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("（").join("(");
+			MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("）").join(")");
+			MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("“").join("\"");
+			MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("”").join("\"");
 
-			if (all.indexOf("GRADUATION") === -1){
+			if (MatryonaTranslateClass.all.indexOf("GRADUATION") === -1){
 				return {status: "rejected", message:"No Graduation !"};
-			}else if (all.indexOf("NAME") === -1 || all.indexOf("EN_NAME") || all.indexOf("VERSION") === -1 || all.indexOf("GROUP") || all.indexOf("PROGRAM_LENGTH") === -1){
+			}else if (MatryonaTranslateClass.all.indexOf("NAME") === -1 || MatryonaTranslateClass.all.indexOf("EN_NAME") || MatryonaTranslateClass.all.indexOf("VERSION") === -1 || MatryonaTranslateClass.all.indexOf("GROUP") || MatryonaTranslateClass.all.indexOf("PROGRAM_LENGTH") === -1){
 				return {status: "rejected", message:"Missing basic information !"};
 			}else{
 				return {status:"accepted",message:"accepted"}
@@ -90,11 +94,12 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		}
 	};
 
+
 	/**
 	 * @return {string}
 	 */
 	exports.Matryona_to_List = function (){
-		var temp = all.split("Event ");
+		var temp = MatryonaTranslateClass.all.split("Event ");
 
 		var list = [];
 		var nest_event;
@@ -104,6 +109,24 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		var event_list = [];
 		var event;
 		var event_name;
+
+		//base information of courschema
+		var NAME = MatryonaTranslateClass.all.split("NAME = ")[1].split("\"")[1];
+		var EN_NAME = MatryonaTranslateClass.all.split("EN_NAME = ")[1].split("\"")[1];
+		var G = MatryonaTranslateClass.all.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
+		var GROUP = [];
+		for (var i = 0; i < G.length; i++) {
+			GROUP.push(G[i].replace(" && ", " "));
+		}
+
+		var VERSION = MatryonaTranslateClass.all.split("VERSION = ")[1].split(";")[0];
+		var PROGRAM_LENGTH = MatryonaTranslateClass.all.split("PROGRAM_LENGTH = ")[1].split(";")[0];
+		var INTRO = MatryonaTranslateClass.all.split("INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_INTRO = MatryonaTranslateClass.all.split("EN_INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var OBJECTIVES = MatryonaTranslateClass.all.split("OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_OBJECTIVES = MatryonaTranslateClass.all.split("EN_OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var DEGREE = MatryonaTranslateClass.all.split("DEGREE = ")[1].split("\"")[1];
+		var EN_DEGREE = MatryonaTranslateClass.all.split("EN_DEGREE = ")[1].split("\"")[1];
 
 		var description = {
 			name: NAME,
@@ -213,22 +236,22 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		var status_list = [];
 
 		//base information of courschema
-		var NAME = all.split("NAME = ")[1].split("\"")[1];
-		var EN_NAME = all.split("EN_NAME = ")[1].split("\"")[1];
-		var G = all.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
+		var NAME = MatryonaTranslateClass.all.split("NAME = ")[1].split("\"")[1];
+		var EN_NAME = MatryonaTranslateClass.all.split("EN_NAME = ")[1].split("\"")[1];
+		var G = MatryonaTranslateClass.all.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
 		var GROUP = [];
 		for (var i = 0; i < G.length; i++) {
 			GROUP.push(G[i].replace(" && ", " "));
 		}
 
-		var VERSION = all.split("VERSION = ")[1].split(";")[0];
-		var PROGRAM_LENGTH = all.split("PROGRAM_LENGTH = ")[1].split(";")[0];
-		var INTRO = all.split("INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
-		var EN_INTRO = all.split("EN_INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
-		var OBJECTIVES = all.split("OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
-		var EN_OBJECTIVES = all.split("EN_OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
-		var DEGREE = all.split("DEGREE = ")[1].split("\"")[1];
-		var EN_DEGREE = all.split("EN_DEGREE = ")[1].split("\"")[1];
+		var VERSION = MatryonaTranslateClass.all.split("VERSION = ")[1].split(";")[0];
+		var PROGRAM_LENGTH = MatryonaTranslateClass.all.split("PROGRAM_LENGTH = ")[1].split(";")[0];
+		var INTRO = MatryonaTranslateClass.all.split("INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_INTRO = MatryonaTranslateClass.all.split("EN_INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var OBJECTIVES = MatryonaTranslateClass.all.split("OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_OBJECTIVES = MatryonaTranslateClass.all.split("EN_OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var DEGREE = MatryonaTranslateClass.all.split("DEGREE = ")[1].split("\"")[1];
+		var EN_DEGREE = MatryonaTranslateClass.all.split("EN_DEGREE = ")[1].split("\"")[1];
 
 		var description = {
 			name: NAME,
@@ -254,7 +277,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		var node_type;
 		var event_type;
 
-		var temp = all.split("Event ");
+		var temp = MatryonaTranslateClass.all.split("Event ");
 		for (var i = 1; i < temp.length; i++) {
 			node_id = i - 1;
 			node_name = temp[i].split(" = ")[0];
@@ -682,7 +705,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			}
 		}
 		if (noexistence_courses.length !== 0) {
-			return noexistence_courses;
+			return JSON.stringify(noexistence_courses);
 			//console.log(noexistence_courses);
 		} else {
 			for (var i=0; i<courses.length; i++){
@@ -715,25 +738,25 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 	 */
 	exports.Matryona_to_Pdf = function () {
 		//base information of courschema
-		var NAME = all.split("NAME = ")[1].split("\"")[1];
-		var EN_NAME = all.split("EN_NAME = ")[1].split("\"")[1];
-		var G = all.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
+		var NAME = MatryonaTranslateClass.all.split("NAME = ")[1].split("\"")[1];
+		var EN_NAME = MatryonaTranslateClass.all.split("EN_NAME = ")[1].split("\"")[1];
+		var G = MatryonaTranslateClass.all.split("GROUP = (")[1].split(");")[0].replace(/\"/g, " ").split(") || (");
 		var GROUP = [];
 		for (var i = 0; i < G.length; i++) {
 			GROUP.push(G[i].replace(" && ", " "));
 		}
 
-		var VERSION = all.split("VERSION = ")[1].split(";")[0];
-		var PROGRAM_LENGTH = all.split("PROGRAM_LENGTH = ")[1].split(";")[0];
-		var INTRO = all.split("INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
-		var EN_INTRO = all.split("EN_INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
-		var OBJECTIVES = all.split("OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
-		var EN_OBJECTIVES = all.split("EN_OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
-		var DEGREE = all.split("DEGREE = ")[1].split("\"")[1];
-		var EN_DEGREE = all.split("EN_DEGREE = ")[1].split("\"")[1];
+		var VERSION = MatryonaTranslateClass.all.split("VERSION = ")[1].split(";")[0];
+		var PROGRAM_LENGTH = MatryonaTranslateClass.all.split("PROGRAM_LENGTH = ")[1].split(";")[0];
+		var INTRO = MatryonaTranslateClass.all.split("INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_INTRO = MatryonaTranslateClass.all.split("EN_INTRO = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var OBJECTIVES = MatryonaTranslateClass.all.split("OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, "");
+		var EN_OBJECTIVES = MatryonaTranslateClass.all.split("EN_OBJECTIVES = ")[1].split("\"")[1].split("\n").join("").replace(/\s+/g, " ");
+		var DEGREE = MatryonaTranslateClass.all.split("DEGREE = ")[1].split("\"")[1];
+		var EN_DEGREE = MatryonaTranslateClass.all.split("EN_DEGREE = ")[1].split("\"")[1];
 
 
-		var temp = all.split("Event ");
+		var temp = MatryonaTranslateClass.all.split("Event ");
 
 		var event;
 		var event_name;
@@ -993,7 +1016,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		return JSON.stringify(list);
 	};
 
-	
+
 	//ajax : check cmh existence and their content in the database
 	function find_cmh(cmh_notfound) {
 		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_find_cmh';
@@ -1057,18 +1080,9 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			return response;
 		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 	}
-
-	// /**
-	//  * @return {string}
-	//  */
-	// function load(Matyrona_file_name){
-	// 	let r = new XMLHttpRequest(),
-	// 		okStatus = document.location.protocol === "file:" ? 0 : 200;
-	// 	r.open('GET', Matyrona_file_name, false);
-	// 	r.overrideMimeType("text/html;charset=utf-8");
-	// 	r.send(null);
-	// 	return r.status === okStatus ? r.responseText : null;
-	// }
+	/**
+	 * @return {string}
+	 */
 	function Remove_parentheses(str) {
 		//remove "(" and ")" in the left side and right side
 		var s1 = str.split("");
@@ -1151,6 +1165,18 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			return true;
 		}
 	}
+
+	// /**
+	//  * @return {string}
+	//  */
+	// function load(Matyrona_file_name){
+	// 	let r = new XMLHttpRequest(),
+	// 		okStatus = document.location.protocol === "file:" ? 0 : 200;
+	// 	r.open('GET', Matyrona_file_name, false);
+	// 	r.overrideMimeType("text/html;charset=utf-8");
+	// 	r.send(null);
+	// 	return r.status === okStatus ? r.responseText : null;
+	// }
 
 })(window.MatryonaTranslateClass);
 
