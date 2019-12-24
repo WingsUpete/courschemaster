@@ -92,4 +92,21 @@ class MatryonaIDE_api extends CI_Controller
 		}
 	}
 
+	public function ajax_find_cmh(){
+		try{
+			$cmh_name_list = json_decode($this->input->post('cmh_name_list'));
+
+			$result = $this->courschemas_model->find_cmh($cmh_name_list);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc) {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
 }

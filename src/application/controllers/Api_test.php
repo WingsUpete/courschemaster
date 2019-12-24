@@ -12,7 +12,20 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_get_tao_review_list();
+        $this->test_find_cmh();
+    }
+
+    public function test_find_cmh(){
+        $cmh_name_list = array('nb_courschema');
+        $result = $this->courschemas_model->find_cmh($cmh_name_list);
+        echo $result['status'] . '<br />';
+        echo $result['query_result'];
+        foreach($result['query_result'] AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
     }
 
     public function test_get_tao_review_list(){
