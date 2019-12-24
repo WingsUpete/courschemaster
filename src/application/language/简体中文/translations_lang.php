@@ -142,3 +142,4 @@ $lang['sid'] = 'sid';
 $lang['major'] = '专业';
 $lang['department'] = '院系';
 $lang['check'] = '检查';
+$lang['abort'] = '终止';

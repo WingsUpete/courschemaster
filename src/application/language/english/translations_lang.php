@@ -142,3 +142,4 @@ $lang['sid'] = 'sid';
 $lang['major'] = 'Major';
 $lang['department'] = 'Department';
 $lang['check'] = 'Check';
+$lang['abort'] = 'Abort';
