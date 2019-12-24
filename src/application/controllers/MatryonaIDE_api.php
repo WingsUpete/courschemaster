@@ -22,7 +22,7 @@ class MatryonaIDE_api extends CI_Controller
 
 			for ($i = 0; $i < count($code_list); $i++) {
 				$code = $code_list[$i];
-				$result_list[$i] = $this->course_model->query_course_by_code($code);
+				$result_list[$code] = $this->course_model->query_course_by_code($code);
 			}
 
 			$this->output
