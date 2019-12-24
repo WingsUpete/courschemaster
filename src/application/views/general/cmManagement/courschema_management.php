@@ -81,7 +81,33 @@
 										</span>
 									</div>
 								</div>
-    							<pre id="editor"></pre>
+    							<pre id="editor">
+INCLUDE = "SUSTech_english_requirement.cmh";
+INCLUDE = "思想政治品德课程.cmh";
+INCLUDE = "军训体育课程.cmh";
+INCLUDE = "中文写作与交流.cmh";
+INCLUDE = "公选课.cmh";
+
+NAME
+EN_NAME
+
+VERSION
+
+GROUP
+
+INTRO
+EN_INTRO
+
+OBJECTIVES
+EN_OBJECTIVES
+
+PROGRAM_LENGTH = 4;
+
+DEGREE = "工程学学士";
+EN_DEGREE = "Bachelor of Engineering";
+
+Event GRADUATION =
+    							</pre>
     						</div>
     						<div class="col-xs-12 col-lg-6">
     							<div class="btn-toolbar justify-content-end mb-2 editor-btns">
