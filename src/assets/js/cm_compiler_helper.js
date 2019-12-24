@@ -6,6 +6,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
  *
  * @module StaticClass
  */
+
 (function (exports) {
 
 	'use strict';	// strict mode execution: This means no undeclared variable usage.
@@ -21,7 +22,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		if (check_cmhfiles_reslut === "No error"){
 			//***********************************
 			//将.cmh上传至数据库
-
+			return {status: "accepted",message: "accepted"}
 		}else{
 			return {status: "rejected", message:check_cmhfiles_reslut}
 		}
@@ -71,9 +72,11 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 
 		//检查依赖关系
 		//找到此cmc文件INCLUDE的文件，首先在注册的cmhFiles中匹配文件名
-		var cmh_need = cmc_content.split("INCLUDE = ");
-		for (var i=0; i<cmh_need.length; i++){
-			cmh_need[i] = cmh_need[i].split(";")[0].split("\"").join("");
+		var cmh_need_temp = cmc_content.split("INCLUDE = ");
+		var cmh_need = [];
+		for (var i=1; i<cmh_need_temp.length; i++){
+			cmh_need_temp[i] = cmh_need_temp[i].split(";")[0].split("\"").join("");
+			cmh_need.push(cmh_need_temp[i])
 		}
 		//######################
 		for (var i=0; i<cmh_need.length; i++){
@@ -693,9 +696,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 					}
 				}
 			}
-
 		}
-
 
 		var List = [];
 		var courses = [];
