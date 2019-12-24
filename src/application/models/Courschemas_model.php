@@ -259,4 +259,27 @@ class Courschemas_model extends CI_Model{
             ->get()
             ->result_array();
     }
+
+    public function find_cmh($cmh_name_list){
+        $num_cmh = sizeof($cmh_name_list);
+        $this->db->select('
+            cm_courschemas.name        AS cmh_name,
+            cm_courschemas.source_code AS cmh_content
+        ')
+        ->from('cm_courschemas');
+        
+        foreach($cmh_name_list AS $name){
+            $this->db->or_where('cm_courschemas.name', $name);
+        }
+        
+        $rtn = $this->db
+            ->get()
+            ->result_array();
+
+        if(sizeof($rtn) != $num_cmh){
+            return array('status'=>'false', 'query_result'=> 'need:' . $num_cmh .' got:' . sizeof($rtn));
+        }else{
+            return array('status' => 'true', 'query_result' => $rtn);
+        }
+    }
 }
