@@ -1,12 +1,9 @@
-window.MyPlan = window.MyPlan || {};
+window.Review = window.Review || {};
 
 /**
- * My Plan
+ * Review
  *
- * My Plan javascript namespace. Contains the main functionality of the My Plan
- * page.
- *
- * @module MyPlan
+ * @module Review
  */
 (function (exports) {
 
@@ -14,14 +11,14 @@ window.MyPlan = window.MyPlan || {};
 
     /**
      * The page helper contains methods that implement each record type functionality
-     * MyPlanHelper
+     * ReviewHelper
      *
      * @type {Object}
      */
     var helper = {};
-
+	
     /**
-     * This method initializes the My Plan page.
+     * This method initializes the Review page.
      *
      * @param {Boolean} defaultEventHandlers Optional (false), whether to bind the default
      * event handlers or not.
@@ -29,10 +26,10 @@ window.MyPlan = window.MyPlan || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 
-        helper = new MyPlanHelper();
+        helper = new ReviewHelper();
 		
-		// Initialization
-		
+		// Initializations
+
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -40,15 +37,11 @@ window.MyPlan = window.MyPlan || {};
     };
 
     /**
-     * Default event handlers declaration for My Plan page.
+     * Default event handlers declaration for Review page.
      */
     function _bindEventHandlers() {
-		$("a[data-toggle='tab']").on('shown.bs.tab', function() {
-			//	every time the tab is changed, modify footer
-			GeneralFunctions.placeFooterToBottom();
-		});
 		
         helper.bindEventHandlers();
     }
 
-})(window.MyPlan);
+})(window.Review);

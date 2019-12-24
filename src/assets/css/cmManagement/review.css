@@ -1,0 +1,20 @@
+/* CSS Document */
+/* reviews */
+.nav-pills .nav-link {
+	color: #b04b4b!important;
+	opacity: 1.0;
+	transition: all 0.3s;
+}
+.nav-pills .nav-link:hover {
+	opacity: 0.8;
+}
+.nav-pills .nav-link.active {
+	color: #fff!important;
+	background-color: #b04b4b!important;
+}
+.nav-pills .nav-link .reviews-txt {
+	display: none;
+}
+.nav-pills .nav-link.active .reviews-txt {
+	display: inline-block;
+}

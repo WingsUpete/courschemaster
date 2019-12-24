@@ -31,7 +31,10 @@ window.Collection = window.Collection || {};
         helper = new CollectionHelper();
 		
 		// Initializations
-		Collection.initialize_courses();
+		$.when(helper.retrieveCollections()).then(function() {
+			//	DataTable
+			Collection.initialize_courschemas();
+		});
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -46,9 +49,9 @@ window.Collection = window.Collection || {};
         helper.bindEventHandlers();
     }
 	
-	exports.initialize_courses = function () {
-		datatable = $('#courses-datatable').DataTable({
-			"autoWidth": true,
+	exports.initialize_courschemas = function () {
+		datatable = $('#courschemas-datatable').DataTable({
+			"autoWidth": false,
 			"initComplete": function(settings, json) {
 				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
 			},
@@ -59,8 +62,33 @@ window.Collection = window.Collection || {};
 				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
 			},
 			"ajax": function(data, callback, settings) {
+				var courschemas = helper.courschemas;
 				
-			}
+				if (courschemas === undefined) {
+					callback({data:[]});
+				}
+				
+				var dataArray = [];
+				var subArray = [];
+				for (var i = 0; i < courschemas.length; ++i) {
+					var courschema = courschemas[i];
+					subArray = [
+									courschema.courschema_id, courschema.courschema_name,
+									courschema.major_name, courschema.department_name
+							   ];
+					dataArray.push(subArray);
+				}
+				
+				callback({
+					data: dataArray
+				});
+			},
+			"columns": [
+				{"visible": false},
+				null,
+				null,
+				null
+			]
 		});
 	};
 

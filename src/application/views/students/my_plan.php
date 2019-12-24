@@ -1,3 +1,4 @@
+<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/students/my_plan.css', NULL, 'css') ?>" />
 <script type="text/javascript" src="<?= asset_url('assets/js/students/my_plan/my_plan.js', NULL, 'js') ?>"></script>
 <script type="text/javascript" src="<?= asset_url('assets/js/students/my_plan/my_plan_helper.js', NULL, 'js') ?>"></script>
 <script>
@@ -7,572 +8,112 @@
     };
 
     $(document).ready(function() {
-		StudentsMyPlan.initialize(true);
+		MyPlan.initialize(true);
     });
 </script>
 
 <!-- Main content -->
-<div id="students_my_plan" class="main-content">
+<div id="my_plan" class="main-content">
 	<h1 class="hide-for-now"><?= lang('my_plan') ?></h1>
 	<hr class="hide-for-now" />
-	<!-- Others -->
-    <ul class="nav nav-tabs" id="courschema_list" role="tablist">
-            <li class="nav-item">
-                <a class="nav-link active" id="First_grade_one-tab" data-toggle="tab" href="#First_grade_one" role="tab" aria-controls="First_grade_one"
-                   aria-selected="true">Year1 Fall</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="First_grade_two-tab" data-toggle="tab" href="#First_grade_two" role="tab" aria-controls="First_grade_two"
-                   aria-selected="false">Year1 Spring</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="First_grade_three-tab" data-toggle="tab" href="#First_grade_three" role="tab" aria-controls="First_grade_three"
-                   aria-selected="false">Year1 Summer</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Second_grade_one-tab" data-toggle="tab" href="#Second_grade_one" role="tab" aria-controls="Second_grade_one"
-                   aria-selected="false">Year2 Fall</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Second_grade_two-tab" data-toggle="tab" href="#Second_grade_two" role="tab" aria-controls="Second_grade_two"
-                   aria-selected="false">Year2 Spring</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Second_grade_three-tab" data-toggle="tab" href="#Second_grade_three" role="tab" aria-controls="Second_grade_three"
-                   aria-selected="false">Year2 Summer</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Third_grade_one-tab" data-toggle="tab" href="#Third_grade_one" role="tab" aria-controls="Third_grade_one"
-                   aria-selected="false">Year3 Fall</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Third_grade_two-tab" data-toggle="tab" href="#Third_grade_two" role="tab" aria-controls="Third_grade_two"
-                   aria-selected="false">Year3 Spring</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Third_grade_three-tab" data-toggle="tab" href="#Third_grade_three" role="tab" aria-controls="Third_grade_three"
-                   aria-selected="false">Year3 Summer</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Fourth_grade_one-tab" data-toggle="tab" href="#Fourth_grade_one" role="tab" aria-controls="Fourth_grade_one"
-                   aria-selected="false">Year4 Fall</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" id="Fourth_grade_two-tab" data-toggle="tab" href="#Fourth_grade_two" role="tab" aria-controls="Fourth_grade_two"
-                   aria-selected="false">Year4 Spring</a>
-            </li>
-        </ul>
-        <div class="tab-content" id="myTabContent">
-            <div class="tab-pane fade show active" id="First_grade_one" role="tabpanel" aria-labelledby="First_grade_one-tab">
-                <table id="First_grade_one_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS102A</td>
-                        <td>计算机程序设计基础A</td>
-                        <td>64</td>
-                        <td>4</td>
-                        <td>无</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>MA107A</td>
-                        <td>线性代数A</td>
-                        <td>64</td>
-                        <td>4</td>
-                        <td>无</td>
-                        <td>数学系</td>
-                    </tr>
-                    <tr>
-                        <td>BIO102B</td>
-                        <td>生命科学概论</td>
-                        <td>48</td>
-                        <td>3</td>
-                        <td>无</td>
-                        <td>生物系</td>
-                    </tr>
-                    <tr>
-                        <td>PHY104B</td>
-                        <td>基础物理实验</td>
-                        <td>32</td>
-                        <td>1.5</td>
-                        <td>无</td>
-                        <td>物理系</td>
-                    </tr>
-                    <tr>
-                        <td>IPE101</td>
-                        <td>思想道德修养和法律基础</td>
-                        <td>32</td>
-                        <td>2</td>
-                        <td>无</td>
-                        <td>思政中心</td>
-                    </tr>
-                    <tr>
-                        <td>CLE021</td>
-                        <td>SUStech English I</td>
-                        <td>32</td>
-                        <td>4</td>
-                        <td>无</td>
-                        <td>语言中心</td>
-                    </tr>
-                    <tr>
-                        <td>GE131</td>
-                        <td>体育 I</td>
-                        <td>32</td>
-                        <td>1</td>
-                        <td>无</td>
-                        <td>体育中心</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="First_grade_two" role="tabpanel" aria-labelledby="First_grade_two-tab">
-                <table id="First_grade_two_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS201</td>
-                        <td>离散数学</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>高等数学(下)A、线性代数A</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS202</td>
-                        <td>计算机组成原理</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>数字逻辑</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>MA212</td>
-                        <td>概率论与数理统计</td>
-                        <td>48</td>
-                        <td>3</td>
-                        <td>数学分析II或高等数学(下)A</td>
-                        <td>数学系</td>
-                    </tr>
-                    <tr>
-                        <td>CS203</td>
-                        <td>数据结构与算法分析</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>计算机程序设计基础A</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS201</td>
-                        <td>离散数学</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>高等数学(下)A、线性代数A</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS202</td>
-                        <td>计算机组成原理</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>数字逻辑</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>MA212</td>
-                        <td>概率论与数理统计</td>
-                        <td>48</td>
-                        <td>3</td>
-                        <td>数学分析II或高等数学(下)A</td>
-                        <td>数学系</td>
-                    </tr>
-                    <tr>
-                        <td>CS203</td>
-                        <td>数据结构与算法分析</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>计算机程序设计基础A</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS201</td>
-                        <td>离散数学</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>高等数学(下)A、线性代数A</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS202</td>
-                        <td>计算机组成原理</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>数字逻辑</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>MA212</td>
-                        <td>概率论与数理统计</td>
-                        <td>48</td>
-                        <td>3</td>
-                        <td>数学分析II或高等数学(下)A</td>
-                        <td>数学系</td>
-                    </tr>
-                    <tr>
-                        <td>CS203</td>
-                        <td>数据结构与算法分析</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>计算机程序设计基础A</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="First_grade_three" role="tabpanel" aria-labelledby="First_grade_three-tab">
-                <table id="First_grade_three_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS205</td>
-                        <td>C/C++程序设计</td>
-                        <td>64</td>
-                        <td>4</td>
-                        <td>考试</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>MA107A</td>
-                        <td>线性代数A</td>
-                        <td>64</td>
-                        <td>4</td>
-                        <td>考试</td>
-                        <td>数学系</td>
-                    </tr>
-                    <tr>
-                        <td>BIO102B</td>
-                        <td>生命科学概论</td>
-                        <td>48</td>
-                        <td>3</td>
-                        <td>考试</td>
-                        <td>生物系</td>
-                    </tr>
-                    <tr>
-                        <td>PHY104B</td>
-                        <td>基础物理实验</td>
-                        <td>32</td>
-                        <td>1.5</td>
-                        <td>答辩</td>
-                        <td>物理系</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="Second_grade_one" role="tabpanel" aria-labelledby="Second_grade_one-tab">
-                <table id="Second_grade_one_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS205</td>
-                        <td>C/C++程序设计</td>
-                        <td>64</td>
-                        <td>4</td>
-                        <td>无</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>MA333</td>
-                        <td>大数据挖掘</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>概率论和数理统计或概率论</td>
-                        <td>数学系</td>
-                    </tr>
-                    <tr>
-                        <td>EE205</td>
-                        <td>信号和系统</td>
-                        <td>64</td>
-                        <td>3</td>
-                        <td>考试</td>
-                        <td>电子与电气工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS101A</td>
-                        <td>计算机导论A</td>
-                        <td>32</td>
-                        <td>2</td>
-                        <td>考试</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="Second_grade_two" role="tabpanel" aria-labelledby="Second_grade_two-tab">
-                <table id="Second_grade_two_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS102A</td>
-                        <td>计算机程序设计基础A</td>
-                        <td>64</td>
-                        <td>4</td>
-                        <td>考试</td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>MA107A</td>
-                        <td>线性代数A</td>
-                        <td>64</td>
-                        <td>4</td>
-                        <td>考试</td>
-                        <td>数学系</td>
-                    </tr>
-                    <tr>
-                        <td>BIO102B</td>
-                        <td>生命科学概论</td>
-                        <td>48</td>
-                        <td>3</td>
-                        <td>考试</td>
-                        <td>生物系</td>
-                    </tr>
-                    <tr>
-                        <td>PHY104B</td>
-                        <td>基础物理实验</td>
-                        <td>32</td>
-                        <td>1.5</td>
-                        <td>答辩</td>
-                        <td>物理系</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="Second_grade_three" role="tabpanel" aria-labelledby="Second_grade_three-tab">
-                <table id="Second_grade_three_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS470</td>
-                        <td>工业实习</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS490</td>
-                        <td>毕业论文</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="Third_grade_one" role="tabpanel" aria-labelledby="Third_grade_one-tab">
-                <table id="Third_grade_one_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS470</td>
-                        <td>工业实习</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS490</td>
-                        <td>毕业论文</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="Third_grade_two" role="tabpanel" aria-labelledby="Third_grade_two-tab">
-                <table id="Third_grade_two_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS470</td>
-                        <td>工业实习</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS490</td>
-                        <td>毕业论文</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-
-                </table>
-            </div>
-            <div class="tab-pane fade" id="Third_grade_three" role="tabpanel" aria-labelledby="Third_grade_three-tab">
-                <table id="Third_grade_three_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS470</td>
-                        <td>工业实习</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS490</td>
-                        <td>毕业论文</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                </table>
-            </div>
-            <div class="tab-pane fade" id="Fourth_grade_one" role="tabpanel" aria-labelledby="Fourth_grade_one-tab">
-                <table id="Fourth_grade_one_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS470</td>
-                        <td>工业实习</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS490</td>
-                        <td>毕业论文</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-
-                </table>
-            </div>
-            <div class="tab-pane fade" id="Fourth_grade_two" role="tabpanel" aria-labelledby="Fourth_grade_two-tab">
-                <table id="Fourth_grade_two_courselist" class="table table-striped table-bordered table-hover table-condensed text-center">
-                    <thead class="alert-primary">
-                    <tr>
-                        <th class="th-sm justify-content-center">Course ID</th>
-                        <th class="th-sm">Course Name</th>
-                        <th class="th-sm">Period</th>
-                        <th class="th-sm">Course Credit</th>
-                        <th class="th-sm">Prerequisite</th>
-                        <th class="th-sm">Department</th>
-                    </tr>
-                    </thead>
-                    <tbody>
-                    <tr>
-                        <td>CS470</td>
-                        <td>工业实习</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                    <tr>
-                        <td>CS490</td>
-                        <td>毕业论文</td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td>计算机科学与工程系</td>
-                    </tr>
-                </table>
-            </div>
-        </div>
+	<div class="alert alert-info alert-dismissible fade show tutorial" role="alert">
+		<?= lang('my_plan_tutorial') ?>
+		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
+	  		<span aria-hidden="true">&times;</span>
+		</button>
+	</div>
+	<!-- Table -->
+	<div class="container-fluid w-100 px-0">
+		<div class="row">
+			<div class="col-xs-12 col-lg-6">
+				<div class="card plan-window mb-3">
+					<div class="card-header">
+						<ul class="nav nav-tabs card-header-tabs" id="my-plan-panel" role="tablist">
+							<span class="plan-titles"></span>
+							<li class="nav-item">
+								<a class="nav-link font-weight-bold active" id="mp_test" data-toggle="tab" title="Test" href="javascript:void(0);" role="tab" aria-selected="true">Test</a>
+							</li>
+							<li class="nav-item">
+								<a class="nav-link" id="add_plan" title="<?= lang('add_plan') ?>" href="javascript:void(0);" role="tab" aria-selected="false"><i class="fas fa-plus font-weight-bold"></i>&ensp;<small class="text-muted"><span class="plan_count">3</span>/5</small></a>
+							</li>
+						</ul>
+					</div>
+					<div class="card-body">
+						<div class="tab-content" id="my-plan-panel-content">
+							<button type="button" class="btn tool-btn btn-sm mb-2" data-toggle="modal" data-target="#courseMarket">
+								<i class="fas fa-shopping-cart"></i>
+								&ensp;
+								<?= lang('add') ?>
+							</button>
+							<?php
+								$course_table_headers = array(
+									lang('course_code'), lang('course_name'), lang('course_learned_date'), lang('course_label'), lang('operation')
+								);
+							?>
+							<div class="table-responsive"><table id="plan-courses-datatable" class="table table-bordered table-hover table-condensed text-center">
+								<thead>
+									<tr>
+										<?php
+											for ($i = 0; $i < count($course_table_headers); $i++) {
+												echo('<th class="th-sm justify-content-center">' . $course_table_headers[$i] . '</th>');
+											}
+										?>
+									</tr>
+								</thead>
+								<tbody></tbody>
+							</table></div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="col-xs-12 col-lg-6">
+				<div class="card border-light mb-3 graph-window">
+					<div class="card-header"><?= lang('graph') ?></div>
+					<div class="card-body">
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- courseMarket -->
+<div class="modal fade top" id="courseMarket" tabindex="-1" role="dialog" aria-labelledby="courseMarketLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-lg side-modal modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="courseMarketLabel"><?= lang('add') ?></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="md-form md-outline mb-3">
+					<i class="fas fa-search fa-4x prefix"></i>
+					<input type="text" id="qa-search" class="form-control">
+					<label for="qa-search"><?= lang('search') ?></label>
+				</div>
+				<?php
+					$course_table_headers = array(
+						lang('course_code'), lang('course_name'), lang('course_label'), lang('course_department')
+					);
+				?>
+				<div class="table-responsive"><table id="market-courses-datatable" class="table table-bordered table-hover table-condensed text-center">
+					<thead>
+						<tr>
+							<?php
+								for ($i = 0; $i < count($course_table_headers); $i++) {
+									echo('<th class="th-sm justify-content-center">' . $course_table_headers[$i] . '</th>');
+								}
+							?>
+						</tr>
+					</thead>
+					<tbody></tbody>
+				</table></div>
+			</div>
+			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><?= lang('close') ?></button>
+			</div>
+		</div>
+	</div>
 </div>

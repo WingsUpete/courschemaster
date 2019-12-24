@@ -17,7 +17,7 @@
 	<h1 class="hide-for-now">Courschema Management</h1>
 	<hr class="hide-for-now" />
 	<!-- card group -->
-	<div class="alert alert-info alert-dismissible fade show" role="alert">
+	<div class="alert alert-info alert-dismissible fade show tutorial" role="alert">
 		<?= lang('courschema_tutorial') ?>
 		<button type="button" class="close" data-dismiss="alert" aria-label="Close">
 	  		<span aria-hidden="true">&times;</span>
@@ -84,12 +84,12 @@
     						</div>
     						<div class="col-xs-12 col-lg-6">
     							<div class="btn-toolbar justify-content-end mb-2 editor-btns">
-    								<div class="btn-group mr-1">
+    								<div class="btn-group">
     									<button id="editor-compile" type="button" class="btn btn-sm font-weight-bold editor-btn">
     										<?= lang('compile') ?>
     									</button>
     								</div>
-    								<div class="btn-group ml-1">
+    								<div class="btn-group">
     									<button id="editor-submit" type="button" class="btn btn-sm font-weight-bold editor-btn">
     										<?= lang('submit') ?>
     									</button>

@@ -3,35 +3,37 @@
     'use strict';
 
     /**
-     * LearnedHelper Class
+     * ReviewHelper Class
      *
-     * This class contains the methods that are used in the Learned page.
+     * This class contains the methods that are used in the Collection page.
      *
-     * @class LearnedHelper
+     * @class ReviewHelper
      */
-    function LearnedHelper() {
+    function ReviewHelper() {
         this.courses = [];
 		this.courseMap = {};
+		this.timeOutVars = {};
     }
 
     /**
-     * Binds the default event handlers of the Learned page.
+     * Binds the default event handlers of the Collection page.
      */
-    LearnedHelper.prototype.bindEventHandlers = function () {
+    ReviewHelper.prototype.bindEventHandlers = function () {
         var instance = this;
 
 		// Listners
+		
 		
 	};
 
 	//	Additional Methods
 	
 	/**
-     * get details of learned courses
+     * get details of courses
      */
-    LearnedHelper.prototype.retrieveLearned = function () {
+    ReviewHelper.prototype.retrieveCourses = function () {
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/students_api/ajax_get_my_learned';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/course_api/ajax_get_all_course_full_info';
         var postData = {
             csrfToken: GlobalVariables.csrfToken
         };
@@ -43,12 +45,10 @@
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
-			
 			obj.courses = response;
-			console.log(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
-    window.LearnedHelper = LearnedHelper;
+    window.ReviewHelper = ReviewHelper;
 })();

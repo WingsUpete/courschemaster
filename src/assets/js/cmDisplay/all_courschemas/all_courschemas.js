@@ -36,7 +36,6 @@ window.AllCourschemas = window.AllCourschemas || {};
 		AllCourschemas.initStepper();
 		helper.stepper = stepper;
 		helper.getDepartments();
-//		helper.getMajors();
 
         if (defaultEventHandlers) {
             _bindEventHandlers();
