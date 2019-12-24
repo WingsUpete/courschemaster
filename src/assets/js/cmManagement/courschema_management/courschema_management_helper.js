@@ -51,23 +51,23 @@
 			compiler.registerCmhFiles(instance.cmhFiles);
 			//	check all files
 			var all_valid = true;
-			var dataPack = [];
+			var dataPack = {};
 			$.each(instance.cmcFiles, function(index, cmcFile) {
 				var response = compiler.check(cmcFile);
 				var $badge = $('.file-list-item[data-file-name="' + cmcFile.name + '"]').find('.pending-badge');
 				if (response.status === 'accepted') {
 					$badge.removeClass('badge-warning').addClass('badge-success');
 					//	compile and get JSON
-					var data = {
-						file: cmcFile,
+					var extension = GeneralFunctions.getFileExtension(cmcFile.name);
+					dataPack[extension] = {
+						ext: extension,
 						pdf: compiler.Matryona_to_Pdf(),
 						list: compiler.Matryona_to_List(),
 						graph: compiler.Matryona_to_Graph()
 					}
-					dataPack.push(data);
 				} else if (response.status === 'rejected') {
 					$badge.removeClass('badge-warning').addClass('badge-danger');
-					$badge.prop('onClick', function() {
+					$badge.click(function() {
 						alert(response.message);
 					});
 					all_valid = false;
@@ -101,7 +101,7 @@
 		obj.cmcFiles = [];
 		$.each(files, function(index, file) {
 			var name = file.name;
-			var extension = name.substring(name.lastIndexOf('.')+1);
+			var extension = GeneralFunctions.getFileExtension(name);
 			var html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span>' + obj.pendingBtn + '</li>';
 			if (extension === 'cmh') {
 				output_cmh.push(html);
@@ -143,24 +143,46 @@
      * get details of courschemas
      */
     CourschemaManagementHelper.prototype.uploadCourschemas = function () {
-		var dataPack = this.dataPack;
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/all_courschemas_api/ajax_get_visible_courschema';
-        var postData = {
-            csrfToken: GlobalVariables.csrfToken
-        };
+        var postUrl = GlobalVariables.baseUrl + '/index.php/course_api/ajax_add_courses_by_excel';
 		
 		var obj = this;
 		
-        return $.post(postUrl, postData, function (response) {
-			//	Test whether response is an exception or a warning
-            if (!GeneralFunctions.handleAjaxExceptions(response)) {
-                return;
-            }
-			
-			console.log(response);
-			
-        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+        var files = obj.cmhFiles.concat(obj.cmcFiles);
+		
+		var postData = new FormData();
+		postData.append('csrfToken', GlobalVariables.csrfToken);
+		postData.append('target_file[]', files);
+		postData.append('dataPack', obj.dataPack);
+		
+		return $.ajax({
+			url: postUrl,
+			type: 'POST',
+			data: postData,
+			cache: false,
+			contentType: false,
+			processData: false,
+			success: function(response) {
+				//	Test whether response is an exception or a warning
+            	if (!GeneralFunctions.handleAjaxExceptions(response)) {
+            	    return;
+            	}
+				
+				console.log(response);
+				
+//				if (response.status === 'success') {
+//					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_success, 'success', 6000);
+//					obj.refreshTable();
+//				} else if (response.status === 'fail') {
+//					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_failure, 'danger', 6000);
+//				} else {
+//					GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+//				}
+			},
+			error: function(e) {
+				console.error(e);
+			}
+		});
     };
 	
     window.CourschemaManagementHelper = CourschemaManagementHelper;

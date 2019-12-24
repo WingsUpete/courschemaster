@@ -464,4 +464,11 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 		}
     };
 	
+    /**
+     * Get file extension
+     */
+    exports.getFileExtension = function (name) {
+		return name.substring(name.lastIndexOf('.')+1);
+    };
+	
 })(window.GeneralFunctions);
