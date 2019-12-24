@@ -18,10 +18,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		//上传的所有.cmh文件的File对象数组
 		MatryonaTranslateClass.cmh = [];
 		MatryonaTranslateClass.cmh = cmhFiles;
-		for (var i=0; i<MatryonaTranslateClass.cmh.length; i++){
-
-		}
-
+		
 		var check_cmhfiles_result = [];
 
 		for (var i=0; i<MatryonaTranslateClass.cmh.length; i++){
