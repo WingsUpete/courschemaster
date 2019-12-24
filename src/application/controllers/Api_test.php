@@ -13,13 +13,38 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_get_visible_majors();
+        $this->test_upload_courschemas();
+    }
+
+    public function test_upload_courschemas(){
+        $user_id = 1;
+        $target_files = array(
+            'name' => array('upload_test1', 'upload_test2'),
+            'tmp_name' => array('C:\\Users\\ASUS\\desktop\\test1.txt', 'C:\\Users\\ASUS\\desktop\\test2.txt')
+        );
+        $data_pack = array(
+            'maj' => 1,
+            'upload_test1' => array(
+                'ext' => 'cmc',
+                'pdf' => 'nb',
+                'list' => 'list nb',
+                'graph' => 'graph nb'
+            ),
+            'upload_test2' => array(
+                'ext' => 'cmh',
+                'pdf' => 'nb',
+                'list' => 'list nb',
+                'graph' => 'graph nb'
+            )
+        );
+        $result = $this->courschemas_model->upload_courschemas($user_id, $target_files, $data_pack);
+        echo $result ? 1 : 0;
     }
 
     public function test_get_visible_majors(){
         $user_id = $this->session->userdata('user_id');
         $language = $this->session->userdata('language');
-        
+
         $result = $this->majors_model->get_visible_majors($user_id, $language);
         foreach($result AS $row){
             foreach($row AS $k => $v){

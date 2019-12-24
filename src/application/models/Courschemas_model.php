@@ -282,4 +282,39 @@ class Courschemas_model extends CI_Model{
             return array('status' => 'true', 'query_result' => $rtn);
         }
     }
+
+    public function upload_courschemas($user_id, $target_files, $data_pack){
+        
+        $ok = True;
+        $data_inserted = array();
+
+        for($i = 0; $i < sizeof($target_files['name']); $i++){
+            $content = file_get_contents($target_files['tmp_name'][$i]);
+            $name = $target_files['name'][$i];
+
+            $pdf_url = 'default.pdf';
+
+            if($data_pack[$name]['ext'] == 'cmc'){
+                $pdf_url = $this->store_pdf($data_pack[$name]['pdf']);
+            }
+
+            $data_inserted[$i] = array(
+                'name' => $name,
+                'type' => $data_pack[$name]['ext'],
+                'id_majors' => $data_pack['maj'],
+                'pdf_url' => $pdf_url,
+                'graph_json' => $data_pack[$name]['graph'],
+                'list_json' => $data_pack[$name]['list'],
+                'source_code' => $content,
+                'is_available' => 0
+            );
+        }
+        $rtn = $this->db->insert_batch('cm_courschemas', $data_inserted);
+        log_operation('upload courschemas', $user_id, array('target_files'=>$target_files, 'data_pack'=>$data_pack), $rtn);
+        return $rtn;
+    }
+
+    public function store_pdf($content){
+        return 'default.pdf';
+    }
 }
