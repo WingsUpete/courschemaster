@@ -43,12 +43,23 @@
 		});
 		
 		//	upload files handling
-		$('#submit-files').click(function() {
+		$('.submit-files').click(function() {
 			var compiler = instance.compiler;
 			//	process files in frontend ground
 			instance.processFrontEndFiles();
 			//	register header files
-			compiler.registerCmhFiles(instance.cmhFiles);
+			var res_msg = compiler.registerCmhFiles(instance.cmhFiles);
+			var $badge = $('.file-list-item[data-file-name="' + cmcFile.name + '"]').find('.pending-badge');
+			if (msg.status === 'accepted') {
+				$badge.removeClass('badge-warning').addClass('badge-success');
+				$badge.html(SCLang.accepted);
+			} else if (msg.status === 'rejected') {
+				$badge.removeClass('badge-warning').addClass('badge-danger');
+				$badge.html(SCLang.rejected);
+				$badge.click(function() {
+					GeneralFunctions.displayMessageAlert(response.message, 'danger', 6000);
+				});
+			}
 			//	check all files
 			var all_valid = true;
 			var dataPack = {};
@@ -57,9 +68,11 @@
 				var $badge = $('.file-list-item[data-file-name="' + cmcFile.name + '"]').find('.pending-badge');
 				if (response.status === 'accepted') {
 					$badge.removeClass('badge-warning').addClass('badge-success');
+					$badge.html(SCLang.accepted);
 					//	compile and get JSON
 					var extension = GeneralFunctions.getFileExtension(cmcFile.name);
 					dataPack[extension] = {
+						maj: $('#upload-major option:selected').val(),
 						ext: extension,
 						pdf: compiler.Matryona_to_Pdf(),
 						list: compiler.Matryona_to_List(),
@@ -67,14 +80,16 @@
 					}
 				} else if (response.status === 'rejected') {
 					$badge.removeClass('badge-warning').addClass('badge-danger');
+					$badge.html(SCLang.rejected);
 					$badge.click(function() {
-						alert(response.message);
+						GeneralFunctions.displayMessageAlert(response.message, 'danger', 6000);
 					});
 					all_valid = false;
 				}
 			});
 			if (all_valid) {
 				//	ready for upload
+				$('#upload-courschema').prop('disabled', 'false');
 				instance.dataPack = dataPack;
 			} else {
 				GeneralFunctions.displayMessageAlert(SCLang.upload_courschemas_rejected, 'danger', 6000);
@@ -144,7 +159,7 @@
      */
     CourschemaManagementHelper.prototype.uploadCourschemas = function () {
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/course_api/ajax_add_courses_by_excel';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/courschemas_api/ajax_upload_courshcemas';
 		
 		var obj = this;
 		
@@ -172,7 +187,7 @@
 				
 //				if (response.status === 'success') {
 //					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_success, 'success', 6000);
-//					obj.refreshTable();
+//					$('#upload-courschema').prop('disabled', 'true');
 //				} else if (response.status === 'fail') {
 //					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_failure, 'danger', 6000);
 //				} else {
@@ -183,6 +198,32 @@
 				console.error(e);
 			}
 		});
+    };
+	
+	/**
+     * get details of courschemas
+     */
+    CourschemaManagementHelper.prototype.getVisibleMaj = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/majors_api/ajax_get_visible_majors';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			$('#upload-major').html('');
+			$.each(response, function(index, major) {
+				$('#upload-major').append('<option value="' + major.id + '">' + major.name + '</option>');
+			});
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
     window.CourschemaManagementHelper = CourschemaManagementHelper;

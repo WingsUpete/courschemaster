@@ -63,3 +63,13 @@
 #editor-submit {
 	background-color: #d44b47;
 }
+
+.file-list-item .pending-badge {
+	cursor: pointer;
+}
+
+#upload-major {
+	font-size: 0.9rem;
+	padding: 2px 5px;
+	border-radius: 3px;
+}
