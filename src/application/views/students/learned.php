@@ -15,7 +15,7 @@
 <div id="students_learned" class="main-content">
 	<h1 class="hide-for-now"><?= lang('learned') ?></h1>
 	<hr class="hide-for-now" />
-	<!-- Others -->
+	<!-- Course table -->
 	<?php
 		$course_table_headers = array(
 			lang('course_code'), lang('course_name'), lang('course_total_credit'), lang('course_weekly_period'), lang('course_prerequisite_stat'), lang('course_department')

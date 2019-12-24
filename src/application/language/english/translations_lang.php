@@ -135,3 +135,7 @@ $lang['reviews-wide'] = 'Wide View';
 $lang['reviews-func'] = 'Functional View';
 $lang['status'] = 'Status';
 $lang['submit_time'] = 'Status';
+$lang['upload_courschemas_rejected'] = 'Some courschema files are rejected, check details by clicking the status badges';
+$lang['sid'] = 'sid';
+$lang['major'] = 'Major';
+$lang['department'] = 'Department';

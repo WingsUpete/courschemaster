@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/cmManagement/courschema_management.css', NULL, 'css') ?>" />
+<script type="text/javascript" src="<?= asset_url('assets/js/cm_compiler_helper.js', NULL, 'js') ?>"></script>
 <script type="text/javascript" src="<?= asset_url('assets/js/cmManagement/courschema_management/courschema_management_helper.js', NULL, 'js') ?>"></script>
 <script type="text/javascript" src="<?= asset_url('assets/js/cmManagement/courschema_management/courschema_management.js', NULL, 'js') ?>"></script>
 <script>
