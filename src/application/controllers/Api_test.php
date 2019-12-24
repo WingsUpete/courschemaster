@@ -8,11 +8,25 @@ class Api_test extends CI_Controller{
         $this->load->model('courschemas_model');
         $this->load->model('students_model');
         $this->load->model('review_model');
+        $this->load->model('majors_model');
         $this->load->library('session');
     }
 
     public function index(){
-        $this->test_find_cmh();
+        $this->test_get_visible_majors();
+    }
+
+    public function test_get_visible_majors(){
+        $user_id = $this->session->userdata('user_id');
+        $language = $this->session->userdata('language');
+        
+        $result = $this->majors_model->get_visible_majors($user_id, $language);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
     }
 
     public function test_find_cmh(){
