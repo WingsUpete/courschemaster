@@ -737,7 +737,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			for (var i=0; i<courses.length; i++){
 				pre_courses[i] = [];
 			}
-			pre_courses = find_courses_Pre_course(courses_name);
+			pre_courses = find_courses_pre_course(courses_name);
 		}
 		// pre_courses[14] = [{"main": "CS307", "pre": "CS201", "type": "1"},
 		//     {"main": "CS307", "pre": "CS202", "type": "1"},
@@ -1057,7 +1057,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			return response;
 			//console.log(response);
 		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-
 	}
 
 	//ajax : check course existence and their content
@@ -1077,8 +1076,8 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 	}
 
 	//ajax : get the pre course
-	function find_courses_Pre_course(courses) {
-		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_find_courses_Pre_course';
+	function find_courses_pre_course(courses) {
+		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_find_courses_pre_course';
 		var postData = {
 			csrfToken: GlobalVariables.csrfToken,
 			courses_arr:JSON.stringify(courses)
