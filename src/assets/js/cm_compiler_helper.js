@@ -18,36 +18,40 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		//上传的所有.cmh文件的File对象数组
 		MatryonaTranslateClass.cmh = [];
 		MatryonaTranslateClass.cmh = cmhFiles;
-		var check_cmhfiles_result = check_cmhfiles();
-		if (check_cmhfiles_result === "No error"){
-			//***********************************
-			return {status: "accepted",message: "accepted"}
-		}else{
-			return {status: "rejected", message:check_cmhfiles_result}
+		for (var i=0; i<MatryonaTranslateClass.cmh.length; i++){
+
 		}
+
+		var check_cmhfiles_result = [];
+
+		for (var i=0; i<MatryonaTranslateClass.cmh.length; i++){
+			check_cmhfiles_result.push(check_cmhfiles(MatryonaTranslateClass.cmh[i]));
+		}
+		return check_cmhfiles_result;
 	};
 
-	function check_cmhfiles(){
+	function check_cmhfiles(specific_cmh){
 		var cmh_content = "";
-		var reader;
-		for (var i=0; i<MatryonaTranslateClass.cmh.length; i++){
-			reader = new FileReader();
-			reader.onload = function (e) {
-				cmh_content = e.target.result;
-			};
-			reader.readAsText(MatryonaTranslateClass.cmh[i]);
-			if (cmh_content.indexOf("event") !== -1){
-				return "Event, not event";
-			}
-			if (cmh_content.indexOf("&&&") !== -1 || cmh_content.indexOf("|||") !== -1){
-				return "Symbol error";
-			}
-			if (cmh_content.split("(").length !== cmh_content.split(")").length){
-				return "Parentheses error";
-			}
+		var reader = new FileReader();
+		reader.onload = function (e) {
+			cmh_content = e.target.result;
+		};
+		reader.readAsText(specific_cmh);
+		var name = specific_cmh.name;
+		var message = "";
+		if (cmh_content.indexOf("event") !== -1){
+			message = message + "Event, not event; ";
 		}
-		if (i === MatryonaTranslateClass.cmh.length){
-			return "No error";
+		if (cmh_content.indexOf("&&&") !== -1 || cmh_content.indexOf("|||") !== -1){
+			message = message + "Symbol error; "
+		}
+		if (cmh_content.split("(").length !== cmh_content.split(")").length){
+			message = message +  "Parentheses error; ";
+		}
+		if (message === ""){
+			return {name:name, status:"accepted", message:"accepted"};
+		}else{
+			return {name:name, status:"rejected", message:message};
 		}
 	}
 
