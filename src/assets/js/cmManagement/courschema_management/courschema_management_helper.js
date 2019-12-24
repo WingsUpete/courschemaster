@@ -49,17 +49,20 @@
 			instance.processFrontEndFiles();
 			//	register header files
 			var res_msg = compiler.registerCmhFiles(instance.cmhFiles);
-			var $badge = $('.file-list-item[data-file-name="' + cmcFile.name + '"]').find('.pending-badge');
-			if (msg.status === 'accepted') {
-				$badge.removeClass('badge-warning').addClass('badge-success');
-				$badge.html(SCLang.accepted);
-			} else if (msg.status === 'rejected') {
-				$badge.removeClass('badge-warning').addClass('badge-danger');
-				$badge.html(SCLang.rejected);
-				$badge.click(function() {
-					GeneralFunctions.displayMessageAlert(response.message, 'danger', 6000);
-				});
-			}
+			$.each(res_msg, function(index, msg) {
+				var $badge = $('.file-list-item[data-file-name="' + msg.name + '"]').find('.pending-badge');
+				if (msg.status === 'accepted') {
+					$badge.removeClass('badge-warning').addClass('badge-success');
+					$badge.html(SCLang.accepted);
+				} else if (msg.status === 'rejected') {
+					$badge.removeClass('badge-warning').addClass('badge-danger');
+					$badge.html(SCLang.rejected);
+					$badge.click(function() {
+						GeneralFunctions.displayMessageAlert(msg.message, 'danger', 6000);
+					});
+				}
+			})
+
 			//	check all files
 			var all_valid = true;
 			var dataPack = {};
