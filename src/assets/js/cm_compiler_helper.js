@@ -18,13 +18,12 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		//上传的所有.cmh文件的File对象数组
 		MatryonaTranslateClass.cmh = [];
 		MatryonaTranslateClass.cmh = cmhFiles;
-		var check_cmhfiles_reslut = check_cmhfiles();
-		if (check_cmhfiles_reslut === "No error"){
+		var check_cmhfiles_result = check_cmhfiles();
+		if (check_cmhfiles_result === "No error"){
 			//***********************************
-			//将.cmh上传至数据库
 			return {status: "accepted",message: "accepted"}
 		}else{
-			return {status: "rejected", message:check_cmhfiles_reslut}
+			return {status: "rejected", message:check_cmhfiles_result}
 		}
 	};
 

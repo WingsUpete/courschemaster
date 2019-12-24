@@ -1,4 +1,5 @@
 <link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/cmManagement/courschema_management.css', NULL, 'css') ?>" />
+<script type="text/javascript" src="<?= asset_url('assets/js/cm_compiler_helper.js', NULL, 'js') ?>"></script>
 <script type="text/javascript" src="<?= asset_url('assets/js/cmManagement/courschema_management/courschema_management_helper.js', NULL, 'js') ?>"></script>
 <script type="text/javascript" src="<?= asset_url('assets/js/cmManagement/courschema_management/courschema_management.js', NULL, 'js') ?>"></script>
 <script>
@@ -81,31 +82,31 @@
 									</div>
 								</div>
     							<pre id="editor">
-INCLUDE = "SUSTech_english_requirement.cmh";
-INCLUDE = "思想政治品德课程.cmh";
-INCLUDE = "军训体育课程.cmh";
-INCLUDE = "中文写作与交流.cmh";
-INCLUDE = "公选课.cmh";
-
-NAME
-EN_NAME
-
-VERSION
-
-GROUP
-
-INTRO
-EN_INTRO
-
-OBJECTIVES
-EN_OBJECTIVES
-
-PROGRAM_LENGTH = 4;
-
-DEGREE = "工程学学士";
-EN_DEGREE = "Bachelor of Engineering";
-
-Event GRADUATION =
+									INCLUDE = "SUSTech_english_requirement.cmh";
+									INCLUDE = "思想政治品德课程.cmh";
+									INCLUDE = "军训体育课程.cmh";
+									INCLUDE = "中文写作与交流.cmh";
+									INCLUDE = "公选课.cmh";
+									
+									NAME
+									EN_NAME
+									
+									VERSION
+									
+									GROUP
+									
+									INTRO
+									EN_INTRO
+									
+									OBJECTIVES
+									EN_OBJECTIVES
+									
+									PROGRAM_LENGTH = 4;
+									
+									DEGREE = "工程学学士";
+									EN_DEGREE = "Bachelor of Engineering";
+									
+									Event GRADUATION =
     							</pre>
     						</div>
     						<div class="col-xs-12 col-lg-6">
@@ -157,16 +158,25 @@ Event GRADUATION =
 							<label class="custom-file-label" for="choose-files"><?= lang('choose_file') ?></label>
 						</div>
 						<div class="input-group-append">
-							<span class="input-group-text" id="submit-files" title="<?= lang('submit') ?>"><i class="fas fa-spell-check fa-sm"></i></span>
+							<span class="input-group-text submit-files" id="submit-files" title="<?= lang('check') ?>"><i class="fas fa-spell-check fa-sm"></i></span>
 						</div>
 					</div>
 				</div>
 				<h3 class="h3-responsive font-weight-bold mt-3 pl-2"><code>cmh</code></h3>
 				<ul id="upload-cmh-list" class="list-group"></ul>
-				<h3 class="h3-responsive font-weight-bold mt-3 pl-2"><code>cmc</code></h3>
+				<h3 class="h3-responsive font-weight-bold mt-3 pl-2 d-inline-block">
+					<code>cmc</code>
+				</h3>
+				&ensp;
+				-
+				&nbsp;
+				<strong><?= lang('major') ?></strong>:
+				&nbsp;
+				<select id="upload-major" class="d-inline-block"></select>
 				<ul id="upload-cmc-list" class="list-group"></ul>
 			</div>
 			<div class="modal-footer">
+				<button type="button" class="btn btn-primary btn-sm submit-files"><?= lang('check') ?></button>
 				<button id="upload-courschema" type="button" class="btn btn-primary btn-sm"><?= lang('upload') ?></button>
 				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><?= lang('close') ?></button>
 			</div>

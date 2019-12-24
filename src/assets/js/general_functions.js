@@ -387,7 +387,7 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 	exports.ALERTID = 0;
     exports.displayMessageAlert = function (message, status, endurance, actions) {
         message = message || 'NO MESSAGE PROVIDED FOR THIS NOTIFICATION';
-		status = status || 'NO STATUS';
+		status = status || 'info';
 		endurance = endurance || 10000;
 		actions = actions || [];
 		//	initializations finish, now go
@@ -462,6 +462,13 @@ window.GeneralFunctions = window.GeneralFunctions || {};
 		} else {
 			return true;
 		}
+    };
+	
+    /**
+     * Get file extension
+     */
+    exports.getFileExtension = function (name) {
+		return name.substring(name.lastIndexOf('.')+1);
     };
 	
 })(window.GeneralFunctions);

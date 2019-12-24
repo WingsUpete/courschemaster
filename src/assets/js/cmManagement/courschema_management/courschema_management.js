@@ -35,6 +35,10 @@ window.CourschemaManagement = window.CourschemaManagement || {};
 			//	DataTable
 			CourschemaManagement.initialize_courschemas();
 		});
+		// no uploading
+		$('#upload-courschema').prop('disabled', 'true');
+		// select major in modal
+		helper.getVisibleMaj();
 		
 		CourschemaManagement.initialize_editor();
 		
