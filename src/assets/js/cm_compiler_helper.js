@@ -9,7 +9,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 (function (exports) {
 
 	'use strict';	// strict mode execution: This means no undeclared variable usage.
-
 	// an example static method
 	// to call this method, write `StaticClass.exampleStaticMethod('Hi')`
 
@@ -18,13 +17,39 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		//上传的所有.cmh文件的File对象数组
 		MatryonaTranslateClass.cmh = [];
 		MatryonaTranslateClass.cmh = cmhFiles;
+		var check_cmhfiles_reslut = check_cmhfiles();
+		if (check_cmhfiles_reslut === "No error"){
+			//***********************************
+			//将.cmh上传至数据库
 
-
-
-
-
-		//将.cmh上传至数据库
+		}else{
+			return {status: "rejected", message:check_cmhfiles_reslut}
+		}
 	};
+
+	function check_cmhfiles(){
+		var cmh_content = "";
+		var reader;
+		for (var i=0; i<MatryonaTranslateClass.cmh.length; i++){
+			reader = new FileReader();
+			reader.onload = function (e) {
+				cmh_content = e.target.result;
+			};
+			reader.readAsText(MatryonaTranslateClass.cmh[i]);
+			if (cmh_content.indexOf("event") !== -1){
+				return "Event, not event";
+			}
+			if (cmh_content.indexOf("&&&") !== -1 || cmh_content.indexOf("|||") !== -1){
+				return "Symbol error";
+			}
+			if (cmh_content.split("(").length !== cmh_content.split(")").length){
+				return "Parentheses error";
+			}
+		}
+		if (i === MatryonaTranslateClass.cmh.length){
+			return "No error";
+		}
+	}
 
 	//检查依赖性和语法准缺性
 	exports.check = function(cmcFile){
@@ -48,8 +73,9 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		//找到此cmc文件INCLUDE的文件，首先在注册的cmhFiles中匹配文件名
 		var cmh_need = cmc_content.split("INCLUDE = ");
 		for (var i=0; i<cmh_need.length; i++){
-			cmh_need[i] = cmh_need[i].split(";")[0];
+			cmh_need[i] = cmh_need[i].split(";")[0].split("\"").join("");
 		}
+		//######################
 		for (var i=0; i<cmh_need.length; i++){
 			for (var j=0; j<MatryonaTranslateClass.cmh.length; j++){
 				if (cmh_need[i] === MatryonaTranslateClass.cmh[j].name){
@@ -93,7 +119,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			}
 		}
 	};
-
 
 	/**
 	 * @return {string}
@@ -691,7 +716,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			}
 		}
 
-		courses_exsitence = check_course_existence(courses_name);
+		courses_exsitence = check_courses_existence(courses_name);
 
 		// for (var i=0; i<courses.length; i++){
 		//     courses_exsitence[i] = true;
@@ -711,7 +736,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			for (var i=0; i<courses.length; i++){
 				pre_courses[i] = [];
 			}
-			pre_courses = get_Pre_course(courses_name);
+			pre_courses = find_courses_Pre_course(courses_name);
 		}
 		// pre_courses[14] = [{"main": "CS307", "pre": "CS201", "type": "1"},
 		//     {"main": "CS307", "pre": "CS202", "type": "1"},
@@ -1035,7 +1060,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 	}
 
 	//ajax : check course existence and their content
-	function check_course_existence(courses) {
+	function check_courses_existence(courses) {
 		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_check_courses_existence';
 		var postData = {
 			csrfToken: GlobalVariables.csrfToken,
@@ -1051,8 +1076,8 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 	}
 
 	//ajax : get the pre course
-	function get_Pre_course(courses) {
-		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_find_courses_Pre-course';
+	function find_courses_Pre_course(courses) {
+		var posturl = GlobalVariables.baseUrl + '/index.php/MatryonaIDE_api/ajax_find_courses_Pre_course';
 		var postData = {
 			csrfToken: GlobalVariables.csrfToken,
 			courses_arr:JSON.stringify(courses)
