@@ -129,6 +129,9 @@
      */
     AllCourschemasHelper.prototype.displayResults = function (level, items) {
 		$('#sel_' + level + ' .stepper-search-res .row').html('');
+		if (items.length === 0) {
+			$('#sel_' + level + ' .stepper-search-res .row').append('<small class="text-muted ml-5">' + SCLang.no_record + '</small>');
+		}
 		$.each(items, function(index, item) {
 			var html = '<div class="col-xs-12 col-lg-6 col-xl-4 search-res-item-block" data-filter="' + item.name + '"><div class="card search-res-item"><div class="card-header text-right"> </div><div class="card-body text-center"><h5 class="card-title font-weight-bold">' + ((level === 'ver') ? '<sup><a href="javascript:void(0);" class="collect text-warning" title="' + SCLang.collect + '"><i class="far fa-star fa-lg"></i></a></sup> ' : '') + item.name + '</h5><hr /><button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-' + level + '-btns sel-btn" data-dep-id="' + item.dep_id + '" data-dep-code="' + item.code + '" data-dep-name="' + item.name + '"><i class="fas fa-door-open"></i> ' + SCLang.access + '</button></div><div class="card-footer text-center text-muted">' + SCLang.number_of_majors + ': ' + item.number_of_majors + '</div></div></div>';
 			$('#sel_' + level + ' .stepper-search-res .row').append(html);
