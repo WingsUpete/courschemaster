@@ -162,8 +162,6 @@ Event GRADUATION =
 						</div>
 					</div>
 				</div>
-				<h3 class="h3-responsive font-weight-bold mt-3 pl-2"><code>cmh</code></h3>
-				<ul id="upload-cmh-list" class="list-group"></ul>
 				<h3 class="h3-responsive font-weight-bold mt-3 pl-2 d-inline-block">
 					<code>cmc</code>
 				</h3>
@@ -174,6 +172,8 @@ Event GRADUATION =
 				&nbsp;
 				<select id="upload-major" class="d-inline-block"></select>
 				<ul id="upload-cmc-list" class="list-group"></ul>
+				<h3 class="h3-responsive font-weight-bold mt-3 pl-2"><code>cmh</code></h3>
+				<ul id="upload-cmh-list" class="list-group"></ul>
 			</div>
 			<div class="modal-footer">
 				<button type="button" class="btn btn-primary btn-sm submit-files"><?= lang('check') ?></button>
