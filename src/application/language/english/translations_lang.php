@@ -65,6 +65,7 @@ $lang['number_of_courschemas'] = '#Courschemas';
 $lang['access'] = 'Access';
 $lang['my_questions'] = 'My Questions';
 $lang['student_info'] = 'Student Info';
+$lang['student_name'] = 'Student Name';
 $lang['course_management'] = 'Courses Management';
 $lang['courschema_management'] = 'Courschemas Management';
 $lang['review'] = 'Review';
