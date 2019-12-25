@@ -70,6 +70,7 @@ class Courschemas_model extends CI_Model{
         $result = $this->db
             ->from('cm_courschemas')
             ->order_by('cm_courschemas.id')
+            ->where('cm_courschemas.type', 'cmc')
             ->get()
             ->result_array();
 
@@ -104,7 +105,6 @@ class Courschemas_model extends CI_Model{
                 }
             }
         }
-
         return $result;
     }
 
@@ -136,7 +136,7 @@ class Courschemas_model extends CI_Model{
             $this->db->select('cm_courschemas.pdf_url_cn AS pdf_url');
         }
 
-        $url =  $this->db
+        $url = $this->db
             ->from('cm_users')
             ->join('cm_courschemas', 'cm_courschemas.id = cm_users.id_courschemas', 'inner')
             ->where('cm_users.id', $user_id)
@@ -290,7 +290,7 @@ class Courschemas_model extends CI_Model{
             return array('status' => 'true', 'query_result' => $rtn);
         }
     }
-    
+
     public function upload_courschemas($user_id, $target_files, $data_pack=NULL){
         
         $this->load->helper('courschema');

@@ -13,7 +13,7 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_upload_courschemas();
+        $this->test_find_cmh();
     }
 
     public function test_delete_cmh(){
