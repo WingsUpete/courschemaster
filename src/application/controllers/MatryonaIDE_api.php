@@ -128,4 +128,28 @@ class MatryonaIDE_api extends CI_Controller
 		}
 	}
 
+	public function ajax_read_content(){
+		try{
+			$target_files = $_FILES['target_files'];
+
+			$result = array();
+
+			for($i = 0; $i < sizeof($target_files['name']); $i++){
+				$content = file_get_contents($target_files['tmp_name'][$i]);
+				$name = $target_files['name'][$i];
+				$result[$i]['name'] = $name;
+				$result[$i]['content'] = $content;
+			}
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc) {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
 }
