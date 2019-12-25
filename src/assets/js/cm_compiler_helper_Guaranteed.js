@@ -13,45 +13,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 	// an example static method
 	// to call this method, write `StaticClass.exampleStaticMethod('Hi')`
 
-	//上传cmh文件
-	exports.registerCmhFiles = function(cmhFiles){
-		//上传的所有.cmh文件的File对象数组
-		MatryonaTranslateClass.cmh = [];
-		MatryonaTranslateClass.cmh = cmhFiles;
-
-		var check_cmhfiles_result = [];
-
-		for (var i=0; i<MatryonaTranslateClass.cmh.length; i++){
-			check_cmhfiles_result.push(check_cmhfiles(MatryonaTranslateClass.cmh[i]));
-		}
-		return check_cmhfiles_result;
-	};
-
-	function check_cmhfiles(specific_cmh){
-		var cmh_content = "";
-		var reader = new FileReader();
-		reader.onload = function (e) {
-			cmh_content = e.target.result;
-		};
-		reader.readAsText(specific_cmh);
-		var name = specific_cmh.name;
-		var message = "";
-		if (cmh_content.indexOf("event") !== -1){
-			message = message + "Event, not event; ";
-		}
-		if (cmh_content.indexOf("&&&") !== -1 || cmh_content.indexOf("|||") !== -1){
-			message = message + "Symbol error; "
-		}
-		if (cmh_content.split("(").length !== cmh_content.split(")").length){
-			message = message +  "Parentheses error; ";
-		}
-		if (message === ""){
-			return {name:name, status:"accepted", message:"accepted"};
-		}else{
-			return {name:name, status:"rejected", message:message};
-		}
-	}
-
 	//检查依赖性和语法准缺性
 	exports.check = function(cmcFile){
 		//输入：cmc文件，cmhFiles[]
@@ -63,64 +24,56 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		var reader = new FileReader();
 		reader.onload = function (e) {
 			cmc_content = e.target.result;
-		};
-		reader.readAsText(cmcFile);
-		MatryonaTranslateClass.all = cmc_content;
+			MatryonaTranslateClass.all = cmc_content;
 
-		var cmh_notfound = []; //cmc需要的，但是没有在上传的文件中找到的cmh
-		var cmh_content; //cmh内容
-
-		//检查依赖关系
-		//找到此cmc文件INCLUDE的文件，首先在注册的cmhFiles中匹配文件名
-		var cmh_need_temp = cmc_content.split("INCLUDE = ");
-		var cmh_need = [];
-		for (var i=1; i<cmh_need_temp.length; i++){
-			cmh_need_temp[i] = cmh_need_temp[i].split(";")[0].split("\"").join("");
-			cmh_need.push(cmh_need_temp[i])
-		}
-		//######################
-		for (var i=0; i<cmh_need.length; i++){
-			for (var j=0; j<MatryonaTranslateClass.cmh.length; j++){
-				if (cmh_need[i] === MatryonaTranslateClass.cmh[j].name){
-					//读文件并把文件内容与cmc_content拼接起来
-					reader = new FileReader();
-					reader.onload = function (e) {
-						cmh_content = e.target.result;
-					};
-					reader.readAsText(MatryonaTranslateClass.cmh[j]);
-					MatryonaTranslateClass.all = MatryonaTranslateClass.all + cmh_content;
+			//检查依赖关系
+			//找到此cmc文件INCLUDE的文件
+			var cmh_need_temp = cmc_content.split("INCLUDE = ");
+			var cmh_need = [];
+			var repeat = false;
+			for (var i=1; i<cmh_need_temp.length; i++){
+				cmh_need_temp[i] = cmh_need_temp[i].split(";")[0].split("\"").join("");
+				cmh_need.push(cmh_need_temp[i])
+			}
+			for (var m=0; m<cmh_need.length; m++){
+				for (var n=0; n<cmh_need.length; n++){
+					if (cmh_need[m] === cmh_need[n]){
+						repeat = true;
+						break;
+					}
+				}
+				if(repeat === true){
 					break;
 				}
+
 			}
-			if (j === MatryonaTranslateClass.cmh.length){
-				cmh_notfound.push(cmh_need[i]);
-			}
-		}
-		if (cmh_notfound.length !== 0){ // 如果部分cmh未找到，则去数据库中找这些文件
-			var cmh_database_check = find_cmh(cmh_notfound);
+
+			var cmh_database_check = find_cmh(cmh_need);
 			if (cmh_database_check[0].status === true){
-				for (var j=1; j<cmh_database_check.length; j++){
+				for (var j=1; j<cmh_database_check.length; j++) {
 					MatryonaTranslateClass.all = MatryonaTranslateClass.all + cmh_database_check[j].cmh_content;
+				}
+				MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("（").join("(");
+				MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("）").join(")");
+				MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("“").join("\"");
+				MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("”").join("\"");
+
+				if (MatryonaTranslateClass.all.indexOf("GRADUATION") === -1){
+					return {status: "rejected", message:"No Graduation !"};
+				}else if (MatryonaTranslateClass.all.indexOf("NAME") === -1 || MatryonaTranslateClass.all.indexOf("EN_NAME") || MatryonaTranslateClass.all.indexOf("VERSION") === -1 || MatryonaTranslateClass.all.indexOf("GROUP") || MatryonaTranslateClass.all.indexOf("PROGRAM_LENGTH") === -1) {
+					return {status: "rejected", message: "Missing basic information !"};
+				}else if(repeat === true) {
+					return {status: "rejected", message: "Repeat cmh files !"}
+				}else if(MatryonaTranslateClass.all.indexOf("VariableEvent") === -1){
+					return {status: "rejected", message: "English requirements file : No VariableEvents !"}
+				}else{
+					return {status:"accepted",message:"accepted"}
 				}
 			}else{
 				return {status:"rejected",message:"Cmh files are insufficient !"}
 			}
-
-		}else{//所用到的cmh在上传的文件中全部找到，返回{status:accepted, message: accepted}, 此时的all即为全部内容，可以直接解析
-			// 检查正确性
-			MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("（").join("(");
-			MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("）").join(")");
-			MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("“").join("\"");
-			MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("”").join("\"");
-
-			if (MatryonaTranslateClass.all.indexOf("GRADUATION") === -1){
-				return {status: "rejected", message:"No Graduation !"};
-			}else if (MatryonaTranslateClass.all.indexOf("NAME") === -1 || MatryonaTranslateClass.all.indexOf("EN_NAME") || MatryonaTranslateClass.all.indexOf("VERSION") === -1 || MatryonaTranslateClass.all.indexOf("GROUP") || MatryonaTranslateClass.all.indexOf("PROGRAM_LENGTH") === -1){
-				return {status: "rejected", message:"Missing basic information !"};
-			}else{
-				return {status:"accepted",message:"accepted"}
-			}
-		}
+		};
+		reader.readAsText(cmcFile);
 	};
 
 	/**
@@ -1190,17 +1143,5 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			return true;
 		}
 	}
-
-	// /**
-	//  * @return {string}
-	//  */
-	// function load(Matyrona_file_name){
-	// 	let r = new XMLHttpRequest(),
-	// 		okStatus = document.location.protocol === "file:" ? 0 : 200;
-	// 	r.open('GET', Matyrona_file_name, false);
-	// 	r.overrideMimeType("text/html;charset=utf-8");
-	// 	r.send(null);
-	// 	return r.status === okStatus ? r.responseText : null;
-	// }
 
 })(window.MatryonaTranslateClass);

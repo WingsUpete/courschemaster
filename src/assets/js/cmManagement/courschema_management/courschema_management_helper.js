@@ -49,6 +49,7 @@
 			instance.processFrontEndFiles();
 			//	register header files
 			var res_msg = compiler.registerCmhFiles(instance.cmhFiles);
+			var cmhOK = true;
 			$.each(res_msg, function(index, msg) {
 				var $badge = $('.file-list-item[data-file-name="' + msg.name + '"]').find('.pending-badge');
 				if (msg.status === 'accepted') {
@@ -60,13 +61,18 @@
 					$badge.click(function() {
 						GeneralFunctions.displayMessageAlert(msg.message, 'danger', 6000);
 					});
+					cmhOK = false;
 				}
-			})
+			});
+			if (!cmhOK) {
+				instance.abortChecking();
+				return;
+			}
 
 			//	check all files
-			var all_valid = true;
 			var dataPack = {};
-			$.each(instance.cmcFiles, function(index, cmcFile) {
+			for (var i = 0; i < instance.cmcFiles.length; ++i) {
+				var cmcFile = instance.cmcFiles[i];
 				var response = compiler.check(cmcFile);
 				var $badge = $('.file-list-item[data-file-name="' + cmcFile.name + '"]').find('.pending-badge');
 				if (response.status === 'accepted') {
@@ -80,23 +86,20 @@
 						pdf: compiler.Matryona_to_Pdf(),
 						list: compiler.Matryona_to_List(),
 						graph: compiler.Matryona_to_Graph()
-					}
+					};
 				} else if (response.status === 'rejected') {
 					$badge.removeClass('badge-warning').addClass('badge-danger');
 					$badge.html(SCLang.rejected);
 					$badge.click(function() {
 						GeneralFunctions.displayMessageAlert(response.message, 'danger', 6000);
 					});
-					all_valid = false;
+					instance.abortChecking();
+					return;
 				}
-			});
-			if (all_valid) {
-				//	ready for upload
-				$('#upload-courschema').prop('disabled', 'false');
-				instance.dataPack = dataPack;
-			} else {
-				GeneralFunctions.displayMessageAlert(SCLang.upload_courschemas_rejected, 'danger', 6000);
 			}
+			//	ready for upload
+			$('#upload-courschema').prop('disabled', 'false');
+			instance.dataPack = dataPack;
 		}).trigger('click');
 		
 		$('#upload-courschema').click(function() {
@@ -106,6 +109,20 @@
 	};
 
 	//	Additional Methods
+	
+	/**
+     * Abort checking
+     */
+    CourschemaManagementHelper.prototype.abortChecking = function () {
+		GeneralFunctions.displayMessageAlert(SCLang.upload_courschemas_rejected, 'danger', 6000);
+		$.each($('.file-list-item .badge'), function(index, item) {
+			var $item = $(item);
+			if ($item.hasClass('badge-warning')) {
+				$item.removeClass('badge-warning').addClass('badge-info');
+				$item.html(SCLang.abort);
+			}
+		});
+    };
 	
 	/**
      * get details of courschemas
@@ -190,6 +207,8 @@
 				
 //				if (response.status === 'success') {
 //					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_success, 'success', 6000);
+//					$('#upload-cmh-list').html('');
+//					$('#upload-cmc-list').html('');
 //					$('#upload-courschema').prop('disabled', 'true');
 //				} else if (response.status === 'fail') {
 //					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_failure, 'danger', 6000);
