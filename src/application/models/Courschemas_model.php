@@ -290,8 +290,8 @@ class Courschemas_model extends CI_Model{
             return array('status' => 'true', 'query_result' => $rtn);
         }
     }
-
-    public function upload_courschemas($user_id, $target_files, $data_pack){
+    
+    public function upload_courschemas($user_id, $target_files, $data_pack=NULL){
         
         $this->load->helper('courschema');
 
@@ -304,24 +304,35 @@ class Courschemas_model extends CI_Model{
 
             $pdf_url = 'default.pdf';
 
-            if($data_pack[$name]['ext'] == 'cmc'){
+            if($data_pack != NULL && $data_pack[$name]['ext'] == 'cmc'){
                 $result = upload_pdf($data_pack[$name]['pdf'], $name);
                 if($result['status']){
                     $pdf_url = $result['pdf_url'];
                 }else{
                     return array('status' => 'false', 'msg' => 'wrong pdf json ' . $name); # return 
                 }
+                $data_inserted[$i] = array(
+                    'name' => $name,
+                    'type' => 'cmc',
+                    'id_majors' => $data_pack['maj'],
+                    'pdf_url' => $pdf_url,
+                    'graph_json' => $data_pack[$name]['graph'],
+                    'list_json' => $data_pack[$name]['list'],
+                    'source_code' => $content,
+                    'is_available' => 0
+                );
+            }else{
+                $data_inserted[$i] = array(
+                    'name' => $name,
+                    'type' => 'cmh',
+                    'id_majors' => 1,
+                    'pdf_url' => $pdf_url,
+                    'graph_json' => '',
+                    'list_json' => '',
+                    'source_code' => $content,
+                    'is_available' => 0
+                );
             }
-            $data_inserted[$i] = array(
-                'name' => $name,
-                'type' => $data_pack[$name]['ext'],
-                'id_majors' => $data_pack['maj'],
-                'pdf_url' => $pdf_url,
-                'graph_json' => $data_pack[$name]['graph'],
-                'list_json' => $data_pack[$name]['list'],
-                'source_code' => $content,
-                'is_available' => 0
-            );
         }
 
         for($i = 0; $i < sizeof($data_inserted); $i++){
