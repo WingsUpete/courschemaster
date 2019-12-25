@@ -24,6 +24,7 @@ class Mentor extends CI_Controller{
             return;
         }
         $view['active_sidebar'] = PRIV_MENTOR_ALL_COURSCHEMAS;
+		$view['template_status'] = lang('current_courschema');
         $view['ci'] = &$this;
         $this->load_comb_views($view, "general/cmDisplay/all_courschemas");
     }
