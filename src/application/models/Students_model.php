@@ -29,4 +29,53 @@ class Students_model extends CI_Model{
             ->get()
             ->result_array();
     }
+
+    public function get_visible_students_info($language, $user_id){
+        //TODO Return students only visible
+        
+        if($language == 'english'){
+            $this->db->select('
+                cm_majors.en_name      AS major,
+                cm_departments.en_name AS department,
+            ');
+        }else{
+            $this->db->select('
+                cm_majors.name      AS major,
+                cm_departments.name AS department,
+            ');
+        }
+
+        $rtn = $this->db->select('
+                cm_users.id             AS id,
+                cm_users.cas_sid        AS sid,
+                cm_users.name           AS name,
+                cm_users.id_courschemas AS cid
+            ')
+            ->from('cm_users')
+            ->join('cm_majors', 'cm_majors.id = cm_users.id_majors', 'inner')
+            ->join('cm_departments', 'cm_departments.id = cm_majors.id_departments', 'inner')
+            ->get()
+            ->result_array();
+
+        for($i = 0; $i < sizeof($rtn); $i++){
+            $id = $rtn[$i]['cid'];
+            if($id){
+                $tmp = $this->db->select('
+                    cm_courschemas.name As name,
+                    cm_courschemas.id   AS id
+                ')
+                ->from('cm_courschemas')
+                ->where('cm_courschemas.id', $id)
+                ->get()
+                ->row_array();
+                $rtn[$i]['courschema_name'] = $tmp['name'];
+                $rtn[$i]['courschema_id']   = $tmp['id'];
+            }else{
+                $rtn[$i]['courschema_name'] = 'no_courschema_yet';
+                $rtn[$i]['courschema_id']   = 'no_courschema_yet';
+            }
+            unset($rtn[$i]['cid']);
+        }
+        return $rtn;
+    }
 }

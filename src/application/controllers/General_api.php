@@ -46,6 +46,26 @@ class General_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    public function ajax_get_visible_students_info(){
+        try{
+
+            // Get Input
+            $user_id = json_decode($this->input->post('user_id'));
+
+            $this->load->model('students_model');
+            $result = $this->students_model->get_visible_students_info($user_id);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+
+        }catch (Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
 }
 
 ?>

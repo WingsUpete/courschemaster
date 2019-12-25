@@ -2,6 +2,11 @@
 
 class Courschemas_model extends CI_Model{
 
+    public function _get_timestamp(){
+        $timestamp_datetime = new DateTime('NOW');
+        return $timestamp_datetime->format('Y-m-d H:i:s');
+    }
+
     public function get_dep($language){
         if($language == 'english'){
             $this->db->select('
@@ -194,7 +199,8 @@ class Courschemas_model extends CI_Model{
             $courschema_id = $this->db->insert_id();
             $data_inserted = array(
                 'id_courschemas' => $courschema_id,
-                'status' => 'pending'
+                'status' => 'pending',
+                'post_timestamp' => $this->_get_timestamp()
             );
             $rtn = $this->db->insert('cm_review', $data_inserted);
             if($rtn){
@@ -295,9 +301,13 @@ class Courschemas_model extends CI_Model{
             $pdf_url = 'default.pdf';
 
             if($data_pack[$name]['ext'] == 'cmc'){
-                $pdf_url = $this->store_pdf($data_pack[$name]['pdf']);
+                $result = upload_pdf($data_pack[$name]['pdf'], $name);
+                if($result['status']){
+                    $pdf_url = $result['pdf_url'];
+                }else{
+                    return array('status' => 'false', 'msg' => 'wrong pdf json ' . $name); # return 
+                }
             }
-
             $data_inserted[$i] = array(
                 'name' => $name,
                 'type' => $data_pack[$name]['ext'],
@@ -314,7 +324,4 @@ class Courschemas_model extends CI_Model{
         return $rtn;
     }
 
-    public function store_pdf($content){
-        return 'default.pdf';
-    }
 }

@@ -13,7 +13,39 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_upload_courschemas();
+        $this-> test_get_visible_students_info();
+    }
+
+    public function test_get_visible_students_info(){
+        $language = $this->session->userdata('user_id');
+        $user_id = 1;
+        $result = $this->students_model->get_visible_students_info($language, $user_id);
+        foreach($result AS $row){
+            foreach($row AS $k => $v){
+                echo $k . ' ' . $v . '<br />';
+            }
+            echo '<br />';
+        }
+    }
+
+    public function test_graph(){
+        $this->load->view('test/graph');
+    }
+
+    public function test_review_reject(){
+        $user_id = 1;
+        $review_id = 1;
+        $comment = 'Testing comment.';
+        $result = $this->review_model->review_reject_courschema($user_id, $review_id, $comment);
+        echo $result ? 1 : 0;
+    }
+
+    public function test_review_accept(){
+        $user_id = 1;
+        $review_id = 1;
+        $comment = 'Testing comment.';
+        $result = $this->review_model->review_accept_courschema($user_id, $review_id, $comment);
+        echo $result ? 1 : 0;
     }
 
     public function test_upload_courschemas(){
