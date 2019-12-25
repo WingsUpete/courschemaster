@@ -144,3 +144,7 @@ $lang['major'] = 'Major';
 $lang['department'] = 'Department';
 $lang['check'] = 'Check';
 $lang['abort'] = 'Abort';
+$lang['assign'] = 'Assign Courschema';
+$lang['assign_reply_message'] = 'Are you sure you want to assign this student with this courschema?';
+$lang['assign_courschema_success'] = 'Successfully assigned courschema to this student';
+$lang['assign_courschema_failure'] = 'Fail to assign courschema to this student';

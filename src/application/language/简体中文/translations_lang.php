@@ -144,3 +144,7 @@ $lang['major'] = '专业';
 $lang['department'] = '院系';
 $lang['check'] = '检查';
 $lang['abort'] = '终止';
+$lang['assign'] = '分配培养方案';
+$lang['assign_reply_message'] = '确定要为此学生分配该培养方案吗？';
+$lang['assign_courschema_success'] = '分配培养方案成功';
+$lang['assign_courschema_failure'] = '分配培养方案失败';
