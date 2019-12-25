@@ -44,20 +44,27 @@ class User extends CI_Controller {
 
         $this->load->model('cas_model');
 
-        $this->cas->forceAuthentication();
-        if (isset($_REQUEST['logout'])) {
-            phpCAS::logout();
-        }
-        $user = $this->cas->getAttributes();
-        
-        if($user){
-            $user_data = $this->cas_model->get_user_data($user);
-            $this->session->set_userdata($user_data);
-            if($this->session->userdata('dest_url')){
-                header('Location: ' . site_url($this->session->userdata('dest_url')));
-            }else{
-                header('Location: ' . site_url(''));
+        if( ! Config::USER_AUTHENTICATION_FREE){
+
+            $this->cas->forceAuthentication();
+            if (isset($_REQUEST['logout'])) {
+                phpCAS::logout();
             }
+            $user = $this->cas->getAttributes();
+            if($user){
+                $user_data = $this->cas_model->get_user_data($user);
+                
+            }
+
+        }else{
+            $user_data = $this->cas_model->cas_free_login();
+        }
+
+        $this->session->set_userdata($user_data);
+        if($this->session->userdata('dest_url')){
+            header('Location: ' . site_url($this->session->userdata('dest_url')));
+        }else{
+            header('Location: ' . site_url(''));
         }
     }
 
@@ -73,7 +80,10 @@ class User extends CI_Controller {
 
         $view['base_url'] = $this->config->item('base_url');
 
-        $this->cas->logout(site_url(''));
+        if( ! Config::USER_AUTHENTICATION_FREE){
+            $this->cas->logout(site_url(''));
+        }
+        header('Location: ' . site_url(''));
     }
 
     /**

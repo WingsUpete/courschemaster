@@ -18,9 +18,10 @@ class Config {
 // ------------------------------------------------------------------------
 
 // fixed by Hui Ouyang here
-const BASE_URL      = 'http://localhost/Courschemaster/src';
-const LANGUAGE      = 'english';
-const DEBUG_MODE    = FALSE;
+const BASE_URL                 = 'http://localhost/Courschemaster/src';
+const LANGUAGE                 = 'english';
+const DEBUG_MODE               = FALSE;
+const USER_AUTHENTICATION_FREE = TRUE;
 
 // ------------------------------------------------------------------------
 // DATABASE SETTINGS
