@@ -324,4 +324,9 @@ class Courschemas_model extends CI_Model{
         return $rtn;
     }
 
+    public function assign_courschema($user_id, $courschem_id){
+        $this->db->where('cm_users.id', $user_id);
+        return $this->db->update('cm_users', array('id_courschemas' => $courschem_id));
+    }
+
 }

@@ -13,7 +13,14 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this-> test_get_visible_students_info();
+        $this->test_assign_courschema();
+    }
+
+    public function test_assign_courschema(){
+        $user_id = 10;
+        $courschem_id = 1;
+        $result = $this->courschemas_model->assign_courschema($user_id, $courschem_id);
+        echo $result ? 1 : 0;
     }
 
     public function test_get_visible_students_info(){

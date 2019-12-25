@@ -32,4 +32,23 @@ class Courschemas_api extends CI_Controller{
                 ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
         }
     }
+
+    public function ajax_assign_courschema(){
+        try{
+
+            $courschem_id = json_decode($this->input->post('courschema_id'));
+            $user_id = json_decode($this->input->post('user_id'));
+
+            $result = $this->courschemas_model->assign_courschema($user_id, $courschem_id);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
 }

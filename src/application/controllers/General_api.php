@@ -51,10 +51,11 @@ class General_api extends CI_Controller{
         try{
 
             // Get Input
-            $user_id = json_decode($this->input->post('user_id'));
+            $user_id = $this->seesion->userdata('user_id');
+            $language = $this->seesion->userdata('language');
 
             $this->load->model('students_model');
-            $result = $this->students_model->get_visible_students_info($user_id);
+            $result = $this->students_model->get_visible_students_info($language, $user_id);
 
             $this->output
                 ->set_content_type('application/json')
