@@ -13,7 +13,12 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_assign_courschema();
+        $this->test_upload_courschemas();
+    }
+
+    public function test_delete_cmh(){
+        $cmh_name_list = array('');
+        $this->courschemas_model->delete_cmh($cmh_name_list);
     }
 
     public function test_assign_courschema(){
@@ -58,18 +63,18 @@ class Api_test extends CI_Controller{
     public function test_upload_courschemas(){
         $user_id = 1;
         $target_files = array(
-            'name' => array('upload_test1', 'upload_test2'),
+            'name' => array('upload_test10', 'upload_test11'),
             'tmp_name' => array('C:\\Users\\ASUS\\desktop\\test1.txt', 'C:\\Users\\ASUS\\desktop\\test2.txt')
         );
         $data_pack = array(
             'maj' => 1,
-            'upload_test1' => array(
+            'upload_test10' => array(
                 'ext' => 'cmc',
                 'pdf' => 'nb',
                 'list' => 'list nb',
                 'graph' => 'graph nb'
             ),
-            'upload_test2' => array(
+            'upload_test11' => array(
                 'ext' => 'cmh',
                 'pdf' => 'nb',
                 'list' => 'list nb',

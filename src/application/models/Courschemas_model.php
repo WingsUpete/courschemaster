@@ -198,6 +198,7 @@ class Courschemas_model extends CI_Model{
             // This thing will go to review table
             $courschema_id = $this->db->insert_id();
             $data_inserted = array(
+                'id_users_poster' => $user_id,
                 'id_courschemas' => $courschema_id,
                 'status' => 'pending',
                 'post_timestamp' => $this->_get_timestamp()
@@ -262,6 +263,7 @@ class Courschemas_model extends CI_Model{
         }
             
         return $this->db
+            ->where('cm_courschemas.type', 'cmc')
             ->get()
             ->result_array();
     }
@@ -291,6 +293,8 @@ class Courschemas_model extends CI_Model{
 
     public function upload_courschemas($user_id, $target_files, $data_pack){
         
+        $this->load->helper('courschema');
+
         $ok = True;
         $data_inserted = array();
 
@@ -319,9 +323,39 @@ class Courschemas_model extends CI_Model{
                 'is_available' => 0
             );
         }
-        $rtn = $this->db->insert_batch('cm_courschemas', $data_inserted);
+
+        for($i = 0; $i < sizeof($data_inserted); $i++){
+            $data = $data_inserted[$i];
+
+            if( ! $this->db->insert('cm_courschemas', $data)){
+                $this->db->trans_rollback();
+                $rtn = FALSE;
+            }else{
+                // This thing will go to review table
+                $courschema_id = $this->db->insert_id();
+                $data_review = array(
+                    'id_users_poster' => $user_id,
+                    'id_courschemas' => $courschema_id,
+                    'status' => 'pending',
+                    'post_timestamp' => $this->_get_timestamp()
+                );
+                $rtn = $this->db->insert('cm_review', $data_review );
+                if( ! $rtn){
+                    $this->db->trans_rollback();
+                    log_operation('upload courschemas', $user_id, array('target_files'=>$target_files, 'data_pack'=>$data_pack), $rtn);
+                    return $rtn;
+                }
+            }
+        }
+
+        if($rtn){
+            $this->db->trans_commit();  
+        }else{
+            $this->db->trans_rollback();
+        }
         log_operation('upload courschemas', $user_id, array('target_files'=>$target_files, 'data_pack'=>$data_pack), $rtn);
         return $rtn;
+        
     }
 
     public function assign_courschema($user_id, $courschem_id){
@@ -329,4 +363,15 @@ class Courschemas_model extends CI_Model{
         return $this->db->update('cm_users', array('id_courschemas' => $courschem_id));
     }
 
+    public function delete_cmh($cmh_name_list){
+        $ok = True;
+        foreach($cmh_name_list AS $name){
+            $this->db->where('cm_courschemas.name', $name);
+            $ok &= $this->db->delete('cm_courschemas');
+            if( ! $ok){
+                return array('status' => TRUE);
+            }
+        }
+        return array('status' => $ok);
+    }
 }
