@@ -181,7 +181,7 @@
      */
     CourschemaManagementHelper.prototype.uploadCourschemas = function () {
 		//	AJAX
-        var postUrl = GlobalVariables.baseUrl + '/index.php/courschemas_api/ajax_upload_courshcemas';
+        var postUrl = GlobalVariables.baseUrl + '/index.php/courschemas_api/ajax_upload_courschemas';
 		
 		var obj = this;
 		
