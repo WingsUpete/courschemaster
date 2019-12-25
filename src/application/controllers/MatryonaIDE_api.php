@@ -96,6 +96,7 @@ class MatryonaIDE_api extends CI_Controller
 		try{
 			$cmh_name_list = json_decode($this->input->post('cmh_name_list'));
 
+			$this->load->model('courschemas_model');
 			$result = $this->courschemas_model->find_cmh($cmh_name_list);
 
 			$this->output
@@ -113,6 +114,7 @@ class MatryonaIDE_api extends CI_Controller
 		try{
 			$cmh_name_list = json_decode($this->input->post('cmh_name_list'));
 
+			$this->load->model('courschemas_model');
 			$result = $this->courschemas_model->find_cmh($cmh_name_list);
 
 			$this->output
