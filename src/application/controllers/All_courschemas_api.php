@@ -54,7 +54,7 @@ class All_courschemas_api extends CI_Controller{
             $user_id  = $this->session->userdata('user_id');
             $language = $this->session->userdata('language');
 
-            $result = $this->courschemas_model->get_maj($language, $user_id, $maj_id);
+            $result = $this->courschemas_model->get_cm($language, $user_id, $maj_id);
 
             $this->output
                 ->set_content_type('application/json')
