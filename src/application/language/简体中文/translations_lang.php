@@ -65,6 +65,7 @@ $lang['number_of_courschemas'] = '培养方案数';
 $lang['access'] = '进入';
 $lang['my_questions'] = '我的提问';
 $lang['student_info'] = '学生信息';
+$lang['student_name'] = '学生姓名';
 $lang['course_management'] = '课程管理';
 $lang['courschema_management'] = '培养方案管理';
 $lang['review'] = '审核';

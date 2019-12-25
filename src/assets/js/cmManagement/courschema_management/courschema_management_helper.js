@@ -49,7 +49,7 @@
 			instance.processFrontEndFiles();
 			//	register header files
 			var res_msg = compiler.registerCmhFiles(instance.cmhFiles);
-			var cmhOK = true;
+//			var cmhOK = true;
 			$.each(res_msg, function(index, msg) {
 				var $badge = $('.file-list-item[data-file-name="' + msg.name + '"]').find('.pending-badge');
 				if (msg.status === 'accepted') {
@@ -61,18 +61,18 @@
 					$badge.click(function() {
 						GeneralFunctions.displayMessageAlert(msg.message, 'danger', 6000);
 					});
-					cmhOK = false;
+//					cmhOK = false;
 				}
 			});
-			if (!cmhOK) {
-				instance.abortChecking();
-				return;
-			}
+//			if (!cmhOK) {
+//				instance.abortChecking();
+//				return;
+//			}
 
 			//	check all files
 			var dataPack = {};
 			for (var i = 0; i < instance.cmcFiles.length; ++i) {
-				var cmcFile = instance.cmcFiles[i];
+				var cmcFile = instance.cmcFiles[i];				
 				var response = compiler.check(cmcFile);
 				var $badge = $('.file-list-item[data-file-name="' + cmcFile.name + '"]').find('.pending-badge');
 				if (response.status === 'accepted') {
@@ -137,11 +137,13 @@
 		$.each(files, function(index, file) {
 			var name = file.name;
 			var extension = GeneralFunctions.getFileExtension(name);
-			var html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span>' + obj.pendingBtn + '</li>';
+			var html;
 			if (extension === 'cmh') {
+				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmh-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span>' + obj.pendingBtn + '</li>';
 				output_cmh.push(html);
 				obj.cmhFiles.push(file);
 			} else if (extension === 'cmc') {
+				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmc-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span>' + obj.pendingBtn + '</li>';
 				output_cmc.push(html);
 				obj.cmcFiles.push(file);
 			}
