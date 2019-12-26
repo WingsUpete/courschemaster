@@ -12,14 +12,14 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 
 	//检查语法准缺性
 	exports. registerCmhFiles= function(cmhFile){
-		alert("register");
 		//上传一个集成的cmh
 		var register = [];
 		MatryonaTranslateClass.all = "";     //拼接Matryona的内容
+		MatryonaTranslateClass.register_result = [];
 		var reader = new FileReader();
 		reader.onload = function (e) {
 			var cmh_content = e.target.result;
-			alert(cmh_content);
+			console.log(cmh_content);
             MatryonaTranslateClass.all = cmh_content;
 			var message = "";
 			var name = cmhFile.name;
@@ -34,59 +34,54 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 			}
 
 			if (message === ""){
-				register.push({name:name, status:"accepted", message:"accepted"});
-				return register;
+				MatryonaTranslateClass.register_result.push({name:name, status:"accepted", message:"accepted"});
 			}else{
-				register.push({name:name, status:"accepted", message:message});
-				return register;
+				MatryonaTranslateClass.register_result.push({name:name, status:"accepted", message:message});
 			}
-
-
+			console.log(MatryonaTranslateClass.register_result);
 		};
 		reader.readAsText(cmhFile[0]);
+
 	};
 
 	exports.check = function(cmcFile){
+		MatryonaTranslateClass.check_result = undefined;
 		if(typeof(MatryonaTranslateClass.all) == "undefined"){
-			alert("undefined");
 			setTimeout(function () {
 				exports.check(cmcFile);
 			},500);
 		}else{
-			alert("check");
 			console.log(MatryonaTranslateClass.all);
 			var reader = new FileReader();
 			reader.onload = function (e) {
 				var cmc_content = e.target.result;
 				MatryonaTranslateClass.all = cmc_content + MatryonaTranslateClass.all;
 
-				var response;
-				alert(MatryonaTranslateClass.all);
+				console.log(MatryonaTranslateClass.all);
 				//检查依赖关系
 				//找到此cmc文件INCLUDE的文件
 				MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("（").join("(").split("）").join(")").split("“").join("\"").split("”").join("\"");
 
 				if (MatryonaTranslateClass.all.indexOf("GRADUATION") === -1){
 					alert("a");
-					response = {status: "rejected", message:"No Graduation !"};
+					MatryonaTranslateClass.check_result = {status: "rejected", message:"No Graduation !"};
 				}else if (MatryonaTranslateClass.all.indexOf("NAME") === -1 || MatryonaTranslateClass.all.indexOf("EN_NAME") || MatryonaTranslateClass.all.indexOf("VERSION") === -1 || MatryonaTranslateClass.all.indexOf("GROUP") || MatryonaTranslateClass.all.indexOf("PROGRAM_LENGTH") === -1) {
 					alert("aa");
-					response = {status: "rejected", message: "Missing basic information !"};
+					MatryonaTranslateClass.check_result = {status: "rejected", message: "Missing basic information !"};
 				}else if(MatryonaTranslateClass.all.split("INCLUDE")-1 > 1) {
 					alert("aaa");
-					response = {status: "rejected", message: "Include cmh files too much !"};
+					MatryonaTranslateClass.check_result = {status: "rejected", message: "Include cmh files too much !"};
 				}else if(MatryonaTranslateClass.all.split("INCLUDE")-1 === 0){
 					alert("aaaa");
-					response = {status: "rejected", message: "No INCLUDE !"}
+					MatryonaTranslateClass.check_result = {status: "rejected", message: "No INCLUDE !"}
 				}else if(MatryonaTranslateClass.all.indexOf("VariableEvent") === -1){
 					alert("aaaaa");
-					response = {status: "rejected", message: "English requirements file : No VariableEvents !"};
+					MatryonaTranslateClass.check_result = {status: "rejected", message: "English requirements file : No VariableEvents !"};
 				}else{
 					alert("aaaaaa");
-					response = {status:"accepted",message:"accepted"};
+					MatryonaTranslateClass.check_result = {status:"accepted",message:"accepted"};
 				}
-				console.log(response);
-				return JSON.stringify(response);
+				console.log(MatryonaTranslateClass.check_result);
 
 			};
 			reader.readAsText(cmcFile);
@@ -559,6 +554,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		for (var i=0; i<courses.length; i++){
 			pre_courses[i] = [];
 		}
+		//**************************************************************************************************************************************************************************************************************
 		pre_courses = find_courses_pre_course(courses_name);
         //**********************************************
 
@@ -735,9 +731,9 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		}
 		//向后端发送课程信息请求
 
+		//****************************************************************************************************************************************************************************************************************8
 		var all_courses_info = get_courses_info(all_course);
-
-		//******************************8
+		//*************************************************
 
 		var table;
 		var table_name;
@@ -868,7 +864,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 				return;
 			}
 			return response;
-			//console.log(response);
 		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 	}
 
