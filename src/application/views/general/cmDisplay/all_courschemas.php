@@ -8,8 +8,8 @@
 		templateStatus     : '<?= $template_status ?>',
 		loggedIn           : <?= $logged_in ?>,
 		retrieveIdFirst    : false,
-		courschemaId       : <?= $redirect ? $cur_id : '' ?>,
-		courschemaName     : <?= $redirect ? $cur_name : '' ?>,
+		courschemaId       : '<?= $redirect ? $cur_id : '' ?>',
+		courschemaName     : '<?= $redirect ? $cur_name : '' ?>',
 		collected          : <?= $redirect ? $collected : -1 ?>,
 		redirect           : <?= $redirect ?>
     };

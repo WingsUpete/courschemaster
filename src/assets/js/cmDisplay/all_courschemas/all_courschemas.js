@@ -39,7 +39,7 @@ window.AllCourschemas = window.AllCourschemas || {};
 		
 		if (GlobalVariables.redirect) {
 			alert('redirect');
-			var ccHelper = CurrentCourschema.helper;
+			var ccHelper = new CurrentCourschemaHelper();
 			ccHelper.getPdf();
 			stepper.to(4);
 		}
