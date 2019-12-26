@@ -11,70 +11,11 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 	// to call this method, write `StaticClass.exampleStaticMethod('Hi')`
 
 	//检查语法准缺性
-<<<<<<< HEAD
 	exports. registerCmhFiles= function(cmhFile){
 		alert("register");
 		//上传一个集成的cmh
 		var register = [];
 		MatryonaTranslateClass.all = "";     //拼接Matryona的内容
-=======
-	exports.registerCmhFiles = function(cmhFiles){
-		//上传的所有.cmh文件的File对象数组
-
-		MatryonaTranslateClass.cmh = [];
-		MatryonaTranslateClass.cmh = cmhFiles;
-
-		var all_cmh_info;
-		var check_cmhfiles_result = [];
-
-		all_cmh_info = read_content(cmhFiles);
-		setTimeout(function () {
-			var name;
-			var cmh_content;
-			var message = "";
-			for (var i=0; i<all_cmh_info.length(); i++){
-				name = all_cmh_info[j].name;
-				cmh_content = all_cmh_info[j].content;
-				alert(name);
-				alert(cmh_content);
-				if (cmh_content.indexOf("event") !== -1){
-					message = message + "Event, not event; ";
-				}
-				if (cmh_content.indexOf("&&&") !== -1 || cmh_content.indexOf("|||") !== -1){
-					message = message + "Symbol error; "
-				}
-				if (cmh_content.split("(").length !== cmh_content.split(")").length){
-					message = message +  "Parentheses error; ";
-				}
-
-				if (message === ""){
-					check_cmhfiles_result.push({name:name, status:"accepted", message:"accepted"});
-				}else{
-					check_cmhfiles_result.push({name:name, status:"rejected", message:message});
-				}
-				alert(check_cmhfiles_result);
-			}
-
-			alert("1");
-			console.log(check_cmhfiles_result);
-			return check_cmhfiles_result;
-
-		}, 300);
-		
-
-
-	};
-
-	exports.check = function(cmcFile){
-		//
-
-		//输入：cmc文件，cmhFiles[]
-		//检查上传的cmc和cmh文件的依赖关系和语法正确性
-
-		//读cmc文件
-		MatryonaTranslateClass.all = "";
-		var cmc_content = "";
->>>>>>> 75cbc60e8e0a59243a7d751b3245376c252ce85f
 		var reader = new FileReader();
 		reader.onload = function (e) {
 			var cmh_content = e.target.result;
@@ -92,7 +33,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 				message = message + "Parentheses error; ";
 			}
 
-<<<<<<< HEAD
 			if (message === ""){
 				register.push({name:name, status:"accepted", message:"accepted"});
 				return register;
@@ -100,37 +40,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 				register.push({name:name, status:"accepted", message:message});
 				return register;
 			}
-=======
-			var cmh_database_check;
-			$.when(cmh_database_check = find_cmh(cmh_need)).then(function () {
-				if (cmh_database_check[0].status === true){
-					for (var j=1; j<cmh_database_check.length; j++) {
-						MatryonaTranslateClass.all = MatryonaTranslateClass.all + cmh_database_check[j].cmh_content;
-					}
-					MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("（").join("(");
-					MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("）").join(")");
-					MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("“").join("\"");
-					MatryonaTranslateClass.all = MatryonaTranslateClass.all.split("”").join("\"");
-
-					if (MatryonaTranslateClass.all.indexOf("GRADUATION") === -1){
-						return {status: "rejected", message:"No Graduation !"};
-					}else if (MatryonaTranslateClass.all.indexOf("NAME") === -1 || MatryonaTranslateClass.all.indexOf("EN_NAME") || MatryonaTranslateClass.all.indexOf("VERSION") === -1 || MatryonaTranslateClass.all.indexOf("GROUP") || MatryonaTranslateClass.all.indexOf("PROGRAM_LENGTH") === -1) {
-						return {status: "rejected", message: "Missing basic information !"};
-					}else if(repeat === true) {
-						return {status: "rejected", message: "Repeat cmh files !"}
-					}else if(MatryonaTranslateClass.all.indexOf("VariableEvent") === -1){
-						return {status: "rejected", message: "English requirements file : No VariableEvents !"}
-					}else{
-						return {status:"accepted",message:"accepted"}
-					}
-				}else{
-					return {status:"rejected",message:"Cmh files are insufficient !"}
-				}
-			});
-		};
-		reader.readAsText(cmcFile);
-	};
->>>>>>> 75cbc60e8e0a59243a7d751b3245376c252ce85f
 
 
 		};
@@ -947,48 +856,9 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		return JSON.stringify(list);
 	};
 
-<<<<<<< HEAD
 	//ajax : get the pre course
 	function find_courses_pre_course(courses) {
 		var posturl = GlobalVariables.baseUrl + '/index.php/matryonaide_api/ajax_find_courses_pre_course';
-=======
-
-	//ajax : check cmh existence and their content in the database
-	function find_cmh(cmh_notfound) {
-		var posturl = GlobalVariables.baseUrl + '/index.php/matryonaide_api/ajax_find_cmh';
-		var postData = {
-			csrfToken: GlobalVariables.csrfToken,
-			courses_arr:JSON.stringify(cmh_notfound)
-		};
-		$.post(posturl, postData, function (response) {
-			if(!GeneralFunctions.handleAjaxExceptions(response)){
-				return;
-			}
-			return response;
-			//console.log(response);
-		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-	}
-
-	//ajax : check course existence and their content
-	function check_courses_existence(courses) {
-		var posturl = GlobalVariables.baseUrl + '/index.php/courschemas_api/ajax_check_courses_existence';
-		var postData = {
-			csrfToken: GlobalVariables.csrfToken,
-			courses_arr:JSON.stringify(courses)
-		};
-		$.post(posturl, postData, function (response) {
-			if(!GeneralFunctions.handleAjaxExceptions(response)){
-				return;
-			}
-			return response;
-			//console.log(response);
-		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-	}
-
-	//ajax : get the pre course
-	function find_courses_pre_course(courses) {
-		var posturl = GlobalVariables.baseUrl + '/index.php/courschemas_api/ajax_find_courses_pre_course';
->>>>>>> 75cbc60e8e0a59243a7d751b3245376c252ce85f
 		var postData = {
 			csrfToken: GlobalVariables.csrfToken,
 			code_list:JSON.stringify(courses)
@@ -1004,11 +874,7 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 
 	//ajax : get the information of courses
 	function get_courses_info(courses) {
-<<<<<<< HEAD
 		var posturl = GlobalVariables.baseUrl + '/index.php/matryonaide_api/ajax_get_courses_info';
-=======
-		var posturl = GlobalVariables.baseUrl + '/index.php/courschemas_api/ajax_get_courses_info';
->>>>>>> 75cbc60e8e0a59243a7d751b3245376c252ce85f
 		var postData = {
 			csrfToken: GlobalVariables.csrfToken,
 			code_list:JSON.stringify(courses)
@@ -1021,55 +887,6 @@ window.MatryonaTranslateClass = window.MatryonaTranslateClass || {};	// Browser 
 		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
 	}
 
-<<<<<<< HEAD
-=======
-	//ajax : delete cmh files;
-	function delete_cmh(cmhfiles) {
-		var posturl = GlobalVariables.baseUrl + '/index.php/courschemas_api/ajax_delete_cmh';
-		var postData = {
-			csrfToken: GlobalVariables.csrfToken,
-			courses_arr:JSON.stringify(cmhfiles)
-		};
-		$.post(posturl, postData, function (response) {
-			if(!GeneralFunctions.handleAjaxExceptions(response)){
-				return;
-			}
-			return response;
-		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-	}
-
-	//ajax : upload cmh files;
-	function upload_cmhfiles(cmhfiles) {
-		var postUrl = GlobalVariables.baseUrl + '/index.php/courschemas_api/ajax_upload_cmhfiles';
-		var postData = new FormData();
-		postData.append('csrfToken', GlobalVariables.csrfToken);
-		postData.append('target_file[]', cmhfiles);
-
-		return $.ajax({
-			url: postUrl,
-			type: 'POST',
-			data: postData,
-			cache: false,
-			contentType: false,
-			processData: false,
-		});
-	}
-
-	function read_content(cmhfiles) {
-		var posturl = GlobalVariables.baseUrl + '/index.php/matryonaide_api/ajax_read_content';
-		var postData = {
-			csrfToken: GlobalVariables.csrfToken,
-			target_files:JSON.stringify(cmhfiles)
-		};
-		$.post(posturl, postData, function (response) {
-			if(!GeneralFunctions.handleAjaxExceptions(response)){
-				return;
-			}
-			return response;
-		}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
-
-	}
->>>>>>> 75cbc60e8e0a59243a7d751b3245376c252ce85f
 	/**
 	 * @return {string}
 	 */
