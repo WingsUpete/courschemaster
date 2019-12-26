@@ -13,11 +13,11 @@ function get_redirect_info($id, $user_id, &$view){
     $ci = &get_instance();
     if( ! $id){
         $view['cur_id'] = 'no_id_flag';
-        $view['redirect'] = FALSE;
+        $view['redirect'] = 'false';
         $view['cur_name'] = 'no_id_flag';
         $view['collected'] = 'no_id_flag';
     }else{
-        $view['redirect'] = FALSE;
+        $view['redirect'] = 'true';
 
         $ci->load->model('courschemas_model');
         $result = $ci->courschemas_model->get_cm_by_id($id, $user_id);

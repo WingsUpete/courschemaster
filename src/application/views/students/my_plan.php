@@ -4,7 +4,8 @@
 <script>
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
-		baseUrl            : <?= json_encode($base_url) ?>
+		baseUrl            : <?= json_encode($base_url) ?>,
+		language           : '<?= $this->config->item('language') ?>'
     };
 
     $(document).ready(function() {
@@ -25,7 +26,8 @@
 	<!-- Table -->
 	<div class="container-fluid w-100 px-0">
 		<div class="row">
-			<div class="col-xs-12 col-lg-6">
+			<!-- col-xs-12 col-lg-6 -->
+			<div class="col-xl-12">
 				<div class="card plan-window mb-3">
 					<div class="card-header">
 						<ul class="nav nav-tabs card-header-tabs" id="my-plan-panel" role="tablist">
@@ -66,7 +68,7 @@
 					</div>
 				</div>
 			</div>
-			<div class="col-xs-12 col-lg-6">
+			<div class="col-xs-12 col-lg-6 hide-for-now">
 				<div class="card border-light mb-3 graph-window">
 					<div class="card-header"><?= lang('graph') ?></div>
 					<div class="card-body">

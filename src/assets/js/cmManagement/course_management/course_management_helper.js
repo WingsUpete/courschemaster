@@ -107,6 +107,7 @@
             if (!GeneralFunctions.handleAjaxExceptions(response)) {
                 return;
             }
+			
 			obj.courses = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
