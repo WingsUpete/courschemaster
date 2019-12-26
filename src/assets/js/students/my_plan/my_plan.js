@@ -32,6 +32,11 @@ window.MyPlan = window.MyPlan || {};
         helper = new MyPlanHelper();
 		
 		// Initialization
+		$.when(helper.retrieveCourses()).then(function() {
+			MyPlan.initialize_courseMarket();
+		});
+		
+		helper.getPlans();
 		
 		
         if (defaultEventHandlers) {
@@ -50,5 +55,100 @@ window.MyPlan = window.MyPlan || {};
 		
         helper.bindEventHandlers();
     }
-
+	
+	exports.initialize_plan_courses = function () {
+		datatable = $('#plan-courses-datatable').DataTable({
+			"autoWidth": false,
+			"initComplete": function(settings, json) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"drawCallback": function( settings ) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"stateLoaded": function (settings, data) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"ajax": function(data, callback, settings) {
+				var courschemas = helper.courschemas;
+				
+				if (courschemas === undefined) {
+					callback({data:[]});
+				}
+				
+				var dataArray = [];
+				var subArray = [];
+				for (var i = 0; i < courschemas.length; ++i) {
+					var courschema = courschemas[i];
+					subArray = [
+									courschema.id, courschema.name,
+									courschema.major_name, courschema.dep_name,
+									'<button type="button" class="btn btn-primary btn-sm uncollect-btn">' + SCLang.uncollect + '</button>'
+							   ];
+					dataArray.push(subArray);
+				}
+				
+				callback({
+					data: dataArray
+				});
+			},
+			"columns": [
+				{"visible": false},
+				null,
+				null,
+				null,
+				null
+			]
+		});
+	};
+	
+	exports.initialize_courseMarket = function () {
+		datatable = $('#market-courses-datatable').DataTable({
+			"autoWidth": false,
+			"initComplete": function(settings, json) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"drawCallback": function( settings ) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"stateLoaded": function (settings, data) {
+				GeneralFunctions.placeFooterToBottom();	//	Fix the footer gg problem
+			},
+			"ajax": function(data, callback, settings) {
+				var courseMarket = helper.courseMarket;
+				
+				if (courseMarket === undefined) {
+					callback({data:[]});
+				}
+				
+				var dataArray = [];
+				var subArray = [];
+				for (var i = 0; i < courseMarket.length; ++i) {
+					var course = courseMarket[i];
+					var language = GlobalVariables.language;
+					var course_name;
+					if (language === 'english') {
+						course_name = course.course_en_name;
+					} else if (language === '简体中文') {
+						course_name = course.course_cn_name;
+					}
+					subArray = [
+									course.course_code, course_name
+							   ];
+					dataArray.push(subArray);
+				}
+				
+				callback({
+					data: dataArray
+				});
+			},
+			"columns": [
+				{"visible": false},
+				null,
+				null,
+				null,
+				null
+			]
+		});
+	};
+	
 })(window.MyPlan);
