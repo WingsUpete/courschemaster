@@ -15,7 +15,7 @@ window.CurrentCourschema = window.CurrentCourschema || {};
      *
      * @type {Object}
      */
-    var helper = {};
+    exports.helper = {};
 
 	var datatable = null;
 	
@@ -28,11 +28,11 @@ window.CurrentCourschema = window.CurrentCourschema || {};
     exports.initialize = function (defaultEventHandlers) {
         defaultEventHandlers = defaultEventHandlers || false;
 
-        helper = new CurrentCourschemaHelper();
+        CurrentCourschema.helper = new CurrentCourschemaHelper();
 		
 		// Initializations
 		if (GlobalVariables.retrieveIdFirst) {
-			helper.retrieveCourschemas();
+			CurrentCourschema.helper.retrieveCourschemas();
 		}
 		
 		CurrentCourschema.initialize_courses();
@@ -51,7 +51,7 @@ window.CurrentCourschema = window.CurrentCourschema || {};
 			GeneralFunctions.placeFooterToBottom();
 		});
 		
-        helper.bindEventHandlers();
+        CurrentCourschema.helper.bindEventHandlers();
     }
 
     /**

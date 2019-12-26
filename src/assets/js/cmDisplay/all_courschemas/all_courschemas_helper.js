@@ -37,6 +37,8 @@
 			GlobalVariables.courschemaName = $(this).prop('dataset').verName;
 			GlobalVariables.collected = $(this).closest('.search-res-item-block').find('.collect i').hasClass('collected') ? 1 : 0;
 			instance.stepper.next();
+			var ccHelper = CurrentCourschema.helper;
+			ccHelper.getPdf();
 		});
 		
 		/**
@@ -172,7 +174,7 @@
 				if (GlobalVariables.loggedIn) {
 					addi = '<a href="javascript:void(0);" class="collect text-warning" title="' + SCLang.collect + '"><i class="' + (item.collected === 1 ? obj.collectedMark : obj.uncollectedMark) + ' fa-star fa-lg"></i></a>';
 				} else {
-					addi = '&nbsp;';
+					addi = ' ';
 				}
 				id = item.ver_id;
 			}
