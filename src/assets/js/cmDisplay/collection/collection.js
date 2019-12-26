@@ -34,6 +34,7 @@ window.Collection = window.Collection || {};
 		$.when(helper.retrieveCollections()).then(function() {
 			//	DataTable
 			Collection.initialize_courschemas();
+			helper.datatable = datatable;
 		});
 		
         if (defaultEventHandlers) {
@@ -73,8 +74,9 @@ window.Collection = window.Collection || {};
 				for (var i = 0; i < courschemas.length; ++i) {
 					var courschema = courschemas[i];
 					subArray = [
-									courschema.courschema_id, courschema.courschema_name,
-									courschema.major_name, courschema.department_name
+									courschema.id, courschema.name,
+									courschema.major_name, courschema.dep_name,
+									'<button type="button" class="btn btn-primary btn-sm uncollect-btn">' + SCLang.uncollect + '</button>'
 							   ];
 					dataArray.push(subArray);
 				}
@@ -85,6 +87,7 @@ window.Collection = window.Collection || {};
 			},
 			"columns": [
 				{"visible": false},
+				null,
 				null,
 				null,
 				null

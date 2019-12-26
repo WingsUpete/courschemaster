@@ -72,30 +72,39 @@
 			//	check all files
 			var dataPack = {};
 			for (var i = 0; i < instance.cmcFiles.length; ++i) {
-				var cmcFile = instance.cmcFiles[i];				
-				var response = compiler.check(cmcFile);
-				var $badge = $('.file-list-item[data-file-name="' + cmcFile.name + '"]').find('.pending-badge');
-				if (response.status === 'accepted') {
-					$badge.removeClass('badge-warning').addClass('badge-success');
-					$badge.html(SCLang.accepted);
-					//	compile and get JSON
-					var extension = GeneralFunctions.getFileExtension(cmcFile.name);
-					dataPack[extension] = {
-						maj: $('#upload-major option:selected').val(),
-						ext: extension,
-						pdf: compiler.Matryona_to_Pdf(),
-						list: compiler.Matryona_to_List(),
-						graph: compiler.Matryona_to_Graph()
-					};
-				} else if (response.status === 'rejected') {
-					$badge.removeClass('badge-warning').addClass('badge-danger');
-					$badge.html(SCLang.rejected);
-					$badge.click(function() {
-						GeneralFunctions.displayMessageAlert(response.message, 'danger', 6000);
+				var cmcFile = instance.cmcFiles[i];
+				var promiseCompile = function(cmc) {
+					return new Promise(function(resolve, reject) {
+						var res = compiler.check(cmc);
+						alert('check');
+						resolve(res);
 					});
-					instance.abortChecking();
-					return;
-				}
+				};
+				$.when(promiseCompile(cmcFile)).then(function(response) {
+					alert(response);
+					var $badge = $('.file-list-item[data-file-name="' + cmcFile.name + '"]').find('.pending-badge');
+					if (response.status === 'accepted') {
+						$badge.removeClass('badge-warning').addClass('badge-success');
+						$badge.html(SCLang.accepted);
+						//	compile and get JSON
+						var extension = GeneralFunctions.getFileExtension(cmcFile.name);
+						dataPack[extension] = {
+							maj: $('#upload-major option:selected').val(),
+							ext: extension,
+							pdf: compiler.Matryona_to_Pdf(),
+							list: compiler.Matryona_to_List(),
+							graph: compiler.Matryona_to_Graph()
+						};
+					} else if (response.status === 'rejected') {
+						$badge.removeClass('badge-warning').addClass('badge-danger');
+						$badge.html(SCLang.rejected);
+						$badge.click(function() {
+							GeneralFunctions.displayMessageAlert(response.message, 'danger', 6000);
+						});
+						instance.abortChecking();
+						return;
+					}
+				});
 			}
 			//	ready for upload
 			$('#upload-courschema').prop('disabled', 'false');

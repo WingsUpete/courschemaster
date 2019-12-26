@@ -25,7 +25,8 @@
 	<!-- Collection Table -->
 	<?php
 		$courschema_table_headers = array(
-			lang('courschema_id'), lang('courschema_name'), lang('courschema_major'), lang('courschema_department')
+			lang('courschema_id'), lang('courschema_name'), lang('courschema_major'), lang('courschema_department'),
+			lang('operation')
 		);
 	?>
 	<div class="table-responsive"><table id="courschemas-datatable" class="table table-bordered table-hover table-condensed text-center">

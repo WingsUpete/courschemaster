@@ -1,2 +1,6 @@
 /* CSS Document */
-
+.uncollect-btn {
+	border-radius: 10px;
+	padding: 5px 16px!important;
+	margin: 0;
+}
