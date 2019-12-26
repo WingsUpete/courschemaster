@@ -152,3 +152,5 @@ $lang['collect_cm_success'] = 'Successfully collected the courschema';
 $lang['collect_cm_failure'] = 'Fail to collect the courschema';
 $lang['uncollect_cm_success'] = 'Successfully uncollected the courschema';
 $lang['uncollect_cm_failure'] = 'Fail to uncollect the courschema';
+$lang['uncollect'] = 'Uncollect';
+$lang['uncollect_message'] = 'Are you sure you want to uncollect this courschema?';

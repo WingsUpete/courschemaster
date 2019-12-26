@@ -152,3 +152,5 @@ $lang['collect_cm_success'] = '成功收藏培养方案';
 $lang['collect_cm_failure'] = '收藏培养方案失败';
 $lang['uncollect_cm_success'] = '成功取消收藏该培养方案';
 $lang['uncollect_cm_failure'] = '取消收藏该培养方案失败';
+$lang['uncollect'] = '取消收藏';
+$lang['uncollect_message'] = '确定要取消收藏该培养方案吗？';
