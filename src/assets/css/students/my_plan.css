@@ -21,3 +21,10 @@
 	color: #fff;
 	font-weight: 500;
 }
+
+
+.delete-course-btn {
+	border-radius: 10px;
+	padding: 5px 16px!important;
+	margin: 0;
+}

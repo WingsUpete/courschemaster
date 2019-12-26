@@ -82,7 +82,9 @@ window.MyPlan = window.MyPlan || {};
 					subArray = [
 									courschema.id, courschema.name,
 									courschema.major_name, courschema.dep_name,
-									'<button type="button" class="btn btn-primary btn-sm uncollect-btn">' + SCLang.uncollect + '</button>'
+						
+						
+									'<button type="button" class="btn btn-primary btn-sm delete-course-btn">' + SCLang.delete + '</button>'
 							   ];
 					dataArray.push(subArray);
 				}
@@ -126,13 +128,17 @@ window.MyPlan = window.MyPlan || {};
 					var course = courseMarket[i];
 					var language = GlobalVariables.language;
 					var course_name;
+					var course_department;
 					if (language === 'english') {
 						course_name = course.course_en_name;
+						course_department = course.department_en_name;
 					} else if (language === '简体中文') {
 						course_name = course.course_cn_name;
+						course_department = course.department_cn_name;
 					}
 					subArray = [
-									course.course_code, course_name
+									course.course_code, course_name, course.total_credit, course_department
+									
 							   ];
 					dataArray.push(subArray);
 				}
@@ -140,14 +146,7 @@ window.MyPlan = window.MyPlan || {};
 				callback({
 					data: dataArray
 				});
-			},
-			"columns": [
-				{"visible": false},
-				null,
-				null,
-				null,
-				null
-			]
+			}
 		});
 	};
 	
