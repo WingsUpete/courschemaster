@@ -5,7 +5,7 @@ class Migration_Fixed_users_plans_table extends CI_Migration{
 
 	public function up(){
 
-		$this->db->query('ALTER TABLE `cm_users_plans` 
+		$this->db->query('ALTER TABLE `cm_users_plans`
 			DROP FOREIGN KEY `fk_cm_users_plans_cm_colleges1`;');
 
 		$this->db->query('ALTER TABLE `cm_users_plans` 
