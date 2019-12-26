@@ -4,7 +4,8 @@
 <script>
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
-		baseUrl            : <?= json_encode($base_url) ?>
+		baseUrl            : <?= json_encode($base_url) ?>,
+		end                : '<?= $end ?>'
     };
 
     $(document).ready(function() {

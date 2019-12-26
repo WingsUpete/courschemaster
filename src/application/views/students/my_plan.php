@@ -97,7 +97,7 @@
 				</div>
 				<?php
 					$course_table_headers = array(
-						lang('course_code'), lang('course_name'), lang('course_label'), lang('course_department')
+						lang('course_code'), lang('course_name'), lang('course_total_credit'), lang('course_department')
 					);
 				?>
 				<div class="table-responsive"><table id="market-courses-datatable" class="table table-bordered table-hover table-condensed text-center">
