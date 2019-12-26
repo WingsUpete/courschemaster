@@ -40,7 +40,7 @@
 		$(document).on('click', '#courschemas-datatable tbody tr', function() {
 			var courschema_id = instance.datatable.row($(this).closest('tr')).data()[0];
 			//	redirect
-			window.location.href = GlobalVariables.baseUrl + '/' + GlobalVariables.end + '/all_courschemas/' + courschema_id;
+			window.location.href = GlobalVariables.baseUrl + '/index.php/' + GlobalVariables.end + '/all_courschemas/' + courschema_id;
 		});
 		
 	};
