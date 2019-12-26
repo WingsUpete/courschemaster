@@ -9,7 +9,29 @@ class Courschemas_api extends CI_Controller{
             $this->security->csrf_show_error();
         }
 		$this->load->library('session');
-		$this->load->model('courschemas_model');
+        $this->load->model('courschemas_model');
+        if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
+    }
+
+    public function ajax_upload_cmhfiles(){
+        try{
+
+            $target_files = $_FILES['target_files'];
+            $user_id = $this->session->userdata('user_id');
+
+            $result = $this->courschemas_model->upload_courschemas($user_id, $target_files);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result ? array('status' => 'false') : array('status' => 'true')));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
     }
 
     public function ajax_upload_courschemas(){

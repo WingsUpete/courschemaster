@@ -11,6 +11,9 @@ class General_api extends CI_Controller{
         }
 
         $this->load->library('session');
+        if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
 
     }
 
@@ -51,8 +54,8 @@ class General_api extends CI_Controller{
         try{
 
             // Get Input
-            $user_id = $this->seesion->userdata('user_id');
-            $language = $this->seesion->userdata('language');
+            $user_id = $this->session->userdata('user_id');
+            $language = $this->session->userdata('language');
 
             $this->load->model('students_model');
             $result = $this->students_model->get_visible_students_info($language, $user_id);

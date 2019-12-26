@@ -24,6 +24,7 @@ class Secretary extends CI_Controller{
             return;
         }
         $view['ci'] = &$this;
+		$view['template_status'] = lang('current_courschema');
         $view['active_sidebar'] = PRIV_SECRETARY_ALL_COURSCHEMAS;
         $this->load_comb_views($view, "general/cmDisplay/all_courschemas");
     }

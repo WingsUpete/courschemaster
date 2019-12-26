@@ -4,11 +4,8 @@ class Collections_model extends CI_Model{
 
     public function get_my_collections($language, $user_id){
 
-        if($language == 'english'){
-            $this->db->select('cm_courschemas.en_name AS name');
-        }else{
-            $this->db->select('cm_courschemas.name AS name');
-        }
+        $this->db->select('cm_courschemas.name AS name');
+        
 
         return $this->db->select('
                 cm_courschemas.id AS id

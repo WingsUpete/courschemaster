@@ -55,21 +55,16 @@ class Courschemas_model extends CI_Model{
     }
 
     public function get_cm($language, $user_id, $maj_id){
-        if($language == 'english'){
-            $this->db->select('
-                cm_courschemas.id      AS ver_id,
-                cm_courschemas.en_name AS name,
-            ');
-        }else{
-            $this->db->select('
-                cm_courschemas.id      AS ver_id,
-                cm_courschemas.name    AS name,
-            ');
-        }
+
+        $this->db->select('
+            cm_courschemas.id      AS ver_id,
+            cm_courschemas.name    AS name,
+        ');
 
         $result = $this->db
             ->from('cm_courschemas')
             ->order_by('cm_courschemas.id')
+            ->where('cm_courschemas.type', 'cmc')
             ->get()
             ->result_array();
 
@@ -104,7 +99,6 @@ class Courschemas_model extends CI_Model{
                 }
             }
         }
-
         return $result;
     }
 
@@ -136,7 +130,7 @@ class Courschemas_model extends CI_Model{
             $this->db->select('cm_courschemas.pdf_url_cn AS pdf_url');
         }
 
-        $url =  $this->db
+        $url = $this->db
             ->from('cm_users')
             ->join('cm_courschemas', 'cm_courschemas.id = cm_users.id_courschemas', 'inner')
             ->where('cm_users.id', $user_id)
@@ -291,7 +285,7 @@ class Courschemas_model extends CI_Model{
         }
     }
 
-    public function upload_courschemas($user_id, $target_files, $data_pack){
+    public function upload_courschemas($user_id, $target_files, $data_pack=NULL){
         
         $this->load->helper('courschema');
 
@@ -304,24 +298,35 @@ class Courschemas_model extends CI_Model{
 
             $pdf_url = 'default.pdf';
 
-            if($data_pack[$name]['ext'] == 'cmc'){
+            if($data_pack != NULL && $data_pack[$name]['ext'] == 'cmc'){
                 $result = upload_pdf($data_pack[$name]['pdf'], $name);
                 if($result['status']){
                     $pdf_url = $result['pdf_url'];
                 }else{
                     return array('status' => 'false', 'msg' => 'wrong pdf json ' . $name); # return 
                 }
+                $data_inserted[$i] = array(
+                    'name' => $name,
+                    'type' => 'cmc',
+                    'id_majors' => $data_pack['maj'],
+                    'pdf_url' => $pdf_url,
+                    'graph_json' => $data_pack[$name]['graph'],
+                    'list_json' => $data_pack[$name]['list'],
+                    'source_code' => $content,
+                    'is_available' => 0
+                );
+            }else{
+                $data_inserted[$i] = array(
+                    'name' => $name,
+                    'type' => 'cmh',
+                    'id_majors' => 1,
+                    'pdf_url' => $pdf_url,
+                    'graph_json' => '',
+                    'list_json' => '',
+                    'source_code' => $content,
+                    'is_available' => 0
+                );
             }
-            $data_inserted[$i] = array(
-                'name' => $name,
-                'type' => $data_pack[$name]['ext'],
-                'id_majors' => $data_pack['maj'],
-                'pdf_url' => $pdf_url,
-                'graph_json' => $data_pack[$name]['graph'],
-                'list_json' => $data_pack[$name]['list'],
-                'source_code' => $content,
-                'is_available' => 0
-            );
         }
 
         for($i = 0; $i < sizeof($data_inserted); $i++){

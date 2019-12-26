@@ -11,6 +11,9 @@ class Review_api extends CI_Controller{
 
         $this->load->library('session');
         $this->load->model('review_model');
+        if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
     }
 
     public function ajax_get_review_status(){

@@ -12,6 +12,9 @@ class MatryonaIDE_api extends CI_Controller
 		}
 		$this->load->library('session');
 		$this->load->model('course_model');
+		if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
 	}
 
 	public function ajax_get_courses_info()
@@ -116,6 +119,30 @@ class MatryonaIDE_api extends CI_Controller
 
 			$this->load->model('courschemas_model');
 			$result = $this->courschemas_model->find_cmh($cmh_name_list);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc) {
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
+	public function ajax_read_content(){
+		try{
+			$target_files = $_FILES['target_files'];
+
+			$result = array();
+
+			for($i = 0; $i < sizeof($target_files['name']); $i++){
+				$content = file_get_contents($target_files['tmp_name'][$i]);
+				$name = $target_files['name'][$i];
+				$result[$i]['name'] = $name;
+				$result[$i]['content'] = $content;
+			}
 
 			$this->output
 				->set_content_type('application/json')

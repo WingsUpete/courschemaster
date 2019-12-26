@@ -1,6 +1,6 @@
 <?php defined('BASEPATH') OR exit('No direct script access allowed');
 
-class All_courschemas_api extends CI_Controller{
+class All_courschemas_api extends CI_controller{
     public function __construct(){
         parent::__construct();
 
@@ -10,6 +10,9 @@ class All_courschemas_api extends CI_Controller{
         }
         $this->load->library('session');
         $this->load->model('courschemas_model');
+        if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
     }
 
     public function ajax_get_dep(){
@@ -54,7 +57,7 @@ class All_courschemas_api extends CI_Controller{
             $user_id  = $this->session->userdata('user_id');
             $language = $this->session->userdata('language');
 
-            $result = $this->courschemas_model->get_maj($language, $user_id, $maj_id);
+            $result = $this->courschemas_model->get_cm($language, $user_id, $maj_id);
 
             $this->output
                 ->set_content_type('application/json')
