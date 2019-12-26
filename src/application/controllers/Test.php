@@ -60,7 +60,7 @@ class Test extends CI_Controller{
 	}
 
 	public function test(){
-		print_r($this->plans_model->add_course_to_plan(1, 99));
+		print_r($this->plans_model->add_plan('11710101', '我的计划'));
 
 	}
 
