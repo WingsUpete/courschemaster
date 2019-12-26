@@ -31,9 +31,11 @@ window.CurrentCourschema = window.CurrentCourschema || {};
         helper = new CurrentCourschemaHelper();
 		
 		// Initializations
-		CurrentCourschema.initialize_courses();
+		if (GlobalVariables.retrieveIdFirst) {
+			helper.retrieveCourschemas();
+		}
 		
-		helper.retrieveCourschemas();
+		CurrentCourschema.initialize_courses();
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();

@@ -42,7 +42,10 @@
                 return;
             }
 			
-			console.log(response);
+//			console.log(response);
+			GlobalVariables.courschemaId = response.id;
+			GlobalVariables.courschemaName = response.name;
+			GlobalVariables.collected = response.collected;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
