@@ -148,21 +148,22 @@ class Courschemas_model extends CI_Model{
     }
 
     public function get_pdf_by_id($language, $courschema_id){
-        if($language == 'english'){
-            $this->db->select('cm_courschemas.pdf_url_en AS pdf_url');
-        }else{
-            $this->db->select('cm_courschemas.pdf_url_cn AS pdf_url');
-        }
-
-        $url =  $this->db
+        
+        $this->db->select('
+            cm_courschemas.pdf_url AS pdf_url,
+            cm_courschemas.id      AS id
+        ');
+        
+        $result =  $this->db
             ->from('cm_courschemas')
             ->where('cm_courschemas.id', $courschema_id)
             ->get()
-            ->row_array()['pdf_url'];
+            ->row_array();
         
         return array(
-            'file_url' => asset_url('assets/pdf/' . $url),
-            'download_link' => base_url('index.php/download/pdf/'.$url)
+            'id' => $result['id'],
+            'file_url' => asset_url('assets/pdf/' . $result['pdf_url']),
+            'download_link' => base_url('index.php/download/pdf/'.$result['pdf_url'])
         );
     }
 
