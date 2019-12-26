@@ -56,7 +56,7 @@
 	</ul>
 	<div class="tab-content" id="cc-views-content">
 		<div class="tab-pane fade show active" id="cc-views-pdf-content" role="tabpanel" aria-labelledby="cc-views-pdf">
-			<iframe id="cc-pdf-window" title="Courschema PDF" src="<?= asset_url('assets/pdf/default.pdf') ?>"></iframe>
+			<iframe id="cc-pdf-window" title="Courschema PDF"></iframe>
 			<div id="cc-pdf-download-block" class="text-right">
 				<button id="cc-pdf-download" type="button" class="btn btn-primary font-weight-bold mr-0">
 					<a href="javascript:void(0);" target="_blank">
