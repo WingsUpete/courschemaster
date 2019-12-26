@@ -13,7 +13,73 @@ class Api_test extends CI_Controller{
     }
 
     public function index(){
-        $this->test_find_cmh();
+        $this->test_pdf();
+    }
+
+    public function test_interpreter(){
+        $this->load->library('Cminterpreter');
+        $content = '
+            NAME = "计算机科学与技术2018级 (1+3) 培养方案";
+            VERSION = 201801;
+
+            INTRO = "计算机科学是一门极具发展潜力的专业，高级人才严重短缺。随着计算机技术和现代化企业的迅速发展，
+                    这一现象将越来越严重。当前和未来一段时间，由于市场的集约化、渗透性、跨学科融合、技术创新、激烈竞争，
+                    社会急需高素质的人才。";
+
+            OBJECTIVES = "本专业培养具有扎实的专业理论知识，掌握前沿计算机系统设计原理，具有相应的研究开发能力，
+                能熟练运用英语和计算机技术的人才。学生毕业后不仅可以在企业、科研机构、大学从事计算机科学与技术领域的研究、 
+                开发、管理或教学，还可以继续从事计算机科学与技术及相关或交叉学科领域的研究生学习。";
+
+            PROGRAM_LENGTH = 4;
+            
+            DEGREE = "工程学学士";
+
+            Event GRADUATION = ComEvent(专业先修课 && 通识必修课 && 通识选修课 && 专业基础课 && 专业核心课 && 专业选修课 && 实践课程);
+
+            Event 通识必修课 = ComEvent(理工通识基础 && 思想政治品德 && 军训体育 && 中文写作与交流);
+
+            Event 专业先修课 = ComEvent(其他先修课 && 数学基础);
+
+            Event 其他先修课 = CourseEvent(MA103A && PHY103B && PHY105B && CS102A && PHY104B);
+
+            Event 数学基础 = CourseEvent((MA101B && MA102B)||(MA101A && MA102A));
+
+            Event 理工通识基础 = ComEvent(其它理工通识基础 && 数学基础);
+
+            Event 其它理工通识基础 = CourseEvent(MA103A && PHY103B && PHY105B && CS102A && PHY104B);
+
+            Event 思想政治品德 = 思想政治品德课程;
+
+            Event 军训体育 = 军训体育课程;
+
+            Event 中文写作与交流 = CourseEvent(HUM012);
+
+            Event 通识选修课 = ComEvent(人文课程, 社科课程, 艺术课程);
+
+            Event 人文课程 = ScoreEvent("HUM", 4);
+
+            Event 社科课程 = ScoreEvent("SS" || "GE" || "GEJ" || "HEC", 4);
+
+            Event 艺术课程 = ScoreEvent("GEM" || "DHSSS", 2);
+
+            Event 专业基础课 = CourseEvent(CS203 && CS207 && CS201 && CS202 && CS208 && CS307 && MA212);
+
+            Event 专业核心课 = CourseEvent(CS301 && CS309 && CS321 && CS317 && CS302 && CS304 && CS326 && CS318 && CS413 && CS415 && CS470 && CS490);
+
+            Event 专业选修课 = ScoreEvent("CS_elective", 19);
+
+            Event 实践课程 = CourseEvent(CS470 && CS490);
+        ';
+
+        $result = $this->cminterpreter->compile_to_pdf($content);
+
+        if( ! $result['status']){
+            echo $result['msg'];
+        }else{
+            echo $result['pdf_url'];
+        }
+
+        
     }
 
     public function test_delete_cmh(){

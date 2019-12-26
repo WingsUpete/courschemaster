@@ -19,7 +19,7 @@ class Tao extends CI_Controller{
         $this->all_courschemas();
     }
 
-    public function all_courschemas(){
+    public function all_courschemas($id=NULL){
         if( ! $this->has_privileges('mentor', PRIV_TAO)){
             return;
         }

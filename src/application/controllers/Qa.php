@@ -27,7 +27,11 @@ class Qa extends CI_Controller{
         $this->load_comb_views($view_data, 'qa/main');
     }
 
-    public function question($question_id){
+    public function question($question_id=NULL){
+
+        if( ! $question_id){
+            $this->main();
+        }
 
         $this->load->model('qa_model');
         if( ! $this->qa_model->question_exists($question_id)){

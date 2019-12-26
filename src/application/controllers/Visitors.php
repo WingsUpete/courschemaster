@@ -19,7 +19,7 @@ class Visitors extends CI_Controller{
         $this->all_courschemas();
     }
 
-    public function all_courschemas(){
+    public function all_courschemas($id=NULL){
 
         $view = array();
         load_header_data($view);
