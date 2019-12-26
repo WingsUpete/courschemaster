@@ -35,14 +35,14 @@ class Collections_api extends CI_Controller{
         
     public function ajax_collect_courschema(){
         try{
-            $courschema_id = json_deocde($this->input->post('courschema_id'));
+            $courschema_id = json_decode($this->input->post('courschema_id'));
             $user_id       = $this->session->userdata('user_id');
 
     		$result = $this->collections_model->collect_courschema($courschema_id, $user_id);
 
     		$this->output
 				->set_content_type('application/json')
-				->set_output(json_encode($result));
+				->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL));
 
 		}catch (Exception $exc){
 			$this->output
@@ -53,14 +53,14 @@ class Collections_api extends CI_Controller{
 
     public function ajax_uncollect_courschema(){
         try{
-            $courschema_id = json_deocde($this->input->post('courschema_id'));
+            $courschema_id = json_decode($this->input->post('courschema_id'));
             $user_id       = $this->session->userdata('user_id');
 
     		$result = $this->collections_model->uncollect_courschema($courschema_id, $user_id);
 
     		$this->output
 				->set_content_type('application/json')
-				->set_output(json_encode($result));
+				->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL));
 
 		}catch (Exception $exc){
 			$this->output
