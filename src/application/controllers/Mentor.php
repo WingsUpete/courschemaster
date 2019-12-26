@@ -48,6 +48,7 @@ class Mentor extends CI_Controller{
     }
 
     public function load_sidebar_data(&$view){
+        $view['end'] = 'mentor';
         $view['sidebar'] = array(
             'g0' => array(
                 array(

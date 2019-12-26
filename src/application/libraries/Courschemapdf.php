@@ -154,6 +154,13 @@ class Courschemapdf{
         $this->_html_variables_replace();
         $this->pdf->writeHTML($this->html, true, false, true, false, '');
         $this->pdf->lastPage();
-        $this->pdf->Output('example_061.pdf', 'I');
+        $this->pdf->Output('C:\\Users\\ASUS\\desktop\\example.pdf', 'I');
+    }
+
+    public function output($save_path){
+        $this->_html_variables_replace();
+        $this->pdf->writeHTML($this->html, true, false, true, false, '');
+        $this->pdf->lastPage();
+        $this->pdf->Output($save_path, 'F');
     }
 }

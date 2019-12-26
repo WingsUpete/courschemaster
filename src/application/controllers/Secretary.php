@@ -72,6 +72,7 @@ class Secretary extends CI_Controller{
     }
 
     public function load_sidebar_data(&$view){
+        $view['end'] = 'secretary';
         $view['sidebar'] = array(
             'g0' => array(
                 array(

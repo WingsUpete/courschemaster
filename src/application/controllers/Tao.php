@@ -74,6 +74,7 @@ class Tao extends CI_Controller{
     }
 
     public function load_sidebar_data(&$view){
+        $view['end'] = 'tao';
         $view['sidebar'] = array(
             'g0' => array(
                 array(
