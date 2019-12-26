@@ -24,6 +24,28 @@
 	};
 
 	//	Additional Methods
+	/**
+     * get details of courschemas
+     */
+    CurrentCourschemaHelper.prototype.retrieveCourschemas = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/current_courschema_api/ajax_get_ccBasic';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+			console.log(response);
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
 	
     window.CurrentCourschemaHelper = CurrentCourschemaHelper;
 })();

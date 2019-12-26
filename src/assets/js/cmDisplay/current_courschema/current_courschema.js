@@ -33,6 +33,8 @@ window.CurrentCourschema = window.CurrentCourschema || {};
 		// Initializations
 		CurrentCourschema.initialize_courses();
 		
+		helper.retrieveCourschemas();
+		
         if (defaultEventHandlers) {
             _bindEventHandlers();
         }

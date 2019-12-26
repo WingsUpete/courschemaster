@@ -584,3 +584,10 @@ a {
 	overflow-x: hidden;
 	text-overflow: ellipsis;
 }
+
+
+
+
+.hide-for-certain-role {
+	display: none!important;
+}
