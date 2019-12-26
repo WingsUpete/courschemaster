@@ -4687,9 +4687,7 @@ var JSHINT = (function() {
                      state.tokens.next.id !== "(end)";
       var blockEnd = checkPunctuator(state.tokens.next, "}");
 
-      if (sameLine && !blockEnd) {
-        errorAt("E058", state.tokens.curr.line, state.tokens.curr.character);
-      } else if (!state.option.asi) {
+      if (!state.option.asi) {
         if ((blockEnd && !state.option.lastsemic) || !sameLine) {
           warningAt("W033", state.tokens.curr.line, state.tokens.curr.character);
         }
@@ -9750,7 +9748,7 @@ var errors = {
   E020: "Expected '{a}' to match '{b}' from line {c} and instead saw '{d}'.",
   E021: "Expected '{a}' and instead saw '{b}'.",
   E022: "Line breaking error '{a}'.",
-  E023: "Missing '{a}'.",
+  E023: "Missing '{a}'",
   E024: "Unexpected '{a}'.",
   E025: "Missing ':' on a case clause.",
   E026: "Missing '}' to match '{' from line {a}.",
