@@ -148,3 +148,7 @@ $lang['assign'] = '分配培养方案';
 $lang['assign_reply_message'] = '确定要为此学生分配该培养方案吗？';
 $lang['assign_courschema_success'] = '分配培养方案成功';
 $lang['assign_courschema_failure'] = '分配培养方案失败';
+$lang['collect_cm_success'] = '成功收藏培养方案';
+$lang['collect_cm_failure'] = '收藏培养方案失败';
+$lang['uncollect_cm_success'] = '成功取消收藏该培养方案';
+$lang['uncollect_cm_failure'] = '取消收藏该培养方案失败';

@@ -58,10 +58,13 @@
 //					echo('<button class="btn btn-sm bs-stepper-btn bs-stepper-btns--next ' . (($i == count($stepper_items) - 1) ? 'disabled' : '') . '"><i class="fas fa-chevron-right"></i></button>');
 					echo('</span><span class="display-stepper-name">' . $display_stepper_name . '</span></h2>');
 					//	Main Content Block
+					//	If not last, search block
+					if ($i != count($stepper_items)-1) {
 						//	Search Block
-					echo('<div class="md-form md-outline"><i class="fas fa-search prefix"></i><input type="text" id="' . $id_alias . '-search" class="form-control" /><label for="' . $id_alias . '-search">' . lang('search') . '</label></div>');
+						echo('<div class="md-form md-outline"><i class="fas fa-search prefix"></i><input type="text" id="' . $id_alias . '-search" class="form-control" /><label for="' . $id_alias . '-search">' . lang('search') . '</label></div>');
+					}
 					echo('<div class="stepper-search-res"><div class="container-fulid"><div class="row"></div></div></div>');
-							//	If last section, load current_courschema.php
+					//	If last section, load current_courschema.php
 					if ($i == count($stepper_items)-1) {
 						$ci->load->view('general/cmDisplay/current_courschema');
 					}

@@ -11,6 +11,8 @@
      */
     function AllCourschemasHelper() {
 		this.stepper = undefined;
+		this.collectedMark = 'fas collected';
+		this.uncollectedMark = 'far uncollected';
     }
 
     /**
@@ -49,6 +51,16 @@
 			}, 300);
 		});
 		
+		$(document).on('click', '.collect', function() {
+			var id = $(this).closest('.search-res-item-block').find('.sel-btn').prop('dataset').verId;
+			var $item = $(this).find('i');
+			if ($item.hasClass('collected')) {
+				instance.uncollectCourschema(id, $item);
+			} else if ($item.hasClass('uncollected')) {
+				instance.collectCourschema(id, $item);
+			}
+		});
+		
 	};
 
 	//	Additional Methods
@@ -71,6 +83,7 @@
                 return;
             }
 			
+//			console.log(response);
 			obj.displayResults('dep', response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -95,6 +108,7 @@
                 return;
             }
 			
+//			console.log(response);
 			obj.displayResults('maj', response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -119,6 +133,7 @@
                 return;
             }
 			
+//			console.log(response);
 			obj.displayResults('ver', response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
@@ -128,14 +143,99 @@
      * Fill in search Data
      */
     AllCourschemasHelper.prototype.displayResults = function (level, items) {
+		var obj = this;
 		$('#sel_' + level + ' .stepper-search-res .row').html('');
 		if (items.length === 0) {
 			$('#sel_' + level + ' .stepper-search-res .row').append('<small class="text-muted ml-5">' + SCLang.no_record + '</small>');
 		}
 		$.each(items, function(index, item) {
-			var html = '<div class="col-xs-12 col-lg-6 col-xl-4 search-res-item-block" data-filter="' + item.name + '"><div class="card search-res-item"><div class="card-header text-right"> </div><div class="card-body text-center"><h5 class="card-title font-weight-bold">' + ((level === 'ver') ? '<sup><a href="javascript:void(0);" class="collect text-warning" title="' + SCLang.collect + '"><i class="far fa-star fa-lg"></i></a></sup> ' : '') + item.name + '</h5><hr /><button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-' + level + '-btns sel-btn" data-dep-id="' + item.dep_id + '" data-dep-code="' + item.code + '" data-dep-name="' + item.name + '"><i class="fas fa-door-open"></i> ' + SCLang.access + '</button></div><div class="card-footer text-center text-muted">' + SCLang.number_of_majors + ': ' + item.number_of_majors + '</div></div></div>';
+			var addi_title;
+			var addi_content;
+			var addi;
+			var id;
+			var addiData = '';
+			if (level === 'dep') {
+				addi_title = SCLang.number_of_majors;
+				addi_content = item.number_of_majors;
+				addi = addi_title + ': ' + addi_content;
+				id = item.dep_id;
+				addiData = 'data-' + level + '-code="' + item.code + '"';
+			} else if (level === 'maj') {
+				addi_title = SCLang.number_of_courschemas;
+				addi_content = item.number_of_courschemas;
+				addi = addi_title + ': ' + addi_content;
+				id = item.maj_id;
+			} else if (level === 'ver') {
+				addi = '<a href="javascript:void(0);" class="collect text-warning" title="' + SCLang.collect + '"><i class="' + (item.collected === 1 ? obj.collectedMark : obj.uncollectedMark) + ' fa-star fa-lg"></i></a>';
+				id = item.ver_id;
+			}
+			var html = '<div class="col-xs-12 col-lg-6 col-xl-4 search-res-item-block" data-filter="' + item.name + '"><div class="card search-res-item"><div class="card-header text-right"> </div><div class="card-body text-center"><h5 class="card-title font-weight-bold">' + item.name + '</h5><hr /><button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-' + level + '-btns sel-btn" data-' + level + '-id="' + id + '" ' + addiData + 'data-' + level + '-name="' + item.name + '"><i class="fas fa-door-open"></i> ' + SCLang.access + '</button></div><div class="card-footer text-center text-muted">' + addi + '</div></div></div>';
 			$('#sel_' + level + ' .stepper-search-res .row').append(html);
 		});
+    };
+
+    /**
+     * collect courschema version
+     */
+    AllCourschemasHelper.prototype.collectCourschema = function (cmid, $item) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/collections_api/ajax_collect_courschema';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			courschema_id: cmid
+        };
+		
+		var obj = this;
+
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+//			console.log(response);
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.collect_cm_success, 'success', 6000);
+				$item.removeClass('far fa-star uncollected').addClass('fas fa-star collected');
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.collect_cm_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+
+    /**
+     * uncollect courschema version
+     */
+    AllCourschemasHelper.prototype.uncollectCourschema = function (cmid, $item) {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/collections_api/ajax_uncollect_courschema';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			courschema_id: cmid
+        };
+		
+		var obj = this;
+
+        $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+//			console.log(response);
+			if (response === 'success') {
+				GeneralFunctions.displayMessageAlert(SCLang.uncollect_cm_success, 'success', 6000);
+				$item.removeClass('fas fa-star collected').addClass('far fa-star uncollected');
+			} else if (response === 'fail') {
+				GeneralFunctions.displayMessageAlert(SCLang.uncollect_cm_failure, 'danger', 6000);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
     window.AllCourschemasHelper = AllCourschemasHelper;
