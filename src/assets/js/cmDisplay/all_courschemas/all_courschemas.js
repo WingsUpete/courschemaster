@@ -36,6 +36,13 @@ window.AllCourschemas = window.AllCourschemas || {};
 		AllCourschemas.initStepper();
 		helper.stepper = stepper;
 		helper.getDepartments();
+		
+		if (GlobalVariables.redirect) {
+			alert('redirect');
+			var ccHelper = CurrentCourschema.helper;
+			ccHelper.getPdf();
+			stepper.to(4);
+		}
 
         if (defaultEventHandlers) {
             _bindEventHandlers();
