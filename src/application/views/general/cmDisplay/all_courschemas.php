@@ -6,8 +6,10 @@
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 		baseUrl            : <?= json_encode($base_url) ?>,
 		templateStatus     : '<?= $template_status ?>',
+		loggedIn           : <?= $logged_in ?>,
 		retrieveIdFirst    : false,
 		courschemaId       : null,
+		courschemaName     : null,
 		collected          : -1
     };
 

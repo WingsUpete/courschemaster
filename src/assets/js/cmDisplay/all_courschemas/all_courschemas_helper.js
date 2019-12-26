@@ -33,6 +33,9 @@
 			instance.getCourschemas(maj_id);
 		});
 		$(document).on('click', '.sel-ver-btns', function() {
+			GlobalVariables.courschemaId = $(this).prop('dataset').verId;
+			GlobalVariables.courschemaName = $(this).prop('dataset').verName;
+			GlobalVariables.collected = $(this).closest('.search-res-item-block').find('.collect i').hasClass('collected') ? 1 : 0;
 			instance.stepper.next();
 		});
 		
@@ -166,7 +169,11 @@
 				addi = addi_title + ': ' + addi_content;
 				id = item.maj_id;
 			} else if (level === 'ver') {
-				addi = '<a href="javascript:void(0);" class="collect text-warning" title="' + SCLang.collect + '"><i class="' + (item.collected === 1 ? obj.collectedMark : obj.uncollectedMark) + ' fa-star fa-lg"></i></a>';
+				if (GlobalVariables.loggedIn) {
+					addi = '<a href="javascript:void(0);" class="collect text-warning" title="' + SCLang.collect + '"><i class="' + (item.collected === 1 ? obj.collectedMark : obj.uncollectedMark) + ' fa-star fa-lg"></i></a>';
+				} else {
+					addi = '&nbsp;';
+				}
 				id = item.ver_id;
 			}
 			var html = '<div class="col-xs-12 col-lg-6 col-xl-4 search-res-item-block" data-filter="' + item.name + '"><div class="card search-res-item"><div class="card-header text-right"> </div><div class="card-body text-center"><h5 class="card-title font-weight-bold">' + item.name + '</h5><hr /><button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-' + level + '-btns sel-btn" data-' + level + '-id="' + id + '" ' + addiData + 'data-' + level + '-name="' + item.name + '"><i class="fas fa-door-open"></i> ' + SCLang.access + '</button></div><div class="card-footer text-center text-muted">' + addi + '</div></div></div>';
