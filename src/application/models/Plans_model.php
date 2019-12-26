@@ -3,6 +3,30 @@
 class Plans_model extends CI_Model{
 
 	/**
+	 * this method is used to add plan to database
+	 *
+	 * @param $user_id: the user id
+	 * @param $plan_name: the name of plan
+	 * @return mixed: plan id
+	 */
+	public function add_plan($user_id, $plan_name){
+		$data = array(
+			'name' => $plan_name
+		);
+		$this->db->insert('cm_plans', $data);
+
+		$this_id = $this->db->insert_id();
+
+		$data = array(
+			'id_plans' => $this_id,
+			'id_users' => $user_id,
+		);
+		$this->db->insert('cm_users_plans', $data);
+
+		return $this_id;
+	}
+
+	/**
 	 * this method is used to add a course to a plan
 	 *
 	 * @param $plan_id: the id of the plan

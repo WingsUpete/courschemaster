@@ -17,6 +17,30 @@ class My_plans_api extends CI_Controller{
 	}
 
 	/**
+	 * this ajax used to add a plan to database for a user
+	 */
+	public function ajax_add_plan(){
+		try{
+			$user_id = $this->session->userdata('user_id');
+			$name = json_decode($this->input->post('plan_name'));
+			$id = $this->plans_model->add_plan($user_id, $name);
+
+			$result = array(
+				'plan_id' => $id
+			);
+
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($result));
+
+		}catch (Exception $exc){
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+		}
+	}
+
+	/**
 	 * this ajax is used to get all plans for a user
 	 */
 	public function ajax_get_my_plans(){
