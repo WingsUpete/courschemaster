@@ -23,7 +23,7 @@ class Collections_model extends CI_Model{
             ->from('cm_users_collect_courschemas')
             ->join('cm_courschemas', 'cm_courschemas.id = cm_users_collect_courschemas.id_courschemas', 'inner')
             ->join('cm_majors', 'cm_majors.id = cm_courschemas.id_majors', 'inner')
-            ->join('cm_departments', 'cm_departments.id = cm_majors.id_departments', 'inner');
+            ->join('cm_departments', 'cm_departments.id = cm_majors.id_departments', 'inner')
             ->where('cm_users_collect_courschemas.id_users', $user_id)
             ->get()
             ->result_array();
