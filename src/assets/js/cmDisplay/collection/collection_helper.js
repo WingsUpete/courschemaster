@@ -21,7 +21,9 @@
         var instance = this;
 
 		// Listners
-		$(document).on('click', '.uncollect-btn', function() {
+		$(document).on('click', '.uncollect-btn', function(e) {
+			//	prevent parent event
+			e.stopPropagation();
 			var cmid = instance.datatable.row($(this).closest('tr')).data()[0];
 			var buttons = [
 				{
@@ -33,6 +35,12 @@
 				}
 			]
 			GeneralFunctions.displayMessageBox(SCLang.uncollect, SCLang.uncollect_message, buttons);
+		});
+		
+		$(document).on('click', '#courschemas-datatable tbody tr', function() {
+			var courschema_id = instance.datatable.row($(this).closest('tr')).data()[0];
+			//	redirect
+			window.location.href = GlobalVariables.baseUrl + '/' + GlobalVariables.end + '/all_courschemas/' + courschema_id;
 		});
 		
 	};
