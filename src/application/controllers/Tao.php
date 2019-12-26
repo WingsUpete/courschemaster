@@ -23,6 +23,10 @@ class Tao extends CI_Controller{
         if( ! $this->has_privileges('mentor', PRIV_TAO)){
             return;
         }
+
+        $this->load->helper('courschemas');
+        get_redirect_info($id, $this->session->userdata('user_id'), $view);
+        
         $view['ci'] = &$this;
 		$view['template_status'] = lang('current_courschema');
         $view['active_sidebar'] = PRIV_TAO_ALL_COURSCHEMAS;

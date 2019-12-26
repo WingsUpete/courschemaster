@@ -54,6 +54,33 @@ class Courschemas_model extends CI_Model{
             ->result_array();
     }
 
+    public function get_cm_by_id($courschema_id, $user_id=NULL){
+        $this->db->select('
+            cm_courschemas.id   AS id,
+            cm_courschemas.name AS name
+        ');
+        
+        $rtn = $this->db->from('cm_courschemas')
+            ->where('cm_courschemas.id', $courschema_id)
+            ->get()
+            ->row_array();
+        
+        if($user_id){
+            $cnt = $this->db->select('
+                COUNT(*) AS cnt
+            ')
+            ->from('cm_users_collect_courschemas')
+            ->where('cm_users_collect_courschemas.id_users', $user_id)
+            ->where('cm_users_collect_courschemas.id_courschemas', $rtn['id']);
+
+            $rtn['collected'] = $cnt == '0' ? 0 : 1;
+        }else{
+            $rtn['collected'] = $cnt == 'visitor_flag';
+        }
+
+        return $rtn;
+    }
+
     public function get_cm($language, $user_id, $maj_id){
 
         $this->db->select('

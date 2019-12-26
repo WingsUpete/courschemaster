@@ -23,6 +23,8 @@ class Secretary extends CI_Controller{
         if( ! $this->has_privileges('secretary', PRIV_SECRETARY)){
             return;
         }
+        $this->load->helper('courschemas');
+        get_redirect_info($id, $this->session->userdata('user_id'), $view);
         $view['ci'] = &$this;
 		$view['template_status'] = lang('current_courschema');
         $view['active_sidebar'] = PRIV_SECRETARY_ALL_COURSCHEMAS;

@@ -32,11 +32,14 @@ class Students extends CI_Controller{
 
     }
 
-    public function all_courschemas(){
+    public function all_courschemas($id=NULL){
 
         if( ! $this->has_privileges('student', PRIV_STUDENTS)){
             return;
         }
+
+        $this->load->helper('courschemas');
+        get_redirect_info($id, $this->session->userdata('user_id'), $view);
 
         $view['active_sidebar'] = PRIV_STUDENTS_ALL_COURSCHEMAS;
 		$view['ci'] = &$this;

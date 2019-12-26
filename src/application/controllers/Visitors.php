@@ -23,6 +23,8 @@ class Visitors extends CI_Controller{
 
         $view = array();
         load_header_data($view);
+        $this->load->helper('courschemas');
+        get_redirect_info($id, $this->session->userdata('user_id'), $view);
         $view['ci'] = &$this;
 		$view['template_status'] = lang('visitor');
         $this->load->view("general/BasicComponents/header", $view);
