@@ -10,7 +10,10 @@ class Students_api extends CI_Controller{
         }
 		
 		$this->load->library('session');
-		$this->load->model('students_model');
+        $this->load->model('students_model');
+        if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
     }
 
     public function ajax_get_my_learned(){

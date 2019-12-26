@@ -11,6 +11,9 @@ class Qa_api extends CI_Controller{
 
         $this->load->library('session');
         $this->load->model('qa_model');
+        if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
     }
 
     // Basic interactive function : search question, post question, post answer, vote

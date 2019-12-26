@@ -9,7 +9,10 @@ class Courschemas_api extends CI_Controller{
             $this->security->csrf_show_error();
         }
 		$this->load->library('session');
-		$this->load->model('courschemas_model');
+        $this->load->model('courschemas_model');
+        if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
     }
 
     public function ajax_upload_cmhfiles(){

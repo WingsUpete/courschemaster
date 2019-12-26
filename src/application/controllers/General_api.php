@@ -11,6 +11,9 @@ class General_api extends CI_Controller{
         }
 
         $this->load->library('session');
+        if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
 
     }
 

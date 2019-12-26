@@ -11,6 +11,9 @@ class My_plans_api extends CI_Controller{
 
 		$this->load->library('session');
 		$this->load->model('plans_model');
+		if( ! $this->session->userdata('language')){
+            $this->session->set_userdata('language', Config::LANGUAGE);
+        }
 	}
 
 	/**
