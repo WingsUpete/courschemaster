@@ -8,9 +8,10 @@
 		templateStatus     : '<?= $template_status ?>',
 		loggedIn           : <?= $logged_in ?>,
 		retrieveIdFirst    : false,
-		courschemaId       : null,
-		courschemaName     : null,
-		collected          : -1
+		courschemaId       : <?= $redirect ? $cur_id : '' ?>,
+		courschemaName     : <?= $redirect ? $cur_name : '' ?>,
+		collected          : <?= $redirect ? $collected : -1 ?>,
+		redirect           : <?= $redirect ?>
     };
 
     $(document).ready(function() {
