@@ -12,8 +12,10 @@
     	    csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
 			baseUrl            : <?= json_encode($base_url) ?>,
 			templateStatus     : '<?= $template_status ?>',
+		    loggedIn           : <?= $logged_in ?>,
 			retrieveIdFirst    : true,
 			courschemaId       : null,
+			courschemaName     : null,
 			collected          : -1
     	};
 	}
@@ -45,7 +47,7 @@
 				echo('</a></li>');
 			}
 		?>
-		<?php $display_collect = ($template_status == lang('visitor')) ? 'hide-for-certain-role' : ''; ?>
+		<?php $display_collect = ($logged_in) ? 'hide-for-certain-role' : ''; ?>
 		<li class="nav-item <?= $display_collect ?>">
 			<a class="nav-link font-weight-bold collect">
 				<i class="far fa-star fa-lg text-warning"></i>
