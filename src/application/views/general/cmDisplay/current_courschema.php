@@ -14,8 +14,8 @@
 			templateStatus     : '<?= $template_status ?>',
 		    loggedIn           : <?= $logged_in ?>,
 			retrieveIdFirst    : true,
-			courschemaId       : null,
-			courschemaName     : null,
+			courschemaId       : '',
+			courschemaName     : '',
 			collected          : -1
     	};
 	}
