@@ -103,17 +103,11 @@ class Courschemas_model extends CI_Model{
     }
 
     public function get_ccBasic($language, $user_id){
-        if($language == 'english'){
-            $this->db->select('
-                cm_courschemas.id      AS id,
-                cm_courschemas.en_name AS name
-            ');
-        }else{
-            $this->db->select('
+        
+        $this->db->select('
             cm_courschemas.id   AS id,
             cm_courschemas.name AS name
         ');
-        }
         
         $rtn = $this->db->from('cm_users')
             ->where('cm_users.id', $user_id)
@@ -128,7 +122,7 @@ class Courschemas_model extends CI_Model{
             ->where('cm_users_collect_courschemas.id_users', $user_id)
             ->where('cm_users_collect_courschemas.id_courschemas', $rtn['id']);
     
-        $rtn['collected'] = $cnt == 0 ? 0 : 1;
+        $rtn['collected'] = $cnt == '0' ? 0 : 1;
         return $rtn;
     }
 
