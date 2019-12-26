@@ -83,7 +83,7 @@ window.CourschemaManagement = window.CourschemaManagement || {};
 				for (var i = 0; i < courschemas.length; ++i) {
 					var courschema = courschemas[i];
 					subArray = [
-									courschema.courschema_id, courschema.courschema_name,
+									courschema.id, courschema.name,
 									courschema.major_name, courschema.department_name
 							   ];
 					dataArray.push(subArray);
