@@ -3,15 +3,27 @@
 class Collections_model extends CI_Model{
 
     public function get_my_collections($language, $user_id){
-
-        $this->db->select('cm_courschemas.name AS name');
         
+        if($language == 'english'){
+            $this->db->select('
+                cm_majors.en_name      AS major_name,
+                cm_departments.en_name AS dep_name
+            ');
+        }else{
+            $this->db->select('
+                cm_majors.name      AS major_name,
+                cm_departments.name AS dep_name
+            ');
+        }
 
         return $this->db->select('
-                cm_courschemas.id AS id
+                cm_courschemas.id   AS id,
+                cm_courschemas.name AS name
             ')
             ->from('cm_users_collect_courschemas')
             ->join('cm_courschemas', 'cm_courschemas.id = cm_users_collect_courschemas.id_courschemas', 'inner')
+            ->join('cm_majors', 'cm_majors.id = cm_courschemas.id_majors', 'inner')
+            ->join('cm_departments', 'cm_departments.id = cm_majors.id_departments', 'inner');
             ->where('cm_users_collect_courschemas.id_users', $user_id)
             ->get()
             ->result_array();
