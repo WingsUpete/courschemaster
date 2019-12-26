@@ -4,7 +4,11 @@
 <script>
     var GlobalVariables = {
         csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
-		baseUrl            : <?= json_encode($base_url) ?>
+		baseUrl            : <?= json_encode($base_url) ?>,
+		templateStatus     : '<?= $template_status ?>',
+		retrieveIdFirst    : false,
+		courschemaId       : null,
+		collected          : -1
     };
 
     $(document).ready(function() {

@@ -10,7 +10,11 @@
 	if ('<?= $template_status ?>' === SCLang.my_courschema) {
     	var GlobalVariables = {
     	    csrfToken          : <?= json_encode($this->security->get_csrf_hash()) ?>,
-			baseUrl            : <?= json_encode($base_url) ?>
+			baseUrl            : <?= json_encode($base_url) ?>,
+			templateStatus     : '<?= $template_status ?>',
+			retrieveIdFirst    : true,
+			courschemaId       : null,
+			collected          : -1
     	};
 	}
 
@@ -41,6 +45,12 @@
 				echo('</a></li>');
 			}
 		?>
+		<?php $display_collect = ($template_status == lang('visitor')) ? 'hide-for-certain-role' : ''; ?>
+		<li class="nav-item <?= $display_collect ?>">
+			<a class="nav-link font-weight-bold collect">
+				<i class="far fa-star fa-lg text-warning"></i>
+			</a>
+		</li>
 	</ul>
 	<div class="tab-content" id="cc-views-content">
 		<div class="tab-pane fade show active" id="cc-views-pdf-content" role="tabpanel" aria-labelledby="cc-views-pdf">

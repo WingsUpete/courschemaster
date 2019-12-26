@@ -45,7 +45,7 @@
             }
 			
 			obj.courses = response;
-			console.log(response);
+//			console.log(response);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
