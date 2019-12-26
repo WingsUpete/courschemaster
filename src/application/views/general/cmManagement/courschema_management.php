@@ -89,24 +89,22 @@ INCLUDE = "中文写作与交流.cmh";
 INCLUDE = "公选课.cmh";
 
 NAME
-EN_NAME
+
+DEPARTMENT
 
 VERSION
 
 GROUP
 
 INTRO
-EN_INTRO
 
 OBJECTIVES
-EN_OBJECTIVES
 
-PROGRAM_LENGTH = 4;
+PROGRAM_LENGTH
 
-DEGREE = "工程学学士";
-EN_DEGREE = "Bachelor of Engineering";
+DEGREE
 
-Event GRADUATION =
+Event GRADUATION = ComEvent(  );
     							</pre>
     						</div>
     						<div class="col-xs-12 col-lg-6">
