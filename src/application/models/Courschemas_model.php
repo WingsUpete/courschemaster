@@ -55,17 +55,11 @@ class Courschemas_model extends CI_Model{
     }
 
     public function get_cm($language, $user_id, $maj_id){
-        if($language == 'english'){
-            $this->db->select('
-                cm_courschemas.id      AS ver_id,
-                cm_courschemas.en_name AS name,
-            ');
-        }else{
-            $this->db->select('
-                cm_courschemas.id      AS ver_id,
-                cm_courschemas.name    AS name,
-            ');
-        }
+
+        $this->db->select('
+            cm_courschemas.id      AS ver_id,
+            cm_courschemas.name    AS name,
+        ');
 
         $result = $this->db
             ->from('cm_courschemas')
