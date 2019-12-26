@@ -115,11 +115,21 @@ class Courschemas_model extends CI_Model{
         ');
         }
         
-        return $this->db->from('cm_users')
+        $rtn = $this->db->from('cm_users')
             ->where('cm_users.id', $user_id)
             ->join('cm_courschemas', 'cm_courschemas.id = cm_users.id_courschemas', 'inner')
             ->get()
             ->row_array();
+        
+        $cnt = $this->db->select('
+                COUNT(*) AS cnt
+            ')
+            ->from('cm_users_collect_courschemas')
+            ->where('cm_users_collect_courschemas.id_users', $user_id)
+            ->where('cm_users_collect_courschemas.id_courschemas', $rtn['id']);
+    
+        $rtn['collected'] = $cnt == 0 ? 0 : 1;
+        return $rtn;
     }
 
     public function get_pdf_by_user_id($language, $user_id){
