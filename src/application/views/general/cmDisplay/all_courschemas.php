@@ -10,7 +10,7 @@
 		retrieveIdFirst    : false,
 		courschemaId       : '<?= $redirect ? $cur_id : '' ?>',
 		courschemaName     : '<?= $redirect ? $cur_name : '' ?>',
-		collected          : <?= $redirect ? $collected : -1 ?>,
+		collected          : '<?= $redirect ? $collected : -1 ?>',
 		redirect           : <?= $redirect ?>
     };
 
