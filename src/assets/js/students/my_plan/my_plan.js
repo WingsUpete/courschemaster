@@ -20,6 +20,8 @@ window.MyPlan = window.MyPlan || {};
      */
     var helper = {};
 
+	var datatable;
+	
     /**
      * This method initializes the My Plan page.
      *
