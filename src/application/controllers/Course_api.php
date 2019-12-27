@@ -14,6 +14,40 @@ class Course_api extends CI_Controller
 
 	}
 
+	/**
+	 * this ajax used to get courses by courschemas id
+	 *
+	 * input: courschemas_id
+	 * output: return message
+	 */
+	public function ajax_get_courses_by_courschemas_id(){
+		try {
+			$courschemas_id = $this->session->userdata('courschemas_id');
+
+			$result = $this->course_model->query_courses_by_courschemas($courschemas_id);
+
+			$msg = array();
+			$msg['status'] = 'success';
+			$msg['message'] = 'get all the courses even learned successfully.';
+			$msg['result'] = $result;
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($msg));
+
+		} catch (Exception $exc) {
+			$msg = array();
+			$msg['status'] = 'fail';
+			$msg['message'] = 'fail for exceptions.';
+			$msg['exceptions'] = [exceptionToJavaScript($exc)];
+			$this->output
+				->set_content_type('application/json')
+				->set_output(json_encode($msg));
+		}
+	}
+
+	/**
+	 * this ajax is used to get all the course have learned for a user
+	 */
 	public function ajax_get_my_learned()
 	{
 		try {
