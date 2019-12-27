@@ -100,7 +100,6 @@
             }
 			
 			console.log(response);
-			obj.planCourses = response;
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
