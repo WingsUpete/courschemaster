@@ -17,6 +17,7 @@
 		this.cmhFiles = [];
 		this.compiler = MatryonaTranslateClass;
 		this.dataPack = [];
+		this.editor = undefined;
     }
 
     /**
@@ -52,6 +53,15 @@
 		
 		$('#upload-courschema').click(function() {
 			instance.uploadCourschemas();
+		});
+		
+		$('#editor-submit').click(function() {
+			instance.submitEdit(
+				$('#edit-sel-maj option:selected').val(),
+				$('#editor-filename').val(),
+				$('#editor-file-extension option:selected').val(),
+				instance.editor.getValue()
+			);
 		});
 		
 	};
@@ -200,6 +210,36 @@
 			});
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+	/**
+     * get details of courschemas
+     */
+    CourschemaManagementHelper.prototype.submitEdit = function (major_id, courschema_name, type, editor_content) {
+    	var posturl = GlobalVariables.baseUrl + '/index.php/all_courschemas_api/ajax_submit_courschema';
+    	var postData = {
+    	    csrfToken: GlobalVariables.csrfToken,
+    	    courschema_name:JSON.stringify(courschema_name),
+    	    type:JSON.stringify(type),
+    	    major_id: JSON.stringify(major_id),
+    	    source_code: JSON.stringify(editor_content)
+    	};
+    	$.post(posturl, postData, function (response) {
+    	    if(!GeneralFunctions.handleAjaxExceptions(response)){
+    	        return;
+    	    }
+    	    
+			if (response.status) {
+				GeneralFunctions.displayMessageAlert(SCLang.upload_courses_success, 'success', 6000);
+				obj.refreshTable();
+			} else if (!response.status) {
+				GeneralFunctions.displayMessageAlert(SCLang.upload_courses_failure, 'danger', 6000);
+				console.error(response.msg);
+			} else {
+				GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+			}
+			
+    	}.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
     window.CourschemaManagementHelper = CourschemaManagementHelper;
