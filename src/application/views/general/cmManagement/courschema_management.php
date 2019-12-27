@@ -66,7 +66,8 @@
 				<div class="tab-pane fade" id="courschema_editor-content" role="tabpanel" aria-labelledby="courschema_editor">
     				<div class="container-fluid">
     					<div class="row">
-    						<div class="col-xs-12 col-lg-6">
+    						<!-- col-xs-12 col-lg-6 -->
+    						<div class="col-xl-12">
 								<div class="input-group mb-3">
 									<div class="input-group-prepend">
 										<span class="input-group-text"><?= lang('file_name') ?></span>
@@ -102,10 +103,8 @@ DEGREE
 
 Event GRADUATION = ComEvent(  );
     							</pre>
-    						</div>
-    						<div class="col-xs-12 col-lg-6">
-    							<div class="btn-toolbar justify-content-end mb-2 editor-btns">
-    								<div class="btn-group">
+    							<div class="btn-toolbar justify-content-end mb-2 editor-btns d-inline-block">
+    								<div class="btn-group hide-for-now">
     									<button id="editor-compile" type="button" class="btn btn-sm font-weight-bold editor-btn">
     										<?= lang('compile') ?>
     									</button>
@@ -116,6 +115,9 @@ Event GRADUATION = ComEvent(  );
     									</button>
     								</div>
     							</div>
+    							<select id="edit-sel-maj" class="d-inline-block upload-major"></select>
+    						</div>
+    						<div class="col-xs-12 col-lg-6 hide-for-now">
 								<div class="card border-light mb-3 list-graph-window">
 									<div class="card-header"><?= lang('graph') ?></div>
 									<div class="card-body">
@@ -164,7 +166,7 @@ Event GRADUATION = ComEvent(  );
 				&nbsp;
 				<strong><?= lang('major') ?></strong>:
 				&nbsp;
-				<select id="upload-major" class="d-inline-block"></select>
+				<select id="upload-major" class="d-inline-block upload-major"></select>
 				<ul id="upload-cmc-list" class="list-group"></ul>
 				<h3 class="h3-responsive font-weight-bold mt-3 pl-2"><code>cmh</code></h3>
 				<ul id="upload-cmh-list" class="list-group"></ul>
