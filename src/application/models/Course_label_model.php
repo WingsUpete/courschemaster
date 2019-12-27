@@ -31,10 +31,6 @@ class Course_label_model extends CI_Model
 				$tmp[] = $cell->getFormattedValue();
 			}
 			$res[$row->getRowIndex()] = $tmp;
-			echo '<br>';
-			echo $row->getRowIndex();
-			echo '<br>';
-			print_r($tmp);
 		}
 
 		$d_start = FALSE;
@@ -46,7 +42,7 @@ class Course_label_model extends CI_Model
 			if ($res[$i][0] == '#define' and $d_start) {
 				$d_end = TRUE;
 			}
-			if ($res[$i][0] == '#define' and $c_start) {
+			if ($res[$i][0] == '#csm' and $c_start) {
 				$c_end = TRUE;
 			}
 
@@ -57,6 +53,8 @@ class Course_label_model extends CI_Model
 
 				if (strlen($label) > 0) {
 					$this->add_one_label($label, $cn_name, $en_name);
+					print_r($label);
+					echo'<br>';
 				}
 			}
 
@@ -64,12 +62,15 @@ class Course_label_model extends CI_Model
 				$code = $res[$i][1];
 				$label = $res[$i][2];
 
-				if (strlen($code)) {
+				if (strlen($code) > 2) {
+					print_r('hello worldl');
 					$this->add_one_course_label_relation_by_code($code, $id_courschemas, $label);
+					print_r($code);
+					echo'<br>';
 				}
 			}
 
-			if ($res[$i][0] == '#define' and !$c_start) {
+			if ($res[$i][0] == '#csm' and !$c_start) {
 				$c_start = TRUE;
 			}
 			if ($res[$i][0] == '#define' and !$d_start) {
@@ -95,32 +96,47 @@ class Course_label_model extends CI_Model
 	 */
 	public function add_one_course_label_relation_by_code($course_code, $id_courschemas, $label)
 	{
-		$result = $this->db
-			->select('cm_courses.id AS id')
-			->from('cm_courses')
-			->where('cm_courses.code', strtoupper($course_code))
-			->get()->result_array();
+		try{
+			$result = $this->db
+				->select('cm_courses.id AS id')
+				->from('cm_courses')
+				->where('cm_courses.code', strtoupper($course_code))
+				->get()->result_array();
 
-		if (empty($result)) {
+			if (empty($result)) {
+				return False;
+			} else {
+				$id_courses = $result[0]['id'];
+			}
+
+			$result = $this->db
+				->select('cm_course_labels.id AS id')
+				->from('cm_course_labels')
+				->where('cm_course_labels.label', strtoupper($label))
+				->get()->result_array();
+
+			if (empty($result)) {
+				return False;
+			} else {
+				$id_labels = $result[0]['id'];
+			}
+
+			$result = $this->db
+				->select('*')
+				->from('cm_course_label_courschemas')
+				->where('cm_course_label_courschemas.id_courses', $id_courses)
+				->where('cm_course_label_courschemas.id_courschemas', $id_courschemas)
+				->get()->result_array();
+
+			if (!empty($result)) {
+				return False;
+			}
+
+			$this->add_one_course_label_relation($id_courses, $id_courschemas, $id_labels);
+			return True;
+		}catch (Error $error){
 			return False;
-		} else {
-			$id_courses = $result[0]['id'];
 		}
-
-		$result = $this->db
-			->select('cm_course_labels.id AS id')
-			->from('cm_course_labels')
-			->where('cm_course_labels.label', strtoupper($label))
-			->get()->result_array();
-
-		if (empty($result)) {
-			return False;
-		} else {
-			$id_labels = $result[0]['id'];
-		}
-
-		$this->add_one_course_label_relation($id_courses, $id_courschemas, $id_labels);
-		return True;
 	}
 
 	/**

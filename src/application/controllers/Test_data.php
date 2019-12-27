@@ -7,6 +7,28 @@ class Test_data extends CI_Controller
 		parent::__construct();
 		$this->load->model('Course_model');
 		$this->load->model('data_model');
+
+		$this->load->model('Course_label_model');
+	}
+
+	public function import_test_label()
+	{
+		$this->Course_label_model->add_label_relationship_by_excel(dirname(__FILE__) .
+			"\..\..\../test_data/label_cs_2017.xlsx", '1');
+
+		echo 'success 1';
+
+		$this->Course_label_model->add_label_relationship_by_excel(dirname(__FILE__) .
+			"\..\..\../test_data/label_cs_2017.xlsx", '2');
+
+		echo 'success 2';
+
+		$this->Course_label_model->add_label_relationship_by_excel(dirname(__FILE__) .
+			"\..\..\../test_data/label_cs_2017.xlsx", '3');
+
+
+		echo 'success 3';
+
 	}
 
 	public function import_test_courses()
