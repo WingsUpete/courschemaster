@@ -1,0 +1,50 @@
+#vid-container {
+    width:100%;
+    height:100%;
+    /* 这里将820px修改成了1820px，但是没有用，最大深度还是只有四层 */
+    width: 820px;
+    height: 461.25px;
+    float: none;
+    clear: both;
+    margin: 2px auto;
+}
+
+svg {
+    border-radius:3px;
+}
+.node {
+    cursor: pointer;
+}
+
+.node circle {
+    fill: #fff;
+    stroke: #99ccff;
+    stroke-width: 3px;
+}
+
+.node text {
+    font: 10px sans-serif;
+}
+
+.link {
+    fill: none;
+    stroke: #99ccff;
+    stroke-width: 2px;
+}
+
+.hyper {
+    color: red;
+    text-decoration: underline;
+}
+
+.hyper:hover {
+    color:yellow;
+    text-decoration: none;
+}
+.selected {
+    font-weight:bold;
+}
+.not-selected {
+    /* 这里将nortmal 修改成了normal，感觉应该是typo */
+    font-weight:normal;
+}
