@@ -228,9 +228,10 @@ class Courschemas_model extends CI_Model{
             ); 
         }
 
+
         if( ! $this->db->insert('cm_courschemas', $data_inserted)){
             $this->db->trans_rollback();
-            $rtn = FALSE;
+            return array('status' => FALSE, 'msg'=>'DB ERROR');
         }else{
             // This thing will go to review table
             $courschema_id = $this->db->insert_id();
@@ -245,12 +246,13 @@ class Courschemas_model extends CI_Model{
                 $this->db->trans_commit();       
             }else{
                 $this->db->trans_rollback();
+                return array('status' => FALSE, 'msg'=>'DB ERROR');
             }
         }
         
         log_operation('submit_courschema', $user_id, array('pdf_url'=>$pdf_url, 'id_major'=>$major_id), $rtn);
         $this->db->trans_complete();
-        return $rtn;
+        return array('status' => TRUE, 'msg'=>'success');
     }
 
     public function get_courschema_matryona($courschema_id){
