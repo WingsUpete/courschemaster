@@ -194,9 +194,9 @@
                 return;
             }
 			
-			$('#upload-major').html('');
+			$('.upload-major').html('');
 			$.each(response, function(index, major) {
-				$('#upload-major').append('<option value="' + major.id + '">' + major.name + '</option>');
+				$('.upload-major').append('<option value="' + major.id + '">' + major.name + '</option>');
 			});
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
