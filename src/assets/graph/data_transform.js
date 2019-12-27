@@ -75,8 +75,8 @@ function data_transform(l_4) {
     //     }
     // }
 
-//    console.log("new list")
-//    console.log(l_4)
+    console.log("new list")
+    console.log(l_4)
     let id_map_idx = {};
     for (let i = 1, len = l_4.length; i < len; i++) {
         id_map_idx[l_4[i].node_id] = i;
@@ -97,6 +97,7 @@ function data_transform(l_4) {
         // console.log(id);
         // debugger;
         // console.log(id_map_idx[id]);
+
         let node = l_4[id_map_idx[id]];
         let tmp_map = {};
         if(node==null){
@@ -114,18 +115,17 @@ function data_transform(l_4) {
                 // console.log(node.node_son[i].node_id);
             }
         }
-//        console.log('tmp',map);
+        // console.log('tmp',map)
         return tmp_map;
     }
 
     let treeData = [];
-//	console.log(l_4);
-//    console.log(root_id,'root_id');
+    console.log(root_id,'root_id');
     treeData.push(dfs(root_id));
-//    console.log(l_4[id_map_idx[root_id]]);
-//    console.log('treeData',treeData);
+    console.log('treeData',treeData);
     return treeData;
 }
 
 //console.log('data',l);
 //let treeData = data_transform(l);
+//tmp(treeData)
