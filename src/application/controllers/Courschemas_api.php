@@ -37,13 +37,13 @@ class Courschemas_api extends CI_Controller{
     public function ajax_upload_courschemas(){
         try{
 
-            $data_pack = json_decode($this->input->post('dataPack'));
+            $major_id = json_decode($this->input->post('major_id'));
 
             $target_files = $_FILES['target_files'];
             $user_id = $this->session->userdata('user_id');
             $language = $this->session->userdata('language');
 
-            $result = $this->courschemas_model->upload_courschemas($language, $user_id, $target_files, $data_pack);
+            $result = $this->courschemas_model->upload_courschemas($language, $user_id, $target_files, $major_id);
 
             $this->output
                 ->set_content_type('application/json')

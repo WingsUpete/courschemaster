@@ -315,35 +315,40 @@ class Courschemas_model extends CI_Model{
         }else{
             return array('status' => 'true', 'query_result' => $rtn);
         }
-    }
+    }  
 
-    public function upload_courschemas($user_id, $target_files, $data_pack=NULL){
+
+    public function upload_courschemas($language, $user_id, $target_files, $major_id){
         
-        $this->load->helper('courschema');
+        $this->load->library('cminterpreter');
 
         $ok = True;
-        $data_inserted = array();
 
         for($i = 0; $i < sizeof($target_files['name']); $i++){
-            $content = file_get_contents($target_files['tmp_name'][$i]);
-            $name = $target_files['name'][$i];
+            
+            $arr = explode('.', $target_files['name'][$i]);
 
-            $pdf_url = 'default.pdf';
+            $file_name = $arr[0];
+            $ext = $arr[1];
+            move_uploaded_file($target_files['tmp_name'][$i], TMP_PATH .$file_name);
 
-            if($data_pack != NULL && $data_pack[$name]['ext'] == 'cmc'){
-                $result = upload_pdf($data_pack[$name]['pdf'], $name);
+            $content = file_get_contents(TMP_PATH .$file_name);
+
+            if($ext == 'cmc'){
+                $result = $this->cminterpreter->compile_to_pdf($language, $content);
                 if($result['status']){
                     $pdf_url = $result['pdf_url'];
                 }else{
-                    return array('status' => 'false', 'msg' => 'wrong pdf json ' . $name); # return 
+                    return FALSE;
                 }
+                $graph_json = $this->cminterpreter->compile_to_graph($content);
                 $data_inserted[$i] = array(
                     'name' => $name,
                     'type' => 'cmc',
-                    'id_majors' => $data_pack['maj'],
+                    'id_majors' => $major_id,
                     'pdf_url' => $pdf_url,
-                    'graph_json' => $data_pack[$name]['graph'],
-                    'list_json' => $data_pack[$name]['list'],
+                    'graph_json' => $graph_json,
+                    'list_json' => $graph_json,
                     'source_code' => $content,
                     'is_available' => 0
                 );
@@ -351,10 +356,7 @@ class Courschemas_model extends CI_Model{
                 $data_inserted[$i] = array(
                     'name' => $name,
                     'type' => 'cmh',
-                    'id_majors' => 1,
-                    'pdf_url' => $pdf_url,
-                    'graph_json' => '',
-                    'list_json' => '',
+                    'id_majors' => $maj_id,
                     'source_code' => $content,
                     'is_available' => 0
                 );

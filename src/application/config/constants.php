@@ -90,7 +90,7 @@ defined('EXIT__AUTO_MAX')      OR define('EXIT__AUTO_MAX', 125); // highest auto
 
 define('PDF_PATH', APPPATH . '..'   .DIRECTORY_SEPARATOR .'assets'  .DIRECTORY_SEPARATOR .'pdf'  . DIRECTORY_SEPARATOR);
 define('EXCEL_PATH', APPPATH . '..'  .DIRECTORY_SEPARATOR .'assets'  .DIRECTORY_SEPARATOR .'excel'  . DIRECTORY_SEPARATOR);
-
+define('TMP_PATH', APPPATH . '..'  .DIRECTORY_SEPARATOR .'assets'  .DIRECTORY_SEPARATOR .'tmp'  . DIRECTORY_SEPARATOR);
 /*
 | Courschemaster 
 |--------------------------------------------------------------------------
