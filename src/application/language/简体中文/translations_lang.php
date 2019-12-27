@@ -154,3 +154,4 @@ $lang['uncollect_cm_success'] = '成功取消收藏该培养方案';
 $lang['uncollect_cm_failure'] = '取消收藏该培养方案失败';
 $lang['uncollect'] = '取消收藏';
 $lang['uncollect_message'] = '确定要取消收藏该培养方案吗？';
+$lang['name'] = '名字';

@@ -38,7 +38,6 @@ window.AllCourschemas = window.AllCourschemas || {};
 		helper.getDepartments();
 		
 		if (GlobalVariables.redirect) {
-			alert('redirect');
 			var ccHelper = new CurrentCourschemaHelper();
 			ccHelper.getPdf();
 			stepper.to(4);

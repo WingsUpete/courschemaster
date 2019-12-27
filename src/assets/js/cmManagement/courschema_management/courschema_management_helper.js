@@ -148,11 +148,11 @@
 			var extension = GeneralFunctions.getFileExtension(name);
 			var html;
 			if (extension === 'cmh') {
-				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmh-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span>' + obj.pendingBtn + '</li>';
+				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmh-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span class="hide-for-now">' + obj.pendingBtn + '</li>';
 				output_cmh.push(html);
 				obj.cmhFiles.push(file);
 			} else if (extension === 'cmc') {
-				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmc-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span>' + obj.pendingBtn + '</li>';
+				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmc-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span class="hide-for-now">' + obj.pendingBtn + '</li>';
 				output_cmc.push(html);
 				obj.cmcFiles.push(file);
 			}
@@ -198,8 +198,10 @@
 		
 		var postData = new FormData();
 		postData.append('csrfToken', GlobalVariables.csrfToken);
-		postData.append('target_file[]', files);
-		postData.append('dataPack', obj.dataPack);
+		for (var i = 0; i < files.length; ++i) {
+			postData.append('target_file[]', files[i]);
+		}
+//		postData.append('dataPack', obj.dataPack);
 		
 		return $.ajax({
 			url: postUrl,

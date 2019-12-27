@@ -36,7 +36,7 @@
 								<a class="nav-link font-weight-bold active" id="mp_test" data-toggle="tab" title="Test" href="javascript:void(0);" role="tab" aria-selected="true">Test</a>
 							</li>
 							<li class="nav-item">
-								<a class="nav-link" id="add_plan" title="<?= lang('add_plan') ?>" href="javascript:void(0);" role="tab" aria-selected="false"><i class="fas fa-plus font-weight-bold"></i>&ensp;<small class="text-muted"><span class="plan_count">3</span>/5</small></a>
+								<a class="nav-link" id="add_plan" title="<?= lang('add_plan') ?>" href="javascript:void(0);" role="tab" aria-selected="false" data-toggle="modal" data-target="#newPlanWindow"><i class="fas fa-plus font-weight-bold"></i>&ensp;<small class="text-muted"><span class="plan_count">3</span>/5</small></a>
 							</li>
 						</ul>
 					</div>
@@ -114,6 +114,30 @@
 				</table></div>
 			</div>
 			<div class="modal-footer">
+				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><?= lang('close') ?></button>
+			</div>
+		</div>
+	</div>
+</div>
+<!-- newPlan -->
+<div class="modal fade top" id="newPlanWindow" tabindex="-1" role="dialog" aria-labelledby="newPlanWindowLabel" aria-hidden="true">
+	<div class="modal-dialog modal-dialog-centered modal-sm side-modal modal-dialog-scrollable" role="document">
+		<div class="modal-content">
+			<div class="modal-header">
+				<h5 class="modal-title" id="newPlanWindowLabel"><?= lang('add_plan') ?></h5>
+				<button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					<span aria-hidden="true">&times;</span>
+				</button>
+			</div>
+			<div class="modal-body">
+				<div class="md-form md-outline">
+					<input type="text" id="new_plan_name" max="100" class="form-control is-invalid">
+					<label for="new_plan_name" data-error="wrong" data-success="right"><?= lang('name') ?></label>
+					<div class="invalid-feedback"></div>
+				</div>
+			</div>
+			<div class="modal-footer">
+				<button id="new_plan-submit" type="button" class="btn btn-primary btn-sm"><?= lang('submit') ?></button>
 				<button type="button" class="btn btn-secondary btn-sm" data-dismiss="modal"><?= lang('close') ?></button>
 			</div>
 		</div>
