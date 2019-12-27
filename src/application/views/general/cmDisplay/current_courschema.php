@@ -82,16 +82,10 @@
 				<div class="card-body">
 					<div class="tab-content" id="list-tabs-content">
 						<div class="tab-pane fade show active" id="list-tabs-events-content" role="tabpanel" aria-labelledby="list-tabs-events">
-							<h5 class="card-title"><?= lang('events') ?></h5>
-							<p class="card-text">With supporting text below as a natural lead-in to additional content.</p>
-							<a href="#" class="btn btn-primary">Go somewhere</a>
+							
 						</div>
 						<div class="tab-pane fade" id="list-tabs-courses-content" role="tabpanel" aria-labelledby="list-tabs-courses">
 							<?php
-								$course_filters = array(
-									'General compulsory', 'Professional foundation', 'Professional core',
-									'Professional elective', 'General elective', 'Practice'
-								);
 								$course_table_headers = array(
 									'Course ID', 'Course Name', 'Total_Credit', 'Weekly Period', 'Department',
 //									'Semester', 'Language', 'Experimental Credit', 'Advanced Placement', 'Course Description'
