@@ -96,6 +96,16 @@ defined( 'BASEPATH' )OR exit( 'No direct script access allowed' );
 	<!------------------------------------------------ Script ------------------------------------------------>
 	<!-------------------------------------------------------------------------------------------------------->
 	
+	<!-- Graph! -->
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/graph/d3-force-3.0.0.css', NULL, 'css') ?>" />
+	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/graph/tree.css', NULL, 'css') ?>" />
+	<script type="text/javascript" src="<?= asset_url('assets/graph/d3.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/graph/d3-3.5.6.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/graph/d3-force-3.0.0.min.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/graph/data_transform.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/graph/data_transform2.js', NULL, 'js') ?>"></script>
+	<script type="text/javascript" src="<?= asset_url('assets/graph/tree.js', NULL, 'js') ?>"></script>
+	
 	<!-- Customize CSS -->
 	<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/css/general.css', NULL, 'css') ?>" />
 	
