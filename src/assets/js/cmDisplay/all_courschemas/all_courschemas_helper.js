@@ -182,6 +182,7 @@
 			var html = '<div class="col-xs-12 col-lg-6 col-xl-4 search-res-item-block" data-filter="' + item.name + '"><div class="card search-res-item"><div class="card-header text-right"> </div><div class="card-body text-center"><h5 class="card-title font-weight-bold">' + item.name + '</h5><hr /><button type="button" class="btn btn-outline-dark btn-block waves-effect font-weight-bold sel-' + level + '-btns sel-btn" data-' + level + '-id="' + id + '" ' + addiData + 'data-' + level + '-name="' + item.name + '"><i class="fas fa-door-open"></i> ' + SCLang.access + '</button></div><div class="card-footer text-center text-muted">' + addi + '</div></div></div>';
 			$('#sel_' + level + ' .stepper-search-res .row').append(html);
 		});
+		GeneralFunctions.placeFooterToBottom();
     };
 
     /**
