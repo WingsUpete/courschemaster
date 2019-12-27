@@ -112,7 +112,7 @@
         	    .minNodeRadius(2)
         	    .pinMode(true)
         	    .nodeEventToStopPinMode("dblclick")
-        	    .height(1530) // 530
+        	    .height(3200) // 530
         	    .width(3200)   // 1200
         	//
         	.useDomParentWidth(true) //for responsive layout
