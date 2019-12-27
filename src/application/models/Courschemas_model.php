@@ -324,6 +324,8 @@ class Courschemas_model extends CI_Model{
 
         $ok = True;
 
+        $this->db->trans_begin();
+
         for($i = 0; $i < sizeof($target_files['name']); $i++){
             
             $arr = explode('.', $target_files['name'][$i]);
@@ -339,6 +341,7 @@ class Courschemas_model extends CI_Model{
                 if($result['status']){
                     $pdf_url = $result['pdf_url'];
                 }else{
+                    $this->db->trans_rollback();
                     return array('status' => FALSE, 'msg' => $result['msg']);
                 }
                 $graph_json = $this->cminterpreter->compile_to_graph($content);
@@ -369,7 +372,6 @@ class Courschemas_model extends CI_Model{
             if( ! $this->db->insert('cm_courschemas', $data)){
                 $this->db->trans_rollback();
                 return array('status' => FALSE, 'msg' => 'db errro');
-                $rtn = FALSE;
             }else{
                 // This thing will go to review table
                 $courschema_id = $this->db->insert_id();
@@ -393,6 +395,7 @@ class Courschemas_model extends CI_Model{
         }else{
             $this->db->trans_rollback();
         }
+        $this->db->trans_complete();
         log_operation('upload courschemas', $user_id, array('target_files'=>$target_files, 'data_pack'=>$data_pack), $rtn);
         return array('status' => TRUE, 'msg'=> 'success');
         
