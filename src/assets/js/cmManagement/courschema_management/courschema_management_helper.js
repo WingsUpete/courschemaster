@@ -159,16 +159,16 @@
 				
 				console.log(response);
 				
-//				if (response.status === 'success') {
-//					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_success, 'success', 6000);
-//					$('#upload-cmh-list').html('');
-//					$('#upload-cmc-list').html('');
+				if (response.status) {
+					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_success, 'success', 6000);
+					$('#upload-cmh-list').html('');
+					$('#upload-cmc-list').html('');
 //					$('#upload-courschema').prop('disabled', 'true');
-//				} else if (response.status === 'fail') {
-//					GeneralFunctions.displayMessageAlert(SCLang.upload_courses_failure, 'danger', 6000);
-//				} else {
-//					GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
-//				}
+				} else if (!response.status) {
+					GeneralFunctions.displayMessageAlert(response.msg, 'danger', 6000);
+				} else {
+					GeneralFunctions.displayMessageAlert('ABNORMAL RESPONSE IN QA-POST-QUESTIONS', 'warning', 60000);
+				}
 			},
 			error: function(e) {
 				console.error(e);

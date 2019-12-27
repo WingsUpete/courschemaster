@@ -33,7 +33,7 @@ var svg = d3.select("#tree").append("svg")
     .append("g")
     .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
 
-// root = treeData[0];
+root = treeData[0];
 root.x0 = height / 2;
 root.y0 = 0;
 
