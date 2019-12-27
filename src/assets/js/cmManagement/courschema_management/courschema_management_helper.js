@@ -12,7 +12,7 @@
     function CourschemaManagementHelper() {
         this.courschemas = [];
 		this.courschemaMap = {};
-		this.pendingBtn = '<span class="badge badge-warning badge-pill pending-badge">' + SCLang.checking + '</span>';
+		this.pendingBtn = '<span class="badge badge-warning badge-pill pending-badge hide-for-now">' + SCLang.checking + '</span>';
 		this.cmcFiles = [];		
 		this.cmhFiles = [];
 		this.compiler = MatryonaTranslateClass;
@@ -87,11 +87,11 @@
 			var extension = GeneralFunctions.getFileExtension(name);
 			var html;
 			if (extension === 'cmh') {
-				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmh-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span class="hide-for-now">' + obj.pendingBtn + '</li>';
+				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmh-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span>' + obj.pendingBtn + '</li>';
 				output_cmh.push(html);
 				obj.cmhFiles.push(file);
 			} else if (extension === 'cmc') {
-				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmc-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span class="hide-for-now">' + obj.pendingBtn + '</li>';
+				html = '<li class="list-group-item d-flex justify-content-between align-items-center file-list-item cmc-item" data-file-name="' + name + '"><span class="file-txt"><strong class="file-txt--name">' + name + '</strong> <small class="text-muted file-txt--addi">' + file.size + ' bytes, last modified: ' + (file.lastModifiedDate ? file.lastModifiedDate.toLocaleDateString() : 'n/a') + '</small></span>' + obj.pendingBtn + '</li>';
 				output_cmc.push(html);
 				obj.cmcFiles.push(file);
 			}
@@ -134,12 +134,13 @@
 		var obj = this;
 		
         var files = obj.cmhFiles.concat(obj.cmcFiles);
+		console.log(files);
 		
 		var postData = new FormData();
 		postData.append('csrfToken', GlobalVariables.csrfToken);
-		postData.append('maj_id', $('#upload-major option:selected').val());
+		postData.append('major_id', $('#upload-major option:selected').val());
 		for (var i = 0; i < files.length; ++i) {
-			postData.append('target_file[]', files[i]);
+			postData.append('target_files[]', files[i]);
 		}
 //		postData.append('dataPack', obj.dataPack);
 		
