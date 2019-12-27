@@ -120,7 +120,13 @@
 			</div>
 		</div>
 		<div class="tab-pane fade" id="cc-views-graph-content" role="tabpanel" aria-labelledby="cc-views-graph">
-			GRAPH
+			
+			<div id="nbgraph"></div>
+			<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/graph/d3-force-3.0.0.css', NULL, 'css') ?>" />
+			<script type="text/javascript" src="<?= asset_url('assets/graph/d3-3.5.6.min.js', NULL, 'js') ?>"></script>
+			<script type="text/javascript" src="<?= asset_url('assets/graph/d3-force-3.0.0.min.js', NULL, 'js') ?>"></script>
+			<script type="text/javascript" src="<?= asset_url('assets/graph/data_transform2.js', NULL, 'js') ?>"></script>
+			
 		</div>
 	</div>
 </div>

@@ -118,8 +118,8 @@ function cut_redundant_link(l_) {
 
 function data_transform2(l3) {
     console.log('before', l3);
-    l3 = process_pre(l3);
-    console.log("process_pre ", l3, 'finished process_pre');
+//    l3 = process_pre(l3);
+//    console.log("process_pre ", l3, 'finished process_pre');
 
     l3 = cut_redundant_link(l3);
 // console.log("cut_redundant_link");

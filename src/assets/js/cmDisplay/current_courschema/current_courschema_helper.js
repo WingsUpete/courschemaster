@@ -105,6 +105,25 @@
 			var treeData = data_transform(data);
 			tmp(treeData);
 			
+			var data2= data_transform2(data);
+        	window.example = netGobrechtsD3Force(data2, 'nbgraph')
+        	// NODES
+        	    .maxNodeRadius(6)
+        	    .minNodeRadius(2)
+        	    .pinMode(true)
+        	    .nodeEventToStopPinMode("dblclick")
+        	    .height(1530) // 530
+        	    .width(3200)   // 1200
+        	//
+        	.useDomParentWidth(true) //for responsive layout
+        	// .zoomMode(false)
+        	.lassoMode(true)
+        	// .wrapLabels(true)
+        	.labelDistance(1)
+        	.showBorder(false)
+        	.debug(true) //to enable the customization wizard
+        	.render(); //sample data is provided when called without data
+			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
 	
