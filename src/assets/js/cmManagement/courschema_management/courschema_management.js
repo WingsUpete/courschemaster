@@ -18,6 +18,7 @@ window.CourschemaManagement = window.CourschemaManagement || {};
     var helper = {};
 
 	var datatable = null;
+	var editor = null;
 	
     /**
      * This method initializes the CourschemaManagement page.
@@ -41,6 +42,7 @@ window.CourschemaManagement = window.CourschemaManagement || {};
 		helper.getVisibleMaj();
 		
 		CourschemaManagement.initialize_editor();
+		helper.editor = editor;
 		
         if (defaultEventHandlers) {
             _bindEventHandlers();
@@ -104,14 +106,14 @@ window.CourschemaManagement = window.CourschemaManagement || {};
 
 	exports.initialize_editor = function() {
         ace.require("ace/ext/language_tools");
-        var editor = ace.edit("editor");
+        editor = ace.edit("editor");
         editor.setOptions({
             enableLiveAutocompletion: true,	// autocompelete only
         });
         editor.setTheme("ace/theme/monokai");	// monokai mode automatically display hints
         editor.getSession().setMode("ace/mode/javascript");	// language
         editor.setFontSize(16);
-        var code_content = editor.getValue();
+//        var code_content = editor.getValue();
 	};
 	
 })(window.CourschemaManagement);

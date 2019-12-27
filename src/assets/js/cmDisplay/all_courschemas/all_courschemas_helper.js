@@ -38,6 +38,7 @@
 			GlobalVariables.collected = $(this).closest('.search-res-item-block').find('.collect i').hasClass('collected') ? 1 : 0;
 			var ccHelper = CurrentCourschema.helper;
 			ccHelper.getPdf();
+			ccHelper.getGraph();
 			instance.stepper.next();
 		});
 		
