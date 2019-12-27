@@ -41,12 +41,32 @@ class Courschemas_api extends CI_Controller{
 
             $target_files = $_FILES['target_files'];
             $user_id = $this->session->userdata('user_id');
+            $language = $this->session->userdata('language');
 
-            $result = $this->courschemas_model->upload_courschemas($user_id, $target_files, $data_pack);
+            $result = $this->courschemas_model->upload_courschemas($language, $user_id, $target_files, $data_pack);
 
             $this->output
                 ->set_content_type('application/json')
-                ->set_output(json_encode($result ? AJAX_SUCCESS : AJAX_FAIL));
+                ->set_output(json_encode($result));
+
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
+    public function ajax_compile_courschema(){
+        try{
+
+            $content = json_decode($this->input->post('content'));
+
+            $this->load->library('cminterpreter');
+            $result_json = $this->cminterpreter->compile_to_graph($content);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output($result_json);
 
         }catch(Exception $exc){
             $this->output
