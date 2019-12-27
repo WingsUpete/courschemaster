@@ -352,6 +352,17 @@ class temp
 							$node_list[$node_id] = $node;
 							$course_status[$item] = 1;
 
+							$nest_node = array(
+								'node_id' => $node_id,
+								'node_name' => $node_name,
+								'node_type' => $node_type
+							);
+
+							if (!array_key_exists($node_name, $status_list)) {
+								$list[] = $nest_node;
+								$status_list[$nest_node['node_name']] = 1;
+							}
+
 							$son_list[] = array(
 								'node_id' => $node_id,
 								'node_name' => $item,
@@ -441,6 +452,17 @@ class temp
 								$node_list[$little_id] = $node;
 								$course_status[$little_name] = 1;
 
+								$nest_node = array(
+									'node_id' => $little_id,
+									'node_name' => $little_name,
+									'node_type' => $little_type
+								);
+
+								if (!array_key_exists($little_name, $status_list)) {
+									$list[] = $nest_node;
+									$status_list[$nest_node['node_name']] = 1;
+								}
+
 								$son_list[] = array(
 									'node_id' => $little_id,
 									'node_name' => $little_name,
@@ -489,6 +511,17 @@ class temp
 
 									$node_list[$little_id] = $node;
 									$course_status[$little_name] = 1;
+
+									$nest_node = array(
+										'node_id' => $little_id,
+										'node_name' => $little_name,
+										'node_type' => $little_type
+									);
+
+									if (!array_key_exists($little_name, $status_list)) {
+										$list[] = $nest_node;
+										$status_list[$nest_node['node_name']] = 1;
+									}
 
 									$son_list[] = array(
 										'node_id' => $little_id,
@@ -556,6 +589,17 @@ class temp
 									$node_list[$little_id] = $node;
 									$course_status[$little_name] = 1;
 
+									$nest_node = array(
+										'node_id' => $little_id,
+										'node_name' => $little_name,
+										'node_type' => $little_type
+									);
+
+									if (!array_key_exists($little_name, $status_list)) {
+										$list[] = $nest_node;
+										$status_list[$nest_node['node_name']] = 1;
+									}
+
 									$son_list[] = array(
 										'node_id' => $little_id,
 										'node_name' => $little_name,
@@ -604,6 +648,17 @@ class temp
 
 										$node_list[$little_id] = $node;
 										$course_status[$little_name] = 1;
+
+										$nest_node = array(
+											'node_id' => $little_id,
+											'node_name' => $little_name,
+											'node_type' => $little_type
+										);
+
+										if (!array_key_exists($little_name, $status_list)) {
+											$list[] = $nest_node;
+											$status_list[$nest_node['node_name']] = 1;
+										}
 
 										$son_list[] = array(
 											'node_id' => $little_id,
@@ -669,6 +724,17 @@ class temp
 
 								$node_list[$node_id] = $node;
 								$course_status[$item] = 1;
+
+								$nest_node = array(
+									'node_id' => $little_id,
+									'node_name' => $little_name,
+									'node_type' => $little_type
+								);
+
+								if (!array_key_exists($little_name, $status_list)) {
+									$list[] = $nest_node;
+									$status_list[$nest_node['node_name']] = 1;
+								}
 
 								$son_list[] = array(
 									'node_id' => $node_id,
