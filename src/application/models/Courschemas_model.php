@@ -194,28 +194,39 @@ class Courschemas_model extends CI_Model{
         );
     }
 
-    public function submit_courschema($user_id, $pdf_json, $graph_json, $list_json, $courschema_name, $type, $major_id, $source_code){
-        $this->load->helper('courschema');
-        $rtn = upload_pdf($pdf_json, $courschema_name);
-
-        if($rtn['status'] == FALSE){
-            return array('status' => 'wrong_pdf_json', 'pdf_url' => $rtn['msg']);
-        }
-
+    public function submit_courschema($user_id, $courschema_name, $type, $major_id, $source_code, $language){
+        
         $this->db->trans_begin();
 
-        $pdf_url = $rtn['pdf_url'];
+        $this->load->library('cminterpreter');
 
-        $data_inserted = array(
-            'name' => $courschema_name,
-            'type' => $type,
-            'id_majors' => $major_id,
-            'pdf_url' => $pdf_url,
-            'graph_json' => $graph_json,
-            'source_code' => $source_code,
-            'list_json' => $list_json,
-            'is_available' => 0
-        );
+        if($type == 'cmc'){
+            $_r = $this->cminterpreter->compiler_to_pdf($language, $source_code);
+            if( ! $_r['status']){
+                return $_r;
+            }else{
+                $pdf_url = $_r['pdf_url'];
+            }
+            $graph_json = $this->cmiterpreter->compile_to_graph($source_code);
+            $data_inserted = array(
+                'name' => $courschema_name,
+                'type' => $type,
+                'id_majors' => $major_id,
+                'pdf_url' => $pdf_url,
+                'graph_json' => $graph_json,
+                'list_json' => $graph_json,
+                'source_code' => $source_code,
+                'is_available' => 0
+            );
+        }else{
+            $data_inserted = array(
+                'name' => $courschema_name,
+                'type' => $type,
+                'id_majors' => $major_id,
+                'source_code' => $source_code,
+                'is_available' => 0
+            ); 
+        }
 
         if( ! $this->db->insert('cm_courschemas', $data_inserted)){
             $this->db->trans_rollback();

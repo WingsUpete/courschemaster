@@ -14,17 +14,17 @@ class Test_data extends CI_Controller
 	public function import_test_label()
 	{
 		$this->Course_label_model->add_label_relationship_by_excel(dirname(__FILE__) .
-			"\..\..\../test_data/label_cs_2017.xlsx", '1');
+			"\..\..\../test_data/label_cs_2017.xlsx", '52');
 
 		echo 'success 1';
 
 		$this->Course_label_model->add_label_relationship_by_excel(dirname(__FILE__) .
-			"\..\..\../test_data/label_cs_2017.xlsx", '2');
+			"\..\..\../test_data/label_cs_2017.xlsx", '53');
 
 		echo 'success 2';
 
 		$this->Course_label_model->add_label_relationship_by_excel(dirname(__FILE__) .
-			"\..\..\../test_data/label_cs_2017.xlsx", '3');
+			"\..\..\../test_data/label_cs_2017.xlsx", '54');
 
 
 		echo 'success 3';

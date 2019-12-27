@@ -92,17 +92,14 @@ class All_courschemas_api extends CI_controller{
         try{
 
             $user_id = $this->session->userdata('user_id');
-            $pdf_json        = json_decode($this->input->post('pdf_json'));
-            $graph_json      = json_decode($this->input->post('graph_json'));
-            $list_json       = json_decode($this->input->post('list_json'));
+            $language = $this->session->userdata('language');
             $courschema_name = json_decode($this->input->post('courschema_name'));
             $type            = json_decode($this->input->post('type'));
             $major_id        = json_decode($this->input->post('major_id'));
             $source_code     = json_decode($this->input->post('source_code'));
 
-            $result = $this->courschemas_model->submit_courschema($user_id, $pdf_json, $graph_json, 
-                                                                $list_json, $courschema_name, 
-                                                                $type, $major_id, $source_code);
+            $result = $this->courschemas_model->submit_courschema($user_id, $courschema_name, 
+                                                                $type, $major_id, $source_code, $language);
 
             $this->output
                 ->set_content_type('application/json')
