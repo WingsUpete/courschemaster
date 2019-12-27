@@ -47,7 +47,7 @@
 			var compiler = instance.compiler;
 			//	process files in frontend ground
 			instance.processFrontEndFiles();
-			$('#upload-courschema').prop('disabled', 'false');
+//			$('#upload-courschema').prop('disabled', 'false');
 		}).trigger('click');
 		
 		$('#upload-courschema').click(function() {

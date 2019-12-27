@@ -36,7 +36,7 @@ window.CourschemaManagement = window.CourschemaManagement || {};
 			CourschemaManagement.initialize_courschemas();
 		});
 		// no uploading
-		$('#upload-courschema').prop('disabled', 'true');
+//		$('#upload-courschema').prop('disabled', 'true');
 		// select major in modal
 		helper.getVisibleMaj();
 		
