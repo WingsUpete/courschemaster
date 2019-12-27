@@ -359,7 +359,7 @@ class Courschemas_model extends CI_Model{
                 $data_inserted[$i] = array(
                     'name' => $file_name,
                     'type' => 'cmh',
-                    'id_majors' => $maj_id,
+                    'id_majors' => $major_id,
                     'source_code' => $content,
                     'is_available' => 0
                 );
