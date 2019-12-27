@@ -339,7 +339,7 @@ class Courschemas_model extends CI_Model{
                 if($result['status']){
                     $pdf_url = $result['pdf_url'];
                 }else{
-                    return FALSE;
+                    return array('status' => FALSE, 'msg' => $result['msg']);
                 }
                 $graph_json = $this->cminterpreter->compile_to_graph($content);
                 $data_inserted[$i] = array(
@@ -368,6 +368,7 @@ class Courschemas_model extends CI_Model{
 
             if( ! $this->db->insert('cm_courschemas', $data)){
                 $this->db->trans_rollback();
+                return array('status' => FALSE, 'msg' => 'db errro');
                 $rtn = FALSE;
             }else{
                 // This thing will go to review table
@@ -382,7 +383,7 @@ class Courschemas_model extends CI_Model{
                 if( ! $rtn){
                     $this->db->trans_rollback();
                     log_operation('upload courschemas', $user_id, array('target_files'=>$target_files, 'data_pack'=>$data_pack), $rtn);
-                    return $rtn;
+                    return array('status' => FALSE, 'msg' => 'db error');
                 }
             }
         }
@@ -393,7 +394,7 @@ class Courschemas_model extends CI_Model{
             $this->db->trans_rollback();
         }
         log_operation('upload courschemas', $user_id, array('target_files'=>$target_files, 'data_pack'=>$data_pack), $rtn);
-        return $rtn;
+        return array('status' => TRUE, 'msg'=> 'success');
         
     }
 
