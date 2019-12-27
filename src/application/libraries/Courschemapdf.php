@@ -27,7 +27,13 @@ class Courschemapdf{
         $this->pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
     }
 
+    public function new_pdf(){
+        
+        $this->pdf = new TCPDF(PDF_PAGE_ORIENTATION, PDF_UNIT, PDF_PAGE_FORMAT, true, 'UTF-8', false);
+    }
+
     public function init($language){
+        $this->new_pdf();
         $this->language = $language;
         // set font
         if($this->language == 'english'){

@@ -13,8 +13,13 @@ class Api_test extends CI_Controller{
         $this->load->library('session');
     }
 
+
+    public function test__get_cm_content($file_name){
+        $this->_get_cm_content('SUSTech_english_requirement');
+    }
+
     public function index(){
-        $this->test_query_course_by_code();
+        $this->test_interpreter();
     }
 
     public function test_query_course_by_code(){
@@ -23,46 +28,56 @@ class Api_test extends CI_Controller{
     }
 
     public function test_interpreter(){
-        $this->load->library('Cminterpreter');
+        
         $content = '
-            NAME = "计算机科学与技术2018级 (1+3) 培养方案";
-
-            VERSION = 201801;
-            
-            GROUP = (2018 && CSE);
-            
-            INTRO = "计算机科学是一门极具发展潜力的专业，高级人才严重短缺。随着计算机技术和现代化企业的迅速发展，
-                    这一现象将越来越严重。当前和未来一段时间，由于市场的集约化、渗透性、跨学科融合、技术创新、激烈竞争，
-                    社会急需高素质的人才。";
-            OBJECTIVES = "本专业培养具有扎实的专业理论知识，掌握前沿计算机系统设计原理，具有相应的研究开发能力，
-                能熟练运用英语和计算机技术的人才。学生毕业后不仅可以在企业、科研机构、大学从事计算机科学与技术领域的研究、 
-                开发、管理或教学，还可以继续从事计算机科学与技术及相关或交叉学科领域的研究生学习。";
-
-            DEPARTMENT = 计算机科学与工程系;
-
-            PROGRAM_LENGTH = 4;
-            
-            DEGREE = "工程学学士";
-
-            Event GRADUATION = ComEvent( 通识必修课 && 专业先修课  && 专业基础课 && 专业核心课 && 专业选修课 && 实践课程 );
-            
-            Event 通识必修课 = ComEvent( 理工通识基础 );
-            
-            Event 理工通识基础 = CourseEvent( MA103A && PHY103B && PHY105B && CS102A && PHY104B && (( MA101B && MA102B ) || ( MA101A && MA102A )));
-            
-            Event 专业先修课 = CourseEvent((( MA101B && MA102B ) || ( MA101A && MA102A )) && MA103A && PHY103B && PHY105B && CS102A && PHY104B );
-            
-            Event 专业基础课 = CourseEvent( CS203 && CS207 && CS201 && CS202 && CS208 && CS307 && MA212 );
-            
-            Event 专业核心课 = CourseEvent( CS301 && CS309 && CS321 && CS317 && CS302 && CS304 && CS326 && CS318 && CS413 && CS415 && CS470 && CS490 );
-            
-            Event 专业选修课 = ScoreEvent( "CS_elective", 19 );
-            
-            Event 实践课程 = CourseEvent( CS470 && CS490 );
+        INCLUDE = "SUSTech_english_requirement";
+        INCLUDE = "思想政治品德课程";
+        INCLUDE = "军训体育课程";
+        INCLUDE = "中文写作与交流";
+        INCLUDE = "公选课";
+        
+        NAME = "计算机科学与技术2018级 (1+3) 培养方案";
+        
+        DEPARTMENT = "计算机科学与工程系";
+        
+        VERSION = 201801;
+        
+        GROUP = (2018 && CSE);
+        
+        INTRO = "计算机科学是一门极具发展潜力的专业，当前和未来一段时间，由于市场的技术创新与激烈竞争，社会急需高素质的计算机人才。";
+        
+        OBJECTIVES = "本专业培养具有扎实的专业理论知识，掌握前沿计算机系统设计原理，具有相应的研究开发能力的计算机技术人才。";
+        
+        PROGRAM_LENGTH = 4;
+        
+        DEGREE = "工程学学士";
+        
+        Event GRADUATION = ComEvent( English_requirements && 通识必修课 && 专业先修课 && 公选课 && 专业基础课 && 专业核心课 && 专业选修课 && 实践课程 );
+        
+        Event 通识必修课 = ComEvent( 理工通识基础 && 思想政治品德课程 && 军训体育课程 && 中文写作与交流 );
+        
+        Event 理工通识基础 = CourseEvent( MA103A && PHY103B && PHY105B && CS102A && PHY104B && (( MA101B && MA102B ) || ( MA101A && MA102A )));
+        
+        Event 专业先修课 = CourseEvent((( MA101B && MA102B ) || ( MA101A && MA102A )) && MA103A && PHY103B && PHY105B && CS102A && PHY104B );
+        
+        Event 专业基础课 = CourseEvent( CS203 && CS207 && CS201 && CS202 && CS208 && CS307 && MA212 );
+        
+        Event 专业核心课 = CourseEvent( CS301 && CS309 && CS321 && CS317 && CS302 && CS304 && CS326 && CS318 && CS413 && CS415 && CS470 && CS490 );
+        
+        Event 专业选修课 = ScoreEvent( "CS_elective", 19 );
+        
+        Event 实践课程 = CourseEvent(CS317 && CS322 && CS417 && CS470 && CS490 );
+        
+        
         
         ';
 
-        $language = 'english';
+        
+
+        $language = '简体中文';
+        $this->load->library('Cminterpreter');
+        $result = $this->cminterpreter->compile_to_pdf($language, $content);
+        
         $result = $this->cminterpreter->compile_to_pdf($language, $content);
 
         if( ! $result['status']){
@@ -70,6 +85,11 @@ class Api_test extends CI_Controller{
         }else{
             echo $result['pdf_url'];
         }
+
+        $result = $this->cminterpreter->compile_to_graph($content);
+        print_r($result);
+
+        
     }
 
     public function test_delete_cmh(){
@@ -120,7 +140,7 @@ class Api_test extends CI_Controller{
         $user_id = 1;
         $target_files = array(
             'name' => array('upload_test10', 'upload_test11'),
-            'tmp_name' => array('C:\\Users\\ASUS\\desktop\\test1.txt', 'C:\\Users\\ASUS\\desktop\\test2.txt')
+            'tmp_name' => array('C:\\Users\\ASUS\\desktop\\计算机科学与技术2+2(2018).cmc', 'C:\\Users\\ASUS\\desktop\\test2.txt')
         );
         $data_pack = array(
             'maj' => 1,
@@ -137,7 +157,8 @@ class Api_test extends CI_Controller{
                 'graph' => 'graph nb'
             )
         );
-        $result = $this->courschemas_model->upload_courschemas($user_id, $target_files, $data_pack);
+        $language = '简体中文';
+        $result = $this->courschemas_model->upload_courschemas($language, $user_id, $target_files, $data_pack);
         echo $result ? 1 : 0;
     }
 

@@ -41,6 +41,7 @@ class Courschemas_api extends CI_Controller{
 
             $target_files = $_FILES['target_files'];
             $user_id = $this->session->userdata('user_id');
+        
             $language = $this->session->userdata('language');
 
             $result = $this->courschemas_model->upload_courschemas($language, $user_id, $target_files, $major_id);

@@ -320,13 +320,15 @@ class Courschemas_model extends CI_Model{
 
     public function upload_courschemas($language, $user_id, $target_files, $major_id){
         
-        $this->load->library('cminterpreter');
+        
 
         $ok = True;
 
         $this->db->trans_begin();
 
         for($i = 0; $i < sizeof($target_files['name']); $i++){
+            $cmi_obj = 'it'.$i;
+            $this->load->library('cminterpreter', NULL, $cmi_obj);
             
             $arr = explode('.', $target_files['name'][$i]);
 
@@ -337,14 +339,14 @@ class Courschemas_model extends CI_Model{
             $content = file_get_contents(TMP_PATH .$file_name);
 
             if($ext == 'cmc'){
-                $result = $this->cminterpreter->compile_to_pdf($language, $content);
+                $result = $this->$cmi_obj->compile_to_pdf($language, $content);
                 if($result['status']){
                     $pdf_url = $result['pdf_url'];
                 }else{
                     $this->db->trans_rollback();
                     return array('status' => FALSE, 'msg' => $result['msg']);
                 }
-                $graph_json = $this->cminterpreter->compile_to_graph($content);
+                $graph_json = $this->$cmi_obj->compile_to_graph($content);
                 $data_inserted[$i] = array(
                     'name' => $file_name,
                     'type' => 'cmc',
@@ -384,7 +386,7 @@ class Courschemas_model extends CI_Model{
                 $rtn = $this->db->insert('cm_review', $data_review );
                 if( ! $rtn){
                     $this->db->trans_rollback();
-                    log_operation('upload courschemas', $user_id, array('target_files'=>$target_files, 'data_pack'=>$data_pack), $rtn);
+                    log_operation('upload courschemas', $user_id, array('target_files'=>$target_files), $rtn);
                     return array('status' => FALSE, 'msg' => 'db error');
                 }
             }
@@ -396,7 +398,7 @@ class Courschemas_model extends CI_Model{
             $this->db->trans_rollback();
         }
         $this->db->trans_complete();
-        log_operation('upload courschemas', $user_id, array('target_files'=>$target_files, 'data_pack'=>$data_pack), $rtn);
+        log_operation('upload courschemas', $user_id, array('target_files'=>$target_files), $rtn);
         return array('status' => TRUE, 'msg'=> 'success');
         
     }
