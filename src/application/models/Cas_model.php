@@ -32,7 +32,8 @@ class Cas_model extends CI_Model{
                 'cas_sid' => $cas_user_data['sid'],
                 'id_privileges' => $default_registraion_id_privileges,
                 'id_colleges' => $this->get_college($cas_user_data['sid']),
-                'id_majors' => $this->get_major($cas_user_data['sid'])
+                'id_majors' => $this->get_major($cas_user_data['sid']),
+                'id_courschemas' => '52'
             );
                 
             if($this->db->insert('cm_users', $data)){
