@@ -100,6 +100,8 @@
             }
 			
 			console.log(response);
+			$('.plan-titles').append('<li class=""nav-item><a class="nav-link font-weight-bold" data-toggle="tab" data-plan=id="' + response.plan_id + '" href="javascript:void(0); role="tab">' + $('#new_plan_name').val() + '</a></li>');
+			$('#newPlanWindow').modal('hide');
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
