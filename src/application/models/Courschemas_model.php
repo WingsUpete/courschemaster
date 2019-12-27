@@ -346,7 +346,7 @@ class Courschemas_model extends CI_Model{
                 }
                 $graph_json = $this->cminterpreter->compile_to_graph($content);
                 $data_inserted[$i] = array(
-                    'name' => $name,
+                    'name' => $file_name,
                     'type' => 'cmc',
                     'id_majors' => $major_id,
                     'pdf_url' => $pdf_url,
@@ -357,7 +357,7 @@ class Courschemas_model extends CI_Model{
                 );
             }else{
                 $data_inserted[$i] = array(
-                    'name' => $name,
+                    'name' => $file_name,
                     'type' => 'cmh',
                     'id_majors' => $maj_id,
                     'source_code' => $content,
