@@ -82,7 +82,7 @@
 									</div>
 								</div>
     							<pre id="editor">
-INCLUDE = "思想政治品德课程.cmh";
+INCLUDE = "思想政治品德课程";
 
 NAME
 
