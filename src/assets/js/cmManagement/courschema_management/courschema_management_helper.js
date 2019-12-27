@@ -35,7 +35,7 @@
 		
 		//	new
 		$(document).on('click', '.new', function() {
-			alert('new');
+			//
 		});
 		
 		//	upload
