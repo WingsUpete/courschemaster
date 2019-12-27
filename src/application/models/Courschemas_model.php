@@ -201,13 +201,13 @@ class Courschemas_model extends CI_Model{
         $this->load->library('cminterpreter');
 
         if($type == 'cmc'){
-            $_r = $this->cminterpreter->compiler_to_pdf($language, $source_code);
+            $_r = $this->cminterpreter->compile_to_pdf($language, $source_code);
             if( ! $_r['status']){
                 return $_r;
             }else{
                 $pdf_url = $_r['pdf_url'];
             }
-            $graph_json = $this->cmiterpreter->compile_to_graph($source_code);
+            $graph_json = $this->cminterpreter->compile_to_graph($source_code);
             $data_inserted = array(
                 'name' => $courschema_name,
                 'type' => $type,
