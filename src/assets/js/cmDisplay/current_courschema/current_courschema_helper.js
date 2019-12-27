@@ -50,6 +50,7 @@
 			
 			//	now we can get pdf in current courschema page
 			obj.getPdf();
+			obj.getGraph();
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
@@ -76,6 +77,33 @@
 //			console.log(response);
 			$('#cc-pdf-window').prop('src', response.file_url);
 			$('#cc-pdf-download a').prop('href', response.download_link);
+			
+        }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
+    };
+	
+	/**
+     * get graph
+     */
+    CurrentCourschemaHelper.prototype.getGraph = function () {
+		//	AJAX
+        var postUrl = GlobalVariables.baseUrl + '/index.php/current_courschema_api/ajax_get_graph_json';
+        var postData = {
+            csrfToken: GlobalVariables.csrfToken,
+			courschema_id: GlobalVariables.courschemaId
+        };
+		
+		var obj = this;
+		
+        return $.post(postUrl, postData, function (response) {
+			//	Test whether response is an exception or a warning
+            if (!GeneralFunctions.handleAjaxExceptions(response)) {
+                return;
+            }
+			
+//			console.log(response);
+			var data = JSON.parse(response);
+			var treeData = data_transform(data);
+			tmp(treeData);
 			
         }.bind(this), 'json').fail(GeneralFunctions.ajaxFailureHandler);
     };
