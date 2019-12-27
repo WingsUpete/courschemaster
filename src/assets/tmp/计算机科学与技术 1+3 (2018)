@@ -1,0 +1,38 @@
+INCLUDE = "SUSTech_english_requirement";
+INCLUDE = "思想政治品德课程";
+INCLUDE = "军训体育课程";
+INCLUDE = "中文写作与交流";
+INCLUDE = "公选课";
+
+NAME = "计算机科学与技术2018级 (1+3) 培养方案";
+
+DEPARTMENT = "计算机科学与工程系";
+
+VERSION = 201801;
+
+GROUP = (2018 && CSE);
+
+INTRO = "计算机科学是一门极具发展潜力的专业，当前和未来一段时间，由于市场的技术创新与激烈竞争，社会急需高素质的计算机人才。";
+
+OBJECTIVES = "本专业培养具有扎实的专业理论知识，掌握前沿计算机系统设计原理，具有相应的研究开发能力的计算机技术人才。";
+
+PROGRAM_LENGTH = 4;
+
+DEGREE = "工程学学士";
+
+Event GRADUATION = ComEvent( English_requirements && 通识必修课 && 专业先修课 && 公选课 && 专业基础课 && 专业核心课 && 专业选修课 && 实践课程 );
+
+Event 通识必修课 = ComEvent( 理工通识基础 && 思想政治品德课程 && 军训体育课程 && 中文写作与交流 );
+
+Event 理工通识基础 = CourseEvent( MA103A && PHY103B && PHY105B && CS102A && PHY104B && (( MA101B && MA102B ) || ( MA101A && MA102A )));
+
+Event 专业先修课 = CourseEvent((( MA101B && MA102B ) || ( MA101A && MA102A )) && MA103A && PHY103B && PHY105B && CS102A && PHY104B );
+
+Event 专业基础课 = CourseEvent( CS203 && CS207 && CS201 && CS202 && CS208 && CS307 && MA212 );
+
+Event 专业核心课 = CourseEvent( CS301 && CS309 && CS321 && CS317 && CS302 && CS304 && CS326 && CS318 && CS413 && CS415 && CS470 && CS490 );
+
+Event 专业选修课 = ScoreEvent( "CS_elective", 19 );
+
+Event 实践课程 = CourseEvent( CS319 && CS322 && CS417 && CS470 && CS490 );
+
