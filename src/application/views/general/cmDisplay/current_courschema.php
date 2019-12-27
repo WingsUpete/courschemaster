@@ -83,6 +83,14 @@
 					<div class="tab-content" id="list-tabs-content">
 						<div class="tab-pane fade show active" id="list-tabs-events-content" role="tabpanel" aria-labelledby="list-tabs-events">
 							
+							<!-- Graph! -->
+							<link rel="stylesheet" type="text/css" href="<?= asset_url('assets/graph/tree.css', NULL, 'css') ?>" />
+							<script type="text/javascript" src="<?= asset_url('assets/graph/d3.js', NULL, 'js') ?>"></script>
+							<span id='tree'></span>
+							<!-- Graph! -->
+							<script type="text/javascript" src="<?= asset_url('assets/graph/data_transform.js', NULL, 'js') ?>"></script>
+							<script type="text/javascript" src="<?= asset_url('assets/graph/tree.js', NULL, 'js') ?>"></script>
+							
 						</div>
 						<div class="tab-pane fade" id="list-tabs-courses-content" role="tabpanel" aria-labelledby="list-tabs-courses">
 							<?php
