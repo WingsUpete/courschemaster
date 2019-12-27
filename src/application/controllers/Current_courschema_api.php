@@ -53,6 +53,24 @@ class Current_courschema_api extends CI_Controller{
         }
     }
 
+    public function ajax_get_graph_json(){
+        try{
+
+            $courschema_id = json_decode($this->input->post('courschema_id'));
+
+            $result = $this->courschemas_model->get_graph_json($courschema_id);
+
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode($result));
+                
+        }catch(Exception $exc){
+            $this->output
+                ->set_content_type('application/json')
+                ->set_output(json_encode(['exceptions' => [exceptionToJavaScript($exc)]]));
+        }
+    }
+
     // unchecked, waited for the format of filter
     public function ajax_get_courses(){
     	try{

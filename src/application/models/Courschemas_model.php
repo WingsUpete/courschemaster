@@ -419,4 +419,14 @@ class Courschemas_model extends CI_Model{
         }
         return array('status' => $ok);
     }
+
+    public function get_graph_json($courschema_id){
+        return $this->db->select('
+                cm_courschemas.graph_json AS graph_json
+            ')
+            ->from('cm_courschemas')
+            ->where('cm_courschemas.id', $courschema_id)
+            ->get()
+            ->row_array()['graph_json'];
+    }
 }
