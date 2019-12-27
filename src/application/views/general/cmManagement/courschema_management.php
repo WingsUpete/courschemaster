@@ -82,11 +82,7 @@
 									</div>
 								</div>
     							<pre id="editor">
-INCLUDE = "SUSTech_english_requirement.cmh";
 INCLUDE = "思想政治品德课程.cmh";
-INCLUDE = "军训体育课程.cmh";
-INCLUDE = "中文写作与交流.cmh";
-INCLUDE = "公选课.cmh";
 
 NAME
 
